@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quantumetzchaim.com/schemas/machine-state-v0.3.schema.json",
+  "title": "Quantum Etz Chaim machine state 0.3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "registers", "instructionPointer", "halted"],
+  "properties": {
+    "schema": { "const": "qec-machine-state-0.3" },
+    "registers": {
+      "type": "array",
+      "minItems": 23,
+      "maxItems": 23,
+      "prefixItems": [
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/visibleRegister" },
+        { "$ref": "#/$defs/hiddenRegister" }
+      ],
+      "items": false
+    },
+    "instructionPointer": { "type": "integer", "minimum": 0 },
+    "halted": { "type": "boolean" }
+  },
+  "$defs": {
+    "register": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index", "symbol", "value", "hidden"],
+      "properties": {
+        "index": { "type": "integer", "minimum": 0, "maximum": 22 },
+        "symbol": { "type": "string", "minLength": 1 },
+        "value": { "type": "integer", "minimum": 0, "maximum": 21 },
+        "hidden": { "type": "boolean" }
+      }
+    },
+    "visibleRegister": {
+      "allOf": [
+        { "$ref": "#/$defs/register" },
+        { "type": "object", "properties": { "hidden": { "const": false } } }
+      ]
+    },
+    "hiddenRegister": {
+      "allOf": [
+        { "$ref": "#/$defs/register" },
+        {
+          "type": "object",
+          "properties": {
+            "index": { "const": 22 },
+            "hidden": { "const": true }
+          }
+        }
+      ]
+    }
+  }
+}

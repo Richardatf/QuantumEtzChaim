@@ -1,0 +1,45 @@
+{
+  "id": "qec-or-paths-v0.1",
+  "version": "0.1.0",
+  "status": "implemented-vertical-slice",
+  "label": "Quantum Etz Chaim Project Path Map — אור vertical slice",
+  "kernelCompatibility": ">=0.3.0 <0.4.0",
+  "convention": "project-defined-symbolic-architecture",
+  "integrity": {
+    "algorithm": "sha256",
+    "scope": "canonical-json:paths",
+    "digest": "4c71ba6cf7a7ce16523c80cfbe74cbc743bc7eaed1cf003d43c34637305e0566"
+  },
+  "paths": [
+    {
+      "letter": "א",
+      "letterName": "Aleph",
+      "source": "Keter",
+      "destination": "Tiferet",
+      "operation": "hold",
+      "transform": { "id": "preserve-frame", "version": "0.3.0" },
+      "services": ["KeterService", "TiferetScheduler"],
+      "description": "Preserve the program frame and its common orientation."
+    },
+    {
+      "letter": "ו",
+      "letterName": "Vav",
+      "source": "Hod",
+      "destination": "Yesod",
+      "operation": "exchange",
+      "transform": { "id": "mirror-exchange", "version": "0.3.0" },
+      "services": ["HodInterface", "YesodBus"],
+      "description": "Exchange mirrored register values through the integration bus."
+    },
+    {
+      "letter": "ר",
+      "letterName": "Resh",
+      "source": "Yesod",
+      "destination": "Malchut",
+      "operation": "reseed",
+      "transform": { "id": "seed-rotation", "version": "0.3.0" },
+      "services": ["YesodBus", "MalchutOutput"],
+      "description": "Reseed the visible alphabet from Aleph Olam orientation."
+    }
+  ]
+}

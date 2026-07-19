@@ -1,0 +1,1667 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Run the first executable Quantum Etz Chaim vertical slice and follow אור through paths, services, gates, coherence, observation, and manifestation."
+    />
+    <meta name="theme-color" content="#06100e" />
+    <title>Living Tree Console — אור</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@300;400;500;600&family=Marcellus&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --ink: #06100e;
+        --panel: #0a1714;
+        --panel-2: #0e211d;
+        --ivory: #f0ebde;
+        --muted: #9ba9a3;
+        --gold: #d7b86e;
+        --gold-light: #f2db9a;
+        --teal: #71c9be;
+        --line: rgba(240, 235, 222, 0.14);
+        --serif: "Marcellus", serif;
+        --sans: "Manrope", sans-serif;
+        --mono: "DM Mono", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(
+            circle at 70% 0,
+            rgba(41, 113, 98, 0.15),
+            transparent 30%
+          ),
+          linear-gradient(rgba(255, 255, 255, 0.016) 1px, transparent 1px),
+          linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.016) 1px,
+            transparent 1px
+          ),
+          var(--ink);
+        background-size:
+          auto,
+          44px 44px,
+          44px 44px,
+          auto;
+        color: var(--ivory);
+        font-family: var(--sans);
+        font-weight: 300;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      header {
+        height: 74px;
+        padding: 0 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--line);
+        background: rgba(6, 16, 14, 0.88);
+        backdrop-filter: blur(18px);
+        position: sticky;
+        top: 0;
+        z-index: 20;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+        border: 1px solid var(--gold);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        color: var(--gold);
+        font: 18px var(--serif);
+      }
+
+      .brand strong {
+        display: block;
+        font: 14px var(--serif);
+        letter-spacing: 0.1em;
+      }
+
+      .brand small {
+        color: var(--muted);
+        font: 9px var(--mono);
+        letter-spacing: 0.12em;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+
+      nav a {
+        color: var(--muted);
+        font: 10px var(--mono);
+        text-decoration: none;
+      }
+
+      .status {
+        padding: 9px 12px;
+        border: 1px solid rgba(113, 201, 190, 0.4);
+        border-radius: 100px;
+        color: var(--teal);
+        font: 9px var(--mono);
+        letter-spacing: 0.08em;
+      }
+
+      main {
+        width: min(1500px, calc(100% - 32px));
+        margin: auto;
+        padding: 34px 0 60px;
+      }
+
+      .intro {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 40px;
+        margin-bottom: 28px;
+      }
+
+      .eyebrow {
+        color: var(--gold);
+        font: 10px var(--mono);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 10px 0 0;
+        font: 400 clamp(40px, 5vw, 72px) / 1 var(--serif);
+        letter-spacing: -0.04em;
+      }
+
+      .intro p {
+        max-width: 610px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .console {
+        display: grid;
+        grid-template-columns: minmax(380px, 0.9fr) minmax(520px, 1.25fr);
+        border: 1px solid var(--line);
+        background: rgba(5, 14, 12, 0.7);
+        min-height: 760px;
+      }
+
+      .tree-pane {
+        border-right: 1px solid var(--line);
+        padding: 22px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .pane-label {
+        display: flex;
+        justify-content: space-between;
+        color: var(--muted);
+        font: 9px var(--mono);
+        letter-spacing: 0.12em;
+      }
+
+      .tree-wrap {
+        flex: 1;
+        display: grid;
+        place-items: center;
+      }
+
+      #console-tree {
+        width: min(100%, 570px);
+        max-height: 610px;
+        overflow: visible;
+      }
+
+      .tree-line {
+        fill: none;
+        stroke: rgba(215, 184, 110, 0.22);
+        stroke-width: 1.2;
+      }
+
+      .console-path {
+        fill: none;
+        stroke: rgba(113, 201, 190, 0.24);
+        stroke-width: 2;
+        stroke-dasharray: 4 7;
+        transition: 0.3s;
+      }
+
+      .console-path.active {
+        stroke: var(--gold-light);
+        stroke-width: 4;
+        stroke-dasharray: none;
+        filter: drop-shadow(0 0 8px var(--gold));
+      }
+
+      .console-node circle {
+        fill: #0d211c;
+        stroke: rgba(215, 184, 110, 0.5);
+        transition: 0.3s;
+      }
+
+      .console-node text {
+        fill: var(--muted);
+        text-anchor: middle;
+        font: 10px var(--mono);
+      }
+
+      .console-node .he {
+        fill: var(--gold-light);
+        font: 20px var(--serif);
+      }
+
+      .console-node.active circle {
+        stroke: var(--gold-light);
+        stroke-width: 3;
+        fill: #17372f;
+        filter: drop-shadow(0 0 12px rgba(215, 184, 110, 0.7));
+      }
+
+      .console-node.source circle {
+        stroke: var(--teal);
+      }
+
+      .tree-legend {
+        display: flex;
+        justify-content: center;
+        gap: 22px;
+        color: var(--muted);
+        font: 9px var(--mono);
+      }
+
+      .tree-legend i {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        margin-right: 6px;
+        border: 1px solid var(--teal);
+        border-radius: 50%;
+      }
+
+      .tree-legend i.destination {
+        border-color: var(--gold-light);
+      }
+
+      .runtime-pane {
+        display: grid;
+        grid-template-rows: auto auto 1fr auto;
+      }
+
+      .control-bar {
+        min-height: 86px;
+        padding: 17px 22px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .program {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .program-word {
+        font: 42px var(--serif);
+        color: var(--gold-light);
+      }
+
+      .program small,
+      label {
+        display: block;
+        color: var(--muted);
+        font: 9px var(--mono);
+        letter-spacing: 0.1em;
+      }
+
+      .seed-control {
+        display: flex;
+        align-items: end;
+        gap: 8px;
+      }
+
+      input {
+        width: 68px;
+        height: 38px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        color: var(--ivory);
+        padding: 0 10px;
+        font: 13px var(--mono);
+      }
+
+      button {
+        min-height: 38px;
+        border: 1px solid var(--line);
+        border-radius: 100px;
+        background: transparent;
+        color: var(--ivory);
+        padding: 0 16px;
+        font: 10px var(--mono);
+        cursor: pointer;
+      }
+
+      button:hover:not(:disabled) {
+        border-color: var(--gold);
+      }
+
+      button:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+
+      #next-step {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: #10130d;
+      }
+
+      .program-lab {
+        padding: 18px 22px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(212, 180, 106, 0.035);
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 18px;
+      }
+
+      .program-lab h2 {
+        margin: 5px 0 7px;
+        font: 18px var(--serif);
+      }
+
+      .program-lab p {
+        margin: 0;
+        color: var(--muted);
+        font: 9px/1.6 var(--mono);
+      }
+
+      .program-form {
+        display: grid;
+        grid-template-columns: minmax(150px, 1fr) auto auto;
+        gap: 8px;
+      }
+
+      #program-source {
+        width: 100%;
+        font: 22px var(--serif);
+        text-align: right;
+      }
+
+      #run-program {
+        border-color: rgba(212, 180, 106, 0.55);
+        color: var(--gold-light);
+      }
+
+      #copy-permalink {
+        color: var(--teal);
+      }
+
+      .program-results {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 7px;
+        margin-top: 9px;
+      }
+
+      .program-result {
+        min-height: 46px;
+        padding: 8px;
+        border-left: 1px solid rgba(212, 180, 106, 0.35);
+      }
+
+      .program-result small {
+        display: block;
+        color: var(--muted);
+        font: 7px var(--mono);
+        letter-spacing: 0.07em;
+      }
+
+      .program-result strong {
+        display: block;
+        margin-top: 6px;
+        font: 10px/1.4 var(--mono);
+        overflow-wrap: anywhere;
+      }
+
+      #program-route {
+        grid-column: 1 / -1;
+        display: block;
+        padding: 8px;
+        color: #a8c6bf;
+        font: 8px/1.6 var(--mono);
+        overflow-wrap: anywhere;
+      }
+
+      #program-status.error {
+        color: #e2937f;
+      }
+
+      .trace-compare {
+        padding: 16px 22px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(151, 125, 213, 0.045);
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 18px;
+        align-items: center;
+      }
+
+      .trace-compare-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .trace-compare h2 {
+        margin: 4px 0;
+        font: 17px var(--serif);
+      }
+
+      #trace-baseline {
+        color: #bba9e9;
+        font: 9px var(--mono);
+      }
+
+      .trace-compare-metrics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 7px;
+      }
+
+      .trace-compare-metric {
+        min-height: 44px;
+        padding: 8px;
+        border-left: 1px solid rgba(151, 125, 213, 0.38);
+      }
+
+      .trace-compare-metric small {
+        display: block;
+        color: var(--muted);
+        font: 7px var(--mono);
+      }
+
+      .trace-compare-metric strong {
+        display: block;
+        margin-top: 5px;
+        font: 9px/1.4 var(--mono);
+        overflow-wrap: anywhere;
+      }
+
+      .trace-divergence {
+        grid-column: 1 / -1;
+        padding: 12px;
+        border: 1px solid rgba(151, 125, 213, 0.28);
+        background: rgba(7, 16, 15, 0.45);
+      }
+
+      .trace-divergence-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        color: #c9bbed;
+        font: 9px var(--mono);
+      }
+
+      .trace-divergence code {
+        display: block;
+        margin-top: 8px;
+        color: #a8c6bf;
+        font: 8px/1.65 var(--mono);
+        overflow-wrap: anywhere;
+      }
+
+      .seed-lab {
+        padding: 15px 22px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(113, 201, 190, 0.035);
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: 18px;
+        align-items: center;
+      }
+
+      .seed-lab-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      #seed-active {
+        min-width: 48px;
+        color: var(--teal);
+        font: 31px var(--mono);
+      }
+
+      .seed-lab-title strong {
+        display: block;
+        font: 16px var(--serif);
+      }
+
+      .seed-lab-title small {
+        color: var(--muted);
+        font: 8px/1.5 var(--mono);
+      }
+
+      .seed-metrics {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 7px;
+      }
+
+      .seed-metric {
+        min-height: 48px;
+        padding: 8px;
+        border-left: 1px solid rgba(113, 201, 190, 0.32);
+      }
+
+      .seed-metric small {
+        display: block;
+        color: var(--muted);
+        font: 7px var(--mono);
+        letter-spacing: 0.07em;
+      }
+
+      .seed-metric strong {
+        display: block;
+        margin-top: 6px;
+        color: #c8d4cf;
+        font: 10px/1.4 var(--mono);
+        overflow-wrap: anywhere;
+      }
+
+      #seed-verdict {
+        grid-column: 1 / -1;
+        margin: 2px 0 0;
+        color: var(--teal);
+        font: 8px var(--mono);
+      }
+
+      .trace {
+        padding: 25px;
+        border-bottom: 1px solid var(--line);
+        background: linear-gradient(
+          120deg,
+          rgba(113, 201, 190, 0.04),
+          transparent
+        );
+      }
+
+      #step-label {
+        color: var(--teal);
+        font: 9px var(--mono);
+        letter-spacing: 0.15em;
+      }
+
+      .trace h2 {
+        margin: 10px 0 4px;
+        font: 32px var(--serif);
+      }
+
+      #path-route {
+        color: var(--gold);
+        font: 10px var(--mono);
+        letter-spacing: 0.12em;
+      }
+
+      #path-description {
+        margin: 15px 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      #services {
+        color: #b8c6c1;
+        font: 10px/1.7 var(--mono);
+      }
+
+      .runtime-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 360px;
+      }
+
+      .registers,
+      .telemetry {
+        padding: 20px;
+      }
+
+      .registers {
+        border-right: 1px solid var(--line);
+      }
+
+      .register-grid {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(42px, 1fr));
+        gap: 7px;
+        margin-top: 14px;
+      }
+
+      .register {
+        min-height: 60px;
+        padding: 7px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: 3px 7px;
+      }
+
+      .register span {
+        color: var(--gold-light);
+        font: 17px var(--serif);
+      }
+
+      .register strong {
+        text-align: right;
+        font: 11px var(--mono);
+      }
+
+      .register small {
+        grid-column: 1 / -1;
+        color: var(--muted);
+        font: 9px var(--mono);
+      }
+
+      .register.hidden {
+        border-color: rgba(113, 201, 190, 0.55);
+        background: rgba(113, 201, 190, 0.08);
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin: 14px 0 20px;
+      }
+
+      .metric {
+        padding: 11px;
+        border: 1px solid var(--line);
+      }
+
+      .metric span {
+        display: block;
+        color: var(--muted);
+        font: 8px var(--mono);
+      }
+
+      .metric strong {
+        display: block;
+        margin-top: 7px;
+        font: 14px var(--mono);
+      }
+
+      .coherence-track {
+        height: 4px;
+        background: rgba(255, 255, 255, 0.07);
+        margin-bottom: 25px;
+      }
+
+      #coherence-bar {
+        display: block;
+        width: 0;
+        height: 100%;
+        background: linear-gradient(90deg, var(--teal), var(--gold));
+        transition: width 0.4s;
+      }
+
+      .gate-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .gate {
+        min-height: 115px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        opacity: 0.42;
+      }
+
+      .gate.formed {
+        opacity: 1;
+        border-color: rgba(215, 184, 110, 0.45);
+        background: rgba(215, 184, 110, 0.04);
+        cursor: pointer;
+      }
+
+      .gate.formed.selected {
+        border-color: var(--gold-light);
+        box-shadow: inset 0 0 0 1px rgba(215, 184, 110, 0.24);
+      }
+
+      .gate strong {
+        font: 21px var(--serif);
+      }
+
+      .gate span {
+        display: block;
+        color: var(--teal);
+        font: 8px var(--mono);
+        text-transform: uppercase;
+      }
+
+      .gate p {
+        color: var(--muted);
+        font-size: 10px;
+        line-height: 1.5;
+      }
+
+      .gate-explorer {
+        margin-top: 12px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        background: rgba(5, 14, 12, 0.72);
+        opacity: 0.5;
+      }
+
+      .gate-explorer.revealed {
+        opacity: 1;
+        border-color: rgba(113, 201, 190, 0.34);
+      }
+
+      .gate-explorer-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+
+      #gate-explorer-id {
+        color: var(--gold-light);
+        font: 25px var(--serif);
+      }
+
+      #gate-explorer-type {
+        color: var(--teal);
+        font: 8px var(--mono);
+        letter-spacing: 0.1em;
+      }
+
+      .gate-data {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7px;
+      }
+
+      .gate-data div {
+        padding: 9px;
+        border: 1px solid rgba(240, 235, 222, 0.08);
+      }
+
+      .gate-data .wide {
+        grid-column: 1 / -1;
+      }
+
+      .gate-data small {
+        display: block;
+        color: var(--muted);
+        font: 7px var(--mono);
+        letter-spacing: 0.08em;
+      }
+
+      .gate-data strong {
+        display: block;
+        margin-top: 5px;
+        color: #c8d4cf;
+        font: 9px/1.5 var(--mono);
+        overflow-wrap: anywhere;
+      }
+
+      #gate-explorer-description {
+        margin: 11px 0 0;
+        color: var(--muted);
+        font-size: 10px;
+        line-height: 1.55;
+      }
+
+      .observation-panel {
+        padding: 18px 22px;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        background:
+          radial-gradient(
+            circle at 80% 0,
+            rgba(113, 201, 190, 0.08),
+            transparent 42%
+          ),
+          rgba(5, 14, 12, 0.68);
+      }
+
+      .observation-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        align-items: end;
+      }
+
+      .observation-head h3 {
+        margin: 7px 0 0;
+        font: 25px var(--serif);
+      }
+
+      .observation-record {
+        display: flex;
+        gap: 18px;
+        color: var(--muted);
+        font: 8px/1.6 var(--mono);
+        text-align: right;
+      }
+
+      .observation-record strong {
+        display: block;
+        color: #c8d4cf;
+        font-weight: 400;
+        text-transform: uppercase;
+      }
+
+      .observation-candidates {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 9px;
+        margin-top: 14px;
+      }
+
+      .projection {
+        min-height: 142px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        opacity: 0.52;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 5px 12px;
+      }
+
+      .projection.revealed {
+        opacity: 1;
+      }
+
+      .projection.selected {
+        border-color: var(--gold-light);
+        background: rgba(215, 184, 110, 0.07);
+        box-shadow: inset 0 0 24px rgba(215, 184, 110, 0.04);
+      }
+
+      .projection.selected::after {
+        content: "SELECTED BY DA’AT";
+        grid-column: 1 / -1;
+        color: var(--gold);
+        font: 7px var(--mono);
+        letter-spacing: 0.1em;
+      }
+
+      .projection small {
+        color: var(--muted);
+        font: 8px var(--mono);
+        text-transform: uppercase;
+      }
+
+      .projection strong {
+        grid-row: span 2;
+        color: var(--gold-light);
+        font: 30px var(--serif);
+      }
+
+      .projection code,
+      .projection span {
+        color: var(--teal);
+        font: 9px var(--mono);
+      }
+
+      .projection p {
+        grid-column: 1 / -1;
+        margin: 6px 0 0;
+        color: var(--muted);
+        font-size: 9px;
+        line-height: 1.5;
+      }
+
+      .manifestation-inspector {
+        padding: 18px 22px;
+        border-bottom: 1px solid var(--line);
+        opacity: 0.52;
+        background: linear-gradient(
+          120deg,
+          rgba(215, 184, 110, 0.045),
+          transparent
+        );
+      }
+
+      .manifestation-inspector.revealed {
+        opacity: 1;
+      }
+
+      .manifestation-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 20px;
+      }
+
+      .manifestation-head h3 {
+        margin: 7px 0 0;
+        font: 25px var(--serif);
+      }
+
+      .manifestation-actions {
+        display: flex;
+        gap: 7px;
+      }
+
+      .manifestation-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 14px;
+      }
+
+      .manifestation-output {
+        min-height: 88px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        background: rgba(5, 14, 12, 0.62);
+      }
+
+      .manifestation-output small {
+        display: block;
+        color: var(--muted);
+        font: 8px var(--mono);
+        letter-spacing: 0.08em;
+      }
+
+      .manifestation-output strong,
+      .manifestation-output code {
+        display: block;
+        margin-top: 9px;
+        color: #c8d4cf;
+        font: 9px/1.7 var(--mono);
+        overflow-wrap: anywhere;
+      }
+
+      #manifestation-path {
+        font-family: var(--serif);
+        font-size: 12px;
+      }
+
+      #manifestation-letters {
+        color: var(--gold-light);
+        font: 25px/1.3 var(--serif);
+        direction: rtl;
+      }
+
+      #manifestation-checksum {
+        color: var(--teal);
+        font-size: 15px;
+      }
+
+      #manifestation-status {
+        display: block;
+        margin-top: 10px;
+        color: var(--muted);
+        font: 8px var(--mono);
+        text-align: right;
+      }
+
+      .output-bar {
+        min-height: 96px;
+        padding: 18px 22px;
+        display: grid;
+        grid-template-columns: 1fr 1.4fr auto;
+        gap: 18px;
+        align-items: center;
+      }
+
+      .output-bar small {
+        display: block;
+        color: var(--muted);
+        font: 8px var(--mono);
+        letter-spacing: 0.1em;
+      }
+
+      #observation,
+      #manifestation {
+        opacity: 0.35;
+      }
+
+      #observation.revealed,
+      #manifestation.revealed {
+        opacity: 1;
+      }
+
+      #observation-hash {
+        color: var(--teal);
+        font: 15px var(--mono);
+      }
+
+      #manifestation {
+        margin-top: 4px;
+        color: var(--gold-light);
+        font: 21px var(--serif);
+        direction: rtl;
+      }
+
+      .notice {
+        max-width: 400px;
+        margin: 17px 0 0 auto;
+        color: var(--muted);
+        font: 9px/1.7 var(--mono);
+        text-align: right;
+      }
+
+      @media (max-width: 1050px) {
+        .intro {
+          display: block;
+        }
+
+        .intro p {
+          margin-top: 18px;
+        }
+
+        .console {
+          grid-template-columns: 1fr;
+        }
+
+        .tree-pane {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+          min-height: 680px;
+        }
+      }
+
+      @media (max-width: 680px) {
+        header {
+          padding: 0 12px;
+        }
+
+        nav a {
+          display: none;
+        }
+
+        .brand small {
+          display: none;
+        }
+
+        main {
+          width: calc(100% - 20px);
+          padding-top: 24px;
+        }
+
+        h1 {
+          font-size: 43px;
+        }
+
+        .console {
+          min-width: 0;
+        }
+
+        .tree-pane {
+          min-height: 520px;
+          padding: 12px;
+        }
+
+        .control-bar {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .program {
+          width: 100%;
+          min-width: 0;
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 6px;
+        }
+
+        .program-word {
+          max-width: 100%;
+          font-size: clamp(24px, 9vw, 42px);
+          line-height: 1.15;
+          overflow-wrap: anywhere;
+        }
+
+        .seed-lab {
+          grid-template-columns: 1fr;
+        }
+
+        .program-lab {
+          grid-template-columns: 1fr;
+        }
+
+        .trace-compare {
+          grid-template-columns: 1fr;
+        }
+
+        .program-results {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .trace-compare-metrics {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .program-form {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .program-form label {
+          grid-column: 1 / -1;
+        }
+
+        .seed-metrics {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .runtime-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .registers {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .register-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+
+        .output-bar {
+          grid-template-columns: 1fr;
+        }
+
+        .observation-head {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .observation-record {
+          text-align: left;
+          flex-wrap: wrap;
+        }
+
+        .observation-candidates {
+          grid-template-columns: 1fr;
+        }
+
+        .manifestation-head {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .manifestation-actions {
+          width: 100%;
+        }
+
+        .manifestation-actions button {
+          flex: 1;
+        }
+
+        .manifestation-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .output-bar button {
+          width: 100%;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="landing.html">
+        <span class="brand-mark">א</span>
+        <span
+          ><strong>LIVING TREE CONSOLE</strong
+          ><small>QUANTUM ETZ CHAIM / VERTICAL SLICE 0.1</small></span
+        >
+      </a>
+      <nav>
+        <a href="index.html">Architecture Atlas</a>
+        <a href="https://ivritcode.org/">IvritCode ↗</a>
+        <span class="status">DETERMINISTIC SIMULATION</span>
+      </nav>
+    </header>
+
+    <main>
+      <div class="intro">
+        <div>
+          <div class="eyebrow">First executable path / אור</div>
+          <h1>Watch the word move.</h1>
+        </div>
+        <p>
+          Three Hebrew instructions transform a real 23-register state. Follow
+          each configured path, inspect its IvritOS services, watch two gates
+          form, and observe the manifested result.
+        </p>
+      </div>
+
+      <section class="console" aria-label="Interactive אור execution console">
+        <div class="tree-pane">
+          <div class="pane-label">
+            <span>SEFIROTIC SERVICE PLANE</span><span>LIVE PATH</span>
+          </div>
+          <div class="tree-wrap">
+            <svg
+              id="console-tree"
+              viewBox="0 0 600 700"
+              role="img"
+              aria-label="Tree service map showing the active instruction path"
+            >
+              <g class="tree-lines">
+                <path class="tree-line" d="M300 70L440 170H160L300 70V220" />
+                <path class="tree-line" d="M440 170V300L300 390L160 300V170" />
+                <path
+                  class="tree-line"
+                  d="M300 220V390L440 480L300 570L160 480L300 390"
+                />
+                <path class="tree-line" d="M160 480L300 570V650" />
+              </g>
+              <path class="console-path" data-letter="א" d="M300 70V390" />
+              <path class="console-path" data-letter="ו" d="M160 480L300 570" />
+              <path class="console-path" data-letter="ר" d="M300 570V650" />
+
+              <g class="console-node" data-sefirah="Keter">
+                <circle cx="300" cy="70" r="38" />
+                <text class="he" x="300" y="68">כתר</text>
+                <text x="300" y="89">KETER</text>
+              </g>
+              <g class="console-node" data-sefirah="Chokhmah">
+                <circle cx="440" cy="170" r="36" />
+                <text class="he" x="440" y="168">חכמה</text>
+                <text x="440" y="189">CHOKHMAH</text>
+              </g>
+              <g class="console-node" data-sefirah="Binah">
+                <circle cx="160" cy="170" r="36" />
+                <text class="he" x="160" y="168">בינה</text>
+                <text x="160" y="189">BINAH</text>
+              </g>
+              <g class="console-node" data-sefirah="Daat">
+                <circle cx="300" cy="220" r="29" />
+                <text class="he" x="300" y="218">דעת</text>
+                <text x="300" y="239">DA’AT</text>
+              </g>
+              <g class="console-node" data-sefirah="Chesed">
+                <circle cx="440" cy="300" r="36" />
+                <text class="he" x="440" y="298">חסד</text>
+                <text x="440" y="319">CHESED</text>
+              </g>
+              <g class="console-node" data-sefirah="Gevurah">
+                <circle cx="160" cy="300" r="36" />
+                <text class="he" x="160" y="298">גבורה</text>
+                <text x="160" y="319">GEVURAH</text>
+              </g>
+              <g class="console-node" data-sefirah="Tiferet">
+                <circle cx="300" cy="390" r="43" />
+                <text class="he" x="300" y="388">תפארת</text>
+                <text x="300" y="409">TIFERET</text>
+              </g>
+              <g class="console-node" data-sefirah="Netzach">
+                <circle cx="440" cy="480" r="36" />
+                <text class="he" x="440" y="478">נצח</text>
+                <text x="440" y="499">NETZACH</text>
+              </g>
+              <g class="console-node" data-sefirah="Hod">
+                <circle cx="160" cy="480" r="36" />
+                <text class="he" x="160" y="478">הוד</text>
+                <text x="160" y="499">HOD</text>
+              </g>
+              <g class="console-node" data-sefirah="Yesod">
+                <circle cx="300" cy="570" r="38" />
+                <text class="he" x="300" y="568">יסוד</text>
+                <text x="300" y="589">YESOD</text>
+              </g>
+              <g class="console-node" data-sefirah="Malchut">
+                <circle cx="300" cy="650" r="38" />
+                <text class="he" x="300" y="648">מלכות</text>
+                <text x="300" y="669">MALCHUT</text>
+              </g>
+            </svg>
+          </div>
+          <div class="tree-legend">
+            <span><i></i>SOURCE SERVICE</span
+            ><span><i class="destination"></i>DESTINATION SERVICE</span>
+          </div>
+        </div>
+
+        <div class="runtime-pane">
+          <div class="control-bar">
+            <div class="program">
+              <span id="active-program" class="program-word" lang="he" dir="rtl"
+                >אור</span
+              >
+              <small id="active-program-count"
+                >PROGRAM<br />3 INSTRUCTIONS / 2 GATES</small
+              >
+            </div>
+            <div class="seed-control">
+              <label for="seed"
+                >ALEPH OLAM SEED<input
+                  id="seed"
+                  type="number"
+                  min="0"
+                  max="21"
+                  value="9"
+              /></label>
+              <button id="reset-run" type="button">Reset</button>
+            </div>
+          </div>
+
+          <section class="program-lab" aria-labelledby="program-lab-title">
+            <div>
+              <small class="eyebrow">22-PATH RUNTIME</small>
+              <h2 id="program-lab-title">IvritCode Program Lab</h2>
+              <p id="program-status" role="status" aria-live="polite">
+                Enter mapped Hebrew letters. Final forms normalize
+                automatically.
+              </p>
+            </div>
+            <div>
+              <form id="program-lab-form" class="program-form">
+                <label for="program-source"
+                  >HEBREW SOURCE<input
+                    id="program-source"
+                    name="program"
+                    lang="he"
+                    dir="rtl"
+                    maxlength="1024"
+                    value="שלום"
+                    autocomplete="off"
+                /></label>
+                <button id="run-program" type="submit">Run program</button>
+                <button id="copy-permalink" type="button">
+                  Copy permalink
+                </button>
+              </form>
+              <div class="program-results">
+                <div class="program-result">
+                  <small>NORMALIZED</small
+                  ><strong id="program-normalized">—</strong>
+                </div>
+                <div class="program-result">
+                  <small>PATHS / GATES</small
+                  ><strong id="program-counts">—</strong>
+                </div>
+                <div class="program-result">
+                  <small>DA’AT SELECTION</small
+                  ><strong id="program-observation">—</strong>
+                </div>
+                <div class="program-result">
+                  <small>CHECKSUM</small
+                  ><strong id="program-checksum">—</strong>
+                </div>
+                <code id="program-route">Awaiting execution</code>
+              </div>
+            </div>
+          </section>
+
+          <section class="trace-compare" aria-labelledby="trace-compare-title">
+            <div>
+              <div class="trace-compare-title">
+                <span>
+                  <small class="eyebrow">RUN-TO-RUN DIFF</small>
+                  <h2 id="trace-compare-title">Trace Comparator</h2>
+                </span>
+                <button id="pin-trace" type="button">Pin active</button>
+              </div>
+              <p>BASELINE <strong id="trace-baseline">אור / 09</strong></p>
+            </div>
+            <div class="trace-compare-metrics">
+              <div class="trace-compare-metric">
+                <small>COMMON PATH PREFIX</small
+                ><strong id="trace-prefix">3 / 3</strong>
+              </div>
+              <div class="trace-compare-metric">
+                <small>CHANGED REGISTERS</small
+                ><strong id="trace-registers">0 / 23</strong>
+              </div>
+              <div class="trace-compare-metric">
+                <small>PATHS / GATES Δ</small
+                ><strong id="trace-size">0 / 0</strong>
+              </div>
+              <div class="trace-compare-metric">
+                <small>COHERENCE Δ</small
+                ><strong id="trace-coherence">0.000</strong>
+              </div>
+              <div class="trace-compare-metric">
+                <small>DA’AT SELECTION</small
+                ><strong id="trace-observation">unchanged</strong>
+              </div>
+              <div class="trace-compare-metric">
+                <small>CHECKSUM</small
+                ><strong id="trace-checksum">unchanged</strong>
+              </div>
+              <article class="trace-divergence">
+                <div class="trace-divergence-head">
+                  <strong id="trace-divergence-step">NO DIVERGENCE</strong>
+                  <span id="trace-divergence-reason"
+                    >traces are equivalent</span
+                  >
+                </div>
+                <code id="trace-divergence-route"
+                  >Routes and transforms match.</code
+                >
+                <code id="trace-divergence-registers">State hashes match.</code>
+              </article>
+            </div>
+          </section>
+
+          <section class="seed-lab" aria-labelledby="seed-lab-title">
+            <div class="seed-lab-title">
+              <strong id="seed-active">09</strong>
+              <span
+                ><strong id="seed-lab-title">Aleph Olam Seed Lab</strong
+                ><small>ACTIVE ORIENTATION VS CANONICAL 09</small></span
+              >
+            </div>
+            <div class="seed-metrics">
+              <div class="seed-metric">
+                <small>VISIBLE REGISTERS CHANGED</small>
+                <strong id="seed-changed">0 / 22</strong>
+              </div>
+              <div class="seed-metric">
+                <small>DISTINCT VALUES RETAINED</small>
+                <strong id="seed-distinct">22 / 22</strong>
+              </div>
+              <div class="seed-metric">
+                <small>COHERENCE Δ</small>
+                <strong id="seed-coherence">0.000</strong>
+              </div>
+              <div class="seed-metric">
+                <small>OUTPUT ROTATION</small>
+                <strong id="seed-rotation">—</strong>
+              </div>
+              <div class="seed-metric">
+                <small>DA’AT SELECTION</small>
+                <strong id="seed-observation">—</strong>
+              </div>
+              <div class="seed-metric">
+                <small>TRACE CHECKSUM</small>
+                <strong id="seed-checksum">—</strong>
+              </div>
+              <p id="seed-verdict">Orientation comparison will appear here.</p>
+            </div>
+          </section>
+
+          <div class="trace">
+            <span id="step-label">INITIAL STATE</span>
+            <h2 id="path-title">Machine initialized</h2>
+            <span id="path-route">ALEPH OLAM / 09</span>
+            <p id="path-description"></p>
+            <div id="services"></div>
+          </div>
+
+          <div class="runtime-grid">
+            <div class="registers">
+              <div class="pane-label">
+                <span>LETTER PLANE</span><span>23 REGISTERS</span>
+              </div>
+              <div class="register-grid" id="register-grid"></div>
+            </div>
+            <div class="telemetry">
+              <div class="pane-label">
+                <span>COHERENCE TELEMETRY</span><span>SIMULATED</span>
+              </div>
+              <div class="metrics">
+                <div class="metric">
+                  <span>COHERENCE</span><strong id="coherence-value">—</strong>
+                </div>
+                <div class="metric">
+                  <span>ACTIVATION</span
+                  ><strong id="activation-value">—</strong>
+                </div>
+                <div class="metric">
+                  <span>PHASE</span><strong id="phase-value">—</strong>
+                </div>
+              </div>
+              <div class="coherence-track">
+                <span id="coherence-bar"></span>
+              </div>
+              <div class="pane-label">
+                <span>GATE EXPLORER</span><span>COMPUTED</span>
+              </div>
+              <div class="gate-list" id="gate-list"></div>
+              <section class="gate-explorer" id="gate-explorer">
+                <div class="gate-explorer-head">
+                  <strong id="gate-explorer-id">—</strong>
+                  <span id="gate-explorer-type">Advance to form a gate</span>
+                </div>
+                <div class="gate-data">
+                  <div class="wide">
+                    <small>ROUTE SEQUENCE</small>
+                    <strong id="gate-explorer-route">—</strong>
+                  </div>
+                  <div>
+                    <small>SHARED NODES</small>
+                    <strong id="gate-explorer-nodes">—</strong>
+                  </div>
+                  <div>
+                    <small>REGISTER CHANGES</small>
+                    <strong id="gate-explorer-changes">—</strong>
+                  </div>
+                  <div class="wide">
+                    <small>SHARED SERVICES</small>
+                    <strong id="gate-explorer-services">—</strong>
+                  </div>
+                  <div>
+                    <small>COHERENCE Δ</small>
+                    <strong id="gate-explorer-coherence">—</strong>
+                  </div>
+                </div>
+                <p id="gate-explorer-description">
+                  Gate metrics will be derived from two consecutive path events.
+                </p>
+              </section>
+            </div>
+          </div>
+
+          <section
+            class="observation-panel"
+            aria-labelledby="observation-title"
+          >
+            <div class="observation-head">
+              <div>
+                <span class="eyebrow">Da’at observation boundary</span>
+                <h3 id="observation-title">Candidate projections</h3>
+              </div>
+              <div class="observation-record">
+                <span
+                  >SELECTION<strong id="observation-selection"
+                    >Pending</strong
+                  ></span
+                >
+                <span
+                  >TRIGGER<strong id="observation-reason"
+                    >Awaiting program end</strong
+                  ></span
+                >
+                <span
+                  >SNAPSHOT<strong id="observation-snapshot"
+                    >Not recorded</strong
+                  ></span
+                >
+              </div>
+            </div>
+            <div
+              class="observation-candidates"
+              id="observation-candidates"
+            ></div>
+          </section>
+
+          <section
+            class="manifestation-inspector"
+            id="manifestation-inspector"
+            aria-labelledby="manifestation-title"
+          >
+            <div class="manifestation-head">
+              <div>
+                <span class="eyebrow">Malchut output layer</span>
+                <h3 id="manifestation-title">Manifestation inspector</h3>
+              </div>
+              <div class="manifestation-actions">
+                <button id="copy-manifestation" type="button" disabled>
+                  Copy letters
+                </button>
+                <button id="export-manifestation" type="button" disabled>
+                  Export JSON
+                </button>
+              </div>
+            </div>
+            <div class="manifestation-grid">
+              <div class="manifestation-output">
+                <small>HEBREW CONSTELLATION</small>
+                <strong id="manifestation-letters" lang="he" dir="rtl"
+                  >••••••••••••••••••••••</strong
+                >
+              </div>
+              <div class="manifestation-output">
+                <small>BASE-22 REGISTERS / VISIBLE + HIDDEN</small>
+                <code id="manifestation-base22"
+                  >Awaiting observed register state</code
+                >
+              </div>
+              <div class="manifestation-output">
+                <small>PATH SIGNATURE</small>
+                <code id="manifestation-path"
+                  >Awaiting completed path trace</code
+                >
+              </div>
+              <div class="manifestation-output">
+                <small>TRACE CHECKSUM</small>
+                <code id="manifestation-checksum">—</code>
+              </div>
+            </div>
+            <span id="manifestation-status"
+              >Output locked until Da’at observes</span
+            >
+          </section>
+
+          <div class="output-bar">
+            <div id="observation">
+              <small>DA’AT OBSERVATION HASH</small>
+              <strong id="observation-hash">—</strong>
+            </div>
+            <div>
+              <small>MALCHUT MANIFESTATION</small>
+              <div id="manifestation">Awaiting observation</div>
+            </div>
+            <div>
+              <button id="previous-step" type="button">← Previous</button>
+              <button id="next-step" type="button">Next instruction →</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <p class="notice">
+        Coherence values are seeded visualization data, not physical qubit
+        amplitudes. Symbolic descriptions are project conventions traceable to
+        the deterministic events shown above.
+      </p>
+    </main>
+    <script type="module" src="/src/console.ts"></script>
+  </body>
+</html>
