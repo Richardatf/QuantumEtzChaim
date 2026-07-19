@@ -9,8 +9,10 @@ the `exchange` query parameter. The Tree deterministically highlights nodes from
 the source and returning letters, presents the resulting register metadata, and
 provides an **Edit in IvritCode** link that restores the original Hebrew source.
 
-The canonical contract is `ivritcode-exchange-0.1`, defined in the IvritCode
-repository at `spec/ivritcode-exchange-0.1.schema.json`. Unknown or malformed
+The canonical contract is `ivritcode-exchange-0.2`, defined in the IvritCode
+repository at `spec/ivritcode-exchange-0.2.schema.json`. It binds the source and
+register states to the engine version, path-map version, seed, complete trace
+hash, and manifestation version. Unknown or malformed
 data is ignored; it never becomes executable code.
 
 ## Architecture package

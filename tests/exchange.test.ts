@@ -5,8 +5,18 @@ import {
   readExchange,
   type IvritCodeExchange,
 } from "../src/exchange.js";
+import {
+  IVRIT_ENGINE_VERSION,
+  QEC_MANIFESTATION_VERSION,
+  QEC_PATH_MAP_VERSION,
+} from "@qec/spec";
 const fixture = {
   schemaVersion: EXCHANGE_VERSION,
+  engineVersion: IVRIT_ENGINE_VERSION,
+  pathMapVersion: QEC_PATH_MAP_VERSION,
+  manifestationVersion: QEC_MANIFESTATION_VERSION,
+  seed: 9,
+  traceHash: "fnv1a32-complete-trace",
   source: "אור",
   sourceHash: "test",
   initialState: [...Array.from({ length: 22 }, (_, i) => i), 0],

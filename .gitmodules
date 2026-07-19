@@ -1,0 +1,3 @@
+[submodule "vendor/ivritcode"]
+	path = vendor/ivritcode
+	url = https://github.com/Richardatf/IvritCode.git

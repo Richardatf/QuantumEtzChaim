@@ -1,20 +1,22 @@
 import fullPathMap from "../specifications/qec-paths-v0.3.json";
+import {
+  HEBREW_LETTERS,
+  executeProgram as executeCanonicalProgram,
+  makeAlphabetState,
+  normalizeState,
+  type HebrewLetter,
+} from "@ivritcode/core";
+import { createManifest } from "@qec/core";
+import {
+  IVRIT_ENGINE_VERSION,
+  QEC_MANIFESTATION_VERSION,
+  QEC_PATH_MAP_VERSION,
+  contentHash,
+  type SefirahName,
+} from "@qec/spec";
 
-export const HEBREW_ALPHABET = [..."אבגדהוזחטיכלמנסעפצקרשת"] as const;
-
-export type HebrewLetter = (typeof HEBREW_ALPHABET)[number];
-export type SefirahName =
-  | "Keter"
-  | "Chokhmah"
-  | "Binah"
-  | "Daat"
-  | "Chesed"
-  | "Gevurah"
-  | "Tiferet"
-  | "Netzach"
-  | "Hod"
-  | "Yesod"
-  | "Malchut";
+export const HEBREW_ALPHABET = HEBREW_LETTERS;
+export type { HebrewLetter, SefirahName };
 
 export type ServiceName =
   | "BinahCompiler"
@@ -77,6 +79,7 @@ export interface ObservationEvent {
   step: number;
   reason: "program-end";
   stateHash: string;
+  traceHash: string;
   candidates: readonly ObservationProjection[];
   selectedProjection: string;
   snapshot: readonly number[];
@@ -235,32 +238,31 @@ export const OR_PATHS: Readonly<Record<"א" | "ו" | "ר", QecPath>> = {
 
 interface TransformDefinition {
   operation: QecPath["operation"];
-  salt: number;
 }
 
 export const TRANSFORM_REGISTRY = {
-  "preserve-frame": { operation: "hold", salt: 0 },
-  "impulse-pair": { operation: "exchange", salt: 1 },
-  "form-pair": { operation: "exchange", salt: 2 },
-  "polarity-bridge": { operation: "exchange", salt: 3 },
-  "expand-pulse": { operation: "hold", salt: 4 },
-  "mirror-exchange": { operation: "exchange", salt: 5 },
-  "constrain-form": { operation: "hold", salt: 6 },
-  "boundary-balance": { operation: "exchange", salt: 7 },
-  "mercy-balance": { operation: "exchange", salt: 8 },
-  "severity-balance": { operation: "exchange", salt: 9 },
-  "wisdom-rotation": { operation: "reseed", salt: 10 },
-  "understanding-rotation": { operation: "reseed", salt: 11 },
-  "endurance-flow": { operation: "exchange", salt: 12 },
-  "language-flow": { operation: "exchange", salt: 13 },
-  "expansion-carry": { operation: "hold", salt: 14 },
-  "constraint-carry": { operation: "hold", salt: 15 },
-  "persistence-reflect": { operation: "exchange", salt: 16 },
-  "iteration-bus": { operation: "exchange", salt: 17 },
-  "interface-bus": { operation: "exchange", salt: 18 },
-  "seed-rotation": { operation: "reseed", salt: 19 },
-  "center-descent": { operation: "reseed", salt: 20 },
-  "manifest-frame": { operation: "hold", salt: 21 },
+  "preserve-frame": { operation: "hold" },
+  "impulse-pair": { operation: "exchange" },
+  "form-pair": { operation: "exchange" },
+  "polarity-bridge": { operation: "exchange" },
+  "expand-pulse": { operation: "hold" },
+  "mirror-exchange": { operation: "exchange" },
+  "constrain-form": { operation: "hold" },
+  "boundary-balance": { operation: "exchange" },
+  "mercy-balance": { operation: "exchange" },
+  "severity-balance": { operation: "exchange" },
+  "wisdom-rotation": { operation: "reseed" },
+  "understanding-rotation": { operation: "reseed" },
+  "endurance-flow": { operation: "exchange" },
+  "language-flow": { operation: "exchange" },
+  "expansion-carry": { operation: "hold" },
+  "constraint-carry": { operation: "hold" },
+  "persistence-reflect": { operation: "exchange" },
+  "iteration-bus": { operation: "exchange" },
+  "interface-bus": { operation: "exchange" },
+  "seed-rotation": { operation: "reseed" },
+  "center-descent": { operation: "reseed" },
+  "manifest-frame": { operation: "hold" },
 } as const satisfies Readonly<Record<string, TransformDefinition>>;
 
 export const FULL_PATHS: Readonly<Record<HebrewLetter, QecPath>> =
@@ -278,26 +280,12 @@ export const FULL_PATHS: Readonly<Record<HebrewLetter, QecPath>> =
         description: path.description,
       },
     ]),
-  ) as Readonly<Record<HebrewLetter, QecPath>>;
+  ) as unknown as Readonly<Record<HebrewLetter, QecPath>>;
 
 const BASE_SERVICES = [
   "BinahCompiler",
   "GevurahPolicy",
 ] as const satisfies readonly ServiceName[];
-
-const FINAL_LETTER_FORMS: Readonly<Record<string, HebrewLetter>> = {
-  ך: "כ",
-  ם: "מ",
-  ן: "נ",
-  ף: "פ",
-  ץ: "צ",
-};
-
-function normalizeProgram(program: string): string {
-  return [...program.normalize("NFC")]
-    .map((letter) => FINAL_LETTER_FORMS[letter] ?? letter)
-    .join("");
-}
 
 function clamp01(value: number): number {
   return Math.min(1, Math.max(0, value));
@@ -378,42 +366,6 @@ function coherenceFor(
   };
 }
 
-function transform(
-  state: readonly number[],
-  path: QecPath,
-  seed: number,
-): number[] {
-  const visible = state.slice(0, 22);
-  const hidden = state[22] ?? seed;
-  const definition = (
-    TRANSFORM_REGISTRY as Readonly<Record<string, TransformDefinition>>
-  )[path.transform.id];
-  if (!definition || definition.operation !== path.operation) {
-    throw new Error(`Unknown or incompatible transform: ${path.transform.id}`);
-  }
-  let next: number[];
-
-  if (path.operation === "hold") {
-    next = [...visible];
-  } else if (path.transform.id === "mirror-exchange") {
-    next = visible.map((value, index) => {
-      const mirror = visible[21 - index] ?? 0;
-      return (value + mirror + seed) % 22;
-    });
-  } else if (path.operation === "exchange") {
-    next = visible.map((_, index) => {
-      const partner = visible[(21 - index + definition.salt) % 22] ?? 0;
-      return (partner + seed + definition.salt) % 22;
-    });
-  } else if (path.transform.id === "seed-rotation") {
-    next = visible.map((_, index) => (index + hidden) % 22);
-  } else {
-    next = visible.map((value) => (value + hidden + definition.salt) % 22);
-  }
-
-  return [...next, hidden];
-}
-
 function composeGate(left: PathEvent, right: PathEvent): GateEvent {
   const leftNodes = [left.path.source, left.path.destination];
   const rightNodes = [right.path.source, right.path.destination];
@@ -474,20 +426,32 @@ function executeProgram(program: string, seed = 9): ProgramExecutionResult {
   if ([...program].length > 1024) {
     throw new RangeError("IvritCode program exceeds the 1,024-step limit.");
   }
-  const initialState = [
-    ...Array.from({ length: 22 }, (_, index) => index),
-    seed,
-  ];
-  let state = [...initialState];
+  const seeded = [...makeAlphabetState(program)];
+  seeded[22] = seed;
+  const initialState = normalizeState(seeded);
+  const canonical = executeCanonicalProgram(program, {
+    initialState,
+    deterministicSeed: seed,
+    maxSteps: 1024,
+    trace: "full",
+  });
+  if (canonical.program.instructions.length === 0) {
+    throw new SyntaxError("IvritCode program must contain at least one letter.");
+  }
+  const normalizedProgram = canonical.program.instructions
+    .map((instruction) => instruction.letter)
+    .join("");
+  const contractManifest = createManifest(program, { deterministicSeed: seed });
   let priorCoherence = 0;
 
-  const pathEvents = [...program].map((letter, index) => {
-    const path = FULL_PATHS[letter as HebrewLetter];
+  const pathEvents = canonical.trace.map((canonicalEvent, index) => {
+    const letter = canonicalEvent.instruction.letter;
+    const path = FULL_PATHS[letter];
     if (!path) {
       throw new SyntaxError(`Unsupported IvritCode instruction: ${letter}`);
     }
-    const before = [...state];
-    const after = transform(before, path, seed);
+    const before = [...canonicalEvent.before!];
+    const after = [...canonicalEvent.after!];
     const coherence = coherenceFor(after, seed, index + 1);
     const event: PathEvent = {
       step: index + 1,
@@ -502,14 +466,13 @@ function executeProgram(program: string, seed = 9): ProgramExecutionResult {
       ),
     };
     priorCoherence = coherence.coherence;
-    state = after;
     return event;
   });
 
   const gates = pathEvents
     .slice(1)
     .map((event, index) => composeGate(pathEvents[index]!, event));
-  const finalState = [...state];
+  const finalState = [...canonical.finalState];
   const hash = stateHash([...finalState, seed]);
   const candidates = buildObservationCandidates(finalState, seed);
   const selectedIndex =
@@ -518,6 +481,12 @@ function executeProgram(program: string, seed = 9): ProgramExecutionResult {
     step: pathEvents.length,
     reason: "program-end",
     stateHash: hash,
+    traceHash: contentHash({
+      engineVersion: IVRIT_ENGINE_VERSION,
+      pathMapVersion: QEC_PATH_MAP_VERSION,
+      trace: canonical.trace,
+      manifestHash: contractManifest.contentHash,
+    }),
     candidates,
     selectedProjection: candidates[selectedIndex]!.id,
     snapshot: [...finalState],
@@ -547,11 +516,11 @@ function executeProgram(program: string, seed = 9): ProgramExecutionResult {
         Math.round(event.coherence.coherence * 1000),
       ),
     ]),
-    summary: `${program} completed ${pathEvents.length} paths, formed ${gates.length} gates, and manifested observation ${hash}.`,
+    summary: `${normalizedProgram} completed ${pathEvents.length} paths, formed ${gates.length} gates, and manifested observation ${hash}.`,
   };
 
   return {
-    program,
+    program: normalizedProgram,
     seed,
     initialState,
     finalState,
@@ -563,7 +532,7 @@ function executeProgram(program: string, seed = 9): ProgramExecutionResult {
 }
 
 export function runProgram(program: string, seed = 9): ProgramExecutionResult {
-  return executeProgram(normalizeProgram(program), seed);
+  return executeProgram(program, seed);
 }
 
 export function runOrVerticalSlice(seed = 9): VerticalSliceResult {
@@ -574,7 +543,7 @@ export function manifestationExport(
   result: ProgramExecutionResult,
 ): ManifestationExport {
   return {
-    schemaVersion: "qec-manifestation-0.2",
+    schemaVersion: QEC_MANIFESTATION_VERSION,
     program: result.program,
     seed: result.seed,
     finalState: [...result.finalState],

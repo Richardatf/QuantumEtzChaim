@@ -3,12 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "workspaces": [
+    "vendor/ivritcode/packages/*"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build:shared": "npm run build --workspace @ivritcode/core && npm run build --workspace @qec/core",
+    "build": "npm run build:shared && tsc --noEmit && vite build",
     "format:check": "prettier --check .",
-    "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "test": "npm run build:shared && vitest run tests",
+    "typecheck": "npm run build:shared && tsc --noEmit"
+  },
+  "dependencies": {
+    "@ivritcode/core": "1.0.0",
+    "@qec/core": "0.1.0",
+    "@qec/spec": "0.1.0"
   },
   "devDependencies": {
     "@types/node": "^22.19.7",
