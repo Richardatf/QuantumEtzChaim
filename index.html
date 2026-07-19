@@ -534,6 +534,12 @@
         min-height: 190px;
         padding: 25px;
         background: #091411;
+        border-top: 3px solid transparent;
+        transition: 0.25s;
+      }
+      .build-brief article:hover {
+        border-top-color: var(--cyan);
+        background: #0c1916;
       }
       .build-brief span {
         font: 10px var(--mono);
@@ -549,6 +555,46 @@
         color: var(--muted);
         font-size: 12px;
         line-height: 1.65;
+      }
+      .build-brief p b {
+        color: var(--ivory);
+        font-weight: 500;
+      }
+      .build-brief code {
+        display: block;
+        margin-top: 18px;
+        color: var(--gold);
+        font: 10px/1.5 var(--mono);
+      }
+      .schematic-guide {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        margin-top: -18px;
+        border: 1px solid var(--line);
+        background: var(--line);
+      }
+      .schematic-guide article {
+        display: flex;
+        gap: 14px;
+        padding: 20px;
+        background: #0a1512;
+      }
+      .schematic-guide b {
+        color: var(--cyan);
+        font: 20px var(--serif);
+      }
+      .schematic-guide span {
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.6;
+      }
+      .schematic-guide strong {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--ivory);
+        font: 400 15px var(--serif);
       }
       .spec-links {
         display: flex;
@@ -643,6 +689,9 @@
         .build-brief {
           grid-template-columns: 1fr 1fr;
         }
+        .schematic-guide {
+          grid-template-columns: 1fr 1fr;
+        }
         .spec-download {
           align-items: flex-start;
           flex-direction: column;
@@ -698,6 +747,9 @@
           grid-column: auto;
         }
         .build-brief {
+          grid-template-columns: 1fr;
+        }
+        .schematic-guide {
           grid-template-columns: 1fr;
         }
         .arch-list {
@@ -1137,33 +1189,40 @@
               <span>01 / STATE</span>
               <h3>23 fixed registers</h3>
               <p>
-                Twenty-two visible base-22 registers and one hidden Aleph Olam
-                orientation, with immutable state and explicit bounds.
+                <b>Input:</b> Hebrew source + seed.<br />Twenty-two visible
+                base-22 registers and one Aleph Olam register. Every value is
+                bounded from 0–21 and every transition is immutable.
               </p>
+              <code>@ivritcode/core</code>
             </article>
             <article>
-              <span>02 / TRANSACTION</span>
-              <h3>Ten atomic stages</h3>
+              <span>02 / ENGINE</span>
+              <h3>One canonical execution</h3>
               <p>
-                Parse through manifestation. A failed stage commits no partial
-                machine state and returns a typed diagnostic.
+                Hebrew letters execute once in IvritCode. Quantum Etz Chaim
+                consumes those results as an architectural view; it does not
+                run an alternate set of transforms.
               </p>
+              <code>@ivritcode/core → @qec/core</code>
             </article>
             <article>
-              <span>03 / TRACE</span>
-              <h3>Replayable evidence</h3>
+              <span>03 / CONTRACT</span>
+              <h3>Versioned handoff</h3>
               <p>
-                Ordered events carry before/after hashes, path and gate data,
-                observation choice, and a canonical export.
+                Engine version, path-map version, seed, complete trace hash,
+                and manifestation version bind both sites to the same run.
               </p>
+              <code>ivritcode-exchange-0.2</code>
             </article>
             <article>
-              <span>04 / RELEASE</span>
-              <h3>Eleven hard gates</h3>
+              <span>04 / OUTPUT</span>
+              <h3>Inspect before manifesting</h3>
               <p>
-                Schema, replay, path coverage, separation, security,
-                accessibility, and responsive checks block release on failure.
+                Da’at records a reproducible observation. Malchut renders only
+                validated state as a screen view, file, sound descriptor, or
+                export.
               </p>
+              <code>Daat → Malchut</code>
             </article>
           </div>
           <div class="schematic-grid">
@@ -1176,6 +1235,12 @@
                 ><b>PLATE 01</b><span>TWO-PLANE MACHINE ↗</span></span
               ></a
             >
+            <div class="schematic-guide" aria-label="How to read plate 01">
+              <article><b>1</b><span><strong>Orchestrate</strong>The left plane assigns intent, validation, policy, scheduling, and observation.</span></article>
+              <article><b>2</b><span><strong>Execute</strong>The right plane applies IvritCode’s canonical operations to the 23-register state.</span></article>
+              <article><b>3</b><span><strong>Bind</strong>The shared contract carries versioned state and the complete trace between planes.</span></article>
+              <article><b>4</b><span><strong>Manifest</strong>Malchut presents the validated observation without changing the computation.</span></article>
+            </div>
             <a class="schematic" href="schematics/execution-lifecycle.svg"
               ><img
                 loading="lazy"
