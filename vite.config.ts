@@ -7,6 +7,7 @@ export default defineConfig({
       input: {
         atlas: "index.html",
         landing: "landing.html",
+        console: "console.html",
       },
     },
   },

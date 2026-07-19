@@ -272,6 +272,7 @@
       .section {
         padding: 110px 0;
         border-top: 1px solid var(--line);
+        scroll-margin-top: 75px;
       }
       .section-head {
         display: grid;
@@ -521,6 +522,34 @@
         color: var(--muted);
         font-size: 13px;
       }
+      .build-brief {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        margin-top: 18px;
+        border: 1px solid var(--line);
+        background: var(--line);
+      }
+      .build-brief article {
+        min-height: 190px;
+        padding: 25px;
+        background: #091411;
+      }
+      .build-brief span {
+        font: 10px var(--mono);
+        letter-spacing: 0.12em;
+        color: var(--cyan);
+      }
+      .build-brief h3 {
+        margin: 38px 0 10px;
+        font: 400 22px/1.1 var(--serif);
+      }
+      .build-brief p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.65;
+      }
       .spec-links {
         display: flex;
         gap: 10px;
@@ -611,6 +640,9 @@
         .principles {
           grid-template-columns: 1fr;
         }
+        .build-brief {
+          grid-template-columns: 1fr 1fr;
+        }
         .spec-download {
           align-items: flex-start;
           flex-direction: column;
@@ -665,6 +697,9 @@
         .schematic:first-child {
           grid-column: auto;
         }
+        .build-brief {
+          grid-template-columns: 1fr;
+        }
         .arch-list {
           grid-template-columns: 1fr 1fr;
         }
@@ -701,7 +736,8 @@
         <nav aria-label="Primary navigation">
           <a href="#frontier">The frontier</a
           ><a href="#architecture">The architecture</a
-          ><a href="#schematics">Schematics</a>
+          ><a href="#schematics">Schematics</a
+          ><a href="console.html">Console</a>
           <a class="cta" href="https://ivritcode.org/">Open IvritCode ↗</a>
         </nav>
       </div>
@@ -1086,7 +1122,7 @@
         <div class="shell">
           <div class="section-head">
             <div>
-              <div class="eyebrow">Engineering plates / v0.2</div>
+              <div class="eyebrow">Engineering plates / contract 0.3</div>
               <h2>Schematics and build specification</h2>
             </div>
             <p class="section-intro">
@@ -1095,6 +1131,40 @@
               repository-native SVG suitable for documentation, print, and
               future implementation work.
             </p>
+          </div>
+          <div class="build-brief" aria-label="Build specification summary">
+            <article>
+              <span>01 / STATE</span>
+              <h3>23 fixed registers</h3>
+              <p>
+                Twenty-two visible base-22 registers and one hidden Aleph Olam
+                orientation, with immutable state and explicit bounds.
+              </p>
+            </article>
+            <article>
+              <span>02 / TRANSACTION</span>
+              <h3>Ten atomic stages</h3>
+              <p>
+                Parse through manifestation. A failed stage commits no partial
+                machine state and returns a typed diagnostic.
+              </p>
+            </article>
+            <article>
+              <span>03 / TRACE</span>
+              <h3>Replayable evidence</h3>
+              <p>
+                Ordered events carry before/after hashes, path and gate data,
+                observation choice, and a canonical export.
+              </p>
+            </article>
+            <article>
+              <span>04 / RELEASE</span>
+              <h3>Eleven hard gates</h3>
+              <p>
+                Schema, replay, path coverage, separation, security,
+                accessibility, and responsive checks block release on failure.
+              </p>
+            </article>
           </div>
           <div class="schematic-grid">
             <a class="schematic" href="schematics/two-plane-machine.svg"
@@ -1129,17 +1199,21 @@
             <div>
               <div class="eyebrow">Build package</div>
               <p>
-                State contracts, service responsibilities, deterministic
-                execution rules, security boundaries, verification gates, and
-                six delivery phases.
+                Normative state and event interfaces, package ownership, failure
+                atomicity, bounded execution, canonical serialization,
+                verification evidence, and an implementation backlog.
               </p>
             </div>
             <div class="spec-links">
               <a class="button" href="docs/BUILD_SPEC.md">Read build spec ↗</a
+              ><a class="button" href="specifications/qec-build-v0.3.json"
+                >JSON contract ↗</a
               ><a
                 class="button"
-                href="specifications/qec-architecture-v0.2.json"
-                >JSON contract ↗</a
+                href="specifications/schemas/trace-v0.3.schema.json"
+                >Trace schema ↗</a
+              ><a class="button" href="specifications/qec-paths-v0.3.json"
+                >22-path map ↗</a
               >
             </div>
           </div>
@@ -1230,8 +1304,11 @@
           the invitation is to study—not to mistake correspondence for proof.
         </p>
         <div class="hero-actions" style="justify-content: center">
-          <a class="button primary" href="https://ivritcode.org/"
-            >Open the IvritCode Observatory <span>↗</span></a
+          <a class="button primary" href="console.html"
+            >Run אור in the Living Tree Console <span>→</span></a
+          >
+          <a class="button" href="https://ivritcode.org/"
+            >Open IvritCode <span>↗</span></a
           >
         </div>
       </section>

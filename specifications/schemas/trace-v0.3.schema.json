@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quantumetzchaim.com/schemas/trace-v0.3.schema.json",
+  "title": "Quantum Etz Chaim trace 0.3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "run",
+    "initialStateHash",
+    "events",
+    "observation",
+    "manifestation"
+  ],
+  "properties": {
+    "schema": { "const": "qec-trace-0.3" },
+    "run": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "programHash",
+        "seed",
+        "mode",
+        "architectureVersion",
+        "pathMapVersion"
+      ],
+      "properties": {
+        "programHash": { "$ref": "#/$defs/hash" },
+        "seed": { "type": "integer", "minimum": 0, "maximum": 4294967295 },
+        "mode": { "enum": ["classical", "coherence"] },
+        "architectureVersion": { "type": "string", "minLength": 1 },
+        "pathMapVersion": { "type": "string", "minLength": 1 }
+      }
+    },
+    "initialStateHash": { "$ref": "#/$defs/hash" },
+    "events": {
+      "type": "array",
+      "maxItems": 50000,
+      "items": { "$ref": "#/$defs/event" }
+    },
+    "observation": { "type": "object" },
+    "manifestation": { "type": "object" }
+  },
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^[0-9a-f]{8,64}$" },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sequence",
+        "type",
+        "instructionIndex",
+        "beforeHash",
+        "afterHash",
+        "payload"
+      ],
+      "properties": {
+        "sequence": { "type": "integer", "minimum": 0 },
+        "type": { "type": "string", "minLength": 1 },
+        "instructionIndex": { "type": "integer", "minimum": 0 },
+        "beforeHash": { "$ref": "#/$defs/hash" },
+        "afterHash": { "$ref": "#/$defs/hash" },
+        "payload": { "type": "object" }
+      }
+    }
+  }
+}

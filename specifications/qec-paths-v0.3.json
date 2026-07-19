@@ -1,0 +1,235 @@
+{
+  "id": "qec-paths-v0.3",
+  "version": "0.3.0",
+  "status": "architecture-candidate",
+  "label": "Quantum Etz Chaim complete 22-letter project path map",
+  "kernelCompatibility": ">=0.3.0 <0.4.0",
+  "convention": "project-defined-symbolic-architecture",
+  "integrity": {
+    "algorithm": "sha256",
+    "scope": "canonical-json:paths",
+    "digest": "005cfae8c998b985597320a51b9ed5b334b21db556c0fc36785f124d372dbbe6"
+  },
+  "paths": [
+    {
+      "letter": "א",
+      "letterName": "Aleph",
+      "source": "Keter",
+      "destination": "Tiferet",
+      "operation": "hold",
+      "transform": { "id": "preserve-frame", "version": "0.3.0" },
+      "services": ["KeterService", "TiferetScheduler"],
+      "description": "Preserve the program frame and its common orientation."
+    },
+    {
+      "letter": "ב",
+      "letterName": "Bet",
+      "source": "Keter",
+      "destination": "Chokhmah",
+      "operation": "exchange",
+      "transform": { "id": "impulse-pair", "version": "0.3.0" },
+      "services": ["KeterService", "ChokhmahService"],
+      "description": "Pair program intent with the first ordered candidate impulse."
+    },
+    {
+      "letter": "ג",
+      "letterName": "Gimel",
+      "source": "Keter",
+      "destination": "Binah",
+      "operation": "exchange",
+      "transform": { "id": "form-pair", "version": "0.3.0" },
+      "services": ["KeterService", "BinahCompiler"],
+      "description": "Bind program identity to a compiled structural form."
+    },
+    {
+      "letter": "ד",
+      "letterName": "Dalet",
+      "source": "Chokhmah",
+      "destination": "Binah",
+      "operation": "exchange",
+      "transform": { "id": "polarity-bridge", "version": "0.3.0" },
+      "services": ["ChokhmahService", "BinahCompiler"],
+      "description": "Exchange candidate impulse and validated formation across the upper bridge."
+    },
+    {
+      "letter": "ה",
+      "letterName": "He",
+      "source": "Chokhmah",
+      "destination": "Chesed",
+      "operation": "hold",
+      "transform": { "id": "expand-pulse", "version": "0.3.0" },
+      "services": ["ChokhmahService", "ChesedAllocator"],
+      "description": "Carry a candidate impulse into a bounded expansion request."
+    },
+    {
+      "letter": "ו",
+      "letterName": "Vav",
+      "source": "Hod",
+      "destination": "Yesod",
+      "operation": "exchange",
+      "transform": { "id": "mirror-exchange", "version": "0.3.0" },
+      "services": ["HodInterface", "YesodBus"],
+      "description": "Exchange mirrored register values through the integration bus."
+    },
+    {
+      "letter": "ז",
+      "letterName": "Zayin",
+      "source": "Binah",
+      "destination": "Gevurah",
+      "operation": "hold",
+      "transform": { "id": "constrain-form", "version": "0.3.0" },
+      "services": ["BinahCompiler", "GevurahPolicy"],
+      "description": "Carry compiled form into policy validation without mutation."
+    },
+    {
+      "letter": "ח",
+      "letterName": "Het",
+      "source": "Chesed",
+      "destination": "Gevurah",
+      "operation": "exchange",
+      "transform": { "id": "boundary-balance", "version": "0.3.0" },
+      "services": ["ChesedAllocator", "GevurahPolicy"],
+      "description": "Balance granted expansion against immutable execution limits."
+    },
+    {
+      "letter": "ט",
+      "letterName": "Tet",
+      "source": "Chesed",
+      "destination": "Tiferet",
+      "operation": "exchange",
+      "transform": { "id": "mercy-balance", "version": "0.3.0" },
+      "services": ["ChesedAllocator", "TiferetScheduler"],
+      "description": "Reconcile an allocation grant with the active commit schedule."
+    },
+    {
+      "letter": "י",
+      "letterName": "Yod",
+      "source": "Gevurah",
+      "destination": "Tiferet",
+      "operation": "exchange",
+      "transform": { "id": "severity-balance", "version": "0.3.0" },
+      "services": ["GevurahPolicy", "TiferetScheduler"],
+      "description": "Reconcile a policy decision with the active commit schedule."
+    },
+    {
+      "letter": "כ",
+      "letterName": "Kaf",
+      "source": "Chokhmah",
+      "destination": "Tiferet",
+      "operation": "reseed",
+      "transform": { "id": "wisdom-rotation", "version": "0.3.0" },
+      "services": ["ChokhmahService", "TiferetScheduler"],
+      "description": "Rotate candidate order through the explicit Aleph Olam seed."
+    },
+    {
+      "letter": "ל",
+      "letterName": "Lamed",
+      "source": "Binah",
+      "destination": "Tiferet",
+      "operation": "reseed",
+      "transform": { "id": "understanding-rotation", "version": "0.3.0" },
+      "services": ["BinahCompiler", "TiferetScheduler"],
+      "description": "Rotate compiled structure through the explicit Aleph Olam seed."
+    },
+    {
+      "letter": "מ",
+      "letterName": "Mem",
+      "source": "Tiferet",
+      "destination": "Netzach",
+      "operation": "exchange",
+      "transform": { "id": "endurance-flow", "version": "0.3.0" },
+      "services": ["TiferetScheduler", "NetzachRuntime"],
+      "description": "Exchange committed state with the continuation runtime."
+    },
+    {
+      "letter": "נ",
+      "letterName": "Nun",
+      "source": "Tiferet",
+      "destination": "Hod",
+      "operation": "exchange",
+      "transform": { "id": "language-flow", "version": "0.3.0" },
+      "services": ["TiferetScheduler", "HodInterface"],
+      "description": "Exchange committed state with its diagnostic representation."
+    },
+    {
+      "letter": "ס",
+      "letterName": "Samekh",
+      "source": "Chesed",
+      "destination": "Netzach",
+      "operation": "hold",
+      "transform": { "id": "expansion-carry", "version": "0.3.0" },
+      "services": ["ChesedAllocator", "NetzachRuntime"],
+      "description": "Carry a bounded resource grant into continued execution."
+    },
+    {
+      "letter": "ע",
+      "letterName": "Ayin",
+      "source": "Gevurah",
+      "destination": "Hod",
+      "operation": "hold",
+      "transform": { "id": "constraint-carry", "version": "0.3.0" },
+      "services": ["GevurahPolicy", "HodInterface"],
+      "description": "Carry a policy result into a readable diagnostic form."
+    },
+    {
+      "letter": "פ",
+      "letterName": "Pe",
+      "source": "Netzach",
+      "destination": "Hod",
+      "operation": "exchange",
+      "transform": { "id": "persistence-reflect", "version": "0.3.0" },
+      "services": ["NetzachRuntime", "HodInterface"],
+      "description": "Reflect runtime continuation into an inspectable representation."
+    },
+    {
+      "letter": "צ",
+      "letterName": "Tsadi",
+      "source": "Netzach",
+      "destination": "Yesod",
+      "operation": "exchange",
+      "transform": { "id": "iteration-bus", "version": "0.3.0" },
+      "services": ["NetzachRuntime", "YesodBus"],
+      "description": "Synchronize continued execution with append-only history."
+    },
+    {
+      "letter": "ק",
+      "letterName": "Qof",
+      "source": "Hod",
+      "destination": "Yesod",
+      "operation": "exchange",
+      "transform": { "id": "interface-bus", "version": "0.3.0" },
+      "services": ["HodInterface", "YesodBus"],
+      "description": "Synchronize a serialized representation with execution history."
+    },
+    {
+      "letter": "ר",
+      "letterName": "Resh",
+      "source": "Yesod",
+      "destination": "Malchut",
+      "operation": "reseed",
+      "transform": { "id": "seed-rotation", "version": "0.3.0" },
+      "services": ["YesodBus", "MalchutOutput"],
+      "description": "Reseed the visible alphabet from Aleph Olam orientation."
+    },
+    {
+      "letter": "ש",
+      "letterName": "Shin",
+      "source": "Tiferet",
+      "destination": "Yesod",
+      "operation": "reseed",
+      "transform": { "id": "center-descent", "version": "0.3.0" },
+      "services": ["TiferetScheduler", "YesodBus"],
+      "description": "Rotate reconciled state into the shared integration history."
+    },
+    {
+      "letter": "ת",
+      "letterName": "Tav",
+      "source": "Yesod",
+      "destination": "Malchut",
+      "operation": "hold",
+      "transform": { "id": "manifest-frame", "version": "0.3.0" },
+      "services": ["YesodBus", "MalchutOutput"],
+      "description": "Carry observed state unchanged into a manifestation boundary."
+    }
+  ]
+}

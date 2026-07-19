@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "qec-build-0.3",
+  "status": "executable-prototype",
+  "updated": "2026-07-19",
+  "machine": {
+    "radix": 22,
+    "visibleRegisters": 22,
+    "hiddenRegisters": 1,
+    "stateSchema": "qec-machine-state-0.3",
+    "traceSchema": "qec-trace-0.3"
+  },
+  "determinism": {
+    "canonicalSeed": 9,
+    "seedType": "uint32",
+    "wallClockInput": false,
+    "systemRandomness": false,
+    "canonicalJson": true,
+    "classicalStateDependsOnCoherence": false
+  },
+  "limits": {
+    "sourceGraphemes": 4096,
+    "instructions": 1024,
+    "executionSteps": 10000,
+    "traceEvents": 50000,
+    "exportBytes": 5242880,
+    "recursion": 0
+  },
+  "invariants": [
+    "register-count-is-23",
+    "register-values-are-base-22",
+    "state-and-events-are-immutable",
+    "event-sequence-is-contiguous",
+    "trace-hash-chain-is-continuous",
+    "aleph-olam-does-not-flatten-visible-state",
+    "rendering-does-not-mutate-machine-state"
+  ],
+  "requiredSchemas": [
+    "machine-state",
+    "path-map",
+    "trace",
+    "observation",
+    "manifestation"
+  ],
+  "verificationGates": [
+    "schema",
+    "typecheck",
+    "unit",
+    "property",
+    "path-coverage",
+    "golden-replay",
+    "hash-chain",
+    "coherence-separation",
+    "security-corpus",
+    "accessibility",
+    "responsive"
+  ],
+  "disclaimer": "A deterministic symbolic software model; not physical quantum computation."
+}
