@@ -1,0 +1,766 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Enter Quantum Etz Chaim: the architecture, operating system, and Hebrew-letter language of an experimental symbolic computer."
+    />
+    <meta name="theme-color" content="#06100e" />
+    <title>Quantum Etz Chaim — Enter the Living Architecture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@300;400;500;600&family=Marcellus&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --ink: #06100e;
+        --ivory: #f0ebde;
+        --muted: #a6b2ad;
+        --gold: #d7b86e;
+        --gold-light: #f2db9a;
+        --teal: #71c9be;
+        --line: rgba(240, 235, 222, 0.15);
+        --serif: "Marcellus", Georgia, serif;
+        --sans: "Manrope", sans-serif;
+        --mono: "DM Mono", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--ink);
+        color: var(--ivory);
+        font-family: var(--sans);
+        font-weight: 300;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .shell {
+        width: min(1240px, calc(100% - 48px));
+        margin: auto;
+      }
+
+      .hero {
+        min-height: 100svh;
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -3;
+        background:
+          linear-gradient(
+            90deg,
+            rgba(6, 16, 14, 0.98) 0%,
+            rgba(6, 16, 14, 0.83) 38%,
+            rgba(6, 16, 14, 0.2) 72%,
+            rgba(6, 16, 14, 0.48) 100%
+          ),
+          url("assets/images/living-tree-architecture.png") center / cover;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        background:
+          linear-gradient(180deg, transparent 65%, var(--ink)),
+          linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+          linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.018) 1px,
+            transparent 1px
+          );
+        background-size:
+          auto,
+          48px 48px,
+          48px 48px;
+      }
+
+      header {
+        height: 86px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        text-decoration: none;
+      }
+
+      .mark {
+        width: 37px;
+        height: 37px;
+        border: 1px solid var(--gold);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        color: var(--gold);
+        font: 20px var(--serif);
+      }
+
+      .brand-copy strong {
+        display: block;
+        font: 15px var(--serif);
+        letter-spacing: 0.11em;
+      }
+
+      .brand-copy span {
+        color: var(--muted);
+        font: 9px var(--mono);
+        letter-spacing: 0.14em;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+
+      nav a {
+        color: var(--muted);
+        text-decoration: none;
+        font: 11px var(--mono);
+        letter-spacing: 0.08em;
+      }
+
+      nav a:hover {
+        color: var(--ivory);
+      }
+
+      .nav-cta {
+        border: 1px solid rgba(215, 184, 110, 0.6);
+        border-radius: 100px;
+        color: var(--gold-light);
+        padding: 12px 18px;
+        background: rgba(215, 184, 110, 0.08);
+      }
+
+      .hero-content {
+        flex: 1;
+        display: grid;
+        align-items: center;
+        padding: 80px 0 110px;
+      }
+
+      .hero-copy {
+        width: min(760px, 66vw);
+      }
+
+      .eyebrow {
+        color: var(--gold);
+        font: 500 11px var(--mono);
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 25px 0 27px;
+        font: 400 clamp(58px, 8vw, 118px) / 0.92 var(--serif);
+        letter-spacing: -0.055em;
+      }
+
+      h1 em {
+        color: var(--gold-light);
+        font-style: normal;
+      }
+
+      .lead {
+        max-width: 620px;
+        color: #c4cdc8;
+        font-size: clamp(16px, 1.5vw, 19px);
+        line-height: 1.8;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 38px;
+      }
+
+      .button {
+        min-height: 50px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        border: 1px solid var(--line);
+        border-radius: 100px;
+        padding: 0 23px;
+        text-decoration: none;
+        font: 400 11px var(--mono);
+        letter-spacing: 0.07em;
+        transition:
+          transform 0.2s,
+          border-color 0.2s;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+        border-color: var(--gold);
+      }
+
+      .button-primary {
+        background: var(--gold);
+        color: #10130d;
+        border-color: var(--gold);
+      }
+
+      .hero-meta {
+        position: absolute;
+        right: 30px;
+        bottom: 64px;
+        writing-mode: vertical-rl;
+        color: rgba(240, 235, 222, 0.55);
+        font: 9px var(--mono);
+        letter-spacing: 0.18em;
+      }
+
+      .system {
+        padding: 120px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .section-heading {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: end;
+        margin-bottom: 62px;
+      }
+
+      h2 {
+        margin: 13px 0 0;
+        max-width: 700px;
+        font: 400 clamp(42px, 6vw, 78px) / 1 var(--serif);
+        letter-spacing: -0.04em;
+      }
+
+      .section-heading p {
+        max-width: 540px;
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .system-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border-top: 1px solid var(--line);
+        border-left: 1px solid var(--line);
+      }
+
+      .system-card {
+        min-height: 410px;
+        padding: 32px;
+        border-right: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        background: linear-gradient(
+          145deg,
+          rgba(21, 49, 43, 0.42),
+          transparent
+        );
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .system-card::after {
+        content: attr(data-mark);
+        position: absolute;
+        right: -8px;
+        bottom: -40px;
+        color: rgba(215, 184, 110, 0.06);
+        font: 190px var(--serif);
+      }
+
+      .number {
+        color: var(--teal);
+        font: 10px var(--mono);
+      }
+
+      .system-card h3 {
+        margin: 92px 0 8px;
+        font: 400 31px var(--serif);
+      }
+
+      .role {
+        color: var(--gold);
+        font: 10px var(--mono);
+        letter-spacing: 0.14em;
+      }
+
+      .system-card p {
+        max-width: 330px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.75;
+      }
+
+      .system-card a {
+        margin-top: auto;
+        width: fit-content;
+        color: var(--gold-light);
+        font: 11px var(--mono);
+        text-underline-offset: 5px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .proof {
+        padding: 120px 0;
+      }
+
+      .proof-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 18px;
+      }
+
+      .proof-visual {
+        min-height: 650px;
+        margin: 0;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--line);
+      }
+
+      .proof-visual img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+      }
+
+      .proof-visual::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent, rgba(6, 16, 14, 0.8));
+      }
+
+      .proof-visual figcaption {
+        position: absolute;
+        z-index: 2;
+        left: 30px;
+        right: 30px;
+        bottom: 28px;
+      }
+
+      .proof-visual strong {
+        display: block;
+        font: 34px var(--serif);
+      }
+
+      .proof-visual span {
+        color: var(--muted);
+        font: 10px var(--mono);
+      }
+
+      .proof-copy {
+        border: 1px solid var(--line);
+        padding: clamp(32px, 5vw, 70px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background:
+          radial-gradient(
+            circle at top right,
+            rgba(113, 201, 190, 0.12),
+            transparent 45%
+          ),
+          rgba(9, 22, 19, 0.85);
+      }
+
+      .proof-copy h2 {
+        font-size: clamp(40px, 5vw, 68px);
+      }
+
+      .proof-copy p {
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .boundary {
+        margin-top: 28px;
+        padding: 17px;
+        border-left: 1px solid var(--gold);
+        color: #c8c3b4;
+        font: 11px/1.8 var(--mono);
+      }
+
+      .closing {
+        min-height: 88svh;
+        position: relative;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        overflow: hidden;
+      }
+
+      .closing::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        background:
+          linear-gradient(rgba(6, 16, 14, 0.38), rgba(6, 16, 14, 0.84)),
+          url("assets/images/daat-observation-boundary.png") center / cover;
+      }
+
+      .closing::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: radial-gradient(circle, transparent 20%, var(--ink) 85%);
+      }
+
+      .closing-content {
+        width: min(980px, calc(100% - 40px));
+      }
+
+      .closing h2 {
+        margin-inline: auto;
+        font-size: clamp(48px, 7vw, 94px);
+      }
+
+      .closing p {
+        max-width: 680px;
+        margin: 26px auto 0;
+        color: #c5cec9;
+        line-height: 1.8;
+      }
+
+      .closing .actions {
+        justify-content: center;
+      }
+
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 32px 0;
+        color: var(--muted);
+        font: 10px/1.7 var(--mono);
+      }
+
+      .footer-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+      }
+
+      @media (max-width: 850px) {
+        nav a:not(.nav-cta) {
+          display: none;
+        }
+
+        .hero-copy {
+          width: min(740px, 90vw);
+        }
+
+        .section-heading,
+        .proof-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .system-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .system-card {
+          min-height: 340px;
+        }
+
+        .proof-visual {
+          min-height: 520px;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .shell {
+          width: min(100% - 24px, 1240px);
+        }
+
+        header {
+          height: 70px;
+        }
+
+        .brand-copy span {
+          display: none;
+        }
+
+        .hero::before {
+          background:
+            linear-gradient(
+              180deg,
+              rgba(6, 16, 14, 0.4),
+              rgba(6, 16, 14, 0.88) 55%,
+              var(--ink)
+            ),
+            url("assets/images/living-tree-architecture.png") 57% center / cover;
+        }
+
+        .hero-content {
+          align-items: end;
+          padding: 340px 0 75px;
+        }
+
+        .hero-copy {
+          width: 100%;
+        }
+
+        h1 {
+          font-size: 52px;
+        }
+
+        .lead {
+          font-size: 15px;
+        }
+
+        .hero-meta {
+          display: none;
+        }
+
+        .button {
+          width: 100%;
+        }
+
+        .system,
+        .proof {
+          padding: 85px 0;
+        }
+
+        .section-heading {
+          margin-bottom: 40px;
+        }
+
+        .proof-visual {
+          min-height: 440px;
+        }
+
+        .footer-row {
+          flex-direction: column;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        .button,
+        .system-card {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <header class="shell">
+          <a class="brand" href="landing.html">
+            <span class="mark">א</span>
+            <span class="brand-copy">
+              <strong>QUANTUM ETZ CHAIM</strong>
+              <span>ARCHITECTURE OF COHERENCE</span>
+            </span>
+          </a>
+          <nav aria-label="Primary navigation">
+            <a href="#system">The system</a>
+            <a href="#principles">Principles</a>
+            <a href="index.html">Architecture Atlas</a>
+            <a class="nav-cta" href="https://ivritcode.org/"
+              >Open IvritCode ↗</a
+            >
+          </nav>
+        </header>
+
+        <div class="shell hero-content">
+          <div class="hero-copy">
+            <div class="eyebrow">A living computational architecture</div>
+            <h1>The Tree is the <em>machine.</em></h1>
+            <p class="lead">
+              An experimental symbolic-computing system where the Tree defines
+              the architecture, IvritOS coordinates its services, and Hebrew
+              letters move through it as executable instructions.
+            </p>
+            <div class="actions">
+              <a class="button button-primary" href="index.html"
+                >Enter the Architecture Atlas <span>→</span></a
+              >
+              <a class="button" href="https://ivritcode.org/"
+                >Run a Hebrew word <span>↗</span></a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="hero-meta">
+          EXPERIMENTAL / DETERMINISTIC / OPEN ARCHITECTURE
+        </div>
+      </section>
+
+      <section class="system" id="system">
+        <div class="shell">
+          <div class="section-heading">
+            <div>
+              <div class="eyebrow">One system / three layers</div>
+              <h2>Architecture becomes language.</h2>
+            </div>
+            <p>
+              Quantum Etz Chaim does not present mysticism as physics. It uses a
+              clearly labeled symbolic framework to explore how intent,
+              structure, constraint, coherence, observation, and output can
+              become parts of one deterministic machine.
+            </p>
+          </div>
+
+          <div class="system-grid">
+            <article class="system-card" data-mark="ע">
+              <span class="number">01 / ARCHITECTURE</span>
+              <h3>Quantum Etz Chaim</h3>
+              <span class="role">THE SHAPE OF THE MACHINE</span>
+              <p>
+                Eleven functional regions organize intent, generation,
+                validation, scheduling, integration, observation, and
+                manifestation.
+              </p>
+              <a href="index.html#architecture">Explore the architecture ↗</a>
+            </article>
+
+            <article class="system-card" data-mark="ס">
+              <span class="number">02 / OPERATING SYSTEM</span>
+              <h3>IvritOS</h3>
+              <span class="role">THE ORDER WITHIN IT</span>
+              <p>
+                A proposed service kernel coordinates permissions, runtime
+                state, path events, trace history, and deterministic
+                observation.
+              </p>
+              <a href="docs/BUILD_SPEC.md">Read the build specification ↗</a>
+            </article>
+
+            <article class="system-card" data-mark="א">
+              <span class="number">03 / LANGUAGE</span>
+              <h3>IvritCode</h3>
+              <span class="role">THE LANGUAGE THAT MOVES</span>
+              <p>
+                Twenty-two Hebrew letters operate on a 23-register machine.
+                Adjacent letters form gates; marks modify execution modes and
+                phrasing.
+              </p>
+              <a href="https://ivritcode.org/">Open the Observatory ↗</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="proof" id="principles">
+        <div class="shell">
+          <div class="proof-grid">
+            <figure class="proof-visual">
+              <img
+                loading="lazy"
+                src="assets/images/logical-coherence-lattice.png"
+                alt="A geometric lattice protecting a luminous logical core"
+                width="1536"
+                height="1024"
+              />
+              <figcaption>
+                <strong>Protect meaning through relationship.</strong>
+                <span>PHYSICAL NODES → SYNDROME PATHS → LOGICAL COHERENCE</span>
+              </figcaption>
+            </figure>
+
+            <div class="proof-copy">
+              <div class="eyebrow">Inspired by real systems research</div>
+              <h2>Coherence is coordinated.</h2>
+              <p>
+                The frontier of quantum computing is a whole-system problem:
+                physical devices, logical encoding, connectivity, decoding,
+                control, and measurement must work together. Quantum Etz Chaim
+                translates that structural lesson into its own service
+                architecture.
+              </p>
+              <p>
+                Tiferet schedules. Gevurah constrains. Yesod synchronizes. Da’at
+                records an observable state. Malchut presents the result.
+              </p>
+              <div class="boundary">
+                A theoretical visualization—not physical quantum computation.
+                Structural inspiration is not scientific equivalence.
+              </div>
+              <div class="actions">
+                <a class="button" href="index.html#frontier"
+                  >See the research basis →</a
+                >
+                <a class="button" href="index.html#schematics"
+                  >Open schematics →</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="closing">
+        <div class="closing-content">
+          <div class="eyebrow">From possibility to manifestation</div>
+          <h2>Give the Tree an instruction.</h2>
+          <p>
+            Begin with the architecture, then enter the executable laboratory.
+            Run a Hebrew word and follow its transformations, paths, gates, and
+            observable state.
+          </p>
+          <div class="actions">
+            <a class="button button-primary" href="https://ivritcode.org/"
+              >Open the IvritCode Observatory ↗</a
+            >
+            <a class="button" href="index.html">Study the Atlas →</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell footer-row">
+        <span
+          >QUANTUM ETZ CHAIM © 2026<br />EXPERIMENTAL SYMBOLIC COMPUTING</span
+        >
+        <span
+          >COHERENCE: SIMULATED<br />PHYSICAL QUANTUM COMPUTATION: NOT
+          CLAIMED</span
+        >
+      </div>
+    </footer>
+  </body>
+</html>
