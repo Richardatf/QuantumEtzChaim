@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "qec-architecture-v0.2",
+  "status": "architecture-baseline",
+  "system": {
+    "architecture": "Quantum Etz Chaim",
+    "operatingSystem": "IvritOS",
+    "language": "IvritCode",
+    "laboratory": "IvritCode Observatory"
+  },
+  "planes": {
+    "letter": { "visibleRegisters": 22, "hiddenRegisters": 1, "radix": 22 },
+    "sefirotic": { "regions": 11, "daatPersistence": "event-boundary" }
+  },
+  "services": [
+    { "region": "Keter", "service": "KeterService", "role": "intent" },
+    {
+      "region": "Chokhmah",
+      "service": "ChokhmahService",
+      "role": "generation"
+    },
+    { "region": "Binah", "service": "BinahCompiler", "role": "formation" },
+    { "region": "Daat", "service": "DaatObserver", "role": "observation" },
+    { "region": "Chesed", "service": "ChesedAllocator", "role": "expansion" },
+    { "region": "Gevurah", "service": "GevurahPolicy", "role": "constraint" },
+    { "region": "Tiferet", "service": "TiferetScheduler", "role": "coherence" },
+    { "region": "Netzach", "service": "NetzachRuntime", "role": "continuity" },
+    { "region": "Hod", "service": "HodInterface", "role": "representation" },
+    { "region": "Yesod", "service": "YesodBus", "role": "integration" },
+    { "region": "Malchut", "service": "MalchutOutput", "role": "manifestation" }
+  ],
+  "modes": {
+    "classical": { "deterministic": true, "dependsOnCoherence": false },
+    "coherence": {
+      "deterministic": true,
+      "physicalQuantumComputation": false,
+      "ranges": {
+        "activation": [0, 1],
+        "phase": [0, 6.283185307179586],
+        "coherence": [0, 1]
+      }
+    }
+  },
+  "verification": {
+    "unicodeNormalization": "NFC",
+    "wallClockRandomness": false,
+    "unsupportedMarks": "preserve-and-report",
+    "symbolicClaimsRequireTrace": true
+  }
+}
