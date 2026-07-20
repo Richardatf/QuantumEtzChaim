@@ -1,0 +1,25 @@
+name: Production coherence
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-coherence
+  cancel-in-progress: true
+
+jobs:
+  verify-live-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify both production surfaces
+        run: npm run production:check

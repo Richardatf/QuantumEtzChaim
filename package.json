@@ -14,6 +14,7 @@
     "test": "npm run build:shared && vitest run tests",
     "golden:check": "vitest run tests/golden-traces.test.ts",
     "golden:update": "cross-env UPDATE_GOLDENS=1 vitest run tests/golden-traces.test.ts",
+    "production:check": "node scripts/check-production-coherence.mjs",
     "typecheck": "npm run build:shared && tsc --noEmit"
   },
   "dependencies": {
