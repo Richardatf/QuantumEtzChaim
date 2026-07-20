@@ -4,6 +4,7 @@ import {
   type IvritCodeExchange,
   type QECRunPassport,
 } from "./exchange.js";
+import { serializeRunPassport } from "@qec/spec";
 
 const letters = [..."אבגדהוזחטיכלמנסעפצקרשת"];
 const nodeIds = [
@@ -63,7 +64,7 @@ function renderPassport(passport: QECRunPassport) {
     .querySelector<HTMLButtonElement>("#download-passport")
     ?.addEventListener("click", () => {
       const url = URL.createObjectURL(
-        new Blob([`${JSON.stringify(passport, null, 2)}\n`], {
+        new Blob([serializeRunPassport(passport)], {
           type: "application/json",
         }),
       );
