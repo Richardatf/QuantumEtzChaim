@@ -45,6 +45,9 @@ const manifestationPath = get<HTMLElement>("#manifestation-path");
 const manifestationChecksum = get<HTMLElement>("#manifestation-checksum");
 const exportManifestation = get<HTMLButtonElement>("#export-manifestation");
 const copyManifestation = get<HTMLButtonElement>("#copy-manifestation");
+const playManifestation = get<HTMLButtonElement>("#play-manifestation");
+const stopManifestation = get<HTMLButtonElement>("#stop-manifestation");
+const copyExport = get<HTMLButtonElement>("#copy-export");
 const manifestationStatus = get<HTMLElement>("#manifestation-status");
 const coherenceValue = get<HTMLElement>("#coherence-value");
 const activationValue = get<HTMLElement>("#activation-value");
@@ -399,6 +402,9 @@ function renderOutput(): void {
     : "—";
   exportManifestation.disabled = !complete;
   copyManifestation.disabled = !complete;
+  playManifestation.disabled = !complete;
+  stopManifestation.disabled = true;
+  copyExport.disabled = !complete;
   manifestationStatus.textContent = complete
     ? `qec-manifestation-0.2 ready / ${result.manifestation.checksum}`
     : "Output locked until Da’at observes";
@@ -477,6 +483,64 @@ pinTrace.addEventListener("click", () => {
 copyManifestation.addEventListener("click", async () => {
   await navigator.clipboard.writeText(result.manifestation.registerString);
   manifestationStatus.textContent = "Hebrew constellation copied";
+});
+
+let audioContext: AudioContext | undefined;
+let activeOscillators: OscillatorNode[] = [];
+
+function stopManifestationSound(): void {
+  activeOscillators.forEach((oscillator) => {
+    try {
+      oscillator.stop();
+    } catch {
+      // An oscillator that has already ended needs no further cleanup.
+    }
+  });
+  activeOscillators = [];
+  stopManifestation.disabled = true;
+}
+
+playManifestation.addEventListener("click", async () => {
+  stopManifestationSound();
+  audioContext ??= new AudioContext();
+  await audioContext.resume();
+  const start = audioContext.currentTime + 0.04;
+  const duration = 0.14;
+  const scale = [0, 2, 4, 7, 9];
+  const values = result.finalState.slice(0, 22);
+
+  activeOscillators = values.map((value, index) => {
+    const oscillator = audioContext!.createOscillator();
+    const gain = audioContext!.createGain();
+    const note = scale[value % scale.length]! + 12 * Math.floor(value / scale.length);
+    const onset = start + index * duration;
+    oscillator.type = index % 2 === 0 ? "sine" : "triangle";
+    oscillator.frequency.value = 164.81 * 2 ** (note / 12);
+    gain.gain.setValueAtTime(0.0001, onset);
+    gain.gain.exponentialRampToValueAtTime(0.09, onset + 0.025);
+    gain.gain.exponentialRampToValueAtTime(0.0001, onset + duration * 0.9);
+    oscillator.connect(gain).connect(audioContext!.destination);
+    oscillator.start(onset);
+    oscillator.stop(onset + duration);
+    return oscillator;
+  });
+  stopManifestation.disabled = false;
+  manifestationStatus.textContent = `Playing deterministic register score / ${result.manifestation.checksum}`;
+  window.setTimeout(() => {
+    activeOscillators = [];
+    stopManifestation.disabled = true;
+    manifestationStatus.textContent = `Sound complete / ${result.manifestation.checksum}`;
+  }, values.length * duration * 1000 + 200);
+});
+
+stopManifestation.addEventListener("click", () => {
+  stopManifestationSound();
+  manifestationStatus.textContent = "Sound stopped";
+});
+
+copyExport.addEventListener("click", async () => {
+  await navigator.clipboard.writeText(serializeManifestation(result));
+  manifestationStatus.textContent = "Versioned manifestation contract copied";
 });
 
 exportManifestation.addEventListener("click", () => {

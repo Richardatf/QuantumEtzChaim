@@ -942,6 +942,7 @@
 
       .manifestation-actions {
         display: flex;
+        flex-wrap: wrap;
         gap: 7px;
       }
 
@@ -1600,38 +1601,47 @@
             <div class="manifestation-head">
               <div>
                 <span class="eyebrow">Malchut output layer</span>
-                <h3 id="manifestation-title">Manifestation inspector</h3>
+                <h3 id="manifestation-title">Screen · sound · file · export</h3>
               </div>
               <div class="manifestation-actions">
                 <button id="copy-manifestation" type="button" disabled>
                   Copy letters
                 </button>
+                <button id="play-manifestation" type="button" disabled>
+                  Play sound
+                </button>
+                <button id="stop-manifestation" type="button" disabled>
+                  Stop
+                </button>
                 <button id="export-manifestation" type="button" disabled>
-                  Export JSON
+                  Download JSON
+                </button>
+                <button id="copy-export" type="button" disabled>
+                  Copy contract
                 </button>
               </div>
             </div>
             <div class="manifestation-grid">
               <div class="manifestation-output">
-                <small>HEBREW CONSTELLATION</small>
+                <small>SCREEN / HEBREW CONSTELLATION</small>
                 <strong id="manifestation-letters" lang="he" dir="rtl"
                   >••••••••••••••••••••••</strong
                 >
               </div>
               <div class="manifestation-output">
-                <small>BASE-22 REGISTERS / VISIBLE + HIDDEN</small>
+                <small>FILE / BASE-22 REGISTERS / VISIBLE + HIDDEN</small>
                 <code id="manifestation-base22"
                   >Awaiting observed register state</code
                 >
               </div>
               <div class="manifestation-output">
-                <small>PATH SIGNATURE</small>
+                <small>EXPORT / PATH SIGNATURE</small>
                 <code id="manifestation-path"
                   >Awaiting completed path trace</code
                 >
               </div>
               <div class="manifestation-output">
-                <small>TRACE CHECKSUM</small>
+                <small>SOUND + TRACE / DETERMINISTIC CHECKSUM</small>
                 <code id="manifestation-checksum">—</code>
               </div>
             </div>
