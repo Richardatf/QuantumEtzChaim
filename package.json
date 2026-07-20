@@ -3,24 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "workspaces": [
-    "vendor/ivritcode/packages/*"
-  ],
   "scripts": {
     "dev": "vite",
-    "build:shared": "npm run build --workspace @ivritcode/core && npm run build --workspace @qec/core",
-    "build": "npm run build:shared && tsc --noEmit && vite build && node scripts/verify-published-links.mjs",
+    "build": "tsc --noEmit && vite build && node scripts/verify-published-links.mjs",
     "format:check": "prettier --check .",
-    "test": "npm run build:shared && vitest run tests",
+    "test": "vitest run tests",
     "golden:check": "vitest run tests/golden-traces.test.ts",
     "golden:update": "cross-env UPDATE_GOLDENS=1 vitest run tests/golden-traces.test.ts",
     "production:check": "node scripts/check-production-coherence.mjs",
-    "typecheck": "npm run build:shared && tsc --noEmit"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ivritcode/core": "1.0.0",
-    "@qec/core": "0.1.0",
-    "@qec/spec": "0.1.0"
+    "@ivritcode/core": "https://github.com/Richardatf/IvritCode/releases/download/canonical-packages-2026.07.20.1/ivritcode-core-1.0.0.tgz",
+    "@ivritcode/unicode": "https://github.com/Richardatf/IvritCode/releases/download/canonical-packages-2026.07.20.1/ivritcode-unicode-1.0.0.tgz",
+    "@qec/core": "https://github.com/Richardatf/IvritCode/releases/download/canonical-packages-2026.07.20.1/qec-core-0.1.0.tgz",
+    "@qec/ivrit-compiler": "https://github.com/Richardatf/IvritCode/releases/download/canonical-packages-2026.07.20.1/qec-ivrit-compiler-0.1.0.tgz",
+    "@qec/path-router": "https://github.com/Richardatf/IvritCode/releases/download/canonical-packages-2026.07.20.1/qec-path-router-0.1.0.tgz",
+    "@qec/provenance": "https://github.com/Richardatf/IvritCode/releases/download/canonical-packages-2026.07.20.1/qec-provenance-0.1.0.tgz",
+    "@qec/security": "https://github.com/Richardatf/IvritCode/releases/download/canonical-packages-2026.07.20.1/qec-security-0.1.0.tgz",
+    "@qec/spec": "https://github.com/Richardatf/IvritCode/releases/download/canonical-packages-2026.07.20.1/qec-spec-0.1.0.tgz"
   },
   "devDependencies": {
     "@types/node": "^22.19.7",

@@ -245,15 +245,21 @@ apps/
   architecture-atlas/        # public architecture and specification
   living-tree-console/       # executable trace explorer
   ivritcode-observatory/     # language laboratory
-vendor/ivritcode/             # pinned canonical engine submodule
-  packages/core/              # @ivritcode/core
-  packages/qec-core/          # @qec/core
-  packages/qec-spec/          # @qec/spec
+package.json                  # exact canonical package release assets
+  @ivritcode/core             # deterministic register engine
+  @qec/core                   # orchestration and execution contracts
+  @qec/spec                   # schemas, path maps, and trace contracts
 specifications/              # schemas and versioned configuration
 schematics/                  # repository-native engineering plates
 tests/fixtures/              # canonical programs and golden traces
 docs/decisions/              # architecture decision records
 ```
+
+Canonical packages are distributed from the immutable
+[`canonical-packages-2026.07.20.1`](https://github.com/Richardatf/IvritCode/releases/tag/canonical-packages-2026.07.20.1)
+IvritCode release. `package-lock.json` records the resolved assets and integrity
+hashes, so CI and local builds install the same engine and contracts without a
+Git submodule.
 
 ## 14. Delivery plan
 
