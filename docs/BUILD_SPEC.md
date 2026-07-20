@@ -61,9 +61,9 @@ The classical reducer is authoritative. The coherence projector reads completed 
 
 ## 4. Package and ownership plan
 
-| Package           | Public responsibility                                                       | Must not own       |
-| ----------------- | --------------------------------------------------------------------------- | ------------------ |
-| `@ivritcode/core` | Hebrew normalization, instruction registry, deterministic transforms        | DOM or network I/O |
+| Package           | Public responsibility                                                        | Must not own       |
+| ----------------- | ---------------------------------------------------------------------------- | ------------------ |
+| `@ivritcode/core` | Hebrew normalization, instruction registry, deterministic transforms         | DOM or network I/O |
 | `@qec/core`       | Machine orchestration, seeded execution, trace generation, manifestation     | Presentation state |
 | `@qec/spec`       | Versioned schemas, path maps, identifiers, exchange and validation contracts | Runtime mutation   |
 
@@ -279,7 +279,7 @@ Git submodule.
 2. Add failure-atomicity, malformed Unicode, and resource-limit property tests.
 3. Add downloadable comparison reports for reproducible review artifacts.
 4. Enforce accessibility and responsive-layout audits as release gates.
-5. Publish signed package provenance and submodule-version metadata with each release.
+5. Publish signed package provenance, immutable artifact digests, and engine-contract versions with each release.
 
 ## 16. Definition of done
 
