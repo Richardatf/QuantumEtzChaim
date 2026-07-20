@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Contract Explorer — Quantum Etz Chaim</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #06110e;
+        --panel: #0b1d18;
+        --line: #315d51;
+        --gold: #e0b94e;
+        --cyan: #66d9cc;
+        --text: #f3efe2;
+        --muted: #9fb0aa;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background:
+          linear-gradient(90deg, transparent 31px, #17302955 32px),
+          linear-gradient(transparent 31px, #17302955 32px), var(--bg);
+        background-size: 32px 32px;
+        color: var(--text);
+        font-family: Inter, system-ui, sans-serif;
+      }
+      a {
+        color: inherit;
+      }
+      .shell {
+        width: min(1180px, calc(100% - 32px));
+        margin: auto;
+      }
+      nav {
+        height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--line);
+      }
+      nav div {
+        display: flex;
+        gap: 10px;
+      }
+      .button,
+      button {
+        border: 1px solid #8b7839;
+        background: #121d16;
+        color: var(--text);
+        padding: 10px 14px;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .hero {
+        padding: 72px 0 36px;
+      }
+      .eyebrow,
+      th {
+        font:
+          700 11px ui-monospace,
+          monospace;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+      h1 {
+        font:
+          clamp(44px, 8vw, 92px)/0.95 Georgia,
+          serif;
+        margin: 14px 0;
+        max-width: 900px;
+      }
+      .hero p {
+        max-width: 720px;
+        color: var(--muted);
+        font-size: 18px;
+      }
+      .status {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 24px;
+      }
+      .status span {
+        border: 1px solid var(--line);
+        padding: 8px 11px;
+        font:
+          12px ui-monospace,
+          monospace;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      .panel {
+        background: #071713ef;
+        border: 1px solid var(--line);
+        padding: 24px;
+        margin-bottom: 18px;
+        overflow: auto;
+      }
+      .panel h2 {
+        font:
+          32px Georgia,
+          serif;
+        margin: 6px 0 20px;
+      }
+      .requirements,
+      .gates {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      .chip {
+        border: 1px solid #28483f;
+        padding: 11px;
+        color: var(--muted);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 760px;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 12px;
+        border-bottom: 1px solid #244039;
+      }
+      td code {
+        color: var(--cyan);
+      }
+      .trace {
+        display: grid;
+        gap: 10px;
+      }
+      .event {
+        display: grid;
+        grid-template-columns: 55px 90px 1fr auto;
+        gap: 12px;
+        align-items: center;
+        border-left: 3px solid var(--cyan);
+        background: #0a201a;
+        padding: 14px;
+      }
+      .event small,
+      .hash {
+        color: var(--muted);
+        font:
+          11px ui-monospace,
+          monospace;
+      }
+      .valid {
+        color: #7ce6a1;
+      }
+      .invalid {
+        color: #ff8b7f;
+      }
+      .downloads {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 18px 0 50px;
+      }
+      @media (max-width: 760px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .requirements,
+        .gates {
+          grid-template-columns: 1fr;
+        }
+        .event {
+          grid-template-columns: 42px 60px 1fr;
+        }
+        .event .hash {
+          grid-column: 2/-1;
+        }
+        nav div .optional {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="shell">
+      <a href="index.html">← Architecture Atlas</a>
+      <div>
+        <a class="button optional" href="docs/build-spec.html"
+          >Build specification</a
+        ><a class="button" href="console.html">Run console</a>
+      </div>
+    </nav>
+    <main class="shell">
+      <header class="hero">
+        <div class="eyebrow">Normative system evidence / qec 0.3</div>
+        <h1>Contract Explorer</h1>
+        <p>
+          Inspect the exact contracts that bind the canonical engine, 22-path
+          architecture, deterministic trace, and release gates. Every displayed
+          artifact is the same JSON shipped by the build.
+        </p>
+        <div class="status" id="schema-status"></div>
+      </header>
+      <div class="grid">
+        <section class="panel">
+          <div class="eyebrow">Build contract</div>
+          <h2>Requirements</h2>
+          <div class="requirements" id="requirements"></div>
+        </section>
+        <section class="panel">
+          <div class="eyebrow">Release policy</div>
+          <h2>Hard gates</h2>
+          <div class="gates" id="gates"></div>
+        </section>
+      </div>
+      <section class="panel">
+        <div class="eyebrow">qec-path-map-0.3.0 / complete coverage</div>
+        <h2>All 22 letter routes</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Letter</th>
+              <th>Route</th>
+              <th>Operation</th>
+              <th>Transform</th>
+              <th>Services</th>
+            </tr>
+          </thead>
+          <tbody id="paths"></tbody>
+        </table>
+      </section>
+      <section class="panel">
+        <div class="eyebrow">Golden evidence / אור / seed 09</div>
+        <h2>Real execution trace</h2>
+        <div class="trace" id="trace"></div>
+      </section>
+      <section class="panel">
+        <div class="eyebrow">Schema validation</div>
+        <h2>Machine-verifiable publication</h2>
+        <div id="validation"></div>
+      </section>
+      <div class="downloads" id="downloads"></div>
+    </main>
+    <script type="module" src="/src/contracts.ts"></script>
+  </body>
+</html>

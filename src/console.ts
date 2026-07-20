@@ -6,6 +6,8 @@ import {
   runOrVerticalSlice,
   runProgram,
   serializeManifestation,
+  serializeTrace,
+  traceExport,
   type ProgramExecutionResult,
 } from "./machine.js";
 import { decodeProgramPermalink, encodeProgramPermalink } from "./permalink.js";
@@ -44,6 +46,10 @@ const manifestationBase22 = get<HTMLElement>("#manifestation-base22");
 const manifestationPath = get<HTMLElement>("#manifestation-path");
 const manifestationChecksum = get<HTMLElement>("#manifestation-checksum");
 const exportManifestation = get<HTMLButtonElement>("#export-manifestation");
+const exportTrace = get<HTMLButtonElement>("#export-trace");
+const exportAudio = get<HTMLButtonElement>("#export-audio");
+const exportComparison = get<HTMLButtonElement>("#export-comparison");
+const exportProvenance = get<HTMLButtonElement>("#export-provenance");
 const copyManifestation = get<HTMLButtonElement>("#copy-manifestation");
 const playManifestation = get<HTMLButtonElement>("#play-manifestation");
 const stopManifestation = get<HTMLButtonElement>("#stop-manifestation");
@@ -401,6 +407,10 @@ function renderOutput(): void {
     ? result.manifestation.checksum
     : "—";
   exportManifestation.disabled = !complete;
+  exportTrace.disabled = !complete;
+  exportAudio.disabled = !complete;
+  exportComparison.disabled = !complete;
+  exportProvenance.disabled = !complete;
   copyManifestation.disabled = !complete;
   playManifestation.disabled = !complete;
   stopManifestation.disabled = true;
@@ -512,7 +522,8 @@ playManifestation.addEventListener("click", async () => {
   activeOscillators = values.map((value, index) => {
     const oscillator = audioContext!.createOscillator();
     const gain = audioContext!.createGain();
-    const note = scale[value % scale.length]! + 12 * Math.floor(value / scale.length);
+    const note =
+      scale[value % scale.length]! + 12 * Math.floor(value / scale.length);
     const onset = start + index * duration;
     oscillator.type = index % 2 === 0 ? "sine" : "triangle";
     oscillator.frequency.value = 164.81 * 2 ** (note / 12);
@@ -526,11 +537,14 @@ playManifestation.addEventListener("click", async () => {
   });
   stopManifestation.disabled = false;
   manifestationStatus.textContent = `Playing deterministic register score / ${result.manifestation.checksum}`;
-  window.setTimeout(() => {
-    activeOscillators = [];
-    stopManifestation.disabled = true;
-    manifestationStatus.textContent = `Sound complete / ${result.manifestation.checksum}`;
-  }, values.length * duration * 1000 + 200);
+  window.setTimeout(
+    () => {
+      activeOscillators = [];
+      stopManifestation.disabled = true;
+      manifestationStatus.textContent = `Sound complete / ${result.manifestation.checksum}`;
+    },
+    values.length * duration * 1000 + 200,
+  );
 });
 
 stopManifestation.addEventListener("click", () => {
@@ -554,6 +568,109 @@ exportManifestation.addEventListener("click", () => {
   anchor.click();
   URL.revokeObjectURL(url);
   manifestationStatus.textContent = "Deterministic trace exported";
+});
+
+function downloadArtifact(
+  data: BlobPart,
+  type: string,
+  filename: string,
+): void {
+  const url = URL.createObjectURL(new Blob([data], { type }));
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = filename;
+  anchor.click();
+  URL.revokeObjectURL(url);
+}
+
+exportTrace.addEventListener("click", () => {
+  downloadArtifact(
+    serializeTrace(result),
+    "application/json;charset=utf-8",
+    `qec-${result.program}-seed-${String(result.seed).padStart(2, "0")}.trace.json`,
+  );
+  manifestationStatus.textContent = `Complete trace exported / ${result.observation.traceHash}`;
+});
+
+function manifestationWav(run: ProgramExecutionResult): ArrayBuffer {
+  const rate = 22050,
+    noteSeconds = 0.14,
+    frames = Math.floor(rate * noteSeconds * 22);
+  const buffer = new ArrayBuffer(44 + frames * 2),
+    view = new DataView(buffer);
+  const text = (offset: number, value: string) =>
+    [...value].forEach((character, index) =>
+      view.setUint8(offset + index, character.charCodeAt(0)),
+    );
+  text(0, "RIFF");
+  view.setUint32(4, 36 + frames * 2, true);
+  text(8, "WAVEfmt ");
+  view.setUint32(16, 16, true);
+  view.setUint16(20, 1, true);
+  view.setUint16(22, 1, true);
+  view.setUint32(24, rate, true);
+  view.setUint32(28, rate * 2, true);
+  view.setUint16(32, 2, true);
+  view.setUint16(34, 16, true);
+  text(36, "data");
+  view.setUint32(40, frames * 2, true);
+  const scale = [0, 2, 4, 7, 9];
+  for (let frame = 0; frame < frames; frame++) {
+    const index = Math.min(21, Math.floor(frame / (rate * noteSeconds))),
+      value = run.finalState[index]!,
+      frequency =
+        164.81 * 2 ** ((scale[value % 5]! + 12 * Math.floor(value / 5)) / 12),
+      local = (frame % (rate * noteSeconds)) / (rate * noteSeconds),
+      envelope = Math.sin(Math.PI * local),
+      sample =
+        Math.sin((2 * Math.PI * frequency * frame) / rate) * envelope * 0.22;
+    view.setInt16(
+      44 + frame * 2,
+      Math.max(-1, Math.min(1, sample)) * 32767,
+      true,
+    );
+  }
+  return buffer;
+}
+
+exportAudio.addEventListener("click", () => {
+  downloadArtifact(
+    manifestationWav(result),
+    "audio/wav",
+    `qec-${result.program}-${result.manifestation.checksum}.wav`,
+  );
+  manifestationStatus.textContent = "Deterministic WAV score exported";
+});
+
+exportComparison.addEventListener("click", () => {
+  const comparison = compareProgramRuns(traceBaseline, result),
+    divergence = findFirstTraceDivergence(traceBaseline, result);
+  const report = `# Quantum Etz Chaim Trace Comparison\n\n- Baseline: ${traceBaseline.program} / seed ${traceBaseline.seed}\n- Active: ${result.program} / seed ${result.seed}\n- Common path prefix: ${comparison.commonPathPrefix}\n- Changed registers: ${comparison.changedFinalRegisters} / 23\n- Coherence delta: ${comparison.coherenceDelta}\n- Observation changed: ${comparison.observationChanged}\n- First divergence: ${divergence ? `step ${divergence.step} / ${divergence.reason}` : "none"}\n- Baseline checksum: ${comparison.baselineChecksum}\n- Active checksum: ${comparison.activeChecksum}\n`;
+  downloadArtifact(
+    report,
+    "text/markdown;charset=utf-8",
+    `qec-comparison-${result.manifestation.checksum}.md`,
+  );
+  manifestationStatus.textContent = "Comparison report exported";
+});
+
+exportProvenance.addEventListener("click", () => {
+  const bundle = {
+    schemaVersion: "qec-provenance-bundle-0.1",
+    producer: "Quantum Etz Chaim / Malchut",
+    engineVersion: "1.0.0",
+    pathMapVersion: "qec-path-map-0.3.0",
+    createdFrom: { program: result.program, seed: result.seed },
+    trace: traceExport(result),
+    manifestation: JSON.parse(serializeManifestation(result)),
+    comparison: compareProgramRuns(traceBaseline, result),
+  };
+  downloadArtifact(
+    JSON.stringify(bundle, null, 2) + "\n",
+    "application/json;charset=utf-8",
+    `qec-provenance-${result.manifestation.checksum}.json`,
+  );
+  manifestationStatus.textContent = "Provenance bundle exported";
 });
 
 render();
