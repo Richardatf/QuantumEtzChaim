@@ -2,7 +2,7 @@
 
 **Contract:** `qec-build-0.3`
 
-**Status:** executable prototype → shared-kernel extraction
+**Status:** integrated shared-engine prototype
 
 **Updated:** 2026-07-19
 
@@ -61,18 +61,13 @@ The classical reducer is authoritative. The coherence projector reads completed 
 
 ## 4. Package and ownership plan
 
-| Package              | Public responsibility                                                | Must not own              |
-| -------------------- | -------------------------------------------------------------------- | ------------------------- |
-| `unicode-hebrew`     | Grapheme segmentation, NFC normalization, letter/mark classification | Runtime state             |
-| `ivritcode-language` | Tokens, AST, diagnostics, compiler                                   | UI or service state       |
-| `qec-architecture`   | Sefirotic regions, paths, service identifiers, schema loaders        | Instruction execution     |
-| `ivritos-kernel`     | Run context, service dispatch, policy, event ordering                | DOM rendering             |
-| `ivritcode-runtime`  | Pure register transforms and instruction registry                    | Network or filesystem I/O |
-| `gates-231`          | Gate identity, route composition, relationship metrics               | Symbolic prose            |
-| `resonance`          | Seeded activation, phase, and coherence projections                  | Classical mutation        |
-| `shared-ui`          | Trace presenters, accessible controls, formatters                    | Business rules            |
+| Package           | Public responsibility                                                       | Must not own       |
+| ----------------- | --------------------------------------------------------------------------- | ------------------ |
+| `@ivritcode/core` | Hebrew normalization, instruction registry, deterministic transforms        | DOM or network I/O |
+| `@qec/core`       | Machine orchestration, seeded execution, trace generation, manifestation     | Presentation state |
+| `@qec/spec`       | Versioned schemas, path maps, identifiers, exchange and validation contracts | Runtime mutation   |
 
-Dependency direction is one-way: UI → kernel → language/runtime → Unicode and architecture contracts. `resonance` is an optional kernel adapter.
+Dependency direction is one-way: UI → `@qec/core` → `@ivritcode/core`, with both layers bound by `@qec/spec`. Quantum Etz Chaim consumes these canonical IvritCode packages and does not maintain a duplicate machine implementation.
 
 ## 5. Normative state contracts
 
@@ -250,15 +245,10 @@ apps/
   architecture-atlas/        # public architecture and specification
   living-tree-console/       # executable trace explorer
   ivritcode-observatory/     # language laboratory
-packages/
-  unicode-hebrew/
-  ivritcode-language/
-  qec-architecture/
-  ivritos-kernel/
-  ivritcode-runtime/
-  gates-231/
-  resonance/
-  shared-ui/
+vendor/ivritcode/             # pinned canonical engine submodule
+  packages/core/              # @ivritcode/core
+  packages/qec-core/          # @qec/core
+  packages/qec-spec/          # @qec/spec
 specifications/              # schemas and versioned configuration
 schematics/                  # repository-native engineering plates
 tests/fixtures/              # canonical programs and golden traces
@@ -279,12 +269,11 @@ docs/decisions/              # architecture decision records
 
 ## 15. Immediate implementation backlog
 
-1. Extract `src/machine.ts` types and pure reducers into `ivritcode-runtime`.
-2. Implement canonical JSON serialization for complete trace exports.
+1. Add golden complete-trace fixtures for canonical seed 09 and at least four alternate seeds.
+2. Add failure-atomicity, malformed Unicode, and resource-limit property tests.
 3. Add downloadable comparison reports for reproducible review artifacts.
-4. Add golden traces for canonical seed 09 and at least four alternate seeds.
-5. Add failure-atomicity, malformed Unicode, and resource-limit tests.
-6. Make the console import contracts rather than defining presentation-local assumptions.
+4. Enforce accessibility and responsive-layout audits as release gates.
+5. Publish signed package provenance and submodule-version metadata with each release.
 
 ## 16. Definition of done
 
