@@ -26,6 +26,7 @@ export default defineConfig({
         atlas: "index.html",
         landing: "landing.html",
         console: "console.html",
+        contracts: "contract-explorer.html",
       },
     },
   },

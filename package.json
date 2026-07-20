@@ -12,6 +12,8 @@
     "build": "npm run build:shared && tsc --noEmit && vite build && node scripts/verify-published-links.mjs",
     "format:check": "prettier --check .",
     "test": "npm run build:shared && vitest run tests",
+    "golden:check": "vitest run tests/golden-traces.test.ts",
+    "golden:update": "cross-env UPDATE_GOLDENS=1 vitest run tests/golden-traces.test.ts",
     "typecheck": "npm run build:shared && tsc --noEmit"
   },
   "dependencies": {
@@ -22,6 +24,7 @@
   "devDependencies": {
     "@types/node": "^22.19.7",
     "ajv": "^8.20.0",
+    "cross-env": "^10.1.0",
     "prettier": "^3.8.1",
     "typescript": "^5.9.3",
     "vite": "^8.1.4",
