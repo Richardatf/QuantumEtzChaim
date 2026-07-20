@@ -1,34 +1,37 @@
 import { describe, expect, it } from "vitest";
 import { parseRunPassport } from "../src/passport.js";
+import { contentHash } from "@qec/spec";
 
 const state = [...Array.from({ length: 22 }, (_, index) => index), 9];
+const trace = [
+  {
+    sequence: 0,
+    letter: "א",
+    before: state,
+    after: state,
+    beforeHash: contentHash(state),
+    afterHash: contentHash(state),
+    changedRegisters: [],
+  },
+];
+const traceHash = contentHash(trace);
 const passport = {
   schemaVersion: "qec-run-passport-0.1",
-  runId: "fnv1a32-12345678",
+  runId: traceHash,
   engineVersion: "1.0.0",
   pathMapVersion: "qec-path-map-0.3.0",
   manifestationVersion: "qec-manifestation-0.2",
   seed: 9,
-  traceHash: "fnv1a32-12345678",
+  traceHash,
   source: "אור",
-  sourceHash: "fnv1a32-87654321",
+  sourceHash: contentHash({ source: "אור" }),
   initialState: state,
   finalState: state,
   hiddenKey: "י",
   patternShape: "STILL_POINT",
   returningLetters: ["א"],
   gates: ["א־ו"],
-  trace: [
-    {
-      sequence: 0,
-      letter: "א",
-      before: state,
-      after: state,
-      beforeHash: "fnv1a32-11111111",
-      afterHash: "fnv1a32-11111111",
-      changedRegisters: [],
-    },
-  ],
+  trace,
   validation: {
     status: "valid",
     registerCount: 23,
@@ -49,9 +52,18 @@ describe("Run Passport file parser", () => {
     });
     expect(
       parseRunPassport(JSON.stringify({ ...passport, trace: [] })),
-    ).toEqual({
-      ok: false,
-      error: "JSON does not satisfy qec-run-passport-0.1.",
-    });
+    ).toMatchObject({ ok: false });
   });
+  it("reports tampered state hashes", () =>
+    expect(
+      parseRunPassport(
+        JSON.stringify({
+          ...passport,
+          trace: [{ ...trace[0], after: [...state.slice(0, 22), 8] }],
+        }),
+      ),
+    ).toMatchObject({
+      ok: false,
+      error: expect.stringContaining("event-0-after-hash"),
+    }));
 });
