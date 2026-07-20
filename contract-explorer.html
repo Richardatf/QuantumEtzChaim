@@ -166,8 +166,66 @@
         gap: 8px;
         margin: 18px 0 50px;
       }
+      .passport-loader {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 18px;
+        align-items: start;
+      }
+      .passport-drop {
+        display: grid;
+        place-items: center;
+        min-height: 180px;
+        padding: 24px;
+        border: 1px dashed var(--cyan);
+        background: #071b17;
+        text-align: center;
+        cursor: pointer;
+      }
+      .passport-drop input {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+      }
+      .passport-drop strong {
+        display: block;
+        margin-bottom: 8px;
+        font:
+          24px Georgia,
+          serif;
+      }
+      .passport-result {
+        min-height: 180px;
+        padding: 20px;
+        border: 1px solid var(--line);
+        background: #091913;
+      }
+      .passport-result dl {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .passport-result dt {
+        color: var(--muted);
+        font-size: 11px;
+        text-transform: uppercase;
+      }
+      .passport-result dd {
+        margin: 3px 0 0;
+        overflow-wrap: anywhere;
+      }
+      .passport-result .actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 14px;
+      }
       @media (max-width: 760px) {
         .grid {
+          grid-template-columns: 1fr;
+        }
+        .passport-loader {
           grid-template-columns: 1fr;
         }
         .requirements,
@@ -206,6 +264,26 @@
         </p>
         <div class="status" id="schema-status"></div>
       </header>
+      <section class="panel" aria-labelledby="passport-open-title">
+        <div class="eyebrow">Portable evidence / local-only validation</div>
+        <h2 id="passport-open-title">Open a Run Passport</h2>
+        <div class="passport-loader">
+          <label class="passport-drop">
+            <input
+              id="passport-file"
+              type="file"
+              accept=".json,.passport.json,application/json"
+            />
+            <span
+              ><strong>Choose a passport file</strong>Parsed and verified
+              entirely in this browser. Nothing is uploaded.</span
+            >
+          </label>
+          <div class="passport-result" id="passport-result" aria-live="polite">
+            <p>Awaiting <code>qec-run-passport-0.1</code>.</p>
+          </div>
+        </div>
+      </section>
       <div class="grid">
         <section class="panel">
           <div class="eyebrow">Build contract</div>

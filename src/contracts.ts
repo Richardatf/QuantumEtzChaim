@@ -9,6 +9,7 @@ import trace05 from "../tests/fixtures/golden-traces/or-seed-05.json";
 import trace09 from "../tests/fixtures/golden-traces/or-seed-09.json";
 import trace13 from "../tests/fixtures/golden-traces/or-seed-13.json";
 import trace21 from "../tests/fixtures/golden-traces/or-seed-21.json";
+import { parseRunPassport } from "./passport.js";
 
 const trace = trace09;
 const goldenTraces = [trace00, trace05, trace09, trace13, trace21];
@@ -21,6 +22,63 @@ const requirements = byId<HTMLDivElement>("requirements"),
   validation = byId<HTMLDivElement>("validation"),
   statuses = byId<HTMLDivElement>("schema-status"),
   downloads = byId<HTMLDivElement>("downloads");
+const passportFile = byId<HTMLInputElement>("passport-file"),
+  passportResult = byId<HTMLDivElement>("passport-result");
+
+passportFile.addEventListener("change", async () => {
+  const file = passportFile.files?.[0];
+  if (!file) return;
+  const parsed = parseRunPassport(await file.text());
+  passportResult.replaceChildren();
+  if (!parsed.ok) {
+    const error = document.createElement("p");
+    error.className = "invalid";
+    error.textContent = `REJECTED / ${parsed.error}`;
+    passportResult.append(error);
+    return;
+  }
+  const passport = parsed.passport;
+  const verdict = document.createElement("p");
+  verdict.className = "valid";
+  verdict.textContent = `VALID / ${passport.schemaVersion}`;
+  const facts = document.createElement("dl");
+  [
+    ["Run", passport.runId],
+    ["Source", passport.source],
+    ["Seed", String(passport.seed)],
+    ["Trace", `${passport.trace.length} complete events`],
+    ["Engine", passport.engineVersion],
+    ["Path map", passport.pathMapVersion],
+  ].forEach(([term, value]) => {
+    const box = document.createElement("div"),
+      dt = document.createElement("dt"),
+      dd = document.createElement("dd");
+    dt.textContent = term!;
+    dd.textContent = value!;
+    box.append(dt, dd);
+    facts.append(box);
+  });
+  const actions = document.createElement("div");
+  actions.className = "actions";
+  const inspect = document.createElement("button");
+  inspect.textContent = "Inspect trace";
+  inspect.onclick = () => {
+    events.replaceChildren();
+    passport.trace.forEach((event) => {
+      const node = document.createElement("article");
+      node.className = "event";
+      node.innerHTML = `<b>${String(event.sequence).padStart(2, "0")}</b><strong lang="he">${event.letter}</strong><div><code>${event.changedRegisters.length} registers changed</code></div><span class="hash">${event.beforeHash} → ${event.afterHash}</span>`;
+      events.append(node);
+    });
+    events.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  const manifest = document.createElement("a");
+  manifest.className = "button";
+  manifest.textContent = "Manifest in Malchut";
+  manifest.href = `console.html?program=${encodeURIComponent(passport.source)}&seed=${passport.seed}#manifestation-inspector`;
+  actions.append(inspect, manifest);
+  passportResult.append(verdict, facts, actions);
+});
 const items = [
   `Radix ${build.machine.radix}`,
   `${build.machine.visibleRegisters}+${build.machine.hiddenRegisters} registers`,
