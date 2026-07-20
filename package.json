@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "vite",
     "build:shared": "npm run build --workspace @ivritcode/core && npm run build --workspace @qec/core",
-    "build": "npm run build:shared && tsc --noEmit && vite build",
+    "build": "npm run build:shared && tsc --noEmit && vite build && node scripts/verify-published-links.mjs",
     "format:check": "prettier --check .",
     "test": "npm run build:shared && vitest run tests",
     "typecheck": "npm run build:shared && tsc --noEmit"

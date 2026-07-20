@@ -1,14 +1,24 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$schema": "https://quantumetzchaim.com/schemas/build-contract-v0.3.schema.json",
   "id": "qec-build-0.3",
   "status": "executable-prototype",
   "updated": "2026-07-19",
+  "packages": {
+    "ivritCodeCore": { "name": "@ivritcode/core", "version": "1.0.0", "canonical": true },
+    "qecCore": { "name": "@qec/core", "version": "0.1.0", "canonical": true },
+    "qecSpec": { "name": "@qec/spec", "version": "0.1.0", "canonical": true }
+  },
   "machine": {
     "radix": 22,
     "visibleRegisters": 22,
     "hiddenRegisters": 1,
     "stateSchema": "qec-machine-state-0.3",
     "traceSchema": "qec-trace-0.3"
+  },
+  "artifacts": {
+    "pathMap": "qec-paths-v0.3.json",
+    "trace": "schemas/trace-v0.3.schema.json",
+    "manifestation": "schemas/manifestation-v0.2.schema.json"
   },
   "determinism": {
     "canonicalSeed": 9,
@@ -36,12 +46,19 @@
     "rendering-does-not-mutate-machine-state"
   ],
   "requiredSchemas": [
+    "build-contract",
     "machine-state",
     "path-map",
     "trace",
     "observation",
     "manifestation"
   ],
+  "release": {
+    "requiresAllGates": true,
+    "allowsSkippedDeterminism": false,
+    "allowsSkippedSecurity": false,
+    "provenanceRequired": true
+  },
   "verificationGates": [
     "schema",
     "typecheck",

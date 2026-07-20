@@ -240,6 +240,32 @@ interface TransformDefinition {
   operation: QecPath["operation"];
 }
 
+export interface TraceExport {
+  schemaVersion: "qec-trace-0.3";
+  engineVersion: typeof IVRIT_ENGINE_VERSION;
+  pathMapVersion: typeof QEC_PATH_MAP_VERSION;
+  manifestationVersion: typeof QEC_MANIFESTATION_VERSION;
+  program: string;
+  programHash: string;
+  seed: number;
+  initialState: readonly number[];
+  events: readonly {
+    sequence: number;
+    instructionIndex: number;
+    letter: HebrewLetter;
+    transform: string;
+    route: readonly [SefirahName, SefirahName];
+    services: readonly ServiceName[];
+    before: readonly number[];
+    after: readonly number[];
+    beforeHash: string;
+    afterHash: string;
+    coherence: CoherenceState;
+  }[];
+  completeTraceHash: string;
+  observation: ObservationEvent;
+}
+
 export const TRANSFORM_REGISTRY = {
   "preserve-frame": { operation: "hold" },
   "impulse-pair": { operation: "exchange" },
@@ -573,6 +599,42 @@ export function manifestationExport(
       checksum: result.manifestation.checksum,
     },
   };
+}
+
+export function traceExport(result: ProgramExecutionResult): TraceExport {
+  return {
+    schemaVersion: "qec-trace-0.3",
+    engineVersion: IVRIT_ENGINE_VERSION,
+    pathMapVersion: QEC_PATH_MAP_VERSION,
+    manifestationVersion: QEC_MANIFESTATION_VERSION,
+    program: result.program,
+    programHash: contentHash(result.program),
+    seed: result.seed,
+    initialState: [...result.initialState],
+    events: result.pathEvents.map((event, index) => ({
+      sequence: index,
+      instructionIndex: event.step - 1,
+      letter: event.letter,
+      transform: event.path.transform.id,
+      route: [event.path.source, event.path.destination],
+      services: [...event.servicesInvoked],
+      before: [...event.before],
+      after: [...event.after],
+      beforeHash: stateHash(event.before),
+      afterHash: stateHash(event.after),
+      coherence: { ...event.coherence },
+    })),
+    completeTraceHash: result.observation.traceHash,
+    observation: {
+      ...result.observation,
+      candidates: result.observation.candidates.map((candidate) => ({ ...candidate })),
+      snapshot: [...result.observation.snapshot],
+    },
+  };
+}
+
+export function serializeTrace(result: ProgramExecutionResult): string {
+  return JSON.stringify(traceExport(result), null, 2);
 }
 
 export function serializeManifestation(result: ProgramExecutionResult): string {

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quantumetzchaim.com/schemas/build-contract-v0.3.schema.json",
+  "title": "Quantum Etz Chaim build contract 0.3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "id", "status", "updated", "packages", "machine", "artifacts", "determinism", "limits", "invariants", "requiredSchemas", "verificationGates", "release", "disclaimer"],
+  "properties": {
+    "$schema": { "const": "https://quantumetzchaim.com/schemas/build-contract-v0.3.schema.json" },
+    "id": { "const": "qec-build-0.3" },
+    "status": { "enum": ["draft", "executable-prototype", "release-candidate", "stable"] },
+    "updated": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "packages": {
+      "type": "object", "additionalProperties": false,
+      "required": ["ivritCodeCore", "qecCore", "qecSpec"],
+      "properties": {
+        "ivritCodeCore": { "$ref": "#/$defs/package" },
+        "qecCore": { "$ref": "#/$defs/package" },
+        "qecSpec": { "$ref": "#/$defs/package" }
+      }
+    },
+    "machine": {
+      "type": "object", "additionalProperties": false,
+      "required": ["radix", "visibleRegisters", "hiddenRegisters", "stateSchema", "traceSchema"],
+      "properties": {
+        "radix": { "const": 22 }, "visibleRegisters": { "const": 22 }, "hiddenRegisters": { "const": 1 },
+        "stateSchema": { "const": "qec-machine-state-0.3" }, "traceSchema": { "const": "qec-trace-0.3" }
+      }
+    },
+    "artifacts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["pathMap", "trace", "manifestation"],
+      "properties": {
+        "pathMap": { "const": "qec-paths-v0.3.json" },
+        "trace": { "const": "schemas/trace-v0.3.schema.json" },
+        "manifestation": { "const": "schemas/manifestation-v0.2.schema.json" }
+      }
+    },
+    "determinism": { "type": "object", "additionalProperties": false, "required": ["canonicalSeed", "seedType", "wallClockInput", "systemRandomness", "canonicalJson", "classicalStateDependsOnCoherence"], "properties": { "canonicalSeed": { "const": 9 }, "seedType": { "const": "uint32" }, "wallClockInput": { "const": false }, "systemRandomness": { "const": false }, "canonicalJson": { "const": true }, "classicalStateDependsOnCoherence": { "const": false } } },
+    "limits": { "type": "object", "additionalProperties": false, "required": ["sourceGraphemes", "instructions", "executionSteps", "traceEvents", "exportBytes", "recursion"], "properties": { "sourceGraphemes": { "type": "integer", "minimum": 1 }, "instructions": { "type": "integer", "minimum": 1, "maximum": 1024 }, "executionSteps": { "type": "integer", "minimum": 1 }, "traceEvents": { "type": "integer", "minimum": 1, "maximum": 50000 }, "exportBytes": { "type": "integer", "minimum": 1024 }, "recursion": { "const": 0 } } },
+    "invariants": { "$ref": "#/$defs/nonEmptyUniqueStrings" },
+    "requiredSchemas": { "type": "array", "uniqueItems": true, "minItems": 6, "items": { "enum": ["build-contract", "machine-state", "path-map", "trace", "observation", "manifestation"] }, "allOf": [{ "contains": { "const": "build-contract" } }, { "contains": { "const": "trace" } }, { "contains": { "const": "path-map" } }] },
+    "verificationGates": { "$ref": "#/$defs/nonEmptyUniqueStrings" },
+    "release": { "type": "object", "additionalProperties": false, "required": ["requiresAllGates", "allowsSkippedDeterminism", "allowsSkippedSecurity", "provenanceRequired"], "properties": { "requiresAllGates": { "const": true }, "allowsSkippedDeterminism": { "const": false }, "allowsSkippedSecurity": { "const": false }, "provenanceRequired": { "const": true } } },
+    "disclaimer": { "type": "string", "minLength": 20 }
+  },
+  "$defs": {
+    "package": { "type": "object", "additionalProperties": false, "required": ["name", "version", "canonical"], "properties": { "name": { "type": "string", "pattern": "^@[a-z0-9-]+/[a-z0-9-]+$" }, "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" }, "canonical": { "const": true } } },
+    "nonEmptyUniqueStrings": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+  }
+}
