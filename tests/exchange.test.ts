@@ -3,6 +3,7 @@ import { activationNodes } from "../src/main.js";
 import {
   EXCHANGE_VERSION,
   readExchange,
+  readRunPassport,
   type IvritCodeExchange,
 } from "../src/exchange.js";
 import {
@@ -39,4 +40,35 @@ describe("IvritCode integration", () => {
     ).toBeUndefined());
   it("maps the same exchange to the same tree nodes", () =>
     expect(activationNodes(fixture)).toEqual(activationNodes(fixture)));
+  it("accepts a complete run passport and rejects a broken trace", () => {
+    const passport = {
+      ...fixture,
+      schemaVersion: "qec-run-passport-0.1",
+      runId: fixture.traceHash,
+      trace: [
+        {
+          sequence: 0,
+          letter: "א",
+          before: fixture.initialState,
+          after: fixture.finalState,
+          beforeHash: "fnv1a32-11111111",
+          afterHash: "fnv1a32-22222222",
+          changedRegisters: [0],
+        },
+      ],
+      validation: {
+        status: "valid",
+        registerCount: 23,
+        traceComplete: true,
+        deterministic: true,
+      },
+    };
+    const query = `?passport=${encodeURIComponent(JSON.stringify(passport))}`;
+    expect(readRunPassport(query)).toEqual(passport);
+    expect(
+      readRunPassport(
+        `?passport=${encodeURIComponent(JSON.stringify({ ...passport, trace: [] }))}`,
+      ),
+    ).toBeUndefined();
+  });
 });
