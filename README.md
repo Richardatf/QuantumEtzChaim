@@ -19,6 +19,9 @@ data is ignored; it never becomes executable code.
 
 - Original concept artwork: `assets/images/`
 - Repository-native engineering plates: `schematics/`
+- [QEC-1 physical machine build guide](docs/QEC_1_PHYSICAL_BUILD.md), with
+  system, low-voltage wiring, and dimensioned panel drawings
+- [Machine-readable QEC-1 hardware contract](specifications/qec-hardware-v0.1.json)
 - [Quantum Etz Chaim / IvritOS v0.2 build specification](docs/BUILD_SPEC.md)
 - [Machine-readable architecture contract](specifications/qec-architecture-v0.2.json)
 - [Draft 2020-12 contract schemas](specifications/schemas/) for machine state,

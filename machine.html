@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Build the QEC-1 physical tabletop machine: engineering model, low-voltage wiring, panel drawing, bill of materials, assembly sequence, and acceptance tests."
+    />
+    <meta name="theme-color" content="#05070c" />
+    <title>QEC-1 Physical Machine — Quantum Etz Chaim</title>
+    <link rel="stylesheet" href="/css/machine.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div
+        class="shell"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1rem;
+        "
+      >
+        <a class="brand" href="/">
+          <span class="brand-mark" aria-hidden="true">א</span>
+          <span
+            ><strong>QEC-1 PHYSICAL MACHINE</strong
+            ><small>HARDWARE CONTRACT 0.1</small></span
+          >
+        </a>
+        <nav aria-label="Primary navigation">
+          <a href="#schematics">Schematics</a>
+          <a href="#build">Build sequence</a>
+          <a href="console.html">Console</a>
+          <a href="index.html">Atlas</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="shell hero">
+        <p class="eyebrow">
+          PHYSICAL INTERFACE / DETERMINISTIC RUNTIME / BUILDABLE NOW
+        </p>
+        <h1>The Tree becomes a <em>machine.</em></h1>
+        <p class="lede">
+          QEC-1 is a 600 × 420 mm tabletop control surface for the canonical
+          Quantum Etz Chaim runtime: 24 keys, 56 addressable indicators, one
+          auditable state, and a complete reproducible trace.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="docs/QEC_1_PHYSICAL_BUILD.md"
+            >Open full build guide →</a
+          >
+          <a class="button" href="schematics/qec-1-physical-machine.html"
+            >Open engineering plates</a
+          >
+          <a class="button" href="specifications/qec-hardware-v0.1.json"
+            >Machine-readable model</a
+          >
+        </div>
+        <p class="boundary">
+          <strong>Scientific boundary:</strong> QEC-1 is a classical
+          deterministic control-and-display machine. It contains no qubits and
+          makes no claim of superposition, entanglement, quantum error
+          correction, or quantum speedup.
+        </p>
+      </section>
+
+      <section class="shell tier-grid" aria-label="Machine build tiers">
+        <article class="tier">
+          <span class="status">BUILD NOW / QEC-1A</span>
+          <h2>Tabletop demonstrator</h2>
+          <p>
+            Pi host, Pico panel controller, Hebrew keys, Tree/path/register
+            indicators, local display, and versioned USB protocol.
+          </p>
+        </article>
+        <article class="tier">
+          <span class="status">OPTIONAL / QEC-1B</span>
+          <h2>Hardware in the loop</h2>
+          <p>
+            Add an electrically isolated FPGA or RFSoC loopback target for
+            protocol and timing experiments. This tier remains classical.
+          </p>
+        </article>
+        <article class="tier">
+          <span class="status">LABORATORY ONLY / QEC-LAB</span>
+          <h2>Reviewed backend</h2>
+          <p>
+            Exchange versioned jobs and evidence with independently operated RF,
+            cryogenic, calibrated quantum-control equipment.
+          </p>
+        </article>
+      </section>
+
+      <section class="shell section" id="schematics">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">ENGINEERING PLATE SET</p>
+            <h2>Three drawings. One fixed model.</h2>
+          </div>
+          <p>
+            The system boundary establishes ownership. The wiring plate
+            establishes safe low-voltage power and signal paths. The panel plate
+            fixes overall dimensions, field placement, and canonical indicator
+            order.
+          </p>
+        </div>
+        <div class="plate-grid">
+          <a class="plate-card" href="schematics/qec-1-system.svg"
+            ><img
+              src="schematics/qec-1-system.svg"
+              alt="QEC-1 system architecture and scientific boundary"
+            />
+            <div>
+              <b>PLATE 04 / SYSTEM</b><span>Open full-resolution SVG ↗</span>
+            </div></a
+          >
+          <a class="plate-card" href="schematics/qec-1-wiring.svg"
+            ><img
+              loading="lazy"
+              src="schematics/qec-1-wiring.svg"
+              alt="QEC-1 low-voltage wiring schematic"
+            />
+            <div>
+              <b>PLATE 05 / WIRING</b><span>Open full-resolution SVG ↗</span>
+            </div></a
+          >
+          <a class="plate-card" href="schematics/qec-1-panel.svg"
+            ><img
+              loading="lazy"
+              src="schematics/qec-1-panel.svg"
+              alt="Dimensioned QEC-1 physical panel drawing"
+            />
+            <div>
+              <b>PLATE 06 / PANEL</b><span>Open full-resolution SVG ↗</span>
+            </div></a
+          >
+        </div>
+      </section>
+
+      <section class="shell section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">FIXED PHYSICAL MODEL</p>
+            <h2>Count every control and light.</h2>
+          </div>
+          <p>
+            The address map is part of the hardware contract: ten sefirot, one
+            Da’at boundary, twenty-two paths, and twenty-three registers. Aleph
+            Olam remains display-only and firmware-locked.
+          </p>
+        </div>
+        <div class="metric">
+          <div><strong>600 × 420</strong><span>PANEL / MM</span></div>
+          <div><strong>56</strong><span>RGB INDICATORS</span></div>
+          <div><strong>24</strong><span>MATRIX KEYS</span></div>
+          <div><strong>23</strong><span>STATE REGISTERS</span></div>
+        </div>
+        <div class="spec-grid" style="margin-top: 1rem">
+          <article class="spec-card">
+            <h3>Host plane</h3>
+            <p>
+              Raspberry Pi 5 runs the canonical engine, interface, trace store,
+              and optional local display. It uses its own certified 5 V / 5 A
+              USB-C supply and active cooling.
+            </p>
+          </article>
+          <article class="spec-card">
+            <h3>Panel plane</h3>
+            <p>
+              Raspberry Pi Pico 2 scans the 6 × 4 diode key matrix, drives
+              indicators through a 5 V logic shifter, and enters a visible fault
+              state when its host link fails.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="shell section" id="bom">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">CORE BILL OF MATERIALS</p>
+            <h2>What the first build requires.</h2>
+          </div>
+          <p>
+            This is the electrical core, not a shopping cart. Select
+            mechanically compatible switches, pixels, connectors, and fasteners,
+            then verify their actual measurements before final fabrication.
+          </p>
+        </div>
+        <div style="overflow-x: auto">
+          <table>
+            <thead>
+              <tr>
+                <th>QTY</th>
+                <th>COMPONENT</th>
+                <th>REQUIREMENT</th>
+                <th>ROLE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Raspberry Pi 5 + active cooling</td>
+                <td>8 GB recommended</td>
+                <td>Canonical host runtime</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Raspberry Pi Pico 2</td>
+                <td>Standard or W</td>
+                <td>Panel controller</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>External certified DC supplies</td>
+                <td>5 V / 5 A each</td>
+                <td>Separate host and panel domains</td>
+              </tr>
+              <tr>
+                <td>56</td>
+                <td>Addressable RGB modules</td>
+                <td>5 V WS2812-compatible</td>
+                <td>Nodes, paths, registers</td>
+              </tr>
+              <tr>
+                <td>24 + 24</td>
+                <td>Momentary switches + diodes</td>
+                <td>Normally open + 1N4148</td>
+                <td>6 × 4 key matrix</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>74AHCT125 or 74HCT245</td>
+                <td>3.3 V to 5 V logic</td>
+                <td>Pixel data level shifting</td>
+              </tr>
+              <tr>
+                <td>1 + 1</td>
+                <td>1,000 µF capacitor + 330–470 Ω resistor</td>
+                <td>6.3 V minimum capacitor</td>
+                <td>Pixel rail and data protection</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Fused, switched panel inlet</td>
+                <td>5 A DC rating</td>
+                <td>Panel branch protection</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="shell section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">POWER BOUNDARY</p>
+            <h2>No mains inside. No shared positive rail.</h2>
+          </div>
+          <p>
+            The Pi and panel have separate external 5 V supplies. Logic grounds
+            meet at the level-shifter distribution point; positive rails never
+            meet. A 5 A fuse sits immediately after the panel inlet.
+          </p>
+        </div>
+        <div class="spec-grid">
+          <article class="spec-card">
+            <h3>Panel budget</h3>
+            <p>
+              <strong>56 × 0.060 A = 3.36 A</strong> theoretical full-white
+              indicator load. The panel domain is sized for the full theoretical
+              load while firmware caps global brightness at 25%.
+            </p>
+          </article>
+          <article class="spec-card">
+            <h3>Protection details</h3>
+            <ul>
+              <li>1,000 µF capacitor across the panel rail near pixel 0</li>
+              <li>330–470 Ω resistor at the first data input</li>
+              <li>Power injection at pixel 0 and near register pixel 33</li>
+              <li>Ground first on connection; ground last on disconnection</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="shell section" id="build">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">ASSEMBLY SEQUENCE</p>
+            <h2>Prove it small. Then fabricate.</h2>
+          </div>
+          <p>
+            The final panel is the last irreversible step. A reduced four-key,
+            four-pixel harness must pass protocol, brightness, electrical, and
+            fault tests before full wiring or enclosure cutting.
+          </p>
+        </div>
+        <div class="phases">
+          <article class="phase">
+            <h3>Bench proof</h3>
+            <p>
+              Pi, Pico, four keys, four pixels, level shifter, fused panel
+              supply, handshake, and fault behavior.
+            </p>
+          </article>
+          <article class="phase">
+            <h3>Full harness</h3>
+            <p>
+              Build four keyed indicator sections, the diode matrix,
+              distribution board, and low-brightness walking test.
+            </p>
+          </article>
+          <article class="phase">
+            <h3>Enclosure</h3>
+            <p>
+              Verify a disposable 1:1 template, then fabricate, mount,
+              ventilate, strain-relieve, and label.
+            </p>
+          </article>
+          <article class="phase">
+            <h3>Runtime integration</h3>
+            <p>
+              Step and run canonical <span lang="he" dir="rtl">אור</span> seed
+              09; compare trace hash and manifestation checksum.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="shell section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">RELEASE GATE</p>
+            <h2>Acceptance is evidence.</h2>
+          </div>
+          <p>
+            The machine is complete only when the physical display reproduces
+            the canonical software result and every electrical or protocol
+            failure leaves the last valid state unchanged.
+          </p>
+        </div>
+        <ul class="checklist">
+          <li>Certified, labeled, strain-relieved external supplies</li>
+          <li>No mains voltage inside the enclosure</li>
+          <li>Panel polarity verified before load connection</li>
+          <li>5 A panel fuse and working master switch</li>
+          <li>All 56 addresses pass a walking-one test</li>
+          <li>Every key emits one debounced event</li>
+          <li>Aleph Olam has no physical input path</li>
+          <li>Invalid protocol frames fail closed</li>
+          <li>USB or panel-power loss creates visible fault</li>
+          <li>
+            <span lang="he" dir="rtl">אור</span> seed 09 reproduces trace and
+            checksum
+          </li>
+          <li>Ventilation remains clear after closure</li>
+          <li>Measured wiring matches the as-built record</li>
+        </ul>
+        <p class="source-note">
+          Component design basis: official
+          <a href="https://www.raspberrypi.com/products/raspberry-pi-5/"
+            >Raspberry Pi 5</a
+          >
+          and
+          <a href="https://www.raspberrypi.com/products/raspberry-pi-pico-2/"
+            >Pico 2</a
+          >
+          specifications; Adafruit’s
+          <a
+            href="https://learn.adafruit.com/adafruit-neopixel-uberguide/best-practices"
+            >NeoPixel best practices</a
+          >; and, for the future laboratory boundary only, the open-source
+          <a href="https://github.com/openquantumhardware/qick"
+            >QICK control stack</a
+          >.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell">
+        QUANTUM ETZ CHAIM · QEC-1 · HARDWARE CONTRACT 0.1 · CLASSICAL
+        DETERMINISTIC DEMONSTRATOR
+      </div>
+    </footer>
+  </body>
+</html>

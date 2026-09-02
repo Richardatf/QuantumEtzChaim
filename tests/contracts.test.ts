@@ -47,13 +47,14 @@ const schemas = schemaFiles.map((name) =>
 );
 
 describe("qec contract pack", () => {
-  it("publishes and compiles all six required schemas", () => {
+  it("publishes and compiles all seven required schemas", () => {
     expect(schemaFiles).toEqual([
       "build-contract-v0.3.schema.json",
       "machine-state-v0.3.schema.json",
       "manifestation-v0.2.schema.json",
       "observation-v0.3.schema.json",
       "path-map-v0.3.schema.json",
+      "qec-hardware-v0.1.schema.json",
       "trace-v0.3.schema.json",
     ]);
 
@@ -65,11 +66,17 @@ describe("qec contract pack", () => {
 
   it("validates the normative build contract", () => {
     const ajv = new Ajv2020({ allErrors: true });
-    const schema = readJson(`${schemaDirectory}/build-contract-v0.3.schema.json`);
-    const contract = readJson(
-      fileURLToPath(new URL("../specifications/qec-build-v0.3.json", import.meta.url)),
+    const schema = readJson(
+      `${schemaDirectory}/build-contract-v0.3.schema.json`,
     );
-    expect(ajv.validate(schema, contract), JSON.stringify(ajv.errors)).toBe(true);
+    const contract = readJson(
+      fileURLToPath(
+        new URL("../specifications/qec-build-v0.3.json", import.meta.url),
+      ),
+    );
+    expect(ajv.validate(schema, contract), JSON.stringify(ajv.errors)).toBe(
+      true,
+    );
   });
 
   it("validates the complete normative path map and its integrity digest", () => {
@@ -95,7 +102,10 @@ describe("qec contract pack", () => {
     );
     expect(
       fixture.paths.every((path) =>
-        Object.prototype.hasOwnProperty.call(TRANSFORM_REGISTRY, path.transform.id),
+        Object.prototype.hasOwnProperty.call(
+          TRANSFORM_REGISTRY,
+          path.transform.id,
+        ),
       ),
     ).toBe(true);
   });

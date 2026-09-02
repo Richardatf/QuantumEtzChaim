@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" role="img" aria-labelledby="title desc">
+  <title id="title">QEC-1 physical machine system architecture</title>
+  <desc id="desc">A buildable classical tabletop QEC machine with Raspberry Pi host, Pico panel controller, Hebrew controls, 56 indicators, separate low-voltage power domains, and an isolated laboratory-only quantum backend boundary.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#06100e"/><stop offset="1" stop-color="#0c1d1a"/></linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#70c9c1"/></marker>
+    <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1400" height="900" rx="28" fill="url(#bg)"/>
+  <g font-family="system-ui,sans-serif">
+    <text x="50" y="62" fill="#d4b46a" font-size="18" letter-spacing="4">QEC-1 PHYSICAL MACHINE / SYSTEM PLATE</text>
+    <text x="50" y="91" fill="#9ba9a3" font-size="13">Buildable classical demonstrator · qec-hardware-0.1 · no internal mains</text>
+
+    <rect x="50" y="130" width="820" height="610" rx="24" fill="#081512" stroke="#d4b46a" stroke-opacity=".55"/>
+    <text x="80" y="170" fill="#d4b46a" font-size="14" letter-spacing="3">QEC-1A / BUILD NOW</text>
+
+    <g transform="translate(95 220)">
+      <rect width="300" height="180" rx="18" fill="#10231f" stroke="#70c9c1" stroke-opacity=".6"/>
+      <text x="24" y="38" fill="#70c9c1" font-size="13" letter-spacing="2">HOST PLANE</text>
+      <text x="24" y="76" fill="#eee9dc" font-size="24" font-family="Georgia,serif">Raspberry Pi 5</text>
+      <text x="24" y="108" fill="#9ba9a3" font-size="13">canonical QEC runtime</text>
+      <text x="24" y="132" fill="#9ba9a3" font-size="13">trace · observation · manifestation</text>
+      <text x="24" y="156" fill="#9ba9a3" font-size="13">local UI / HDMI display</text>
+    </g>
+
+    <g transform="translate(520 220)">
+      <rect width="300" height="180" rx="18" fill="#10231f" stroke="#70c9c1" stroke-opacity=".6"/>
+      <text x="24" y="38" fill="#70c9c1" font-size="13" letter-spacing="2">PANEL PLANE</text>
+      <text x="24" y="76" fill="#eee9dc" font-size="24" font-family="Georgia,serif">Raspberry Pi Pico 2</text>
+      <text x="24" y="108" fill="#9ba9a3" font-size="13">6 × 4 key matrix</text>
+      <text x="24" y="132" fill="#9ba9a3" font-size="13">56 indicator addresses</text>
+      <text x="24" y="156" fill="#9ba9a3" font-size="13">watchdog · fault state</text>
+    </g>
+
+    <path d="M395 310H510" stroke="#70c9c1" stroke-width="4" marker-end="url(#arrow)"/>
+    <text x="452" y="290" fill="#70c9c1" font-size="12" text-anchor="middle">USB CDC / JSONL</text>
+    <text x="452" y="333" fill="#9ba9a3" font-size="11" text-anchor="middle">115,200 baud</text>
+
+    <g transform="translate(95 470)">
+      <rect width="725" height="215" rx="18" fill="#0b1916" stroke="#d4b46a" stroke-opacity=".5"/>
+      <text x="24" y="38" fill="#d4b46a" font-size="13" letter-spacing="2">PHYSICAL FIELD</text>
+      <g transform="translate(34 70)">
+        <rect width="150" height="105" rx="12" fill="#07110f" stroke="#d4b46a" stroke-opacity=".45"/>
+        <text x="75" y="38" fill="#eee9dc" font-size="21" text-anchor="middle">10 + 1</text>
+        <text x="75" y="65" fill="#9ba9a3" font-size="12" text-anchor="middle">SEFIROT + DA’AT</text>
+        <text x="75" y="86" fill="#9ba9a3" font-size="11" text-anchor="middle">addresses 0–10</text>
+      </g>
+      <g transform="translate(205 70)">
+        <rect width="150" height="105" rx="12" fill="#07110f" stroke="#d4b46a" stroke-opacity=".45"/>
+        <text x="75" y="38" fill="#eee9dc" font-size="21" text-anchor="middle">22</text>
+        <text x="75" y="65" fill="#9ba9a3" font-size="12" text-anchor="middle">PATH INDICATORS</text>
+        <text x="75" y="86" fill="#9ba9a3" font-size="11" text-anchor="middle">addresses 11–32</text>
+      </g>
+      <g transform="translate(376 70)">
+        <rect width="150" height="105" rx="12" fill="#07110f" stroke="#d4b46a" stroke-opacity=".45"/>
+        <text x="75" y="38" fill="#eee9dc" font-size="21" text-anchor="middle">23</text>
+        <text x="75" y="65" fill="#9ba9a3" font-size="12" text-anchor="middle">REGISTER LIGHTS</text>
+        <text x="75" y="86" fill="#9ba9a3" font-size="11" text-anchor="middle">addresses 33–55</text>
+      </g>
+      <g transform="translate(547 70)">
+        <rect width="150" height="105" rx="12" fill="#07110f" stroke="#d4b46a" stroke-opacity=".45"/>
+        <text x="75" y="38" fill="#eee9dc" font-size="21" text-anchor="middle">24</text>
+        <text x="75" y="65" fill="#9ba9a3" font-size="12" text-anchor="middle">PHYSICAL KEYS</text>
+        <text x="75" y="86" fill="#9ba9a3" font-size="11" text-anchor="middle">22 letters + step/run</text>
+      </g>
+    </g>
+    <path d="M670 400V458" stroke="#70c9c1" stroke-width="4" marker-end="url(#arrow)"/>
+
+    <g transform="translate(930 130)">
+      <rect width="420" height="280" rx="24" fill="#081512" stroke="#70c9c1" stroke-opacity=".5"/>
+      <text x="28" y="42" fill="#70c9c1" font-size="14" letter-spacing="3">LOW-VOLTAGE POWER</text>
+      <rect x="28" y="76" width="364" height="72" rx="12" fill="#0e211d" stroke="#d4b46a" stroke-opacity=".4"/>
+      <text x="48" y="105" fill="#eee9dc" font-size="15">HOST_5V · dedicated USB-C</text>
+      <text x="48" y="130" fill="#9ba9a3" font-size="12">certified 5 V / 5 A → Raspberry Pi 5</text>
+      <rect x="28" y="170" width="364" height="82" rx="12" fill="#0e211d" stroke="#d4b46a" stroke-opacity=".4"/>
+      <text x="48" y="199" fill="#eee9dc" font-size="15">PANEL_5V · regulated DC</text>
+      <text x="48" y="224" fill="#9ba9a3" font-size="12">5 V / 5 A → fuse → switch → 56 pixels</text>
+      <text x="48" y="245" fill="#9ba9a3" font-size="11">NO INTERNAL MAINS · POSITIVE RAILS NEVER JOIN</text>
+    </g>
+
+    <g transform="translate(930 470)">
+      <rect width="420" height="270" rx="24" fill="#120f13" stroke="#a78bfa" stroke-width="2" stroke-dasharray="9 8"/>
+      <text x="28" y="42" fill="#a78bfa" font-size="14" letter-spacing="3">QEC-LAB / NOT A DIY BUILD</text>
+      <text x="28" y="82" fill="#eee9dc" font-size="21" font-family="Georgia,serif">Reviewed backend adapter</text>
+      <text x="28" y="115" fill="#9ba9a3" font-size="13">versioned job + evidence contract</text>
+      <rect x="28" y="142" width="364" height="88" rx="12" fill="#0a0b12" stroke="#a78bfa" stroke-opacity=".45"/>
+      <text x="48" y="171" fill="#eee9dc" font-size="14">RFSoC control → RF front end → cryostat</text>
+      <text x="48" y="198" fill="#9ba9a3" font-size="12">qualified laboratory · calibration · interlocks</text>
+      <text x="48" y="219" fill="#9ba9a3" font-size="11">never inferred from symbolic correspondence</text>
+    </g>
+    <path d="M870 610H915" stroke="#a78bfa" stroke-width="3" stroke-dasharray="8 7" marker-end="url(#arrow)"/>
+
+    <rect x="50" y="790" width="1300" height="66" rx="16" fill="#d4b46a" fill-opacity=".06" stroke="#d4b46a" stroke-opacity=".5"/>
+    <text x="700" y="817" fill="#d4b46a" font-size="13" letter-spacing="2" text-anchor="middle">SCIENTIFIC BOUNDARY</text>
+    <text x="700" y="840" fill="#9ba9a3" font-size="13" text-anchor="middle">QEC-1 is physical hardware running a classical deterministic model. Physical presence does not make the computation quantum.</text>
+  </g>
+</svg>

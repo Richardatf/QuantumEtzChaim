@@ -284,3 +284,9 @@ Git submodule.
 ## 16. Definition of done
 
 Kernel 0.3 is done when both public experiences consume the same versioned engine; all 22 instructions compile and resolve; the machine is deterministic and bounded; every visual or symbolic claim cites a trace event or explicit convention; observation and manifestation exports validate against published schemas; classical results do not depend on coherence visualization; and every verification gate runs in CI.
+
+## 17. Physical demonstrator
+
+The software architecture may be manifested as the **QEC-1A tabletop demonstrator**: a classical Raspberry Pi host, a Pico panel controller, twenty-four keys, and fifty-six addressable indicators. Its normative hardware model is `specifications/qec-hardware-v0.1.json`; fabrication, low-voltage wiring, protocol, and acceptance instructions are in `docs/QEC_1_PHYSICAL_BUILD.md`.
+
+QEC-1A does not implement qubits, superposition, entanglement, quantum error correction, or quantum speedup. Any future laboratory backend remains outside the tabletop enclosure and must use a reviewed, versioned adapter with independently validated equipment and evidence.

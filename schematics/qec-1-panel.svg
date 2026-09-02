@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 980" role="img" aria-labelledby="title desc">
+  <title id="title">QEC-1 panel placement drawing</title>
+  <desc id="desc">A dimensioned six-hundred by four-hundred-twenty millimeter tabletop panel with Tree indicators on the left, register indicators and a twenty-four-key matrix on the right.</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#06100e"/><stop offset="1" stop-color="#10231f"/></linearGradient><marker id="dim" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse"><path d="M0 4L8 0V8Z" fill="#70c9c1"/></marker></defs>
+  <rect width="1400" height="980" rx="28" fill="url(#bg)"/>
+  <g font-family="system-ui,sans-serif">
+    <text x="50" y="62" fill="#d4b46a" font-size="18" letter-spacing="4">QEC-1 PANEL PLACEMENT / 600 × 420 mm</text>
+    <text x="50" y="91" fill="#9ba9a3" font-size="13">Placement reference only · verify actual component cutouts and tolerances before fabrication</text>
+
+    <g transform="translate(100 145) scale(1.8)">
+      <rect width="600" height="420" rx="10" fill="#081512" stroke="#d4b46a" stroke-width="1.5"/>
+      <line x1="360" y1="18" x2="360" y2="402" stroke="#d4b46a" stroke-opacity=".28" stroke-dasharray="4 4"/>
+      <text x="180" y="24" fill="#70c9c1" font-size="8" letter-spacing="1.4" text-anchor="middle">TREE / 10 SEFIROT + DA’AT + 22 PATH CHANNELS</text>
+      <text x="480" y="24" fill="#70c9c1" font-size="8" letter-spacing="1.4" text-anchor="middle">REGISTERS / HEBREW INPUT</text>
+
+      <g fill="none" stroke="#d4b46a" stroke-opacity=".34" stroke-width="1.2">
+        <path d="M180 55L265 110H95L180 55V145"/>
+        <path d="M265 110V195L180 230L95 195V110"/>
+        <path d="M180 145V230L265 285L180 340L95 285L180 230"/>
+        <path d="M95 285L180 340V385L265 285"/>
+      </g>
+      <g fill="#11241f" stroke="#d4b46a" stroke-width="1">
+        <g transform="translate(180 55)"><circle r="17"/><text y="3">KETER</text></g>
+        <g transform="translate(265 110)"><circle r="17"/><text y="3">CHOKHMAH</text></g>
+        <g transform="translate(95 110)"><circle r="17"/><text y="3">BINAH</text></g>
+        <g transform="translate(180 145)"><circle r="13" stroke-dasharray="3 3"/><text y="3">DA’AT</text></g>
+        <g transform="translate(265 195)"><circle r="17"/><text y="3">CHESED</text></g>
+        <g transform="translate(95 195)"><circle r="17"/><text y="3">GEVURAH</text></g>
+        <g transform="translate(180 230)"><circle r="19"/><text y="3">TIFERET</text></g>
+        <g transform="translate(265 285)"><circle r="17"/><text y="3">NETZACH</text></g>
+        <g transform="translate(95 285)"><circle r="17"/><text y="3">HOD</text></g>
+        <g transform="translate(180 340)"><circle r="17"/><text y="3">YESOD</text></g>
+        <g transform="translate(180 385)"><circle r="17"/><text y="3">MALCHUT</text></g>
+      </g>
+
+      <g fill="#70c9c1">
+        <circle cx="152" cy="76" r="3"/><circle cx="208" cy="76" r="3"/><circle cx="180" cy="82" r="3"/><circle cx="135" cy="110" r="3"/><circle cx="225" cy="110" r="3"/><circle cx="180" cy="112" r="3"/>
+        <circle cx="265" cy="152" r="3"/><circle cx="95" cy="152" r="3"/><circle cx="180" cy="187" r="3"/><circle cx="222" cy="212" r="3"/><circle cx="138" cy="212" r="3"/>
+        <circle cx="222" cy="257" r="3"/><circle cx="138" cy="257" r="3"/><circle cx="265" cy="242" r="3"/><circle cx="95" cy="242" r="3"/><circle cx="222" cy="312" r="3"/><circle cx="138" cy="312" r="3"/>
+        <circle cx="180" cy="285" r="3"/><circle cx="180" cy="322" r="3"/><circle cx="180" cy="362" r="3"/><circle cx="122" cy="175" r="3"/><circle cx="238" cy="175" r="3"/>
+      </g>
+
+      <rect x="382" y="45" width="196" height="75" rx="8" fill="#07110f" stroke="#d4b46a" stroke-opacity=".5"/>
+      <text x="480" y="59" fill="#d4b46a" font-size="7" letter-spacing="1" text-anchor="middle">23 REGISTER INDICATORS</text>
+      <g fill="#eee9dc" stroke="#70c9c1" stroke-width=".7">
+        <circle cx="398" cy="78" r="5"/><circle cx="414" cy="78" r="5"/><circle cx="430" cy="78" r="5"/><circle cx="446" cy="78" r="5"/><circle cx="462" cy="78" r="5"/><circle cx="478" cy="78" r="5"/><circle cx="494" cy="78" r="5"/><circle cx="510" cy="78" r="5"/><circle cx="526" cy="78" r="5"/><circle cx="542" cy="78" r="5"/><circle cx="558" cy="78" r="5"/>
+        <circle cx="398" cy="99" r="5"/><circle cx="414" cy="99" r="5"/><circle cx="430" cy="99" r="5"/><circle cx="446" cy="99" r="5"/><circle cx="462" cy="99" r="5"/><circle cx="478" cy="99" r="5"/><circle cx="494" cy="99" r="5"/><circle cx="510" cy="99" r="5"/><circle cx="526" cy="99" r="5"/><circle cx="542" cy="99" r="5"/><circle cx="558" cy="99" r="5"/><circle cx="574" cy="99" r="6" fill="#a78bfa"/>
+      </g>
+
+      <g transform="translate(398 145)">
+        <text x="82" y="-10" fill="#d4b46a" font-size="7" letter-spacing="1" text-anchor="middle">6 × 4 KEY MATRIX</text>
+        <g font-family="serif" font-size="11" font-weight="700" text-anchor="middle">
+          <g transform="translate(0 0)"><rect width="34" height="34" rx="5"/><text x="17" y="22">א</text></g><g transform="translate(42 0)"><rect width="34" height="34" rx="5"/><text x="17" y="22">ב</text></g><g transform="translate(84 0)"><rect width="34" height="34" rx="5"/><text x="17" y="22">ג</text></g><g transform="translate(126 0)"><rect width="34" height="34" rx="5"/><text x="17" y="22">ד</text></g>
+          <g transform="translate(0 42)"><rect width="34" height="34" rx="5"/><text x="17" y="22">ה</text></g><g transform="translate(42 42)"><rect width="34" height="34" rx="5"/><text x="17" y="22">ו</text></g><g transform="translate(84 42)"><rect width="34" height="34" rx="5"/><text x="17" y="22">ז</text></g><g transform="translate(126 42)"><rect width="34" height="34" rx="5"/><text x="17" y="22">ח</text></g>
+          <g transform="translate(0 84)"><rect width="34" height="34" rx="5"/><text x="17" y="22">ט</text></g><g transform="translate(42 84)"><rect width="34" height="34" rx="5"/><text x="17" y="22">י</text></g><g transform="translate(84 84)"><rect width="34" height="34" rx="5"/><text x="17" y="22">כ</text></g><g transform="translate(126 84)"><rect width="34" height="34" rx="5"/><text x="17" y="22">ל</text></g>
+          <g transform="translate(0 126)"><rect width="34" height="34" rx="5"/><text x="17" y="22">מ</text></g><g transform="translate(42 126)"><rect width="34" height="34" rx="5"/><text x="17" y="22">נ</text></g><g transform="translate(84 126)"><rect width="34" height="34" rx="5"/><text x="17" y="22">ס</text></g><g transform="translate(126 126)"><rect width="34" height="34" rx="5"/><text x="17" y="22">ע</text></g>
+          <g transform="translate(0 168)"><rect width="34" height="34" rx="5"/><text x="17" y="22">פ</text></g><g transform="translate(42 168)"><rect width="34" height="34" rx="5"/><text x="17" y="22">צ</text></g><g transform="translate(84 168)"><rect width="34" height="34" rx="5"/><text x="17" y="22">ק</text></g><g transform="translate(126 168)"><rect width="34" height="34" rx="5"/><text x="17" y="22">ר</text></g>
+          <g transform="translate(0 210)"><rect width="34" height="34" rx="5"/><text x="17" y="22">ש</text></g><g transform="translate(42 210)"><rect width="34" height="34" rx="5"/><text x="17" y="22">ת</text></g><g transform="translate(84 210)"><rect width="34" height="34" rx="5" fill="#17342d"/><text x="17" y="21" font-family="system-ui" font-size="6">STEP</text></g><g transform="translate(126 210)"><rect width="34" height="34" rx="5" fill="#17342d"/><text x="17" y="21" font-family="system-ui" font-size="6">RUN</text></g>
+        </g>
+      </g>
+      <g transform="translate(382 365)"><rect width="196" height="35" rx="8" fill="#07110f" stroke="#d4b46a" stroke-opacity=".5"/><text x="98" y="15" fill="#eee9dc" font-size="7" text-anchor="middle">PANEL POWER · FUSED 5 V</text><text x="98" y="27" fill="#9ba9a3" font-size="6" text-anchor="middle">DC IN · SWITCH · STATUS · USB SERVICE</text></g>
+    </g>
+
+    <line x1="100" y1="120" x2="1180" y2="120" stroke="#70c9c1" stroke-width="1.5" marker-start="url(#dim)" marker-end="url(#dim)"/>
+    <text x="640" y="108" fill="#70c9c1" font-size="13" text-anchor="middle">600 mm</text>
+    <line x1="70" y1="145" x2="70" y2="901" stroke="#70c9c1" stroke-width="1.5" marker-start="url(#dim)" marker-end="url(#dim)"/>
+    <text x="48" y="523" fill="#70c9c1" font-size="13" text-anchor="middle" transform="rotate(-90 48 523)">420 mm</text>
+  </g>
+  <style>g[transform^="translate(180"],g[transform^="translate(265"],g[transform^="translate(95"]{font-family:system-ui,sans-serif}g[transform^="translate(180"] text,g[transform^="translate(265"] text,g[transform^="translate(95"] text{fill:#eee9dc;font-size:5px;text-anchor:middle}g[transform="translate(398 145)"] rect{fill:#eee9dc;stroke:#d4b46a;stroke-width:.8}g[transform="translate(398 145)"] text{fill:#10231f}</style>
+</svg>

@@ -38,6 +38,7 @@ export default defineConfig({
         contracts: "contract-explorer.html",
         runtime: "qec-v0.1.html",
         wave: "wave.html",
+        machine: "machine.html",
       },
     },
   },

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Full-resolution QEC-1 system, wiring, and physical panel engineering plates."
+    />
+    <title>QEC-1 Engineering Plates — Quantum Etz Chaim</title>
+    <link rel="stylesheet" href="plate.css" />
+  </head>
+  <body>
+    <nav class="shell nav">
+      <a href="../machine.html">← Physical Machine</a>
+      <div>
+        <a class="button" href="../docs/QEC_1_PHYSICAL_BUILD.md">Build Guide</a
+        ><a class="button" href="../specifications/qec-hardware-v0.1.json"
+          >Hardware Model</a
+        >
+      </div>
+    </nav>
+    <main class="shell">
+      <header>
+        <div class="eyebrow">
+          Engineering plates 04–06 / QEC-1 hardware contract 0.1
+        </div>
+        <h1>The physical machine</h1>
+        <p>
+          Three repository-native drawings fix the system boundary, low-voltage
+          power and signal paths, and 600 × 420 mm control-surface layout for
+          the QEC-1A classical tabletop demonstrator.
+        </p>
+        <div class="meta">
+          <span>5 V DC ONLY</span><span>56 INDICATORS</span><span>24 KEYS</span
+          ><span>23 REGISTERS</span><span>NO INTERNAL MAINS</span>
+        </div>
+      </header>
+      <figure class="plate">
+        <img
+          src="qec-1-system.svg"
+          alt="QEC-1 system architecture and boundary"
+        />
+        <figcaption>
+          <b>PLATE 04 / SYSTEM BOUNDARY</b
+          ><span>HOST → PANEL → PHYSICAL FIELD</span>
+        </figcaption>
+      </figure>
+      <figure class="plate">
+        <img src="qec-1-wiring.svg" alt="QEC-1 low-voltage wiring schematic" />
+        <figcaption>
+          <b>PLATE 05 / LOW-VOLTAGE WIRING</b
+          ><span>SEPARATE 5 V DOMAINS · FUSED PANEL RAIL</span>
+        </figcaption>
+      </figure>
+      <figure class="plate">
+        <img
+          src="qec-1-panel.svg"
+          alt="Dimensioned QEC-1 panel placement drawing"
+        />
+        <figcaption>
+          <b>PLATE 06 / PANEL PLACEMENT</b
+          ><span>600 × 420 MM · VERIFY COMPONENT CUTOUTS</span>
+        </figcaption>
+      </figure>
+      <div class="details">
+        <article>
+          <b>1</b>
+          <h2>Build now</h2>
+          <p>
+            QEC-1A uses a Raspberry Pi host, Pico panel controller, keys,
+            indicators, and a versioned USB link.
+          </p>
+        </article>
+        <article>
+          <b>2</b>
+          <h2>Keep power bounded</h2>
+          <p>
+            Two certified external 5 V supplies remain separate. No AC mains
+            enters the enclosure.
+          </p>
+        </article>
+        <article>
+          <b>3</b>
+          <h2>Prototype first</h2>
+          <p>
+            Validate four keys and four pixels before building the full harness
+            or cutting the final panel.
+          </p>
+        </article>
+        <article>
+          <b>4</b>
+          <h2>Verify the result</h2>
+          <p>
+            The physical run must reproduce the canonical trace hash and
+            manifestation checksum.
+          </p>
+        </article>
+      </div>
+      <div class="notes">
+        <section>
+          <h2>Fabrication note</h2>
+          <p>
+            The panel drawing fixes the overall arrangement, not
+            manufacturer-specific cutout tolerances. Print at 1:1, measure
+            chosen components, and test a disposable template before final
+            fabrication.
+          </p>
+        </section>
+        <section>
+          <h2>Scientific boundary</h2>
+          <p>
+            These plates describe a deterministic classical interface. QEC-1
+            contains no qubits; laboratory quantum-control equipment remains
+            outside this build and behind a reviewed adapter.
+          </p>
+        </section>
+      </div>
+    </main>
+    <footer class="shell">
+      QUANTUM ETZ CHAIM · QEC-1 · REPOSITORY-NATIVE ENGINEERING PLATES
+    </footer>
+  </body>
+</html>

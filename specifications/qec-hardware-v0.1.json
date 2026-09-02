@@ -1,0 +1,112 @@
+{
+  "$schema": "./schemas/qec-hardware-v0.1.schema.json",
+  "schemaVersion": "qec-hardware-0.1",
+  "machineId": "QEC-1",
+  "name": "Quantum Etz Chaim Tabletop Demonstrator",
+  "status": "buildable-classical-demonstrator",
+  "scientificBoundary": {
+    "implemented": "A deterministic classical QEC runtime with physical controls, indicators, trace display, and a versioned host-to-panel protocol.",
+    "notClaimed": "The apparatus is not a quantum processor and does not produce qubit superposition, entanglement, quantum error correction, or quantum speedup.",
+    "laboratoryExtension": "A future laboratory adapter may exchange versioned jobs and traces with an independently validated quantum-control backend without reclassifying QEC-1 itself as quantum hardware."
+  },
+  "enclosure": {
+    "widthMm": 600,
+    "depthMm": 420,
+    "heightMm": 90,
+    "panelThicknessMm": 3,
+    "minimumVentAreaMm2": 2400
+  },
+  "compute": {
+    "host": "Raspberry Pi 5",
+    "recommendedMemoryGb": 8,
+    "cooling": "active",
+    "hostPower": "Official or equivalently certified 5 V / 5 A USB-C supply",
+    "storage": "32 GB or larger high-endurance microSD; NVMe optional"
+  },
+  "control": {
+    "controller": "Raspberry Pi Pico 2",
+    "hostLink": "USB CDC serial",
+    "baud": 115200,
+    "frame": "UTF-8 JSON Lines",
+    "logicLevelShifter": "74AHCT125 or 74HCT245"
+  },
+  "panel": {
+    "sefirahIndicators": 10,
+    "daatBoundaryIndicators": 1,
+    "pathIndicators": 22,
+    "registerIndicators": 23,
+    "totalAddressableIndicators": 56,
+    "letterKeys": 22,
+    "controlKeys": ["STEP", "RUN"],
+    "alephOlamControl": "display-only and firmware-locked"
+  },
+  "power": {
+    "domains": [
+      {
+        "id": "HOST_5V",
+        "voltageV": 5,
+        "maxCurrentA": 5,
+        "source": "external certified USB-C supply",
+        "loads": ["Raspberry Pi 5", "USB peripherals"]
+      },
+      {
+        "id": "PANEL_5V",
+        "voltageV": 5,
+        "maxCurrentA": 5,
+        "source": "external certified regulated supply",
+        "loads": ["56 addressable indicators"],
+        "fuseA": 5
+      }
+    ],
+    "internalMains": false,
+    "maximumTheoreticalIndicatorCurrentA": 3.36,
+    "firmwareBrightnessLimitPercent": 25
+  },
+  "protocol": {
+    "version": "qec-panel-link-0.1",
+    "hostOwns": [
+      "program",
+      "canonical state",
+      "trace",
+      "observation",
+      "manifestation"
+    ],
+    "panelOwns": [
+      "key scan",
+      "indicator output",
+      "local watchdog",
+      "panel fault state"
+    ],
+    "commands": ["HELLO", "LOAD", "STEP", "RUN", "RESET", "SET_BRIGHTNESS"],
+    "events": ["READY", "KEY", "STATE", "FAULT", "HEARTBEAT"]
+  },
+  "verification": [
+    "No continuity between either DC rail and chassis",
+    "PANEL_5V polarity verified before controller connection",
+    "All 56 indicators pass low-brightness walking test",
+    "Every key produces exactly one debounced event",
+    "Host and panel reject incompatible protocol versions",
+    "Disconnecting USB or panel power produces a visible fault without state mutation",
+    "Identical source and seed reproduce the same trace hash and checksum"
+  ],
+  "tiers": [
+    {
+      "id": "QEC-1A",
+      "name": "Tabletop demonstrator",
+      "boundary": "Build now",
+      "description": "Classical host, physical panel, deterministic QEC runtime, LEDs, keys, and trace display."
+    },
+    {
+      "id": "QEC-1B",
+      "name": "Hardware-in-the-loop controller",
+      "boundary": "Optional engineering extension",
+      "description": "Adds an isolated FPGA or RFSoC loopback target for timing and protocol experiments; it still does not control qubits."
+    },
+    {
+      "id": "QEC-LAB",
+      "name": "Quantum backend adapter",
+      "boundary": "Laboratory only",
+      "description": "Connects through a reviewed backend contract to independently operated quantum-control equipment and required RF, cryogenic, calibration, and safety systems."
+    }
+  ]
+}

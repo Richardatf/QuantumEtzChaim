@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quantumetzchaim.com/specifications/schemas/qec-hardware-v0.1.schema.json",
+  "title": "QEC-1 Hardware Model",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "machineId",
+    "status",
+    "scientificBoundary",
+    "enclosure",
+    "compute",
+    "control",
+    "panel",
+    "power",
+    "protocol",
+    "verification",
+    "tiers"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": "qec-hardware-0.1" },
+    "machineId": { "const": "QEC-1" },
+    "name": { "type": "string", "minLength": 1 },
+    "status": { "const": "buildable-classical-demonstrator" },
+    "scientificBoundary": {
+      "type": "object",
+      "required": ["implemented", "notClaimed", "laboratoryExtension"],
+      "properties": {
+        "implemented": { "type": "string", "minLength": 1 },
+        "notClaimed": { "type": "string", "minLength": 1 },
+        "laboratoryExtension": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "enclosure": {
+      "type": "object",
+      "required": [
+        "widthMm",
+        "depthMm",
+        "heightMm",
+        "panelThicknessMm",
+        "minimumVentAreaMm2"
+      ],
+      "properties": {
+        "widthMm": { "type": "number", "minimum": 400 },
+        "depthMm": { "type": "number", "minimum": 300 },
+        "heightMm": { "type": "number", "minimum": 60 },
+        "panelThicknessMm": { "type": "number", "minimum": 2 },
+        "minimumVentAreaMm2": { "type": "number", "minimum": 1000 }
+      },
+      "additionalProperties": false
+    },
+    "compute": { "type": "object" },
+    "control": { "type": "object" },
+    "panel": {
+      "type": "object",
+      "required": [
+        "sefirahIndicators",
+        "daatBoundaryIndicators",
+        "pathIndicators",
+        "registerIndicators",
+        "totalAddressableIndicators",
+        "letterKeys",
+        "controlKeys",
+        "alephOlamControl"
+      ],
+      "properties": {
+        "sefirahIndicators": { "const": 10 },
+        "daatBoundaryIndicators": { "const": 1 },
+        "pathIndicators": { "const": 22 },
+        "registerIndicators": { "const": 23 },
+        "totalAddressableIndicators": { "const": 56 },
+        "letterKeys": { "const": 22 },
+        "controlKeys": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "prefixItems": [{ "const": "STEP" }, { "const": "RUN" }],
+          "items": false
+        },
+        "alephOlamControl": { "type": "string", "pattern": "locked" }
+      },
+      "additionalProperties": false
+    },
+    "power": {
+      "type": "object",
+      "required": [
+        "domains",
+        "internalMains",
+        "maximumTheoreticalIndicatorCurrentA",
+        "firmwareBrightnessLimitPercent"
+      ],
+      "properties": {
+        "domains": { "type": "array", "minItems": 2, "maxItems": 2 },
+        "internalMains": { "const": false },
+        "maximumTheoreticalIndicatorCurrentA": {
+          "type": "number",
+          "maximum": 5
+        },
+        "firmwareBrightnessLimitPercent": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 25
+        }
+      }
+    },
+    "protocol": { "type": "object" },
+    "verification": {
+      "type": "array",
+      "minItems": 7,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "tiers": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "boundary", "description"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "name": { "type": "string", "minLength": 1 },
+          "boundary": { "type": "string", "minLength": 1 },
+          "description": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
