@@ -293,9 +293,14 @@
         width: min(100%, 590px);
         margin: -12px auto 0;
         padding: 20px;
+        scroll-margin-top: 92px;
         border: 1px solid rgba(212, 180, 106, 0.34);
         background: rgba(7, 16, 15, 0.94);
         box-shadow: 0 22px 60px rgba(0, 0, 0, 0.32);
+      }
+      .node-inspector:focus-visible {
+        outline: 2px solid var(--cyan);
+        outline-offset: 4px;
       }
       .inspector-heading {
         display: flex;
@@ -1134,6 +1139,8 @@
               data-node="keter"
               tabindex="0"
               role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Keter description"
             >
               <circle cx="300" cy="70" r="36" />
               <text class="he" x="300" y="67">כתר</text>
@@ -1145,6 +1152,8 @@
               data-node="chokhmah"
               tabindex="0"
               role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Chokhmah description"
             >
               <circle cx="440" cy="170" r="36" />
               <text class="he" x="440" y="167">חכמה</text>
@@ -1156,12 +1165,21 @@
               data-node="binah"
               tabindex="0"
               role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Binah description"
             >
               <circle cx="160" cy="170" r="36" />
               <text class="he" x="160" y="167">בינה</text>
               <text x="160" y="188">STRUCTURE</text>
             </g>
-            <g class="node" data-node="daat" tabindex="0" role="button">
+            <g
+              class="node"
+              data-node="daat"
+              tabindex="0"
+              role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Da’at description"
+            >
               <circle cx="300" cy="220" r="29" />
               <text class="he" x="300" y="217">דעת</text>
               <text x="300" y="237">OBSERVE</text>
@@ -1172,6 +1190,8 @@
               data-node="chesed"
               tabindex="0"
               role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Chesed description"
             >
               <circle cx="440" cy="300" r="36" />
               <text class="he" x="440" y="297">חסד</text>
@@ -1183,6 +1203,8 @@
               data-node="gevurah"
               tabindex="0"
               role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Gevurah description"
             >
               <circle cx="160" cy="300" r="36" />
               <text class="he" x="160" y="297">גבורה</text>
@@ -1194,6 +1216,8 @@
               data-node="tiferet"
               tabindex="0"
               role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Tiferet description"
             >
               <circle cx="300" cy="390" r="42" />
               <text class="he" x="300" y="387">תפארת</text>
@@ -1205,12 +1229,22 @@
               data-node="netzach"
               tabindex="0"
               role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Netzach description"
             >
               <circle cx="440" cy="480" r="36" />
               <text class="he" x="440" y="477">נצח</text>
               <text x="440" y="498">CONTINUE</text>
             </g>
-            <g id="hod" class="node" data-node="hod" tabindex="0" role="button">
+            <g
+              id="hod"
+              class="node"
+              data-node="hod"
+              tabindex="0"
+              role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Hod description"
+            >
               <circle cx="160" cy="480" r="36" />
               <text class="he" x="160" y="477">הוד</text>
               <text x="160" y="498">REPRESENT</text>
@@ -1221,6 +1255,8 @@
               data-node="yesod"
               tabindex="0"
               role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Yesod description"
             >
               <circle cx="300" cy="570" r="36" />
               <text class="he" x="300" y="567">יסוד</text>
@@ -1232,14 +1268,22 @@
               data-node="malchut"
               tabindex="0"
               role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Malchut description"
             >
               <circle cx="300" cy="655" r="36" />
               <text class="he" x="300" y="652">מלכות</text>
               <text x="300" y="673">MANIFEST</text>
             </g>
           </svg>
-          <aside class="node-inspector" aria-live="polite">
-            <div class="eyebrow">Select a sefirah / inspect its subsystem</div>
+          <aside
+            id="sefirah-description"
+            class="node-inspector"
+            tabindex="-1"
+            aria-live="polite"
+            aria-labelledby="node-name"
+          >
+            <div class="eyebrow">Selected sefirah / machine description</div>
             <div class="inspector-heading">
               <h2 id="node-name">Tiferet</h2>
               <span id="node-hebrew" lang="he" dir="rtl">תפארת</span>
@@ -2065,7 +2109,17 @@
         nodeAction = document.querySelector("#node-action"),
         nodeMystical = document.querySelector("#node-mystical"),
         nodeEvidence = document.querySelector("#node-evidence");
-      function selectNode(name) {
+      const nodeInspector = document.querySelector("#sefirah-description"),
+        reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      function revealNodeDetails() {
+        nodeInspector.focus({ preventScroll: true });
+        nodeInspector.scrollIntoView({
+          behavior: reducedMotion.matches ? "auto" : "smooth",
+          block: "start",
+        });
+        history.replaceState(null, "", "#sefirah-description");
+      }
+      function selectNode(name, reveal = false) {
         const detail = nodeDetails[name];
         if (!detail) return;
         nodes.forEach((n) =>
@@ -2087,13 +2141,14 @@
         nodeAction.textContent = detail.action;
         nodeMystical.textContent = detail.mystical;
         nodeEvidence.textContent = detail.evidence;
+        if (reveal) revealNodeDetails();
       }
       nodes.forEach((n) => {
-        n.addEventListener("click", () => selectNode(n.dataset.node));
+        n.addEventListener("click", () => selectNode(n.dataset.node, true));
         n.addEventListener("keydown", (e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
-            selectNode(n.dataset.node);
+            selectNode(n.dataset.node, true);
           }
         });
       });
