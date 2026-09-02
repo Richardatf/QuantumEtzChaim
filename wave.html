@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Inspect deterministic QEC sources, transformations, competing projections, Da’at observation, and Malchut manifestation in the Infinite Wave explorer."
+    />
+    <meta name="theme-color" content="#040713" />
+    <title>Infinite Wave Explorer — Quantum Etz Chaim</title>
+    <link rel="stylesheet" href="/css/wave.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true">∞</span>
+        <span
+          ><strong>INFINITE WAVE</strong
+          ><small>QUANTUM ETZ CHAIM / SIMULATED MODEL</small></span
+        >
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="qec-v0.1.html">Runtime</a>
+        <a href="console.html">Console</a>
+        <a href="index.html">Atlas</a>
+        <span>DETERMINISTIC · INSPECTABLE</span>
+      </nav>
+    </header>
+
+    <main>
+      <section class="workspace" aria-labelledby="wave-title">
+        <div class="workspace-head">
+          <div>
+            <p class="eyebrow">
+              SOURCES → TRANSFORMATIONS → PROJECTIONS → OBSERVATION → RESULT
+            </p>
+            <h1 id="wave-title">The Infinite Wave</h1>
+          </div>
+          <p class="boundary-note">
+            A visual comparison of deterministic base-22 projections. It is not
+            a physical quantum simulation.
+          </p>
+        </div>
+
+        <form id="wave-form" class="controls">
+          <label for="wave-source"
+            >Hebrew source
+            <input
+              id="wave-source"
+              name="program"
+              lang="he"
+              dir="rtl"
+              required
+              autocomplete="off"
+            />
+          </label>
+          <label for="wave-seed"
+            >Aleph Olam seed
+            <input
+              id="wave-seed"
+              name="seed"
+              type="number"
+              min="0"
+              max="21"
+              step="1"
+              required
+            />
+          </label>
+          <button type="submit">Recompute wave</button>
+          <a
+            id="run-in-ivritcode"
+            href="https://ivritcode.org/"
+            target="_blank"
+            rel="noreferrer"
+            >Open source in IvritCode ↗</a
+          >
+        </form>
+        <p id="wave-error" class="error" role="alert" hidden></p>
+
+        <div class="wave-grid">
+          <section class="chart-panel" aria-labelledby="chart-title">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">COMPETING PROJECTIONS</p>
+                <h2 id="chart-title">One state, three explicit readings</h2>
+              </div>
+              <div class="inspection">
+                <span id="inspected-name">Register order</span
+                ><small id="inspected-stats"></small>
+              </div>
+            </div>
+            <svg
+              class="wave-chart"
+              viewBox="0 0 960 330"
+              role="img"
+              aria-labelledby="chart-svg-title chart-svg-desc"
+            >
+              <title id="chart-svg-title">
+                Infinite Wave base-22 projection chart
+              </title>
+              <desc id="chart-svg-desc">
+                Three deterministic lines compare register order, mirror order,
+                and Aleph Olam phase offset across 22 Hebrew letter registers.
+              </desc>
+              <g class="chart-grid">
+                <line x1="42" x2="918" y1="50" y2="50" />
+                <line x1="42" x2="918" y1="129" y2="129" />
+                <line x1="42" x2="918" y1="207" y2="207" />
+                <line x1="42" x2="918" y1="286" y2="286" />
+                <text x="12" y="55">21</text>
+                <text x="12" y="134">14</text>
+                <text x="20" y="212">7</text>
+                <text x="20" y="291">0</text>
+              </g>
+              <g id="wave-paths"></g>
+              <g id="wave-points"></g>
+              <g class="register-axis" aria-hidden="true">
+                <text x="42" y="316">א</text>
+                <text x="209" y="316">ה</text>
+                <text x="376" y="316">ט</text>
+                <text x="543" y="316">מ</text>
+                <text x="710" y="316">פ</text>
+                <text x="876" y="316">ש</text>
+                <text x="918" y="316">ת</text>
+              </g>
+            </svg>
+            <div
+              id="wave-hypotheses"
+              class="hypotheses"
+              aria-label="Projection hypotheses"
+            ></div>
+          </section>
+
+          <aside class="trace-panel" aria-labelledby="trace-title">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">32 PATHS</p>
+                <h2 id="trace-title">Transformations</h2>
+              </div>
+            </div>
+            <ol id="wave-transformations" class="transformations"></ol>
+          </aside>
+        </div>
+
+        <section
+          class="boundary-flow"
+          aria-label="Infinite Wave computation boundaries"
+        >
+          <article>
+            <p class="eyebrow">01 / SOURCE</p>
+            <h2>Keter receives</h2>
+            <strong id="source-program" class="hebrew" lang="he" dir="rtl"
+              >אור</strong
+            >
+            <dl>
+              <div>
+                <dt>Registers</dt>
+                <dd>23 fixed</dd>
+              </div>
+              <div>
+                <dt>Seed</dt>
+                <dd id="source-seed">09</dd>
+              </div>
+            </dl>
+          </article>
+          <article>
+            <p class="eyebrow">02 / OBSERVER</p>
+            <h2>Da’at records</h2>
+            <strong id="observer-projection">Register order</strong>
+            <dl>
+              <div>
+                <dt>State</dt>
+                <dd id="observer-hash">—</dd>
+              </div>
+              <div>
+                <dt>Trace</dt>
+                <dd id="observer-trace">—</dd>
+              </div>
+            </dl>
+          </article>
+          <article>
+            <p class="eyebrow">03 / RESULT</p>
+            <h2>Malchut manifests</h2>
+            <strong
+              id="result-letters"
+              class="hebrew output"
+              lang="he"
+              dir="rtl"
+              >—</strong
+            >
+            <dl>
+              <div>
+                <dt>Checksum</dt>
+                <dd id="result-checksum">—</dd>
+              </div>
+              <div>
+                <dt>Path</dt>
+                <dd id="result-path">—</dd>
+              </div>
+            </dl>
+          </article>
+        </section>
+
+        <section class="doctrine">
+          <p>
+            <strong>Implemented computation:</strong> canonical IvritCode state,
+            versioned QEC transforms, deterministic projections, recorded
+            observation, and reproducible manifestation.
+          </p>
+          <p>
+            <strong>Symbolic inspiration:</strong> the Tree orders
+            responsibilities and relationships. It does not supply scientific
+            authority.
+          </p>
+          <p>
+            <strong>Speculative research:</strong> “Infinite Wave” names this
+            comparison surface. No physical quantum speedup, hidden observer, or
+            autonomous capability is claimed.
+          </p>
+        </section>
+      </section>
+    </main>
+    <script type="module" src="/src/wave.ts"></script>
+  </body>
+</html>

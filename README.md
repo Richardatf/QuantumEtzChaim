@@ -26,6 +26,8 @@ data is ignored; it never becomes executable code.
 - Executable `אור` vertical slice in `console.html`
 - Living sefirotic runtime and searchable 231 Gate registry in
   `qec-v0.1.html`
+- Infinite Wave explorer in `wave.html`, comparing sources, transformations,
+  deterministic observation projections, and manifestation results
 - Interactive Gate Explorer with computed routes, shared services, register
   changes, and coherence deltas
 - Da’at Observation Inspector with three deterministic candidate projections,
