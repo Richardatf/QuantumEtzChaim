@@ -886,10 +886,38 @@
         }
         .hero {
           grid-template-columns: 1fr;
-          padding-top: 80px;
+          gap: 18px;
+          padding: 34px 0 58px;
+        }
+        .hero h1 {
+          margin: 14px 0 16px;
+          font-size: clamp(42px, 7.5vw, 58px);
+          line-height: 0.96;
+        }
+        .lead {
+          margin: 0;
+          max-width: 720px;
+          font-size: 15px;
+          line-height: 1.6;
+        }
+        .machine-facts {
+          display: none;
+        }
+        .hero-actions {
+          gap: 9px;
+          margin-top: 18px;
+        }
+        .hero-actions .button {
+          padding: 12px 16px;
+        }
+        .hero-actions .build-guide-link {
+          display: none;
         }
         .tree-stage {
-          min-height: 580px;
+          min-height: 0;
+        }
+        #tree {
+          max-height: 520px;
         }
         .section-head {
           grid-template-columns: 1fr;
@@ -1052,11 +1080,8 @@
           <div class="eyebrow">QEC-1 / Buildable classical demonstrator</div>
           <h1>A physical machine for <em>coherent computation.</em></h1>
           <p class="lead">
-            QEC-1 is a 600 × 420 mm tabletop computer built around a Raspberry
-            Pi 5, a Pico 2 panel controller, 24 keys, and 56 addressable lights.
-            It executes Hebrew-letter programs deterministically, shows state
-            moving through the machine, and preserves a complete trace of every
-            run.
+            QEC-1 turns Hebrew-letter programs into visible, deterministic state
+            across a Pi 5, Pico 2, 24 keys, and 56 addressable lights.
           </p>
           <div class="machine-facts" aria-label="QEC-1 key specifications">
             <div><strong>24</strong><span>PHYSICAL KEYS</span></div>
@@ -1067,7 +1092,9 @@
             <a class="button primary" href="machine.html"
               >Explore the physical machine <span>→</span></a
             ><a class="button" href="bench.html">Build the 4-key prototype</a
-            ><a class="button" href="docs/QEC_1_PHYSICAL_BUILD.md"
+            ><a
+              class="button build-guide-link"
+              href="docs/QEC_1_PHYSICAL_BUILD.md"
               >Open the build guide</a
             >
           </div>
