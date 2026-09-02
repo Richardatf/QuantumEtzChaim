@@ -7,6 +7,13 @@ const landingPage = readFileSync(
 );
 
 describe("landing-page Sefirotic navigation", () => {
+  it("keeps the full Tree near the top on tablet layouts", () => {
+    expect(landingPage).toContain("@media (max-width: 900px)");
+    expect(landingPage).toContain("padding: 34px 0 58px;");
+    expect(landingPage).toContain(".machine-facts {\n          display: none;");
+    expect(landingPage).toContain("max-height: 520px;");
+  });
+
   it("connects every sefirah control to the description destination", () => {
     const controls = landingPage.match(/aria-controls="sefirah-description"/g);
 
