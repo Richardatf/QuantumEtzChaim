@@ -64,6 +64,7 @@
   },
   "protocol": {
     "version": "qec-panel-link-0.1",
+    "profile": "./qec-panel-link-v0.1.json",
     "hostOwns": [
       "program",
       "canonical state",
@@ -77,8 +78,8 @@
       "local watchdog",
       "panel fault state"
     ],
-    "commands": ["HELLO", "LOAD", "STEP", "RUN", "RESET", "SET_BRIGHTNESS"],
-    "events": ["READY", "KEY", "STATE", "FAULT", "HEARTBEAT"]
+    "hostToPanel": ["HELLO", "STATE", "RESET", "SET_BRIGHTNESS", "HEARTBEAT"],
+    "panelToHost": ["READY", "KEY", "APPLIED", "FAULT", "HEARTBEAT"]
   },
   "verification": [
     "No continuity between either DC rail and chassis",

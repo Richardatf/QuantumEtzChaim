@@ -275,6 +275,24 @@ h1 em {
   margin: 0 0 0.6rem;
   font: 500 1.45rem var(--serif);
 }
+.prototype-card .status {
+  color: var(--cyan);
+  font: 0.68rem var(--mono);
+  letter-spacing: 0.12em;
+}
+.prototype-card ol {
+  padding-left: 1.35rem;
+  color: var(--muted);
+}
+.prototype-card li {
+  margin: 0.55rem 0;
+}
+.prototype-card .actions {
+  margin-top: 1.4rem;
+}
+.phase a {
+  color: var(--cyan);
+}
 .spec-card p,
 .spec-card li {
   color: var(--muted);

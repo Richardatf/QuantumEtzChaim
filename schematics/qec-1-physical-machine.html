@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta
       name="description"
-      content="Full-resolution QEC-1 system, wiring, and physical panel engineering plates."
+      content="Full-resolution QEC-1 system, wiring, physical panel, and reduced bench-prototype engineering plates."
     />
     <title>QEC-1 Engineering Plates — Quantum Etz Chaim</title>
     <link rel="stylesheet" href="plate.css" />
@@ -14,7 +14,8 @@
     <nav class="shell nav">
       <a href="../machine.html">← Physical Machine</a>
       <div>
-        <a class="button" href="../docs/QEC_1_PHYSICAL_BUILD.md">Build Guide</a
+        <a class="button" href="../bench.html">Bench Console</a
+        ><a class="button" href="../docs/QEC_1_PHYSICAL_BUILD.md">Build Guide</a
         ><a class="button" href="../specifications/qec-hardware-v0.1.json"
           >Hardware Model</a
         >
@@ -23,13 +24,13 @@
     <main class="shell">
       <header>
         <div class="eyebrow">
-          Engineering plates 04–06 / QEC-1 hardware contract 0.1
+          Engineering plates 04–07 / QEC-1 hardware contract 0.1
         </div>
         <h1>The physical machine</h1>
         <p>
-          Three repository-native drawings fix the system boundary, low-voltage
-          power and signal paths, and 600 × 420 mm control-surface layout for
-          the QEC-1A classical tabletop demonstrator.
+          Four repository-native drawings fix the system boundary, low-voltage
+          power and signal paths, 600 × 420 mm control-surface layout, and the
+          reduced harness that must pass before the QEC-1A panel is fabricated.
         </p>
         <div class="meta">
           <span>5 V DC ONLY</span><span>56 INDICATORS</span><span>24 KEYS</span
@@ -63,6 +64,16 @@
           ><span>600 × 420 MM · VERIFY COMPONENT CUTOUTS</span>
         </figcaption>
       </figure>
+      <figure class="plate">
+        <img
+          src="qec-1p-bench-wiring.svg"
+          alt="QEC-1P four-key and four-pixel reduced bench wiring"
+        />
+        <figcaption>
+          <b>PLATE 07 / REDUCED BENCH WIRING</b
+          ><span>4 KEYS · 4 PIXELS · PASS BEFORE FABRICATION</span>
+        </figcaption>
+      </figure>
       <div class="details">
         <article>
           <b>1</b>
@@ -86,6 +97,7 @@
           <p>
             Validate four keys and four pixels before building the full harness
             or cutting the final panel.
+            <a href="../bench.html">Run the proof.</a>
           </p>
         </article>
         <article>

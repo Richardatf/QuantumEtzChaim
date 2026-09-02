@@ -22,6 +22,12 @@ data is ignored; it never becomes executable code.
 - [QEC-1 physical machine build guide](docs/QEC_1_PHYSICAL_BUILD.md), with
   system, low-voltage wiring, and dimensioned panel drawings
 - [Machine-readable QEC-1 hardware contract](specifications/qec-hardware-v0.1.json)
+- [QEC-1P four-key bench prototype](docs/QEC_1P_BENCH_BUILD.md), with
+  exact Pico pin map, CircuitPython firmware, Web Serial acceptance console,
+  reduced wiring plate, and fabrication stop gate
+- [Directional panel-link profile](specifications/qec-panel-link-v0.1.json),
+  separating authoritative host commands from panel events and enforcing
+  atomic fail-closed state application
 - [IvritCode to OpenQASM 3 projection profile](specifications/ivritcode-openqasm-v0.1.json),
   with one explicit standard-gate mapping for every Hebrew opcode
 - [Quantum Etz Chaim / IvritOS v0.2 build specification](docs/BUILD_SPEC.md)

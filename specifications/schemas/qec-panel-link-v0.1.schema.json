@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quantumetzchaim.com/specifications/schemas/qec-panel-link-v0.1.schema.json",
+  "title": "QEC Panel Link Profile",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "protocol",
+    "transport",
+    "authority",
+    "hostToPanel",
+    "panelToHost",
+    "stateConstraints",
+    "faultPolicy",
+    "prototype"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": "qec-panel-link-profile-0.1" },
+    "protocol": { "const": "qec-panel-link-0.1" },
+    "transport": {
+      "type": "object",
+      "required": [
+        "medium",
+        "baud",
+        "encoding",
+        "framing",
+        "maximumFrameBytes"
+      ],
+      "properties": {
+        "medium": { "const": "USB CDC serial" },
+        "baud": { "const": 115200 },
+        "encoding": { "const": "UTF-8" },
+        "framing": { "const": "JSON Lines" },
+        "maximumFrameBytes": {
+          "type": "integer",
+          "minimum": 256,
+          "maximum": 4096
+        }
+      },
+      "additionalProperties": false
+    },
+    "authority": {
+      "type": "object",
+      "required": ["host", "panel"],
+      "properties": {
+        "host": {
+          "type": "array",
+          "minItems": 5,
+          "items": { "type": "string" }
+        },
+        "panel": {
+          "type": "array",
+          "minItems": 4,
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "hostToPanel": { "$ref": "#/$defs/frameDefinitions" },
+    "panelToHost": { "$ref": "#/$defs/frameDefinitions" },
+    "stateConstraints": {
+      "type": "object",
+      "required": [
+        "registerCount",
+        "minimumRegisterValue",
+        "maximumRegisterValue",
+        "maximumBrightness",
+        "sequenceRule",
+        "applicationRule"
+      ],
+      "properties": {
+        "registerCount": { "const": 23 },
+        "minimumRegisterValue": { "const": 0 },
+        "maximumRegisterValue": { "const": 21 },
+        "maximumBrightness": { "const": 0.25 },
+        "sequenceRule": { "type": "string", "minLength": 1 },
+        "applicationRule": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "faultPolicy": {
+      "type": "object",
+      "required": [
+        "invalidFrame",
+        "incompatibleProtocol",
+        "watchdogTimeoutMs",
+        "watchdogAction",
+        "recovery"
+      ],
+      "properties": {
+        "invalidFrame": { "type": "string", "minLength": 1 },
+        "incompatibleProtocol": { "type": "string", "minLength": 1 },
+        "watchdogTimeoutMs": {
+          "type": "integer",
+          "minimum": 500,
+          "maximum": 10000
+        },
+        "watchdogAction": { "type": "string", "minLength": 1 },
+        "recovery": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "prototype": {
+      "type": "object",
+      "required": [
+        "id",
+        "keys",
+        "pixels",
+        "pixelDataGpio",
+        "keyGpios",
+        "purpose"
+      ],
+      "properties": {
+        "id": { "const": "QEC-1P" },
+        "keys": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "prefixItems": [
+            { "const": "א" },
+            { "const": "ו" },
+            { "const": "ר" },
+            { "const": "STEP" }
+          ],
+          "items": false
+        },
+        "pixels": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "prefixItems": [
+            { "const": "NODE" },
+            { "const": "PATH" },
+            { "const": "REGISTER" },
+            { "const": "LINK_FAULT" }
+          ],
+          "items": false
+        },
+        "pixelDataGpio": { "const": 2 },
+        "keyGpios": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "prefixItems": [
+            { "const": 6 },
+            { "const": 7 },
+            { "const": 8 },
+            { "const": 9 }
+          ],
+          "items": false
+        },
+        "purpose": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "frameDefinitions": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["type", "required", "purpose"],
+        "properties": {
+          "type": { "type": "string", "minLength": 1 },
+          "required": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "purpose": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

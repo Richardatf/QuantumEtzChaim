@@ -31,6 +31,7 @@
         </a>
         <nav aria-label="Primary navigation">
           <a href="#schematics">Schematics</a>
+          <a href="bench.html">Bench prototype</a>
           <a href="#build">Build sequence</a>
           <a href="console.html">Console</a>
           <a href="index.html">Atlas</a>
@@ -50,8 +51,11 @@
           auditable state, and a complete reproducible trace.
         </p>
         <div class="actions">
-          <a class="button primary" href="docs/QEC_1_PHYSICAL_BUILD.md"
-            >Open full build guide →</a
+          <a class="button primary" href="bench.html"
+            >Build the four-key prototype →</a
+          >
+          <a class="button" href="docs/QEC_1_PHYSICAL_BUILD.md"
+            >Open full build guide</a
           >
           <a class="button" href="schematics/qec-1-physical-machine.html"
             >Open engineering plates</a
@@ -66,6 +70,51 @@
           makes no claim of superposition, entanglement, quantum error
           correction, or quantum speedup.
         </p>
+      </section>
+
+      <section class="shell section" id="prototype">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">CURRENT BUILD MILESTONE / QEC-1P</p>
+            <h2>Four keys before twenty-four.</h2>
+          </div>
+          <p>
+            The reduced bench harness is now a complete build gate, not a
+            suggestion. It fixes the Pico pin map, firmware, protocol direction,
+            low-voltage wiring, browser proof sequence, and written acceptance
+            record before the full panel becomes expensive to change.
+          </p>
+        </div>
+        <div class="spec-grid">
+          <a class="plate-card" href="schematics/qec-1p-bench-wiring.svg">
+            <img
+              src="schematics/qec-1p-bench-wiring.svg"
+              alt="Exact low-voltage QEC-1P four-key and four-pixel bench wiring"
+            />
+            <div>
+              <b>PLATE 07 / BENCH WIRING</b><span>Open exact SVG ↗</span>
+            </div>
+          </a>
+          <article class="spec-card prototype-card">
+            <span class="status">FABRICATION STOP GATE</span>
+            <h3>Pass five checks first.</h3>
+            <ol>
+              <li>Fixed 4-key / 4-pixel map</li>
+              <li>Versioned HELLO / READY handshake</li>
+              <li>Three atomic <span lang="he">אור</span> state frames</li>
+              <li>Fail-closed 25% brightness ceiling</li>
+              <li>2,000 ms watchdog and fresh-handshake recovery</li>
+            </ol>
+            <div class="actions">
+              <a class="button primary" href="bench.html"
+                >Open bench console →</a
+              >
+              <a class="button" href="docs/QEC_1P_BENCH_BUILD.md"
+                >Build guide</a
+              >
+            </div>
+          </article>
+        </div>
       </section>
 
       <section class="shell tier-grid" aria-label="Machine build tiers">
@@ -99,13 +148,13 @@
         <div class="section-head">
           <div>
             <p class="eyebrow">ENGINEERING PLATE SET</p>
-            <h2>Three drawings. One fixed model.</h2>
+            <h2>Four drawings. One fixed model.</h2>
           </div>
           <p>
             The system boundary establishes ownership. The wiring plate
             establishes safe low-voltage power and signal paths. The panel plate
             fixes overall dimensions, field placement, and canonical indicator
-            order.
+            order. The bench plate proves the reduced harness first.
           </p>
         </div>
         <div class="plate-grid">
@@ -136,6 +185,16 @@
             />
             <div>
               <b>PLATE 06 / PANEL</b><span>Open full-resolution SVG ↗</span>
+            </div></a
+          >
+          <a class="plate-card" href="schematics/qec-1p-bench-wiring.svg"
+            ><img
+              loading="lazy"
+              src="schematics/qec-1p-bench-wiring.svg"
+              alt="QEC-1P exact reduced bench wiring"
+            />
+            <div>
+              <b>PLATE 07 / BENCH</b><span>Open full-resolution SVG ↗</span>
             </div></a
           >
         </div>
@@ -307,6 +366,7 @@
               Pi, Pico, four keys, four pixels, level shifter, fused panel
               supply, handshake, and fault behavior.
             </p>
+            <p><a href="bench.html">Run the QEC-1P proof →</a></p>
           </article>
           <article class="phase">
             <h3>Full harness</h3>
@@ -384,8 +444,8 @@
 
     <footer>
       <div class="shell">
-        QUANTUM ETZ CHAIM · QEC-1 · HARDWARE CONTRACT 0.1 · CLASSICAL
-        DETERMINISTIC DEMONSTRATOR
+        QUANTUM ETZ CHAIM · QEC-1 · PANEL LINK 0.1 · CLASSICAL DETERMINISTIC
+        DEMONSTRATOR
       </div>
     </footer>
   </body>

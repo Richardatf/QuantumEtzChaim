@@ -102,7 +102,7 @@ Do not use solderless breadboards, loose Dupont jumpers, or alligator clips in t
 
 ## 5. Power design
 
-QEC-1 uses two isolated external supply paths:
+QEC-1 uses two separate external supply paths with a shared signal reference:
 
 ```text
 Certified USB-C supply ─────────────► Raspberry Pi 5 ──USB──► Pico 2
@@ -186,9 +186,9 @@ Panel firmware must reject an incompatible protocol, a register list other than 
 1. Prepare the Pi 5 with current Raspberry Pi OS, active cooling, and the QEC repository.
 2. Confirm the QEC production build and all tests pass locally.
 3. Connect Pico 2 to the Pi using USB only.
-4. Build a four-key matrix and a four-pixel chain on a prototyping board.
+4. Build the fixed QEC-1P four-key, four-pixel harness from `QEC_1P_BENCH_BUILD.md` and `qec-1p-bench-wiring.svg`.
 5. Add the 74AHCT125, capacitor, data resistor, and separate fused 5 V pixel supply.
-6. Verify handshake, key events, brightness limiting, and power-loss behavior.
+6. Use `bench.html` to verify handshake, key events, atomic state application, brightness limiting, and watchdog behavior.
 7. Do not fabricate the final panel until this reduced harness passes.
 
 ### Phase B — Full electrical harness
@@ -247,6 +247,10 @@ QEC never silently converts symbolic letters, sefirot, Gates, or coherence value
 ## 11. Repository artifacts
 
 - Machine model: `specifications/qec-hardware-v0.1.json`
+- Panel-link direction and validation profile: `specifications/qec-panel-link-v0.1.json`
+- Reduced prototype guide: `docs/QEC_1P_BENCH_BUILD.md`
+- Reduced prototype firmware: `firmware/qec1p/`
+- Reduced prototype wiring: `schematics/qec-1p-bench-wiring.svg`
 - Validation schema: `specifications/schemas/qec-hardware-v0.1.schema.json`
 - System plate: `schematics/qec-1-system.svg`
 - Low-voltage wiring: `schematics/qec-1-wiring.svg`

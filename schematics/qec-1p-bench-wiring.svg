@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1050" viewBox="0 0 1600 1050" role="img" aria-labelledby="title desc">
+  <title id="title">QEC-1P reduced bench prototype wiring</title>
+  <desc id="desc">Exact low-voltage connections among a host, Raspberry Pi Pico 2, four grounded keys, 74AHCT125 level shifter, separate fused five volt pixel supply, capacitor, resistor, and four addressable RGB pixels.</desc>
+  <defs>
+    <style>
+      .bg{fill:#07100f}.panel{fill:#0d1917;stroke:#42635d;stroke-width:2}.sub{fill:#0a1413;stroke:#29443f;stroke-width:1.5}.title{fill:#f1ead9;font:700 34px Georgia,serif}.h{fill:#e5bd68;font:700 22px Georgia,serif}.t{fill:#c6d0c9;font:16px ui-monospace,monospace}.s{fill:#8fa39d;font:14px ui-monospace,monospace}.pin{fill:#65e1d3;font:700 15px ui-monospace,monospace}.note{fill:#e5bd68;font:15px ui-monospace,monospace}.data{fill:none;stroke:#65e1d3;stroke-width:4}.five{fill:none;stroke:#ef7272;stroke-width:4}.ground{fill:none;stroke:#9aa7b3;stroke-width:4}.usb{fill:none;stroke:#a796ff;stroke-width:5}.key{fill:none;stroke:#e5bd68;stroke-width:3}.dot{fill:#65e1d3}.powerdot{fill:#ef7272}.gdot{fill:#9aa7b3}.arrow{fill:#65e1d3}
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0L10 4L0 8Z" class="arrow"/></marker>
+  </defs>
+  <rect width="1600" height="1050" class="bg"/>
+  <text x="70" y="70" class="title">QEC-1P / REDUCED BENCH WIRING</text>
+  <text x="70" y="102" class="s">PLATE 07 · qec-panel-link-0.1 · 4 KEYS · 4 PIXELS · NO INTERNAL MAINS</text>
+
+  <rect x="70" y="150" width="310" height="180" rx="12" class="panel"/>
+  <text x="100" y="195" class="h">HOST COMPUTER</text>
+  <text x="100" y="232" class="t">QEC bench console</text>
+  <text x="100" y="260" class="t">canonical state authority</text>
+  <text x="100" y="296" class="pin">USB DATA + PICO POWER</text>
+
+  <rect x="510" y="150" width="390" height="500" rx="12" class="panel"/>
+  <text x="540" y="195" class="h">RASPBERRY PI PICO 2</text>
+  <text x="540" y="225" class="s">CircuitPython QEC-1P firmware</text>
+  <text x="540" y="285" class="pin">GP2 / PHYSICAL 4</text>
+  <circle cx="855" cy="280" r="7" class="dot"/>
+  <text x="540" y="355" class="pin">GP6 / PHYSICAL 9</text>
+  <circle cx="855" cy="350" r="7" class="dot"/>
+  <text x="540" y="420" class="pin">GP7 / PHYSICAL 10</text>
+  <circle cx="855" cy="415" r="7" class="dot"/>
+  <text x="540" y="485" class="pin">GP8 / PHYSICAL 11</text>
+  <circle cx="855" cy="480" r="7" class="dot"/>
+  <text x="540" y="550" class="pin">GP9 / PHYSICAL 12</text>
+  <circle cx="855" cy="545" r="7" class="dot"/>
+  <text x="540" y="615" class="pin">GND / PHYSICAL 3</text>
+  <circle cx="855" cy="610" r="7" class="gdot"/>
+
+  <path d="M380 250H510" class="usb" marker-end="url(#arrow)"/>
+  <text x="398" y="238" class="s">USB CDC DATA</text>
+
+  <rect x="990" y="150" width="300" height="190" rx="12" class="panel"/>
+  <text x="1020" y="195" class="h">74AHCT125</text>
+  <text x="1020" y="232" class="pin">PIN 1 / 1OE → GND</text>
+  <text x="1020" y="262" class="pin">PIN 2 / 1A ← GP2</text>
+  <text x="1020" y="292" class="pin">PIN 3 / 1Y → DATA</text>
+  <text x="1020" y="322" class="pin">PIN 7 GND · PIN 14 +5V</text>
+  <path d="M862 280H990" class="data" marker-end="url(#arrow)"/>
+
+  <rect x="1010" y="395" width="390" height="245" rx="12" class="panel"/>
+  <text x="1040" y="440" class="h">FOUR GROUNDED KEYS</text>
+  <g class="t">
+    <text x="1050" y="490">א / ALEPH</text><text x="1250" y="490">GP6</text>
+    <text x="1050" y="530">ו / VAV</text><text x="1250" y="530">GP7</text>
+    <text x="1050" y="570">ר / RESH</text><text x="1250" y="570">GP8</text>
+    <text x="1050" y="610">STEP</text><text x="1250" y="610">GP9</text>
+  </g>
+  <path d="M862 350H960V485H1010M862 415H945V525H1010M862 480H930V565H1010M862 545H915V605H1010" class="key"/>
+  <path d="M1400 475H1460V665H855V617M1400 515H1460M1400 555H1460M1400 595H1460" class="ground"/>
+  <text x="1325" y="685" class="s">KEY COMMON → PICO GND</text>
+
+  <rect x="70" y="730" width="390" height="235" rx="12" class="panel"/>
+  <text x="100" y="775" class="h">SEPARATE PIXEL SUPPLY</text>
+  <text x="100" y="815" class="t">regulated external 5 V DC</text>
+  <text x="100" y="850" class="pin">+5 V → 1 A FUSE → SWITCH</text>
+  <text x="100" y="885" class="pin">GND → COMMON REFERENCE</text>
+  <text x="100" y="930" class="note">NO CONNECTION TO USB +5 V</text>
+
+  <rect x="540" y="755" width="260" height="160" rx="12" class="sub"/>
+  <text x="570" y="800" class="h">RAIL CONDITIONING</text>
+  <text x="570" y="842" class="t">1,000 µF / ≥6.3 V</text>
+  <text x="570" y="875" class="s">observe capacitor polarity</text>
+
+  <rect x="930" y="730" width="600" height="235" rx="12" class="panel"/>
+  <text x="960" y="775" class="h">4 × 5 V ADDRESSABLE RGB PIXELS</text>
+  <g>
+    <rect x="960" y="815" width="120" height="100" rx="8" class="sub"/><text x="980" y="850" class="pin">0 / NODE</text><text x="980" y="885" class="s">DIN</text>
+    <rect x="1100" y="815" width="120" height="100" rx="8" class="sub"/><text x="1120" y="850" class="pin">1 / PATH</text><text x="1120" y="885" class="s">DIN</text>
+    <rect x="1240" y="815" width="120" height="100" rx="8" class="sub"/><text x="1255" y="850" class="pin">2 / REGISTER</text><text x="1260" y="885" class="s">DIN</text>
+    <rect x="1380" y="815" width="120" height="100" rx="8" class="sub"/><text x="1395" y="850" class="pin">3 / LINK</text><text x="1395" y="885" class="s">FAULT</text>
+  </g>
+  <path d="M1080 880H1100M1220 880H1240M1360 880H1380" class="data" marker-end="url(#arrow)"/>
+
+  <path d="M460 835H540M800 835H930" class="five"/>
+  <path d="M460 885H520V895H800V930H930" class="ground"/>
+  <path d="M460 835H835V175H990" class="five"/>
+  <path d="M460 885H500V705H950V322H990" class="ground"/>
+  <path d="M855 610H950V322H990" class="ground"/>
+  <circle cx="835" cy="835" r="7" class="powerdot"/>
+  <circle cx="950" cy="705" r="7" class="gdot"/>
+  <text x="690" y="815" class="s">+5 V</text>
+  <text x="690" y="930" class="s">COMMON GND</text>
+
+  <path d="M1290 292H1340V700H880V860H930" class="data" marker-end="url(#arrow)"/>
+  <rect x="780" y="845" width="95" height="32" rx="5" class="sub"/>
+  <text x="790" y="866" class="s">330–470 Ω</text>
+
+  <text x="70" y="1015" class="s">CONNECT GROUND FIRST · VERIFY POLARITY BEFORE LOAD · BRIGHTNESS LIMIT 25% · WATCHDOG 2,000 ms · LAST VALID STATE PRESERVED ON REJECTION</text>
+</svg>

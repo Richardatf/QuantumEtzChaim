@@ -1,0 +1,113 @@
+{
+  "$schema": "./schemas/qec-panel-link-v0.1.schema.json",
+  "schemaVersion": "qec-panel-link-profile-0.1",
+  "protocol": "qec-panel-link-0.1",
+  "transport": {
+    "medium": "USB CDC serial",
+    "baud": 115200,
+    "encoding": "UTF-8",
+    "framing": "JSON Lines",
+    "maximumFrameBytes": 4096
+  },
+  "authority": {
+    "host": [
+      "program",
+      "canonical state",
+      "trace",
+      "observation",
+      "manifestation"
+    ],
+    "panel": [
+      "key scan",
+      "indicator output",
+      "local watchdog",
+      "panel fault state"
+    ]
+  },
+  "hostToPanel": [
+    {
+      "type": "HELLO",
+      "required": ["type", "protocol", "machine"],
+      "purpose": "Negotiate the exact protocol before any state is accepted."
+    },
+    {
+      "type": "STATE",
+      "required": [
+        "type",
+        "sequence",
+        "activePath",
+        "sourceNode",
+        "destinationNode",
+        "registers",
+        "traceHash",
+        "brightness"
+      ],
+      "purpose": "Atomically replace the displayed projection of one canonical host state."
+    },
+    {
+      "type": "RESET",
+      "required": ["type"],
+      "purpose": "Clear displayed activity and require a new monotonic sequence."
+    },
+    {
+      "type": "SET_BRIGHTNESS",
+      "required": ["type", "brightness"],
+      "purpose": "Set a bounded global indicator brightness from 0.00 through 0.25."
+    },
+    {
+      "type": "HEARTBEAT",
+      "required": ["type", "sequence"],
+      "purpose": "Prove that the authoritative host link is alive."
+    }
+  ],
+  "panelToHost": [
+    {
+      "type": "READY",
+      "required": ["type", "protocol", "pixels", "keys"],
+      "purpose": "Confirm protocol compatibility and physical capabilities."
+    },
+    {
+      "type": "KEY",
+      "required": ["type", "key", "pressed", "sequence"],
+      "purpose": "Report one debounced physical key transition."
+    },
+    {
+      "type": "APPLIED",
+      "required": ["type", "sequence"],
+      "purpose": "Acknowledge that one complete validated state became visible."
+    },
+    {
+      "type": "FAULT",
+      "required": ["type", "code", "detail"],
+      "purpose": "Report a bounded protocol, power, watchdog, or local electrical fault."
+    },
+    {
+      "type": "HEARTBEAT",
+      "required": ["type", "sequence"],
+      "purpose": "Report panel liveness without claiming canonical state authority."
+    }
+  ],
+  "stateConstraints": {
+    "registerCount": 23,
+    "minimumRegisterValue": 0,
+    "maximumRegisterValue": 21,
+    "maximumBrightness": 0.25,
+    "sequenceRule": "strictly increasing after handshake or reset",
+    "applicationRule": "validate the complete frame before changing any indicator"
+  },
+  "faultPolicy": {
+    "invalidFrame": "Reject the frame, preserve the last valid display, emit FAULT.",
+    "incompatibleProtocol": "Reject all state frames until a compatible HELLO is received.",
+    "watchdogTimeoutMs": 2000,
+    "watchdogAction": "Enter the visible local fault pattern without synthesizing canonical state.",
+    "recovery": "Require a fresh HELLO before accepting another state frame."
+  },
+  "prototype": {
+    "id": "QEC-1P",
+    "keys": ["א", "ו", "ר", "STEP"],
+    "pixels": ["NODE", "PATH", "REGISTER", "LINK_FAULT"],
+    "pixelDataGpio": 2,
+    "keyGpios": [6, 7, 8, 9],
+    "purpose": "Reduced bench proof before the 24-key, 56-indicator panel is fabricated."
+  }
+}

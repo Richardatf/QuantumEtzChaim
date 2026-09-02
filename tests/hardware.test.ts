@@ -43,6 +43,14 @@ describe("QEC-1 physical hardware model", () => {
     );
   });
 
+  it("keeps canonical state authority on the host side of the panel link", () => {
+    expect(hardware.protocol.hostToPanel).toContain("STATE");
+    expect(hardware.protocol.panelToHost).toContain("APPLIED");
+    expect(hardware.protocol.panelToHost).not.toContain("STATE");
+    expect(hardware.protocol.hostOwns).toContain("canonical state");
+    expect(hardware.protocol.panelOwns).not.toContain("canonical state");
+  });
+
   it("publishes the model as readable JSON", () => {
     expect(() =>
       JSON.parse(

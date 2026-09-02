@@ -47,7 +47,7 @@ const schemas = schemaFiles.map((name) =>
 );
 
 describe("qec contract pack", () => {
-  it("publishes and compiles all eight contract schemas", () => {
+  it("publishes and compiles all nine contract schemas", () => {
     expect(schemaFiles).toEqual([
       "build-contract-v0.3.schema.json",
       "ivritcode-openqasm-v0.1.schema.json",
@@ -56,12 +56,28 @@ describe("qec contract pack", () => {
       "observation-v0.3.schema.json",
       "path-map-v0.3.schema.json",
       "qec-hardware-v0.1.schema.json",
+      "qec-panel-link-v0.1.schema.json",
       "trace-v0.3.schema.json",
     ]);
 
     const ajv = new Ajv2020({ allErrors: true, strict: true });
     schemas.forEach((schema) =>
       expect(() => ajv.compile(schema)).not.toThrow(),
+    );
+  });
+
+  it("validates the directional QEC panel-link profile", () => {
+    const ajv = new Ajv2020({ allErrors: true, strict: true });
+    const schema = readJson(
+      `${schemaDirectory}/qec-panel-link-v0.1.schema.json`,
+    );
+    const profile = readJson(
+      fileURLToPath(
+        new URL("../specifications/qec-panel-link-v0.1.json", import.meta.url),
+      ),
+    );
+    expect(ajv.validate(schema, profile), JSON.stringify(ajv.errors)).toBe(
+      true,
     );
   });
 

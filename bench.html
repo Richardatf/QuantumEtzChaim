@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Build and verify the four-key, four-pixel QEC-1P bench prototype before fabricating the full Quantum Etz Chaim machine."
+    />
+    <meta name="theme-color" content="#05070c" />
+    <title>QEC-1P Bench Prototype — Quantum Etz Chaim</title>
+    <link rel="stylesheet" href="/css/machine.css" />
+    <link rel="stylesheet" href="/css/bench.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="shell bar-layout">
+        <a class="brand" href="machine.html">
+          <span class="brand-mark" aria-hidden="true">א</span>
+          <span
+            ><strong>QEC-1P BENCH PROTOTYPE</strong
+            ><small>FOUR KEYS / FOUR PIXELS / ONE PROTOCOL</small></span
+          >
+        </a>
+        <nav aria-label="Primary navigation">
+          <a href="#console">Bench console</a>
+          <a href="docs/QEC_1P_BENCH_BUILD.md">Build guide</a>
+          <a href="machine.html">Full machine</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="shell bench-hero">
+        <div>
+          <p class="eyebrow">FIRST PHYSICAL MILESTONE / BUILD BEFORE PANEL</p>
+          <h1>Prove the machine <em>small.</em></h1>
+          <p class="lede">
+            QEC-1P is the reduced electrical and protocol proof for QEC-1. Four
+            physical keys enter <span lang="he" dir="rtl">אור</span> and STEP;
+            four pixels expose node, path, register, and link/fault state. It
+            proves the part that must work before any 600 × 420 mm panel is cut.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="docs/QEC_1P_BENCH_BUILD.md"
+              >Build QEC-1P →</a
+            >
+            <a class="button" href="schematics/qec-1p-bench-wiring.svg"
+              >Open exact wiring plate</a
+            >
+            <a class="button" href="firmware/qec1p/README.md"
+              >Open firmware package</a
+            >
+          </div>
+        </div>
+        <aside class="bench-map" aria-label="QEC-1P fixed input and output map">
+          <p class="eyebrow">FIXED MAP</p>
+          <div class="map-row">
+            <b>GP6</b><span lang="he">א</span><small>Aleph key</small>
+          </div>
+          <div class="map-row">
+            <b>GP7</b><span lang="he">ו</span><small>Vav key</small>
+          </div>
+          <div class="map-row">
+            <b>GP8</b><span lang="he">ר</span><small>Resh key</small>
+          </div>
+          <div class="map-row">
+            <b>GP9</b><span>STEP</span><small>Step key</small>
+          </div>
+          <div class="map-row output">
+            <b>GP2</b><span>4× RGB</span><small>Shifted pixel data</small>
+          </div>
+        </aside>
+      </section>
+
+      <section class="shell section" id="console">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">BROWSER BENCH CONSOLE</p>
+            <h2>Generate evidence, not impressions.</h2>
+          </div>
+          <p>
+            Simulation proves the published protocol logic in any modern
+            browser. Live proof uses Web Serial in a supported Chromium browser
+            to negotiate with the Pico, apply the three canonical
+            <span lang="he" dir="rtl">אור</span> states, reject excess
+            brightness, and observe the watchdog fault.
+          </p>
+        </div>
+
+        <div class="console-grid">
+          <div class="control-panel">
+            <div
+              class="mode-bar"
+              role="group"
+              aria-label="Bench proof controls"
+            >
+              <button class="button primary" id="simulate" type="button">
+                Run simulation
+              </button>
+              <button class="button" id="connect" type="button">
+                Connect Pico
+              </button>
+              <button class="button" id="run-live" type="button" disabled>
+                Run live proof
+              </button>
+            </div>
+            <p id="connection-state" class="connection-state" role="status">
+              No serial device connected. Simulation is ready.
+            </p>
+            <ol class="test-list" aria-label="QEC-1P acceptance results">
+              <li data-test="map">
+                <span>01</span>
+                <div>
+                  <b>Fixed map</b
+                  ><small>4 keys and 4 pixels match the contract</small>
+                </div>
+                <output>WAIT</output>
+              </li>
+              <li data-test="handshake">
+                <span>02</span>
+                <div>
+                  <b>Version handshake</b
+                  ><small>HELLO receives a compatible READY</small>
+                </div>
+                <output>WAIT</output>
+              </li>
+              <li data-test="states">
+                <span>03</span>
+                <div>
+                  <b>Canonical state</b
+                  ><small
+                    >Three monotonic <span lang="he">אור</span> frames apply
+                    atomically</small
+                  >
+                </div>
+                <output>WAIT</output>
+              </li>
+              <li data-test="brightness">
+                <span>04</span>
+                <div>
+                  <b>Brightness boundary</b
+                  ><small>Values above 25% are rejected</small>
+                </div>
+                <output>WAIT</output>
+              </li>
+              <li data-test="watchdog">
+                <span>05</span>
+                <div>
+                  <b>Fail-closed watchdog</b
+                  ><small>Loss of host heartbeat creates a local fault</small>
+                </div>
+                <output>WAIT</output>
+              </li>
+            </ol>
+          </div>
+          <div class="serial-panel">
+            <div class="serial-head">
+              <span>UTF-8 JSONL TRACE</span>
+              <button id="clear-log" type="button">Clear</button>
+            </div>
+            <pre id="serial-log" aria-live="polite">
+QEC-1P bench console ready.</pre>
+          </div>
+        </div>
+        <p class="boundary">
+          <strong>Electrical boundary:</strong> The Pico is powered by USB. The
+          four-pixel rail uses a separate fused 5 V supply. Their grounds meet
+          at the 74AHCT125 logic-shifter point; their positive rails never meet.
+          No mains voltage enters the prototype.
+        </p>
+      </section>
+
+      <section class="shell section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">WHAT THIS PROVES</p>
+            <h2>A gate before fabrication.</h2>
+          </div>
+          <p>
+            The prototype does not imitate the full panel. It retires five
+            specific risks: low-voltage power, 3.3 V-to-5 V data translation,
+            physical key debounce, bounded serial frames, and fail-closed
+            behavior.
+          </p>
+        </div>
+        <div class="proof-grid">
+          <article>
+            <b>Physical</b>
+            <p>
+              Real switches and pixels respond through the same controller
+              family selected for QEC-1.
+            </p>
+          </article>
+          <article>
+            <b>Canonical</b>
+            <p>
+              The host remains authoritative for state; the panel only displays
+              validated projections.
+            </p>
+          </article>
+          <article>
+            <b>Mystical meaning</b>
+            <p>
+              <span lang="he">אור</span>, light, becomes the acceptance program:
+              frame, connection, and manifestation made observable.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell">
+        QUANTUM ETZ CHAIM · QEC-1P · BUILDABLE CLASSICAL BENCH PROTOTYPE
+      </div>
+    </footer>
+    <script type="module" src="/src/bench.ts"></script>
+  </body>
+</html>
