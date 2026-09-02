@@ -290,3 +290,18 @@ Kernel 0.3 is done when both public experiences consume the same versioned engin
 The software architecture may be manifested as the **QEC-1A tabletop demonstrator**: a classical Raspberry Pi host, a Pico panel controller, twenty-four keys, and fifty-six addressable indicators. Its normative hardware model is `specifications/qec-hardware-v0.1.json`; fabrication, low-voltage wiring, protocol, and acceptance instructions are in `docs/QEC_1_PHYSICAL_BUILD.md`.
 
 QEC-1A does not implement qubits, superposition, entanglement, quantum error correction, or quantum speedup. Any future laboratory backend remains outside the tabletop enclosure and must use a reviewed, versioned adapter with independently validated equipment and evidence.
+
+## 18. OpenQASM 3 projection target
+
+IvritCode publishes the versioned `ivritcode-openqasm-0.1` translation profile
+at `specifications/ivritcode-openqasm-v0.1.json`. It maps all twenty-two Hebrew
+opcodes to operations from the OpenQASM 3 standard gate library, assigns qubit
+operands deterministically, and appends an explicit measurement. The browser
+compiler is emit-only: it neither evaluates the generated source nor submits a
+job to a simulator or processor.
+
+This profile is a QEC project convention, not a linguistic, physical, or
+religious claim about the Hebrew letters. The classical QEC trace remains the
+authoritative result for QEC-1A. A QEC-LAB adapter must separately name its
+backend, target profile, transpiler, calibration evidence, job identifier, and
+returned measurements before any run may be described as quantum execution.

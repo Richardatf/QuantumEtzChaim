@@ -22,6 +22,8 @@ data is ignored; it never becomes executable code.
 - [QEC-1 physical machine build guide](docs/QEC_1_PHYSICAL_BUILD.md), with
   system, low-voltage wiring, and dimensioned panel drawings
 - [Machine-readable QEC-1 hardware contract](specifications/qec-hardware-v0.1.json)
+- [IvritCode to OpenQASM 3 projection profile](specifications/ivritcode-openqasm-v0.1.json),
+  with one explicit standard-gate mapping for every Hebrew opcode
 - [Quantum Etz Chaim / IvritOS v0.2 build specification](docs/BUILD_SPEC.md)
 - [Machine-readable architecture contract](specifications/qec-architecture-v0.2.json)
 - [Draft 2020-12 contract schemas](specifications/schemas/) for machine state,
@@ -58,6 +60,10 @@ data is ignored; it never becomes executable code.
 The coherence layer is a deterministic theoretical visualization, not physical
 quantum computation. Project-defined symbolic correspondences are architecture
 conventions rather than scientific or religious claims.
+
+The landing-page compiler emits OpenQASM 3 source but never executes it. A
+quantum claim begins only when a named laboratory backend accepts, transpiles,
+and runs that source on independently verified quantum hardware.
 
 ## Local development
 

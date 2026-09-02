@@ -47,9 +47,10 @@ const schemas = schemaFiles.map((name) =>
 );
 
 describe("qec contract pack", () => {
-  it("publishes and compiles all seven required schemas", () => {
+  it("publishes and compiles all eight contract schemas", () => {
     expect(schemaFiles).toEqual([
       "build-contract-v0.3.schema.json",
+      "ivritcode-openqasm-v0.1.schema.json",
       "machine-state-v0.3.schema.json",
       "manifestation-v0.2.schema.json",
       "observation-v0.3.schema.json",
@@ -61,6 +62,24 @@ describe("qec contract pack", () => {
     const ajv = new Ajv2020({ allErrors: true, strict: true });
     schemas.forEach((schema) =>
       expect(() => ajv.compile(schema)).not.toThrow(),
+    );
+  });
+
+  it("validates the IvritCode OpenQASM translation profile", () => {
+    const ajv = new Ajv2020({ allErrors: true });
+    const schema = readJson(
+      `${schemaDirectory}/ivritcode-openqasm-v0.1.schema.json`,
+    );
+    const profile = readJson(
+      fileURLToPath(
+        new URL(
+          "../specifications/ivritcode-openqasm-v0.1.json",
+          import.meta.url,
+        ),
+      ),
+    );
+    expect(ajv.validate(schema, profile), JSON.stringify(ajv.errors)).toBe(
+      true,
     );
   });
 

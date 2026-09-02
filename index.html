@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta
       name="description"
-      content="Quantum Etz Chaim is an experimental architecture atlas connecting quantum information systems with the Tree of Life as a symbolic computational model."
+      content="QEC-1 is a buildable tabletop computing machine with 24 keys, 56 indicators, a deterministic runtime, open schematics, and an interactive Sefirotic control map."
     />
     <meta name="theme-color" content="#07100f" />
-    <title>Quantum Etz Chaim — Architecture of Coherence</title>
+    <title>QEC-1 Physical Computing Machine — Quantum Etz Chaim</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@300;400;500;600&family=Marcellus&display=swap");
       :root {
@@ -168,6 +168,33 @@
         font-size: 17px;
         line-height: 1.8;
       }
+      .machine-facts {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1px;
+        max-width: 620px;
+        margin-top: 30px;
+        border: 1px solid var(--line);
+        background: var(--line);
+      }
+      .machine-facts div {
+        padding: 16px;
+        background: rgba(7, 16, 15, 0.94);
+      }
+      .machine-facts strong,
+      .machine-facts span {
+        display: block;
+      }
+      .machine-facts strong {
+        color: var(--ivory);
+        font: 400 22px/1 var(--serif);
+      }
+      .machine-facts span {
+        margin-top: 7px;
+        color: var(--muted);
+        font: 9px/1.4 var(--mono);
+        letter-spacing: 0.08em;
+      }
       .hero-actions {
         display: flex;
         gap: 12px;
@@ -197,7 +224,8 @@
         position: relative;
         min-height: 670px;
         display: grid;
-        place-items: center;
+        grid-template-rows: minmax(0, 1fr) auto;
+        align-items: center;
       }
       .tree-glow {
         position: absolute;
@@ -209,7 +237,7 @@
       }
       #tree {
         width: 100%;
-        max-height: 700px;
+        max-height: 590px;
         overflow: visible;
       }
       .path {
@@ -259,15 +287,203 @@
           transform: rotate(360deg);
         }
       }
-      .hero-note {
-        position: absolute;
-        right: 0;
-        bottom: 25px;
-        width: 210px;
-        padding: 14px;
-        border-left: 1px solid var(--gold);
-        font: 300 10px/1.7 var(--mono);
+      .node-inspector {
+        position: relative;
+        z-index: 2;
+        width: min(100%, 590px);
+        margin: -12px auto 0;
+        padding: 20px;
+        border: 1px solid rgba(212, 180, 106, 0.34);
+        background: rgba(7, 16, 15, 0.94);
+        box-shadow: 0 22px 60px rgba(0, 0, 0, 0.32);
+      }
+      .inspector-heading {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 18px;
+        margin: 8px 0 14px;
+      }
+      .inspector-heading h2 {
+        margin: 0;
+        font: 400 29px/1 var(--serif);
+      }
+      .inspector-heading span {
+        color: var(--gold-2);
+        font: 400 23px/1 var(--serif);
+      }
+      .node-inspector > p {
+        margin: 0 0 16px;
+        color: #bbc4bf;
+        font-size: 13px;
+        line-height: 1.65;
+      }
+      .node-inspector dl {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px 18px;
+        margin: 0;
+      }
+      .node-inspector dl div {
+        padding-top: 10px;
+        border-top: 1px solid var(--line);
+      }
+      .node-inspector dt {
+        color: var(--cyan);
+        font: 500 9px/1 var(--mono);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .node-inspector dd {
+        margin: 7px 0 0;
         color: var(--muted);
+        font-size: 12px;
+        line-height: 1.55;
+      }
+      .machine-flow {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        border: 1px solid var(--line);
+        background: var(--line);
+      }
+      .machine-flow article {
+        min-height: 220px;
+        padding: 26px;
+        background: #091411;
+      }
+      .machine-flow .flow-index {
+        color: var(--cyan);
+        font: 10px/1 var(--mono);
+      }
+      .machine-flow h3 {
+        margin: 45px 0 12px;
+        font: 400 23px/1.1 var(--serif);
+      }
+      .machine-flow p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+      .machine-boundary {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 22px;
+        margin-top: 22px;
+      }
+      .machine-boundary > div {
+        padding: 24px;
+        border: 1px solid var(--line);
+        background: rgba(13, 28, 25, 0.58);
+      }
+      .machine-boundary h3 {
+        margin: 6px 0 12px;
+        font: 400 24px/1.15 var(--serif);
+      }
+      .machine-boundary p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+      .qasm-lab {
+        display: grid;
+        grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.28fr);
+        border: 1px solid var(--line);
+        background: #091411;
+      }
+      .qasm-controls {
+        padding: clamp(24px, 4vw, 44px);
+        border-right: 1px solid var(--line);
+      }
+      .qasm-controls h3 {
+        margin: 12px 0 14px;
+        font: 400 34px/1.05 var(--serif);
+      }
+      .qasm-controls p {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+      .qasm-controls label {
+        display: block;
+        margin: 28px 0 8px;
+        color: var(--cyan);
+        font: 10px/1 var(--mono);
+        letter-spacing: 0.12em;
+      }
+      .qasm-controls input {
+        width: 100%;
+        border: 1px solid rgba(212, 180, 106, 0.4);
+        border-radius: 0;
+        background: #050c0b;
+        color: var(--gold-2);
+        padding: 14px 16px;
+        font: 26px/1.2 var(--serif);
+      }
+      .qasm-controls input:focus-visible {
+        outline: 2px solid var(--cyan);
+        outline-offset: 2px;
+      }
+      .qasm-controls button {
+        margin-top: 12px;
+      }
+      .qasm-status {
+        display: block;
+        margin-top: 18px;
+        color: var(--cyan);
+        font: 9px/1.5 var(--mono);
+        letter-spacing: 0.08em;
+      }
+      .qasm-status[data-state="invalid"] {
+        color: #e58d78;
+      }
+      .qasm-output-shell {
+        min-width: 0;
+        padding: 18px;
+        background: #040a09;
+      }
+      .qasm-output-shell pre {
+        min-height: 390px;
+        max-height: 520px;
+        margin: 0;
+        overflow: auto;
+        padding: 22px;
+        color: #a9d8cf;
+        background: #020706;
+        font: 13px/1.72 var(--mono);
+        tab-size: 2;
+      }
+      .qasm-map {
+        display: grid;
+        grid-template-columns: repeat(11, minmax(0, 1fr));
+        gap: 1px;
+        margin: 18px 0 0;
+        padding: 1px;
+        list-style: none;
+        background: var(--line);
+      }
+      .qasm-map li {
+        min-width: 0;
+        padding: 12px 6px;
+        background: #091411;
+        text-align: center;
+      }
+      .qasm-map b,
+      .qasm-map code {
+        display: block;
+      }
+      .qasm-map b {
+        color: var(--gold-2);
+        font: 20px/1 var(--serif);
+      }
+      .qasm-map code {
+        margin-top: 7px;
+        overflow: hidden;
+        color: var(--muted);
+        font: 8px/1.2 var(--mono);
+        text-overflow: ellipsis;
       }
       .section {
         padding: 110px 0;
@@ -692,6 +908,16 @@
         .principles {
           grid-template-columns: 1fr;
         }
+        .qasm-lab {
+          grid-template-columns: 1fr;
+        }
+        .qasm-controls {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+        .qasm-map {
+          grid-template-columns: repeat(6, minmax(0, 1fr));
+        }
         .build-brief {
           grid-template-columns: 1fr 1fr;
         }
@@ -755,6 +981,15 @@
         .build-brief {
           grid-template-columns: 1fr;
         }
+        .machine-facts,
+        .node-inspector dl,
+        .machine-flow,
+        .machine-boundary {
+          grid-template-columns: 1fr;
+        }
+        .qasm-map {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
         .schematic-guide {
           grid-template-columns: 1fr;
         }
@@ -792,10 +1027,11 @@
           ></a
         >
         <nav aria-label="Primary navigation">
-          <a href="#frontier">The frontier</a
-          ><a href="#architecture">The architecture</a
+          <a href="#machine">How it works</a
+          ><a href="#quantum-target">Quantum target</a
+          ><a href="machine.html">Build QEC-1</a
           ><a href="#schematics">Schematics</a
-          ><a href="machine.html">Physical Machine</a
+          ><a href="#architecture">System map</a
           ><a href="qec-v0.1.html">Runtime</a
           ><a href="wave.html">Infinite Wave</a
           ><a href="console.html">Console</a>
@@ -807,17 +1043,26 @@
     <main id="top">
       <section class="shell hero">
         <div>
-          <div class="eyebrow">A speculative systems architecture</div>
-          <h1>The tree is an architecture for <em>coherence.</em></h1>
+          <div class="eyebrow">QEC-1 / Buildable classical demonstrator</div>
+          <h1>A physical machine for <em>coherent computation.</em></h1>
           <p class="lead">
-            Quantum Etz Chaim maps the demands of fault-tolerant quantum
-            computing—state, connection, correction, control, and
-            observation—onto a living computational diagram.
+            QEC-1 is a 600 × 420 mm tabletop computer built around a Raspberry
+            Pi 5, a Pico 2 panel controller, 24 keys, and 56 addressable lights.
+            It executes Hebrew-letter programs deterministically, shows state
+            moving through the machine, and preserves a complete trace of every
+            run.
           </p>
+          <div class="machine-facts" aria-label="QEC-1 key specifications">
+            <div><strong>24</strong><span>PHYSICAL KEYS</span></div>
+            <div><strong>56</strong><span>STATE INDICATORS</span></div>
+            <div><strong>5 V</strong><span>LOW-VOLTAGE DOMAINS</span></div>
+          </div>
           <div class="hero-actions">
-            <a class="button primary" href="qec-v0.1.html"
-              >Open the living runtime <span>→</span></a
-            ><a class="button" href="#frontier">See the research</a>
+            <a class="button primary" href="machine.html"
+              >Explore the physical machine <span>→</span></a
+            ><a class="button" href="docs/QEC_1_PHYSICAL_BUILD.md"
+              >Open the build guide</a
+            >
           </div>
         </div>
         <div
@@ -893,7 +1138,7 @@
               <text x="300" y="88">INTENT</text>
             </g>
             <g
-              id="chochmah"
+              id="chokhmah"
               class="node"
               data-node="chokhmah"
               tabindex="0"
@@ -991,29 +1236,204 @@
               <text x="300" y="673">MANIFEST</text>
             </g>
           </svg>
-          <div class="hero-note">
-            SELECT A NODE<br /><span id="node-note"
-              >Tiferet coordinates the whole system, reconciling operations into
-              a coherent state.</span
-            >
-          </div>
+          <aside class="node-inspector" aria-live="polite">
+            <div class="eyebrow">Select a sefirah / inspect its subsystem</div>
+            <div class="inspector-heading">
+              <h2 id="node-name">Tiferet</h2>
+              <span id="node-hebrew" lang="he" dir="rtl">תפארת</span>
+            </div>
+            <p id="node-summary">
+              Coordinates the runtime so every operation advances one coherent,
+              reproducible machine state.
+            </p>
+            <dl>
+              <div>
+                <dt>QEC-1 counterpart</dt>
+                <dd id="node-machine">
+                  Pi 5 runtime scheduler + central node indicator
+                </dd>
+              </div>
+              <div>
+                <dt>Observable action</dt>
+                <dd id="node-action">
+                  Orders services, resolves state updates, and lights the active
+                  path.
+                </dd>
+              </div>
+              <div>
+                <dt>Mystical meaning</dt>
+                <dd id="node-mystical">
+                  Harmony and balance become a design rule for coordinating the
+                  whole.
+                </dd>
+              </div>
+              <div>
+                <dt>Evidence</dt>
+                <dd id="node-evidence">
+                  Ordered trace events and a reproducible state hash.
+                </dd>
+              </div>
+            </dl>
+          </aside>
         </div>
       </section>
 
       <figure class="image-band">
         <img
-          src="assets/images/living-tree-architecture.png"
-          alt="A luminous technical Tree of Life architecture in a dark emerald quantum chamber"
-          width="1672"
-          height="941"
+          src="schematics/qec-1-panel.svg"
+          alt="Dimensioned QEC-1 tabletop panel with Hebrew keys, Sefirotic indicators, path lights, and register lights"
+          width="1400"
+          height="920"
         />
         <figcaption class="image-caption">
-          <strong>The Living Tree Console begins as a systems diagram.</strong
+          <strong
+            >The symbolic Tree is also the machine’s control surface.</strong
           ><span
-            >ORIGINAL CONCEPT ART / GENERATED FOR QUANTUM ETZ CHAIM / 2026</span
+            >FIXED PANEL MODEL / 600 × 420 MM / 24 KEYS / 56 INDICATORS</span
           >
         </figcaption>
       </figure>
+
+      <section class="section" id="machine">
+        <div class="shell">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">What the machine actually does</div>
+              <h2>Input becomes visible state.</h2>
+            </div>
+            <p class="section-intro">
+              The Tree supplies the responsibility map. Conventional, available
+              electronics do the work. A key press becomes a versioned event;
+              the host advances the canonical runtime; the panel displays the
+              exact state that the trace records.
+            </p>
+          </div>
+          <div class="machine-flow" aria-label="QEC-1 machine flow">
+            <article>
+              <span class="flow-index">01 / INPUT</span>
+              <h3>Press a Hebrew key</h3>
+              <p>
+                Twenty-two letter keys enter instructions. STEP and RUN control
+                execution. The 6 × 4 diode matrix prevents ambiguous key events.
+              </p>
+            </article>
+            <article>
+              <span class="flow-index">02 / PANEL CONTROL</span>
+              <h3>Pico 2 reports the event</h3>
+              <p>
+                The panel controller debounces the switch and sends a versioned
+                JSON Lines message to the host over USB serial.
+              </p>
+            </article>
+            <article>
+              <span class="flow-index">03 / COMPUTE</span>
+              <h3>Pi 5 advances the runtime</h3>
+              <p>
+                The host validates the program, applies the deterministic letter
+                operation, updates 23 registers, and records the trace.
+              </p>
+            </article>
+            <article>
+              <span class="flow-index">04 / MANIFEST</span>
+              <h3>The panel shows the result</h3>
+              <p>
+                Node, path, and register lights render the same canonical state
+                shown on screen and preserved by checksum.
+              </p>
+            </article>
+          </div>
+          <div class="machine-boundary">
+            <div>
+              <div class="eyebrow">Engineering boundary</div>
+              <h3>A real machine, honestly classified.</h3>
+              <p>
+                QEC-1 is a buildable classical control-and-display computer. It
+                contains no qubits and claims no superposition, entanglement,
+                quantum error correction, or quantum speedup. Two external,
+                fused 5 V supplies power separate host and panel domains; there
+                is no mains voltage inside the enclosure.
+              </p>
+            </div>
+            <div>
+              <div class="eyebrow">Meaning boundary</div>
+              <h3>The Tree guides responsibilities.</h3>
+              <p>
+                The sefirot are not claimed as electronic forces. Their
+                relationships give the machine a disciplined way to separate
+                intention, generation, structure, permission, restraint,
+                coordination, persistence, representation, integration,
+                observation, and output.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="quantum-target">
+        <div class="shell">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">IvritCode → OpenQASM 3</div>
+              <h2>Hebrew opcodes become modern quantum instructions.</h2>
+            </div>
+            <p class="section-intro">
+              IvritCode now has a versioned OpenQASM 3 projection target. Each
+              of the twenty-two Hebrew instructions emits an operation from the
+              standard gate library, receives explicit qubit addresses, and ends
+              in measurement. The output is portable quantum source code, ready
+              for validation or later transpilation by a compatible toolchain.
+            </p>
+          </div>
+          <div class="qasm-lab">
+            <form class="qasm-controls" id="qasm-form">
+              <div class="eyebrow">Live translation boundary</div>
+              <h3>Write in IvritCode. Inspect the circuit.</h3>
+              <p>
+                This translator emits code only. It does not send a job to a
+                simulator or quantum processor, and the letter-to-gate profile
+                is an explicit QEC project convention rather than a claim about
+                the inherent meaning of the Hebrew letters.
+              </p>
+              <label for="qasm-source">IVRITCODE SOURCE</label>
+              <input
+                id="qasm-source"
+                name="source"
+                value="אור"
+                lang="he"
+                dir="rtl"
+                maxlength="128"
+                autocomplete="off"
+                spellcheck="false"
+              />
+              <button class="button" type="submit">
+                Compile to OpenQASM 3
+              </button>
+              <span class="qasm-status" id="qasm-status"></span>
+              <p>
+                Target profile:
+                <a href="specifications/ivritcode-openqasm-v0.1.json"
+                  >ivritcode-openqasm-0.1 ↗</a
+                >
+              </p>
+            </form>
+            <div class="qasm-output-shell">
+              <pre id="qasm-output" aria-live="polite"></pre>
+            </div>
+          </div>
+          <ol
+            class="qasm-map"
+            id="qasm-map"
+            aria-label="Twenty-two IvritCode to OpenQASM gate mappings"
+          ></ol>
+          <div class="notice" style="margin-top: 18px">
+            <strong>Execution boundary:</strong> OpenQASM output becomes a real
+            quantum experiment only after a named backend accepts, transpiles,
+            and runs it on independently verified quantum hardware. QEC-1A
+            remains classical; QEC-LAB owns that future adapter and its
+            evidence.
+          </div>
+        </div>
+      </section>
 
       <section class="section" id="frontier">
         <div class="shell">
@@ -1485,34 +1905,159 @@
       </div>
     </footer>
     <script>
-      const notes = {
-        keter:
-          "Keter holds program intent, identity, seed, and uncommitted possibility.",
-        chokhmah:
-          "Chokhmah generates candidate states and the first impulse of an instruction.",
-        binah:
-          "Binah parses, compiles, validates structure, and preserves Hebrew grammar.",
-        daat: "Da’at is an observation boundary: it records a deterministic, inspectable snapshot.",
-        chesed:
-          "Chesed permits allocation, growth, duplication, and controlled expansion.",
-        gevurah:
-          "Gevurah enforces permissions, limits, validation, and error boundaries.",
-        tiferet:
-          "Tiferet coordinates the whole system, reconciling operations into a coherent state.",
-        netzach:
-          "Netzach sustains iteration, retries, continuation, and long-running processes.",
-        hod: "Hod makes state legible through diagnostics, explanation, and serialization.",
-        yesod:
-          "Yesod synchronizes registers, services, memory, cache, and execution history.",
-        malchut:
-          "Malchut manifests the observed state as visible, audible, or exported output.",
+      const nodeDetails = {
+        keter: {
+          name: "Keter",
+          hebrew: "כתר",
+          summary:
+            "Establishes what the run is allowed to do before the machine changes state.",
+          machine: "RUN key + Pi 5 job initializer",
+          action:
+            "Captures the source, seed, runtime version, permissions, and run identity.",
+          mystical:
+            "Crown and intention become an engineering requirement: purpose precedes execution.",
+          evidence: "Run Passport header and immutable starting-state hash.",
+        },
+        chokhmah: {
+          name: "Chokhmah",
+          hebrew: "חכמה",
+          summary:
+            "Turns a Hebrew key event into the first executable form of an instruction.",
+          machine: "22-key Hebrew field + instruction generator",
+          action:
+            "Receives the selected letter and constructs the candidate operation for the runtime.",
+          mystical:
+            "The first flash of wisdom is paired with the machine’s generative step.",
+          evidence: "Key event and compiled instruction in the trace.",
+        },
+        binah: {
+          name: "Binah",
+          hebrew: "בינה",
+          summary:
+            "Gives each proposed instruction a valid, bounded structure or rejects it.",
+          machine: "Pi 5 parser, compiler, and schema validators",
+          action:
+            "Preserves Hebrew text, checks versions and shapes, and emits a typed instruction.",
+          mystical:
+            "Understanding becomes form: an impulse must acquire boundaries before it can act.",
+          evidence: "Validation result, typed instruction, or explicit fault.",
+        },
+        daat: {
+          name: "Da’at",
+          hebrew: "דעת",
+          summary:
+            "Freezes one inspectable record of the current state without changing it.",
+          machine: "Observation service + dedicated Da’at indicator",
+          action:
+            "Writes a checkpoint containing state, trace position, hashes, and provenance.",
+          mystical:
+            "Knowledge is treated as accountable encounter: what is known must be recorded.",
+          evidence: "Observation record, trace hash, and state hash.",
+        },
+        chesed: {
+          name: "Chesed",
+          hebrew: "חסד",
+          summary:
+            "Permits the runtime to allocate, branch, retrieve, and extend within policy.",
+          machine: "Host allocation and permission service",
+          action:
+            "Approves allowed growth in state, memory use, and candidate paths.",
+          mystical:
+            "Lovingkindness becomes governed provision: the system makes room for possibility.",
+          evidence: "Permission decision and resource-allocation trace event.",
+        },
+        gevurah: {
+          name: "Gevurah",
+          hebrew: "גבורה",
+          summary:
+            "Stops unsafe, invalid, over-budget, or disconnected operation.",
+          machine: "Pico watchdog, 5 A fuse, brightness cap, and validators",
+          action:
+            "Enforces current, step, capability, protocol, and fault limits.",
+          mystical:
+            "Strength and restraint become the limits that keep power usable.",
+          evidence:
+            "Typed fault, rejected command, or visible panel fault state.",
+        },
+        tiferet: {
+          name: "Tiferet",
+          hebrew: "תפארת",
+          summary:
+            "Coordinates the runtime so every operation advances one coherent, reproducible machine state.",
+          machine: "Pi 5 runtime scheduler + central node indicator",
+          action:
+            "Orders services, resolves state updates, and lights the active path.",
+          mystical:
+            "Harmony and balance become a design rule for coordinating the whole.",
+          evidence: "Ordered trace events and a reproducible state hash.",
+        },
+        netzach: {
+          name: "Netzach",
+          hebrew: "נצח",
+          summary:
+            "Keeps a valid execution moving across steps, loops, retries, and longer runs.",
+          machine: "STEP/RUN controls + deterministic execution loop",
+          action:
+            "Advances one instruction or continues until completion or a bounded stop.",
+          mystical:
+            "Endurance becomes controlled continuation rather than endless motion.",
+          evidence: "Monotonic step counter and complete sequence of events.",
+        },
+        hod: {
+          name: "Hod",
+          hebrew: "הוד",
+          summary:
+            "Makes the internal state readable to a builder, operator, or another system.",
+          machine: "Local display + USB diagnostics + trace serializer",
+          action:
+            "Names operations, explains faults, and encodes state into inspectable records.",
+          mystical:
+            "Splendor becomes representation: hidden process is given an intelligible form.",
+          evidence:
+            "Human-readable trace, diagnostic message, and exported JSON.",
+        },
+        yesod: {
+          name: "Yesod",
+          hebrew: "יסוד",
+          summary:
+            "Holds the shared state from which the panel, trace, and final output agree.",
+          machine: "23 register indicators + canonical state store",
+          action:
+            "Synchronizes registers, event history, caches, and indicator addresses.",
+          mystical:
+            "Foundation becomes the reliable layer that gathers the system before output.",
+          evidence: "Register values and matching host-to-panel STATE frame.",
+        },
+        malchut: {
+          name: "Malchut",
+          hebrew: "מלכות",
+          summary:
+            "Presents the observed result in the physical world of the operator.",
+          machine: "56-light panel + screen and file outputs",
+          action:
+            "Renders node, path, and register state and exports the completed manifestation.",
+          mystical:
+            "Kingdom becomes manifestation: the design is judged by what it actually produces.",
+          evidence: "Visible light pattern, result string, and checksum.",
+        },
       };
       const nodes = [...document.querySelectorAll(".node")],
         paths = [...document.querySelectorAll(".path")],
-        note = document.querySelector("#node-note");
+        nodeName = document.querySelector("#node-name"),
+        nodeHebrew = document.querySelector("#node-hebrew"),
+        nodeSummary = document.querySelector("#node-summary"),
+        nodeMachine = document.querySelector("#node-machine"),
+        nodeAction = document.querySelector("#node-action"),
+        nodeMystical = document.querySelector("#node-mystical"),
+        nodeEvidence = document.querySelector("#node-evidence");
       function selectNode(name) {
+        const detail = nodeDetails[name];
+        if (!detail) return;
         nodes.forEach((n) =>
           n.classList.toggle("active", n.dataset.node === name),
+        );
+        nodes.forEach((n) =>
+          n.setAttribute("aria-pressed", String(n.dataset.node === name)),
         );
         paths.forEach((p) =>
           p.classList.toggle(
@@ -1520,7 +2065,13 @@
             p.dataset.nodes.split(" ").includes(name),
           ),
         );
-        note.textContent = notes[name];
+        nodeName.textContent = detail.name;
+        nodeHebrew.textContent = detail.hebrew;
+        nodeSummary.textContent = detail.summary;
+        nodeMachine.textContent = detail.machine;
+        nodeAction.textContent = detail.action;
+        nodeMystical.textContent = detail.mystical;
+        nodeEvidence.textContent = detail.evidence;
       }
       nodes.forEach((n) => {
         n.addEventListener("click", () => selectNode(n.dataset.node));
@@ -1531,6 +2082,7 @@
           }
         });
       });
+      selectNode("tiferet");
       const architecture = {
         intent: {
           tag: "KETER / ALEPH OLAM",
@@ -1590,5 +2142,6 @@
       renderArch("intent");
     </script>
     <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/openqasm-ui.ts"></script>
   </body>
 </html>

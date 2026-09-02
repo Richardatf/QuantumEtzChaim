@@ -1,0 +1,77 @@
+{
+  "$schema": "https://quantumetzchaim.com/schemas/ivritcode-openqasm-v0.1.schema.json",
+  "id": "ivritcode-openqasm-0.1",
+  "status": "deterministic-translation-profile",
+  "sourceLanguage": "IvritCode",
+  "targetLanguage": "OpenQASM 3",
+  "targetLibrary": "stdgates.inc",
+  "minimumQubits": 3,
+  "executionPolicy": "emit-only",
+  "scientificBoundary": "This is a versioned project mapping from Hebrew opcodes to standard quantum instructions. It does not claim that Hebrew letters naturally encode these gates, and emitting OpenQASM is not evidence that QEC-1 contains or controls qubits.",
+  "addressing": "Instruction n targets q[n mod qubitCount]; multi-qubit operations use consecutive wrapped indices.",
+  "measurement": "Every emitted program ends with result = measure q;",
+  "mappings": [
+    {
+      "letter": "א",
+      "operation": "p(0)",
+      "label": "Identity phase",
+      "arity": 1
+    },
+    { "letter": "ב", "operation": "x", "label": "Pauli X", "arity": 1 },
+    { "letter": "ג", "operation": "y", "label": "Pauli Y", "arity": 1 },
+    { "letter": "ד", "operation": "z", "label": "Pauli Z", "arity": 1 },
+    { "letter": "ה", "operation": "h", "label": "Hadamard", "arity": 1 },
+    { "letter": "ו", "operation": "s", "label": "S phase", "arity": 1 },
+    { "letter": "ז", "operation": "sdg", "label": "S adjoint", "arity": 1 },
+    { "letter": "ח", "operation": "t", "label": "T phase", "arity": 1 },
+    { "letter": "ט", "operation": "tdg", "label": "T adjoint", "arity": 1 },
+    { "letter": "י", "operation": "sx", "label": "Square-root X", "arity": 1 },
+    {
+      "letter": "כ",
+      "operation": "rx(pi/2)",
+      "label": "X rotation",
+      "arity": 1
+    },
+    {
+      "letter": "ל",
+      "operation": "ry(pi/2)",
+      "label": "Y rotation",
+      "arity": 1
+    },
+    {
+      "letter": "מ",
+      "operation": "rz(pi/2)",
+      "label": "Z rotation",
+      "arity": 1
+    },
+    {
+      "letter": "נ",
+      "operation": "p(pi/4)",
+      "label": "Phase rotation",
+      "arity": 1
+    },
+    { "letter": "ס", "operation": "cx", "label": "Controlled X", "arity": 2 },
+    { "letter": "ע", "operation": "cy", "label": "Controlled Y", "arity": 2 },
+    { "letter": "פ", "operation": "cz", "label": "Controlled Z", "arity": 2 },
+    {
+      "letter": "צ",
+      "operation": "cp(pi/2)",
+      "label": "Controlled phase",
+      "arity": 2
+    },
+    {
+      "letter": "ק",
+      "operation": "crx(pi/2)",
+      "label": "Controlled X rotation",
+      "arity": 2
+    },
+    {
+      "letter": "ר",
+      "operation": "cry(pi/2)",
+      "label": "Controlled Y rotation",
+      "arity": 2
+    },
+    { "letter": "ש", "operation": "swap", "label": "Swap", "arity": 2 },
+    { "letter": "ת", "operation": "ccx", "label": "Toffoli", "arity": 3 }
+  ]
+}
