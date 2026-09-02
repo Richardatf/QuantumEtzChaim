@@ -2,7 +2,13 @@ import { defineConfig } from "vite";
 import { cpSync, existsSync, mkdirSync } from "node:fs";
 import { resolve } from "node:path";
 
-const publishedDirectories = ["schematics", "docs", "specifications"] as const;
+const publishedDirectories = [
+  "schematics",
+  "docs",
+  "specifications",
+] as const;
+
+const publishedFiles = ["qec/spec.json"] as const;
 
 export default defineConfig({
   plugins: [
@@ -16,6 +22,13 @@ export default defineConfig({
           mkdirSync(destination, { recursive: true });
           cpSync(source, destination, { recursive: true });
         }
+        for (const file of publishedFiles) {
+          const source = resolve(file);
+          const destination = resolve("dist", file);
+          if (!existsSync(source)) continue;
+          mkdirSync(resolve(destination, ".."), { recursive: true });
+          cpSync(source, destination);
+        }
       },
     },
   ],
@@ -27,6 +40,7 @@ export default defineConfig({
         landing: "landing.html",
         console: "console.html",
         contracts: "contract-explorer.html",
+        runtime: "qec-v0.1.html",
       },
     },
   },

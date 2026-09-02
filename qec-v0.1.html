@@ -1,50 +1,176 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Quantum Etz Chaim — Living Runtime Map</title>
-  <meta name="description" content="Explore the Quantum Etz Chaim symbolic runtime, its sefirotic stages, 32 paths, and 231 Hebrew-letter gates." />
-  <meta name="theme-color" content="#030712" />
-  <link rel="stylesheet" href="/css/site.css" />
-  <link rel="stylesheet" href="/css/qec.css" />
-</head>
-<body class="qec-page">
-  <header class="topbar" role="banner">
-    <div class="wrap topbar-row">
-      <a class="brand" href="/" aria-label="LuminaNexus home"><span class="brand-mark" aria-hidden="true">✶</span><span class="brand-text"><span class="brand-title">LuminaNexus</span><span class="brand-subtitle">Sanctuary · Study · Build</span></span></a>
-      <nav class="topbar-actions" aria-label="Top navigation"><a class="nav-link" href="/ivritcode/">IvritCode</a><a class="nav-link" href="/celestial-library-231/">231 Gates</a><a class="nav-link" href="/map/">Map</a><a class="nav-link nav-cta" href="/donate/">Support</a></nav>
-    </div>
-  </header>
-  <main>
-    <section class="qec-hero wrap">
-      <div><p class="qec-kicker">QEC CORE · עֵץ חַיִּים</p><h1>Quantum Etz Chaim</h1><p class="qec-lead">A symbolic, auditable computation model inspired by the Tree of Life. It is a research architecture, not a claim of physical quantum computation.</p></div>
-      <div class="qec-status" aria-label="Runtime status"><span></span> v0.1 · local demonstrator</div>
-    </section>
-    <section class="runtime-shell wrap" aria-labelledby="runtime-title">
-      <div class="runtime-heading"><div><p class="qec-kicker">LIVE MAP</p><h2 id="runtime-title">The sefirotic runtime</h2></div><button id="run-demo" class="qec-button" type="button">Run acceptance program</button></div>
-      <div class="runtime-grid">
-        <div class="tree-panel">
-          <svg id="qec-tree" class="qec-tree" viewBox="0 0 620 920" role="img" aria-labelledby="tree-title tree-desc"><title id="tree-title">Interactive Quantum Etz Chaim runtime map</title><desc id="tree-desc">Eleven selectable nodes show the ten sefirot and Da'at verification stage.</desc><g id="path-layer" class="path-layer"></g><g id="node-layer" class="node-layer"></g></svg>
-          <p class="tree-note">The traditional 10 sefirot remain intact. Da’at is shown as a verification and provenance crossing, not an additional sefirah.</p>
-        </div>
-        <aside class="inspector" aria-live="polite">
-          <p class="inspector-eyebrow" id="stage-kind">INPUT / INTENTION</p><div class="inspector-title"><span id="stage-hebrew" lang="he" dir="rtl">כֶּתֶר</span><h3 id="stage-name">Keter</h3></div>
-          <p id="stage-role" class="stage-role">Receives the program and binds it to an explicit execution manifest.</p>
-          <dl class="stage-facts"><div><dt>Runtime duty</dt><dd id="stage-duty">Intent and manifest</dd></div><div><dt>Current state</dt><dd id="stage-state">Ready</dd></div></dl>
-          <div class="manifest"><p>Execution manifest</p><code>program: יִ $r1, 5</code><code>capabilities: []</code><code>budget.steps: 32</code><code>aleph_olam: disabled</code></div>
-        </aside>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Quantum Etz Chaim — Living Runtime Map</title>
+    <meta
+      name="description"
+      content="Explore the Quantum Etz Chaim symbolic runtime, its sefirotic stages, 32 paths, and 231 Hebrew-letter gates."
+    />
+    <meta name="theme-color" content="#030712" />
+    <link rel="stylesheet" href="/css/qec.css" />
+  </head>
+  <body class="qec-page">
+    <header class="topbar" role="banner">
+      <div class="wrap topbar-row">
+        <a class="brand" href="/" aria-label="Quantum Etz Chaim home"
+          ><span class="brand-mark" aria-hidden="true">א</span
+          ><span class="brand-text"
+            ><span class="brand-title">Quantum Etz Chaim</span
+            ><span class="brand-subtitle">Living Runtime · v0.1</span></span
+          ></a
+        >
+        <nav class="topbar-actions" aria-label="Top navigation">
+          <a class="nav-link" href="/">Atlas</a
+          ><a class="nav-link" href="/console.html">Console</a
+          ><a class="nav-link" href="/contract-explorer.html">Contracts</a
+          ><a class="nav-link nav-cta" href="https://ivritcode.org/"
+            >Open IvritCode ↗</a
+          >
+        </nav>
       </div>
-      <div id="trace-strip" class="trace-strip" aria-label="Execution trace"></div>
-    </section>
-    <section class="gates-section wrap" aria-labelledby="gates-title">
-      <div class="gates-copy"><p class="qec-kicker">231 GATES · רל״א שְׁעָרִים</p><h2 id="gates-title">Every pair explicit. Nothing invented in silence.</h2><p>The 22 Hebrew letters form exactly 231 unique unordered pairs. In v0.1 every gate begins unassigned and non-executable until its rule is deliberately specified and reviewed.</p></div>
-      <div class="gate-explorer"><label for="gate-search">Search by Hebrew letter or English name</label><input id="gate-search" type="search" placeholder="Try א, Bet, or Aleph Bet" autocomplete="off" /><div class="gate-summary"><strong id="gate-count">231</strong><span>gates visible</span></div><div id="gate-grid" class="gate-grid"></div></div>
-    </section>
-    <section class="boundary wrap"><p class="qec-kicker">THE BOUNDARY</p><div class="boundary-grid"><article><h3>Symbolic inspiration</h3><p>The sefirot provide an ethical and conceptual ordering for computation.</p></article><article><h3>Implemented computation</h3><p>Deterministic data structures, typed stages, gate records, trace events, and tests.</p></article><article><h3>Speculative research</h3><p>The Infinite Wave and future models remain clearly labeled until they become testable.</p></article></div></section>
-  </main>
-  <footer class="qec-footer wrap"><span>Quantum Etz Chaim · LuminaNexus</span><a href="/ivritcode/">Open IvritCode →</a></footer>
-  <script src="/qec/core.js" defer></script>
-  <script src="/scripts/qec.js" defer></script>
-</body>
+    </header>
+    <main>
+      <section class="qec-hero wrap">
+        <div>
+          <p class="qec-kicker">QEC CORE · עֵץ חַיִּים</p>
+          <h1>Quantum Etz Chaim</h1>
+          <p class="qec-lead">
+            A symbolic, auditable computation model inspired by the Tree of
+            Life. It is a research architecture, not a claim of physical quantum
+            computation.
+          </p>
+        </div>
+        <div class="qec-status" aria-label="Runtime status">
+          <span></span> v0.1 · deterministic demonstrator
+        </div>
+      </section>
+      <section class="runtime-shell wrap" aria-labelledby="runtime-title">
+        <div class="runtime-heading">
+          <div>
+            <p class="qec-kicker">LIVE MAP</p>
+            <h2 id="runtime-title">The sefirotic runtime</h2>
+          </div>
+          <button id="run-demo" class="qec-button" type="button">
+            Run acceptance program
+          </button>
+        </div>
+        <div class="runtime-grid">
+          <div class="tree-panel">
+            <svg
+              id="qec-tree"
+              class="qec-tree"
+              viewBox="0 0 620 920"
+              role="img"
+              aria-labelledby="tree-title tree-desc"
+            >
+              <title id="tree-title">
+                Interactive Quantum Etz Chaim runtime map
+              </title>
+              <desc id="tree-desc">
+                Eleven selectable nodes show the ten sefirot and Da'at
+                verification stage.
+              </desc>
+              <g id="path-layer" class="path-layer"></g>
+              <g id="node-layer" class="node-layer"></g>
+            </svg>
+            <p class="tree-note">
+              The traditional 10 sefirot remain intact. Da’at is shown as a
+              verification and provenance crossing, not an additional sefirah.
+            </p>
+          </div>
+          <aside class="inspector" aria-live="polite">
+            <p class="inspector-eyebrow" id="stage-kind">INPUT / INTENTION</p>
+            <div class="inspector-title">
+              <span id="stage-hebrew" lang="he" dir="rtl">כֶּתֶר</span>
+              <h3 id="stage-name">Keter</h3>
+            </div>
+            <p id="stage-role" class="stage-role">
+              Receives the program and binds it to an explicit execution
+              manifest.
+            </p>
+            <dl class="stage-facts">
+              <div>
+                <dt>Runtime duty</dt>
+                <dd id="stage-duty">Intent and manifest</dd>
+              </div>
+              <div>
+                <dt>Current state</dt>
+                <dd id="stage-state">Ready</dd>
+              </div>
+            </dl>
+            <div class="manifest">
+              <p>Execution manifest</p>
+              <code>program: יִ $r1, 5</code><code>capabilities: []</code
+              ><code>budget.steps: 32</code><code>aleph_olam: disabled</code>
+            </div>
+          </aside>
+        </div>
+        <div
+          id="trace-strip"
+          class="trace-strip"
+          aria-label="Execution trace"
+        ></div>
+      </section>
+      <section class="gates-section wrap" aria-labelledby="gates-title">
+        <div class="gates-copy">
+          <p class="qec-kicker">231 GATES · רל״א שְׁעָרִים</p>
+          <h2 id="gates-title">
+            Every pair explicit. Nothing invented in silence.
+          </h2>
+          <p>
+            The 22 Hebrew letters form exactly 231 unique unordered pairs. In
+            v0.1 every gate begins unassigned and non-executable until its rule
+            is deliberately specified and reviewed.
+          </p>
+        </div>
+        <div class="gate-explorer">
+          <label for="gate-search"
+            >Search by Hebrew letter or English name</label
+          ><input
+            id="gate-search"
+            type="search"
+            placeholder="Try א, Bet, or Aleph Bet"
+            autocomplete="off"
+          />
+          <div class="gate-summary">
+            <strong id="gate-count">231</strong><span>gates visible</span>
+          </div>
+          <div id="gate-grid" class="gate-grid"></div>
+        </div>
+      </section>
+      <section class="boundary wrap">
+        <p class="qec-kicker">THE BOUNDARY</p>
+        <div class="boundary-grid">
+          <article>
+            <h3>Symbolic inspiration</h3>
+            <p>
+              The sefirot provide an ethical and conceptual ordering for
+              computation.
+            </p>
+          </article>
+          <article>
+            <h3>Implemented computation</h3>
+            <p>
+              Deterministic data structures, typed stages, gate records, trace
+              events, and tests.
+            </p>
+          </article>
+          <article>
+            <h3>Speculative research</h3>
+            <p>
+              The Infinite Wave and future models remain clearly labeled until
+              they become testable.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer class="qec-footer wrap">
+      <span>Quantum Etz Chaim · symbolic, bounded, auditable</span
+      ><a href="https://ivritcode.org/">Open IvritCode →</a>
+    </footer>
+    <script type="module" src="/scripts/qec.js"></script>
+  </body>
 </html>

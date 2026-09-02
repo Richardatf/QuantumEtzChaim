@@ -24,6 +24,8 @@ data is ignored; it never becomes executable code.
 - [Draft 2020-12 contract schemas](specifications/schemas/) for machine state,
   path maps, traces, observations, and manifestation exports
 - Executable `אור` vertical slice in `console.html`
+- Living sefirotic runtime and searchable 231 Gate registry in
+  `qec-v0.1.html`
 - Interactive Gate Explorer with computed routes, shared services, register
   changes, and coherence deltas
 - Da’at Observation Inspector with three deterministic candidate projections,
