@@ -229,13 +229,17 @@
       }
       .tree-glow {
         position: absolute;
+        z-index: 0;
         width: 70%;
         aspect-ratio: 1;
         border-radius: 50%;
         background: rgba(74, 170, 155, 0.1);
         filter: blur(70px);
+        pointer-events: none;
       }
       #tree {
+        position: relative;
+        z-index: 1;
         width: 100%;
         max-height: 590px;
         overflow: visible;
@@ -274,6 +278,25 @@
       }
       .node {
         cursor: pointer;
+      }
+      .daat-node .daat-hit {
+        fill: transparent;
+        stroke: none;
+        pointer-events: all;
+      }
+      .daat-node .daat-presence {
+        fill: transparent;
+        stroke: transparent;
+        stroke-width: 1;
+        pointer-events: none;
+        transition: 0.3s;
+      }
+      .daat-node:hover .daat-presence,
+      .daat-node:focus-visible .daat-presence,
+      .daat-node.active .daat-presence {
+        fill: rgba(112, 201, 193, 0.09);
+        stroke: rgba(112, 201, 193, 0.46);
+        filter: drop-shadow(0 0 8px rgba(112, 201, 193, 0.3));
       }
       .orbit {
         fill: none;
@@ -1112,8 +1135,8 @@
           >
             <title id="treeTitle">Quantum Etz Chaim architecture map</title>
             <desc id="treeDesc">
-              Eleven connected nodes represent services from intent through
-              observation to output.
+              Ten visible sefirot organize services from intent through output.
+              A smaller hidden Da’at control marks the observation boundary.
             </desc>
             <circle class="orbit" cx="300" cy="345" r="250" />
             <g id="paths">
@@ -1200,16 +1223,15 @@
               <text x="160" y="188">STRUCTURE</text>
             </g>
             <g
-              class="node"
+              class="node daat-node"
               data-node="daat"
               tabindex="0"
               role="button"
               aria-controls="sefirah-description"
-              aria-label="Open the Da’at description"
+              aria-label="Reveal the hidden Da’at observation boundary"
             >
-              <circle cx="300" cy="220" r="29" />
-              <text class="he" x="300" y="217">דעת</text>
-              <text x="300" y="237">OBSERVE</text>
+              <circle class="daat-hit" cx="300" cy="220" r="30" />
+              <circle class="daat-presence" cx="300" cy="220" r="10" />
             </g>
             <g
               id="chesed"
@@ -1310,7 +1332,9 @@
             aria-live="polite"
             aria-labelledby="node-name"
           >
-            <div class="eyebrow">Selected sefirah / machine description</div>
+            <div class="eyebrow" id="node-kicker">
+              Selected sefirah / machine description
+            </div>
             <div class="inspector-heading">
               <h2 id="node-name">Tiferet</h2>
               <span id="node-hebrew" lang="he" dir="rtl">תפארת</span>
@@ -2033,11 +2057,11 @@
           hebrew: "דעת",
           summary:
             "Freezes one inspectable record of the current state without changing it.",
-          machine: "Observation service + dedicated Da’at indicator",
+          machine: "Observation service + normally dark Da’at boundary indicator",
           action:
-            "Writes a checkpoint containing state, trace position, hashes, and provenance.",
+            "Appears only when observation writes a checkpoint containing state, trace position, hashes, and provenance.",
           mystical:
-            "Knowledge is treated as accountable encounter: what is known must be recorded.",
+            "Da’at remains hidden rather than standing as an eleventh sefirah; it becomes present when wisdom and understanding are consciously joined.",
           evidence: "Observation record, trace hash, and state hash.",
         },
         chesed: {
@@ -2137,6 +2161,7 @@
         nodeMystical = document.querySelector("#node-mystical"),
         nodeEvidence = document.querySelector("#node-evidence");
       const nodeInspector = document.querySelector("#sefirah-description"),
+        nodeKicker = document.querySelector("#node-kicker"),
         reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
       function revealNodeDetails() {
         nodeInspector.focus({ preventScroll: true });
@@ -2168,6 +2193,10 @@
         nodeAction.textContent = detail.action;
         nodeMystical.textContent = detail.mystical;
         nodeEvidence.textContent = detail.evidence;
+        nodeKicker.textContent =
+          name === "daat"
+            ? "Hidden boundary / machine description"
+            : "Selected sefirah / machine description";
         if (reveal) revealNodeDetails();
       }
       nodes.forEach((n) => {

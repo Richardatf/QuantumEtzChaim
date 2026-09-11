@@ -22,6 +22,26 @@ describe("landing-page Sefirotic navigation", () => {
     expect(landingPage).toContain('aria-labelledby="node-name"');
   });
 
+  it("keeps decorative light from intercepting Tree controls", () => {
+    expect(landingPage).toMatch(
+      /\.tree-glow\s*\{[\s\S]*?pointer-events:\s*none;/,
+    );
+    expect(landingPage).toMatch(
+      /#tree\s*\{[\s\S]*?position:\s*relative;[\s\S]*?z-index:\s*1;/,
+    );
+  });
+
+  it("presents Da’at as a hidden boundary rather than an eleventh visible sefirah", () => {
+    expect(landingPage).toContain('class="node daat-node"');
+    expect(landingPage).toContain(
+      'aria-label="Reveal the hidden Da’at observation boundary"',
+    );
+    expect(landingPage).toContain('class="daat-hit"');
+    expect(landingPage).not.toContain(
+      '<text class="he" x="300" y="217">דעת</text>',
+    );
+  });
+
   it("moves the user to the updated description after activation", () => {
     expect(landingPage).toContain("function revealNodeDetails()");
     expect(landingPage).toContain("nodeInspector.scrollIntoView({");
