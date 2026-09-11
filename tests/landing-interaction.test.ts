@@ -9,9 +9,10 @@ const landingPage = readFileSync(
 describe("landing-page Sefirotic navigation", () => {
   it("keeps the full Tree near the top on tablet layouts", () => {
     expect(landingPage).toContain("@media (max-width: 900px)");
-    expect(landingPage).toContain("padding: 34px 0 58px;");
+    expect(landingPage).toContain("padding: 14px 0 28px;");
     expect(landingPage).toContain(".machine-facts {\n          display: none;");
-    expect(landingPage).toContain("max-height: 520px;");
+    expect(landingPage).toContain("height: min(62svh, 590px);");
+    expect(landingPage).toContain('class="mobile-intro"');
   });
 
   it("connects every sefirah control to the description destination", () => {
@@ -46,5 +47,18 @@ describe("landing-page Sefirotic navigation", () => {
     expect(landingPage).toContain("function revealNodeDetails()");
     expect(landingPage).toContain("nodeInspector.scrollIntoView({");
     expect(landingPage).toContain("selectNode(n.dataset.node, true)");
+    expect(landingPage).toContain('class="node-inspector"');
+    expect(landingPage).toContain("nodeInspector.classList.add(\"is-open\")");
+    expect(landingPage).toContain('id="return-to-tree"');
+    expect(landingPage).toContain('id="node-previous"');
+    expect(landingPage).toContain('id="node-next"');
+  });
+
+  it("provides complete mobile navigation instead of hiding site routes", () => {
+    expect(landingPage).toContain('class="menu-toggle"');
+    expect(landingPage).toContain('aria-controls="primary-nav"');
+    expect(landingPage).toContain('id="primary-nav"');
+    expect(landingPage).toContain('nav[data-open="true"]');
+    expect(landingPage).toContain('menuToggle.setAttribute("aria-expanded"');
   });
 });

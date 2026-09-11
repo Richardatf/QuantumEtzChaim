@@ -38,7 +38,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         atlas: "index.html",
-        landing: "landing.html",
         console: "console.html",
         contracts: "contract-explorer.html",
         runtime: "qec-v0.1.html",
