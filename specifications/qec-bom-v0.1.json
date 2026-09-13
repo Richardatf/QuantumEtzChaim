@@ -1,0 +1,138 @@
+{
+  "$schema": "./schemas/qec-bom-v0.1.schema.json",
+  "schemaVersion": "qec-bom-0.1",
+  "machineId": "QEC-1",
+  "snapshotDate": "2026-09-13",
+  "currency": "USD",
+  "status": "reference-not-quote",
+  "rules": [
+    "Verify stock, price, footprint, and panel dimensions before ordering or cutting.",
+    "Use only certified external low-voltage supplies; no mains voltage enters QEC-1.",
+    "Substitutions must meet or exceed voltage, current, temperature, and connector ratings."
+  ],
+  "items": [
+    {
+      "id": "HOST",
+      "quantity": 1,
+      "manufacturer": "Raspberry Pi",
+      "manufacturerPart": "SC1112",
+      "description": "Raspberry Pi 5, 8 GB",
+      "preferredSource": "PiShop US",
+      "sourceUrl": "https://www.pishop.us/product/raspberry-pi-5-8gb/",
+      "referenceUnitPrice": 175,
+      "substitutionRule": "Any genuine Raspberry Pi 5 with at least 4 GB; revise thermal and storage acceptance records if changed."
+    },
+    {
+      "id": "HOST_COOLER",
+      "quantity": 1,
+      "manufacturer": "Raspberry Pi",
+      "manufacturerPart": "SC1148",
+      "description": "Raspberry Pi 5 Active Cooler",
+      "preferredSource": "PiShop US",
+      "sourceUrl": "https://www.pishop.us/product/raspberry-pi-active-cooler/",
+      "referenceUnitPrice": 10.95,
+      "substitutionRule": "Pi 5-compatible active cooling that passes the closed-enclosure thermal test."
+    },
+    {
+      "id": "HOST_PSU",
+      "quantity": 1,
+      "manufacturer": "Raspberry Pi",
+      "manufacturerPart": "SC1154",
+      "description": "Official 27 W USB-C power supply, US",
+      "preferredSource": "PiShop US",
+      "sourceUrl": "https://www.pishop.us/product/raspberry-pi-27w-usb-c-power-supply-white-us/",
+      "referenceUnitPrice": 12.95,
+      "substitutionRule": "Certified USB-C supply explicitly supporting the Pi 5 5 V / 5 A profile."
+    },
+    {
+      "id": "PANEL_MCU",
+      "quantity": 1,
+      "manufacturer": "Raspberry Pi",
+      "manufacturerPart": "SC1631",
+      "description": "Raspberry Pi Pico 2 with headers added by builder",
+      "preferredSource": "PiShop US",
+      "sourceUrl": "https://www.pishop.us/product/raspberry-pi-pico-2/",
+      "referenceUnitPrice": 5,
+      "substitutionRule": "Pico 2 W is acceptable if the same wired USB CDC and assigned GPIO map are retained."
+    },
+    {
+      "id": "PANEL_PSU",
+      "quantity": 1,
+      "manufacturer": "MEAN WELL",
+      "manufacturerPart": "GST40A05-P1J",
+      "description": "Certified external 5 V / 5 A desktop supply",
+      "preferredSource": "Authorized distributor",
+      "sourceUrl": "https://www.meanwell.com/webapp/product/search.aspx?prod=GST40A",
+      "referenceUnitPrice": 17.9,
+      "substitutionRule": "Certified regulated external 5 V supply rated at least 5 A; connector and polarity must match the selected fused entry harness."
+    },
+    {
+      "id": "PIXELS",
+      "quantity": 12,
+      "manufacturer": "SparkFun",
+      "manufacturerPart": "COM-12986",
+      "description": "Addressable RGB LED, 5 mm diffused, five-pack",
+      "preferredSource": "Authorized distributor",
+      "sourceUrl": "https://www.mouser.com/ProductDetail/SparkFun/COM-12986",
+      "referenceUnitPrice": 4.75,
+      "substitutionRule": "Sixty compatible 5 V addressable through-hole pixels; confirm pin order and current before wiring. Four units are spares."
+    },
+    {
+      "id": "LEVEL_SHIFTER",
+      "quantity": 1,
+      "manufacturer": "Texas Instruments",
+      "manufacturerPart": "SN74AHCT125N",
+      "description": "Quad buffer with TTL-compatible input thresholds, DIP-14",
+      "preferredSource": "Authorized distributor",
+      "sourceUrl": "https://www.ti.com/product/SN74AHCT125",
+      "referenceUnitPrice": 0.95,
+      "substitutionRule": "74AHCT125 or proven 3.3 V-to-5 V unidirectional pixel-data shifter; do not use a passive divider."
+    },
+    {
+      "id": "BULK_CAP",
+      "quantity": 1,
+      "manufacturer": "Panasonic",
+      "manufacturerPart": "EEU-FR1A102B",
+      "description": "1000 uF, 10 V electrolytic capacitor",
+      "preferredSource": "Authorized distributor",
+      "sourceUrl": "https://www.mouser.com/ProductDetail/Panasonic/EEU-FR1A102B",
+      "referenceUnitPrice": 1.01,
+      "substitutionRule": "1000 uF low-ESR electrolytic rated at least 10 V and 105 C; observe polarity."
+    },
+    {
+      "id": "KEYS",
+      "quantity": 24,
+      "manufacturer": "CHERRY",
+      "manufacturerPart": "MX2A-G1NB",
+      "description": "MX2A tactile panel keyswitch",
+      "preferredSource": "Authorized distributor",
+      "sourceUrl": "https://www.cherry.de/en-us/product/mx2a-brown",
+      "referenceUnitPrice": 1.7,
+      "substitutionRule": "MX-compatible normally-open switch matching the 14 mm subplate cutouts; buy one sample and verify latch fit first."
+    },
+    {
+      "id": "KEY_DIODES",
+      "quantity": 24,
+      "manufacturer": "Vishay",
+      "manufacturerPart": "1N4148-TAP",
+      "description": "Small-signal switching diode",
+      "preferredSource": "Authorized distributor",
+      "sourceUrl": "https://www.vishay.com/docs/81857/1n4148.pdf",
+      "referenceUnitPrice": 0.1,
+      "substitutionRule": "Genuine 1N4148-compatible diode; keep orientation identical across the matrix."
+    }
+  ],
+  "allowance": {
+    "estimatedUsd": 165,
+    "covers": [
+      "32 GB high-endurance microSD",
+      "fused panel entry harness and switch",
+      "330-470 ohm data resistor",
+      "connectors and wire",
+      "panel and 1.5 mm key subplate",
+      "enclosure hardware, feet, labels, and ventilation",
+      "optional local display"
+    ]
+  },
+  "referenceTotalUsd": 488.96
+}

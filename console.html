@@ -1000,6 +1000,92 @@
         text-align: right;
       }
 
+      .panel-preview {
+        padding: 18px 22px;
+        border-bottom: 1px solid var(--line);
+        background: #07110f;
+      }
+
+      .panel-preview-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 14px;
+      }
+
+      .panel-preview-head h3 {
+        margin: 7px 0 0;
+        font: 25px var(--serif);
+      }
+
+      .panel-preview-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+
+      .panel-pixels {
+        display: grid;
+        grid-template-columns: repeat(14, minmax(20px, 1fr));
+        gap: 6px;
+      }
+
+      .panel-pixel {
+        position: relative;
+        aspect-ratio: 1;
+        min-width: 0;
+        border: 1px solid rgba(112, 201, 193, 0.16);
+        border-radius: 50%;
+        background: #0a1714;
+        color: transparent;
+      }
+
+      .panel-pixel::after {
+        content: attr(data-address);
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        color: rgba(192, 208, 201, 0.58);
+        font: 7px/1 var(--mono);
+      }
+
+      .panel-pixel.register {
+        border-radius: 3px;
+      }
+
+      .panel-pixel.active {
+        border-color: var(--gold-light);
+        background: var(--gold);
+        box-shadow: 0 0 12px rgba(215, 184, 110, 0.62);
+      }
+
+      .panel-pixel.register.active {
+        border-color: var(--teal);
+        background: rgba(91, 182, 167, var(--level, 0.35));
+        box-shadow: 0 0 7px rgba(91, 182, 167, 0.38);
+      }
+
+      .panel-pixel.daat {
+        transform: scale(0.55);
+        border-color: transparent;
+      }
+
+      .panel-preview-key {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 12px;
+        color: var(--muted);
+        font: 8px/1.4 var(--mono);
+      }
+
+      .panel-preview-key b {
+        color: var(--teal);
+        font-weight: 400;
+      }
+
       .output-bar {
         min-height: 96px;
         padding: 18px 22px;
@@ -1082,6 +1168,15 @@
         main {
           width: calc(100% - 20px);
           padding-top: 24px;
+        }
+
+        .panel-preview-head {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .panel-pixels {
+          grid-template-columns: repeat(8, minmax(20px, 1fr));
         }
 
         h1 {
@@ -1562,6 +1657,35 @@
               </section>
             </div>
           </div>
+
+          <section class="panel-preview" aria-labelledby="panel-preview-title">
+            <div class="panel-preview-head">
+              <div>
+                <span class="eyebrow">QEC-1 DIGITAL TWIN / 56 ADDRESSES</span>
+                <h3 id="panel-preview-title">Expected physical panel state</h3>
+              </div>
+              <div class="panel-preview-actions">
+                <button id="export-run-passport" type="button" disabled>
+                  Download Run Passport
+                </button>
+                <button id="send-to-bench" type="button" disabled>
+                  Continue on QEC-1P →
+                </button>
+              </div>
+            </div>
+            <div
+              id="panel-pixels"
+              class="panel-pixels"
+              aria-label="Addresses 0 through 55 of the expected QEC-1 panel"
+            ></div>
+            <div class="panel-preview-key">
+              <span><b>0–9</b> SEFIROT</span>
+              <span><b>10</b> HIDDEN DA’AT</span>
+              <span><b>11–32</b> HEBREW PATHS</span>
+              <span><b>33–54</b> VISIBLE REGISTERS</span>
+              <span><b>55</b> ALEPH OLAM</span>
+            </div>
+          </section>
 
           <section
             class="observation-panel"

@@ -1,5 +1,14 @@
 import { runOrVerticalSlice } from "./machine.js";
 import {
+  addRunEvidence,
+  createRunPassport,
+  RUN_PASSPORT_STORAGE_KEY,
+  serializeRunPassport,
+  validateRunPassport,
+  type AcceptanceResult,
+  type RunPassport,
+} from "./passport.js";
+import {
   PANEL_BAUD,
   PANEL_MAX_BRIGHTNESS,
   PANEL_PROTOCOL,
@@ -37,11 +46,37 @@ const liveButton = document.querySelector<HTMLButtonElement>("#run-live")!;
 const clearButton = document.querySelector<HTMLButtonElement>("#clear-log")!;
 const status = document.querySelector<HTMLElement>("#connection-state")!;
 const log = document.querySelector<HTMLElement>("#serial-log")!;
+const downloadPassport =
+  document.querySelector<HTMLButtonElement>("#download-passport")!;
+const activeRunProgram = document.querySelector<HTMLElement>(
+  "#active-run-program",
+)!;
+const activeRunDetail =
+  document.querySelector<HTMLElement>("#active-run-detail")!;
 
 let port: SerialPortLike | null = null;
 let writer: WritableStreamDefaultWriter<Uint8Array> | null = null;
 let readLoopActive = false;
 const waiters = new Set<FrameWaiter>();
+let panelEvidence: PanelFrame[] = [];
+let acceptance: Record<string, AcceptanceResult> = {};
+
+function loadPassport(): RunPassport {
+  try {
+    const stored = localStorage.getItem(RUN_PASSPORT_STORAGE_KEY);
+    if (stored) {
+      const candidate: unknown = JSON.parse(stored);
+      if (validateRunPassport(candidate)) return candidate;
+    }
+  } catch {
+    // A blocked or invalid local handoff falls back to the canonical proof.
+  }
+  return createRunPassport(runOrVerticalSlice(9));
+}
+
+let activePassport = loadPassport();
+activeRunProgram.textContent = activePassport.source;
+activeRunDetail.textContent = `Seed ${String(activePassport.seed).padStart(2, "0")} · ${activePassport.extensions.qecMachine.panel.frames.length} state frames · ${activePassport.extensions.qecMachine.manifestation.output.checksum}`;
 
 function appendLog(
   direction: "HOST" | "PANEL" | "CHECK",
@@ -57,26 +92,33 @@ function setResult(name: string, result: "WAIT" | "PASS" | "FAIL"): void {
   row.classList.toggle("pass", result === "PASS");
   row.classList.toggle("fail", result === "FAIL");
   row.querySelector("output")!.textContent = result;
+  acceptance[name] = result;
 }
 
 function resetResults(): void {
+  acceptance = {};
+  panelEvidence = [];
+  downloadPassport.disabled = true;
   ["map", "handshake", "states", "brightness", "watchdog"].forEach((name) =>
     setResult(name, "WAIT"),
   );
 }
 
 function canonicalFrames(): StateFrame[] {
-  const result = runOrVerticalSlice(9);
-  return result.pathEvents.map((event, index) => ({
-    type: "STATE",
-    sequence: index + 1,
-    activePath: event.letter,
-    sourceNode: event.path.source,
-    destinationNode: event.path.destination,
-    registers: [...event.after],
-    traceHash: result.observation.traceHash,
-    brightness: 0.08,
-  }));
+  return [...activePassport.extensions.qecMachine.panel.frames];
+}
+
+function completeEvidence(mode: "simulation" | "physical"): void {
+  activePassport = addRunEvidence(activePassport, {
+    mode,
+    acknowledgements: [...panelEvidence],
+    acceptance: { ...acceptance },
+  });
+  localStorage.setItem(
+    RUN_PASSPORT_STORAGE_KEY,
+    serializeRunPassport(activePassport),
+  );
+  downloadPassport.disabled = false;
 }
 
 function runSimulation(): void {
@@ -102,6 +144,7 @@ function runSimulation(): void {
     keys: 4,
   } as const;
   appendLog("PANEL", ready);
+  panelEvidence.push(ready);
   setResult(
     "handshake",
     helloPass && validatePanelFrame(ready).ok ? "PASS" : "FAIL",
@@ -113,7 +156,9 @@ function runSimulation(): void {
     const valid = validateHostFrame(frame, previousSequence).ok;
     if (valid) {
       previousSequence = frame.sequence;
-      appendLog("PANEL", { type: "APPLIED", sequence: frame.sequence });
+      const applied = { type: "APPLIED", sequence: frame.sequence } as const;
+      appendLog("PANEL", applied);
+      panelEvidence.push(applied);
     }
     return valid;
   });
@@ -125,24 +170,30 @@ function runSimulation(): void {
   };
   appendLog("HOST", invalidBrightness);
   const brightnessPass = !validateHostFrame(invalidBrightness).ok;
-  appendLog("PANEL", {
+  const brightnessFault = {
     type: "FAULT",
     code: "BRIGHTNESS_LIMIT",
     detail: "last valid display preserved",
-  });
+  } as const;
+  appendLog("PANEL", brightnessFault);
+  panelEvidence.push(brightnessFault);
   setResult("brightness", brightnessPass ? "PASS" : "FAIL");
 
   appendLog("CHECK", "2,000 ms heartbeat deadline elapsed");
-  appendLog("PANEL", {
+  const watchdogFault = {
     type: "FAULT",
     code: "WATCHDOG",
     detail: "fresh HELLO required; no canonical state synthesized",
-  });
+  } as const;
+  appendLog("PANEL", watchdogFault);
+  panelEvidence.push(watchdogFault);
   setResult("watchdog", "PASS");
-  status.textContent = "Simulation complete. Five acceptance checks passed.";
+  completeEvidence("simulation");
+  status.textContent = `Simulation complete. ${canonicalFrames().length} active-run states and five acceptance checks passed.`;
 }
 
 function dispatchPanelFrame(frame: PanelFrame): void {
+  panelEvidence.push(frame);
   for (const waiter of [...waiters]) {
     if (!waiter.predicate(frame)) continue;
     clearTimeout(waiter.timeout);
@@ -285,6 +336,7 @@ async function runLiveProof(): Promise<void> {
     appendLog("CHECK", "withholding heartbeat to test the 2,000 ms watchdog");
     await watchdogFault;
     setResult("watchdog", "PASS");
+    completeEvidence("physical");
     status.textContent = "Live proof complete. The physical prototype passed.";
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
@@ -300,4 +352,17 @@ connectButton.addEventListener("click", () => void connect());
 liveButton.addEventListener("click", () => void runLiveProof());
 clearButton.addEventListener("click", () => {
   log.textContent = "QEC-1P bench console ready.";
+});
+
+downloadPassport.addEventListener("click", () => {
+  const url = URL.createObjectURL(
+    new Blob([serializeRunPassport(activePassport)], {
+      type: "application/json;charset=utf-8",
+    }),
+  );
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = `qec-run-${activePassport.source}-seed-${String(activePassport.seed).padStart(2, "0")}.passport.json`;
+  anchor.click();
+  URL.revokeObjectURL(url);
 });

@@ -86,6 +86,28 @@ button.button:disabled {
   font: 0.75rem/1.5 var(--mono);
 }
 
+.active-run {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  gap: 0.7rem;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 0.8rem;
+  border: 1px solid rgba(112, 201, 193, 0.2);
+  background: rgba(112, 201, 193, 0.045);
+}
+
+.active-run span,
+.active-run small {
+  color: var(--muted);
+  font: 0.69rem/1.4 var(--mono);
+}
+
+.active-run strong {
+  color: var(--gold);
+  font: 1.3rem var(--serif);
+}
+
 .test-list {
   margin: 0;
   padding: 0;

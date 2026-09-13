@@ -14,6 +14,7 @@
     "panel",
     "power",
     "protocol",
+    "fabrication",
     "verification",
     "tiers"
   ],
@@ -106,6 +107,48 @@
       }
     },
     "protocol": { "type": "object" },
+    "fabrication": {
+      "type": "object",
+      "required": [
+        "profile",
+        "panelMap",
+        "billOfMaterials",
+        "panelCutTemplate",
+        "keySubplateTemplate",
+        "guide",
+        "buildTracker",
+        "stopGate"
+      ],
+      "properties": {
+        "profile": { "const": "qec-fabrication-0.1" },
+        "panelMap": {
+          "type": "string",
+          "pattern": "qec-panel-map-v0\\.1\\.json$"
+        },
+        "billOfMaterials": {
+          "type": "string",
+          "pattern": "qec-bom-v0\\.1\\.json$"
+        },
+        "panelCutTemplate": {
+          "type": "string",
+          "pattern": "qec-1-panel-cut-template\\.svg$"
+        },
+        "keySubplateTemplate": {
+          "type": "string",
+          "pattern": "qec-1-key-subplate\\.svg$"
+        },
+        "guide": {
+          "type": "string",
+          "pattern": "QEC_1_FABRICATION_PACK\\.md$"
+        },
+        "buildTracker": {
+          "type": "string",
+          "pattern": "QEC_1_BUILD_TRACKER\\.md$"
+        },
+        "stopGate": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
     "verification": {
       "type": "array",
       "minItems": 7,

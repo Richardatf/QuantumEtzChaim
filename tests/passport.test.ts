@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { parseRunPassport } from "../src/passport.js";
-import { contentHash } from "@qec/spec";
+import {
+  addRunEvidence,
+  createRunPassport,
+  parseRunPassport,
+  validateRunPassport,
+} from "../src/passport.js";
+import { runProgram } from "../src/machine.js";
+import { contentHash, inspectRunPassport } from "@qec/spec";
 
 const state = [...Array.from({ length: 22 }, (_, index) => index), 9];
 const trace = [
@@ -66,4 +72,50 @@ describe("Run Passport file parser", () => {
       ok: false,
       error: expect.stringContaining("event-0-after-hash"),
     }));
+
+  it("uses the canonical passport as the machine workflow spine", () => {
+    const generated = createRunPassport(runProgram("אור", 9));
+    const machine = generated.extensions.qecMachine;
+
+    expect(inspectRunPassport(generated).valid).toBe(true);
+    expect(validateRunPassport(generated)).toBe(true);
+    expect(machine.panel.frames).toHaveLength(3);
+    expect(machine.panel.frames[0]?.traceHash).toBe(generated.traceHash);
+    expect(machine.trace.completeTraceHash).toBe(
+      generated.extensions.qecMachine.trace.completeTraceHash,
+    );
+    expect(machine.manifestation.output.checksum).toMatch(/^[0-9a-f]{8}$/);
+    expect(machine.openQasm.source).toContain("OPENQASM 3.0;");
+    expect(parseRunPassport(JSON.stringify(generated))).toMatchObject({
+      ok: true,
+    });
+  });
+
+  it("rejects a machine extension that diverges from the canonical run", () => {
+    const generated = createRunPassport(runProgram("אור", 9));
+    const broken = structuredClone(generated);
+    broken.extensions.qecMachine.panel.frames[0]!.brightness = 0.26;
+
+    expect(validateRunPassport(broken)).toBe(false);
+    expect(parseRunPassport(JSON.stringify(broken))).toMatchObject({
+      ok: false,
+      error: expect.stringContaining("machine-panel-divergence"),
+    });
+  });
+
+  it("binds simulated or physical acknowledgements to the same passport", () => {
+    const generated = createRunPassport(runProgram("אור", 9));
+    const completed = addRunEvidence(generated, {
+      mode: "physical",
+      acknowledgements: [
+        { type: "READY", protocol: "qec-panel-link-0.1", pixels: 4, keys: 4 },
+        { type: "APPLIED", sequence: 1 },
+      ],
+      acceptance: { handshake: "PASS", states: "PASS" },
+    });
+
+    expect(completed.runId).toBe(generated.runId);
+    expect(completed.extensions.qecMachine.evidence.mode).toBe("physical");
+    expect(validateRunPassport(completed)).toBe(true);
+  });
 });

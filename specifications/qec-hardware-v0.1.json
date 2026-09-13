@@ -28,7 +28,12 @@
     "hostLink": "USB CDC serial",
     "baud": 115200,
     "frame": "UTF-8 JSON Lines",
-    "logicLevelShifter": "74AHCT125 or 74HCT245"
+    "logicLevelShifter": "74AHCT125 or 74HCT245",
+    "gpio": {
+      "pixelData": "GP2 / physical pin 4",
+      "matrixRows": "GP10-GP13 / physical pins 14, 15, 16, 17",
+      "matrixColumns": "GP14-GP19 / physical pins 19, 20, 21, 22, 24, 25"
+    }
   },
   "panel": {
     "sefirahIndicators": 10,
@@ -80,6 +85,16 @@
     ],
     "hostToPanel": ["HELLO", "STATE", "RESET", "SET_BRIGHTNESS", "HEARTBEAT"],
     "panelToHost": ["READY", "KEY", "APPLIED", "FAULT", "HEARTBEAT"]
+  },
+  "fabrication": {
+    "profile": "qec-fabrication-0.1",
+    "panelMap": "./qec-panel-map-v0.1.json",
+    "billOfMaterials": "./qec-bom-v0.1.json",
+    "panelCutTemplate": "../schematics/qec-1-panel-cut-template.svg",
+    "keySubplateTemplate": "../schematics/qec-1-key-subplate.svg",
+    "guide": "../docs/QEC_1_FABRICATION_PACK.md",
+    "buildTracker": "../docs/QEC_1_BUILD_TRACKER.md",
+    "stopGate": "Physical QEC-1P acceptance and purchased-part scrap-fit tests must pass before final panel cutting."
   },
   "verification": [
     "No continuity between either DC rail and chassis",

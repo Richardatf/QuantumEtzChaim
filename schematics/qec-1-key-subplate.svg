@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150mm" height="108mm" viewBox="0 0 150 108">
+  <title>QEC-1 24-key MX-compatible subplate</title>
+  <desc>Full-scale 1.5 millimeter switch plate with 24 nominal 14 millimeter square cutouts at 19.05 millimeter pitch. Test the selected switch in scrap before cutting the final subplate.</desc>
+  <style>.cut{fill:none;stroke:#f00;stroke-width:.15}.engrave{fill:#06c;font:2.4px sans-serif;text-anchor:middle}.note{fill:#06c;font:2px sans-serif}.cal{fill:none;stroke:#06c;stroke-width:.15}</style>
+  <rect class="cut" x=".5" y=".5" width="149" height="107" rx="1"/>
+  <circle class="cut" cx="3.5" cy="3.5" r="1.6"/><circle class="cut" cx="146.5" cy="3.5" r="1.6"/>
+  <circle class="cut" cx="3.5" cy="104.5" r="1.6"/><circle class="cut" cx="146.5" cy="104.5" r="1.6"/>
+  <path class="cal" d="M10 101h50M10 98v6M60 98v6"/><text class="note" x="10" y="96">50 mm calibration</text>
+  <g class="cut">
+    <rect x="20.375" y="18.425" width="14" height="14"/><rect x="39.425" y="18.425" width="14" height="14"/><rect x="58.475" y="18.425" width="14" height="14"/><rect x="77.525" y="18.425" width="14" height="14"/><rect x="96.575" y="18.425" width="14" height="14"/><rect x="115.625" y="18.425" width="14" height="14"/>
+    <rect x="20.375" y="37.475" width="14" height="14"/><rect x="39.425" y="37.475" width="14" height="14"/><rect x="58.475" y="37.475" width="14" height="14"/><rect x="77.525" y="37.475" width="14" height="14"/><rect x="96.575" y="37.475" width="14" height="14"/><rect x="115.625" y="37.475" width="14" height="14"/>
+    <rect x="20.375" y="56.525" width="14" height="14"/><rect x="39.425" y="56.525" width="14" height="14"/><rect x="58.475" y="56.525" width="14" height="14"/><rect x="77.525" y="56.525" width="14" height="14"/><rect x="96.575" y="56.525" width="14" height="14"/><rect x="115.625" y="56.525" width="14" height="14"/>
+    <rect x="20.375" y="75.575" width="14" height="14"/><rect x="39.425" y="75.575" width="14" height="14"/><rect x="58.475" y="75.575" width="14" height="14"/><rect x="77.525" y="75.575" width="14" height="14"/><rect x="96.575" y="75.575" width="14" height="14"/><rect x="115.625" y="75.575" width="14" height="14"/>
+  </g>
+  <g class="engrave" direction="rtl">
+    <text x="27.375" y="16">א</text><text x="46.425" y="16">ב</text><text x="65.475" y="16">ג</text><text x="84.525" y="16">ד</text><text x="103.575" y="16">ה</text><text x="122.625" y="16">ו</text>
+    <text x="27.375" y="35">ז</text><text x="46.425" y="35">ח</text><text x="65.475" y="35">ט</text><text x="84.525" y="35">י</text><text x="103.575" y="35">כ</text><text x="122.625" y="35">ל</text>
+    <text x="27.375" y="54">מ</text><text x="46.425" y="54">נ</text><text x="65.475" y="54">ס</text><text x="84.525" y="54">ע</text><text x="103.575" y="54">פ</text><text x="122.625" y="54">צ</text>
+    <text x="27.375" y="73">ק</text><text x="46.425" y="73">ר</text><text x="65.475" y="73">ש</text><text x="84.525" y="73">ת</text><text x="103.575" y="73" direction="ltr">STEP</text><text x="122.625" y="73" direction="ltr">RUN</text>
+  </g>
+  <text class="note" x="75" y="105" text-anchor="middle">1.5 mm subplate / 14.00 mm nominal cutouts / 19.05 mm pitch / REV 0.1</text>
+</svg>

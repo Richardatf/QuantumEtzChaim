@@ -386,6 +386,39 @@
       .inspector-controls {
         display: none;
       }
+      .release-status {
+        display: grid;
+        grid-template-columns: 1.15fr repeat(4, minmax(0, 1fr));
+        gap: 1px;
+        margin-bottom: 40px;
+        border: 1px solid var(--line);
+        background: var(--line);
+      }
+      .release-status > div {
+        min-width: 0;
+        padding: 16px;
+        background: #091411;
+      }
+      .release-status strong,
+      .release-status small,
+      .release-status span {
+        display: block;
+      }
+      .release-status strong {
+        color: var(--gold-2);
+        font: 400 18px/1.2 var(--serif);
+      }
+      .release-status small {
+        margin-top: 7px;
+        color: var(--cyan);
+        font: 9px/1.35 var(--mono);
+      }
+      .release-status span {
+        margin-top: 5px;
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.45;
+      }
       .machine-flow {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -1100,6 +1133,12 @@
           align-items: flex-start;
           flex-direction: column;
         }
+        .release-status {
+          grid-template-columns: 1fr 1fr;
+        }
+        .release-status > div:first-child {
+          grid-column: 1 / -1;
+        }
       }
       @media (max-width: 560px) {
         .shell {
@@ -1171,6 +1210,12 @@
         .footer-row {
           flex-direction: column;
         }
+        .release-status {
+          grid-template-columns: 1fr;
+        }
+        .release-status > div:first-child {
+          grid-column: auto;
+        }
       }
       @media (prefers-reduced-motion: reduce) {
         html {
@@ -1225,8 +1270,8 @@
             across a Pi 5, Pico 2, 24 keys, and 56 addressable lights.
           </p>
           <p class="mobile-intro">
-            <strong>QEC-1 physical machine.</strong> Hebrew-letter programs become
-            deterministic state across 24 keys and 56 lights.
+            <strong>QEC-1 physical machine.</strong> Hebrew-letter programs
+            become deterministic state across 24 keys and 56 lights.
           </p>
           <div class="machine-facts" aria-label="QEC-1 key specifications">
             <div><strong>24</strong><span>PHYSICAL KEYS</span></div>
@@ -1504,6 +1549,31 @@
               </button>
             </div>
           </aside>
+        </div>
+      </section>
+
+      <section class="shell release-status" aria-label="QEC release status">
+        <div>
+          <div class="eyebrow">ONE MACHINE / VERSIONED PARTS</div>
+          <span
+            >Each number names one interface, not a competing QEC release.</span
+          >
+        </div>
+        <div>
+          <strong>Runtime</strong><small>0.3</small
+          ><span>Canonical paths, trace, observation, and output.</span>
+        </div>
+        <div>
+          <strong>Hardware</strong><small>0.1</small
+          ><span>Buildable QEC-1 panel and electrical boundary.</span>
+        </div>
+        <div>
+          <strong>Panel link</strong><small>0.1</small
+          ><span>Directional Pi-to-Pico state and evidence protocol.</span>
+        </div>
+        <div>
+          <strong>OpenQASM</strong><small>0.1</small
+          ><span>Emit-only IvritCode quantum projection profile.</span>
         </div>
       </section>
 
@@ -2189,7 +2259,8 @@
           hebrew: "דעת",
           summary:
             "Freezes one inspectable record of the current state without changing it.",
-          machine: "Observation service + normally dark Da’at boundary indicator",
+          machine:
+            "Observation service + normally dark Da’at boundary indicator",
           action:
             "Appears only when observation writes a checkpoint containing state, trace position, hashes, and provenance.",
           mystical:

@@ -60,6 +60,9 @@
           <a class="button" href="schematics/qec-1-physical-machine.html"
             >Open engineering plates</a
           >
+          <a class="button" href="docs/QEC_1_FABRICATION_PACK.md"
+            >Open fabrication pack</a
+          >
           <a class="button" href="specifications/qec-hardware-v0.1.json"
             >Machine-readable model</a
           >
@@ -148,13 +151,15 @@
         <div class="section-head">
           <div>
             <p class="eyebrow">ENGINEERING PLATE SET</p>
-            <h2>Four drawings. One fixed model.</h2>
+            <h2>Six drawings. One fixed model.</h2>
           </div>
           <p>
             The system boundary establishes ownership. The wiring plate
             establishes safe low-voltage power and signal paths. The panel plate
             fixes overall dimensions, field placement, and canonical indicator
-            order. The bench plate proves the reduced harness first.
+            order. The bench plate proves the reduced harness first. Two
+            full-scale templates control the final panel and its 1.5 mm key
+            subplate.
           </p>
         </div>
         <div class="plate-grid">
@@ -195,6 +200,26 @@
             />
             <div>
               <b>PLATE 07 / BENCH</b><span>Open full-resolution SVG ↗</span>
+            </div></a
+          >
+          <a class="plate-card" href="schematics/qec-1-panel-cut-template.svg"
+            ><img
+              loading="lazy"
+              src="schematics/qec-1-panel-cut-template.svg"
+              alt="Full-scale 600 by 420 millimeter QEC-1 panel cutting template"
+            />
+            <div>
+              <b>PLATE 08 / CUT TEMPLATE</b><span>Open full-scale SVG ↗</span>
+            </div></a
+          >
+          <a class="plate-card" href="schematics/qec-1-key-subplate.svg"
+            ><img
+              loading="lazy"
+              src="schematics/qec-1-key-subplate.svg"
+              alt="Full-scale 24-key QEC-1 switch subplate"
+            />
+            <div>
+              <b>PLATE 09 / KEY SUBPLATE</b><span>Open full-scale SVG ↗</span>
             </div></a
           >
         </div>
@@ -242,12 +267,12 @@
         <div class="section-head">
           <div>
             <p class="eyebrow">CORE BILL OF MATERIALS</p>
-            <h2>What the first build requires.</h2>
+            <h2>Preferred parts with substitution rules.</h2>
           </div>
           <p>
-            This is the electrical core, not a shopping cart. Select
-            mechanically compatible switches, pixels, connectors, and fasteners,
-            then verify their actual measurements before final fabrication.
+            The versioned BOM names manufacturer parts and a dated reference
+            cost. It is not a live quote: verify stock, price, electrical
+            rating, and every footprint before ordering or cutting.
           </p>
         </div>
         <div style="overflow-x: auto">
@@ -263,38 +288,38 @@
             <tbody>
               <tr>
                 <td>1</td>
-                <td>Raspberry Pi 5 + active cooling</td>
-                <td>8 GB recommended</td>
+                <td>Raspberry Pi 5 + Active Cooler</td>
+                <td>SC1112 + SC1148</td>
                 <td>Canonical host runtime</td>
               </tr>
               <tr>
                 <td>1</td>
                 <td>Raspberry Pi Pico 2</td>
-                <td>Standard or W</td>
+                <td>SC1631</td>
                 <td>Panel controller</td>
               </tr>
               <tr>
-                <td>2</td>
-                <td>External certified DC supplies</td>
-                <td>5 V / 5 A each</td>
+                <td>1 + 1</td>
+                <td>Official Pi 27 W PSU + MEAN WELL panel PSU</td>
+                <td>SC1154 + GST40A05-P1J</td>
                 <td>Separate host and panel domains</td>
               </tr>
               <tr>
-                <td>56</td>
-                <td>Addressable RGB modules</td>
-                <td>5 V WS2812-compatible</td>
+                <td>12 packs</td>
+                <td>SparkFun 5 mm addressable RGB LEDs</td>
+                <td>COM-12986 / 60 pixels, 4 spare</td>
                 <td>Nodes, paths, registers</td>
               </tr>
               <tr>
                 <td>24 + 24</td>
-                <td>Momentary switches + diodes</td>
-                <td>Normally open + 1N4148</td>
+                <td>CHERRY tactile switches + Vishay diodes</td>
+                <td>MX2A-G1NB + 1N4148-TAP</td>
                 <td>6 × 4 key matrix</td>
               </tr>
               <tr>
                 <td>1</td>
-                <td>74AHCT125 or 74HCT245</td>
-                <td>3.3 V to 5 V logic</td>
+                <td>TI SN74AHCT125N</td>
+                <td>DIP-14, 3.3 V to 5 V pixel logic</td>
                 <td>Pixel data level shifting</td>
               </tr>
               <tr>
@@ -311,6 +336,17 @@
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class="actions">
+          <a class="button primary" href="specifications/qec-bom-v0.1.json"
+            >Open versioned BOM →</a
+          >
+          <a class="button" href="specifications/qec-panel-map-v0.1.json"
+            >Open 56-address map</a
+          >
+          <a class="button" href="docs/QEC_1_BUILD_TRACKER.md"
+            >Open build tracker</a
+          >
         </div>
       </section>
 

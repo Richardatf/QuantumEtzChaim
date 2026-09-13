@@ -11,6 +11,11 @@ import {
   type ProgramExecutionResult,
 } from "./machine.js";
 import { decodeProgramPermalink, encodeProgramPermalink } from "./permalink.js";
+import {
+  createRunPassport,
+  RUN_PASSPORT_STORAGE_KEY,
+  serializeRunPassport,
+} from "./passport.js";
 
 const get = <T extends Element>(selector: string): T => {
   const element = document.querySelector<T>(selector);
@@ -97,6 +102,22 @@ const traceDivergenceRoute = get<HTMLElement>("#trace-divergence-route");
 const traceDivergenceRegisters = get<HTMLElement>(
   "#trace-divergence-registers",
 );
+const panelPixels = get<HTMLDivElement>("#panel-pixels");
+const exportRunPassport = get<HTMLButtonElement>("#export-run-passport");
+const sendToBench = get<HTMLButtonElement>("#send-to-bench");
+
+const PANEL_NODE_ADDRESSES = new Map([
+  ["Keter", 0],
+  ["Chokhmah", 1],
+  ["Binah", 2],
+  ["Chesed", 3],
+  ["Gevurah", 4],
+  ["Tiferet", 5],
+  ["Netzach", 6],
+  ["Hod", 7],
+  ["Yesod", 8],
+  ["Malchut", 9],
+]);
 
 function initialRun(): ProgramExecutionResult {
   const permalink = decodeProgramPermalink(window.location.href);
@@ -141,6 +162,65 @@ function renderRegisters(): void {
       letter.textContent = HEBREW_ALPHABET[value]!;
       item.append(name, output, letter);
       return item;
+    }),
+  );
+}
+
+function renderPanelPreview(): void {
+  const state = stateAtStep();
+  const event = step === 0 ? undefined : result.pathEvents[step - 1];
+  const complete = step === result.pathEvents.length;
+  const activeAddresses = new Set<number>();
+  if (event) {
+    const source = PANEL_NODE_ADDRESSES.get(event.path.source);
+    const destination = PANEL_NODE_ADDRESSES.get(event.path.destination);
+    if (source !== undefined) activeAddresses.add(source);
+    if (destination !== undefined) activeAddresses.add(destination);
+    if (event.path.source === "Daat" || event.path.destination === "Daat") {
+      activeAddresses.add(10);
+    }
+    activeAddresses.add(11 + HEBREW_ALPHABET.indexOf(event.letter));
+  }
+  if (complete) {
+    activeAddresses.add(9);
+    activeAddresses.add(10);
+  }
+  for (let index = 33; index <= 55; index += 1) activeAddresses.add(index);
+
+  panelPixels.replaceChildren(
+    ...Array.from({ length: 56 }, (_, address) => {
+      const pixel = document.createElement("span");
+      const registerIndex = address >= 33 ? address - 33 : -1;
+      const kind =
+        address <= 9
+          ? "sefirah"
+          : address === 10
+            ? "daat"
+            : address <= 32
+              ? "path"
+              : "register";
+      const label =
+        kind === "sefirah"
+          ? [...PANEL_NODE_ADDRESSES.entries()].find(
+              ([, nodeAddress]) => nodeAddress === address,
+            )?.[0]
+          : kind === "daat"
+            ? "Hidden Da’at observation boundary"
+            : kind === "path"
+              ? `${HEBREW_ALPHABET[address - 11]} path`
+              : registerIndex === 22
+                ? "Aleph Olam register"
+                : `${HEBREW_ALPHABET[registerIndex]} register`;
+      pixel.className = `panel-pixel ${kind}`;
+      pixel.classList.toggle("active", activeAddresses.has(address));
+      pixel.dataset.address = String(address);
+      pixel.title = `${address} · ${label}`;
+      pixel.setAttribute("aria-label", `${address}, ${label}`);
+      if (registerIndex >= 0) {
+        const value = state[registerIndex] ?? 0;
+        pixel.style.setProperty("--level", String(0.2 + (value / 21) * 0.65));
+      }
+      return pixel;
     }),
   );
 }
@@ -415,6 +495,8 @@ function renderOutput(): void {
   playManifestation.disabled = !complete;
   stopManifestation.disabled = true;
   copyExport.disabled = !complete;
+  exportRunPassport.disabled = !complete;
+  sendToBench.disabled = !complete;
   manifestationStatus.textContent = complete
     ? `qec-manifestation-0.2 ready / ${result.manifestation.checksum}`
     : "Output locked until Da’at observes";
@@ -432,6 +514,7 @@ function render(): void {
   nextButton.textContent =
     step === result.pathEvents.length ? "Observed" : "Next instruction →";
   renderRegisters();
+  renderPanelPreview();
   renderSeedLab();
   renderTraceComparison();
   renderTree();
@@ -671,6 +754,25 @@ exportProvenance.addEventListener("click", () => {
     `qec-provenance-${result.manifestation.checksum}.json`,
   );
   manifestationStatus.textContent = "Provenance bundle exported";
+});
+
+exportRunPassport.addEventListener("click", () => {
+  const passport = createRunPassport(result);
+  downloadArtifact(
+    serializeRunPassport(passport),
+    "application/json;charset=utf-8",
+    `qec-run-${result.program}-seed-${String(result.seed).padStart(2, "0")}.passport.json`,
+  );
+  manifestationStatus.textContent = "Run Passport exported";
+});
+
+sendToBench.addEventListener("click", () => {
+  const passport = createRunPassport(result);
+  localStorage.setItem(
+    RUN_PASSPORT_STORAGE_KEY,
+    serializeRunPassport(passport),
+  );
+  window.location.href = "bench.html#active-run";
 });
 
 render();

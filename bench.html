@@ -23,6 +23,7 @@
           >
         </a>
         <nav aria-label="Primary navigation">
+          <a href="console.html">Living Console</a>
           <a href="#console">Bench console</a>
           <a href="docs/QEC_1P_BENCH_BUILD.md">Build guide</a>
           <a href="machine.html">Full machine</a>
@@ -82,9 +83,9 @@
           <p>
             Simulation proves the published protocol logic in any modern
             browser. Live proof uses Web Serial in a supported Chromium browser
-            to negotiate with the Pico, apply the three canonical
-            <span lang="he" dir="rtl">אור</span> states, reject excess
-            brightness, and observe the watchdog fault.
+            to negotiate with the Pico, apply the active Console run (or the
+            three-state <span lang="he" dir="rtl">אור</span> default), reject
+            excess brightness, and observe the watchdog fault.
           </p>
         </div>
 
@@ -104,6 +105,21 @@
               <button class="button" id="run-live" type="button" disabled>
                 Run live proof
               </button>
+              <button
+                class="button"
+                id="download-passport"
+                type="button"
+                disabled
+              >
+                Download evidence
+              </button>
+            </div>
+            <div class="active-run" id="active-run" aria-live="polite">
+              <span>ACTIVE RUN</span>
+              <strong id="active-run-program" lang="he" dir="rtl">אור</strong>
+              <small id="active-run-detail"
+                >Seed 09 · canonical bench proof</small
+              >
             </div>
             <p id="connection-state" class="connection-state" role="status">
               No serial device connected. Simulation is ready.
@@ -128,10 +144,9 @@
               <li data-test="states">
                 <span>03</span>
                 <div>
-                  <b>Canonical state</b
+                  <b>Active run states</b
                   ><small
-                    >Three monotonic <span lang="he">אור</span> frames apply
-                    atomically</small
+                    >Every monotonic Console frame applies atomically</small
                   >
                 </div>
                 <output>WAIT</output>

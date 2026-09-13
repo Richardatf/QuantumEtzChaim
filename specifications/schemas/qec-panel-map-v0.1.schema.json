@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quantumetzchaim.com/specifications/schemas/qec-panel-map-v0.1.schema.json",
+  "title": "QEC-1 Panel Address and Harness Map",
+  "type": "object",
+  "required": ["schemaVersion", "panel", "connectors", "indicators"],
+  "properties": {
+    "schemaVersion": { "const": "qec-panel-map-0.1" },
+    "panel": {
+      "type": "object",
+      "required": ["widthMm", "depthMm", "indicatorHoleMm", "daatApertureMm"],
+      "properties": {
+        "widthMm": { "const": 600 },
+        "depthMm": { "const": 420 },
+        "indicatorHoleMm": { "const": 5.2 },
+        "daatApertureMm": { "const": 2.5 }
+      },
+      "additionalProperties": false
+    },
+    "connectors": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "addresses",
+          "field",
+          "nominalHarnessMm",
+          "wireColor"
+        ],
+        "properties": {
+          "id": { "type": "string", "pattern": "^J[1-4]$" },
+          "addresses": { "type": "string", "pattern": "^[0-9]+-[0-9]+$" },
+          "field": { "type": "string", "minLength": 1 },
+          "nominalHarnessMm": {
+            "type": "integer",
+            "minimum": 500,
+            "maximum": 1500
+          },
+          "wireColor": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "indicators": {
+      "type": "array",
+      "minItems": 56,
+      "maxItems": 56,
+      "items": {
+        "type": "object",
+        "required": [
+          "address",
+          "field",
+          "label",
+          "hebrew",
+          "xMm",
+          "yMm",
+          "connector"
+        ],
+        "properties": {
+          "address": { "type": "integer", "minimum": 0, "maximum": 55 },
+          "field": {
+            "enum": ["sefirah", "daat", "path", "register", "aleph-olam"]
+          },
+          "label": { "type": "string", "minLength": 1 },
+          "hebrew": { "type": "string", "minLength": 1 },
+          "xMm": { "type": "number", "minimum": 0, "maximum": 600 },
+          "yMm": { "type": "number", "minimum": 0, "maximum": 420 },
+          "connector": { "type": "string", "pattern": "^J[1-4]$" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

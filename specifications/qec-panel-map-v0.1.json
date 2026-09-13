@@ -1,0 +1,545 @@
+{
+  "schemaVersion": "qec-panel-map-0.1",
+  "panel": {
+    "widthMm": 600,
+    "depthMm": 420,
+    "indicatorHoleMm": 5.2,
+    "daatApertureMm": 2.5
+  },
+  "connectors": [
+    {
+      "id": "J1",
+      "addresses": "0-10",
+      "field": "Tree nodes",
+      "nominalHarnessMm": 1100,
+      "wireColor": "gold"
+    },
+    {
+      "id": "J2",
+      "addresses": "11-21",
+      "field": "Paths Aleph-Kaf",
+      "nominalHarnessMm": 900,
+      "wireColor": "teal"
+    },
+    {
+      "id": "J3",
+      "addresses": "22-32",
+      "field": "Paths Lamed-Tav",
+      "nominalHarnessMm": 900,
+      "wireColor": "blue"
+    },
+    {
+      "id": "J4",
+      "addresses": "33-55",
+      "field": "Registers",
+      "nominalHarnessMm": 850,
+      "wireColor": "violet"
+    }
+  ],
+  "indicators": [
+    {
+      "address": 0,
+      "field": "sefirah",
+      "label": "Keter",
+      "hebrew": "כתר",
+      "xMm": 180,
+      "yMm": 55,
+      "connector": "J1"
+    },
+    {
+      "address": 1,
+      "field": "sefirah",
+      "label": "Chokhmah",
+      "hebrew": "חכמה",
+      "xMm": 265,
+      "yMm": 110,
+      "connector": "J1"
+    },
+    {
+      "address": 2,
+      "field": "sefirah",
+      "label": "Binah",
+      "hebrew": "בינה",
+      "xMm": 95,
+      "yMm": 110,
+      "connector": "J1"
+    },
+    {
+      "address": 3,
+      "field": "sefirah",
+      "label": "Chesed",
+      "hebrew": "חסד",
+      "xMm": 265,
+      "yMm": 195,
+      "connector": "J1"
+    },
+    {
+      "address": 4,
+      "field": "sefirah",
+      "label": "Gevurah",
+      "hebrew": "גבורה",
+      "xMm": 95,
+      "yMm": 195,
+      "connector": "J1"
+    },
+    {
+      "address": 5,
+      "field": "sefirah",
+      "label": "Tiferet",
+      "hebrew": "תפארת",
+      "xMm": 180,
+      "yMm": 230,
+      "connector": "J1"
+    },
+    {
+      "address": 6,
+      "field": "sefirah",
+      "label": "Netzach",
+      "hebrew": "נצח",
+      "xMm": 265,
+      "yMm": 285,
+      "connector": "J1"
+    },
+    {
+      "address": 7,
+      "field": "sefirah",
+      "label": "Hod",
+      "hebrew": "הוד",
+      "xMm": 95,
+      "yMm": 285,
+      "connector": "J1"
+    },
+    {
+      "address": 8,
+      "field": "sefirah",
+      "label": "Yesod",
+      "hebrew": "יסוד",
+      "xMm": 180,
+      "yMm": 340,
+      "connector": "J1"
+    },
+    {
+      "address": 9,
+      "field": "sefirah",
+      "label": "Malchut",
+      "hebrew": "מלכות",
+      "xMm": 180,
+      "yMm": 385,
+      "connector": "J1"
+    },
+    {
+      "address": 10,
+      "field": "daat",
+      "label": "Hidden observation boundary",
+      "hebrew": "דעת",
+      "xMm": 180,
+      "yMm": 145,
+      "connector": "J1"
+    },
+    {
+      "address": 11,
+      "field": "path",
+      "label": "Aleph path",
+      "hebrew": "א",
+      "xMm": 152,
+      "yMm": 76,
+      "connector": "J2"
+    },
+    {
+      "address": 12,
+      "field": "path",
+      "label": "Bet path",
+      "hebrew": "ב",
+      "xMm": 208,
+      "yMm": 76,
+      "connector": "J2"
+    },
+    {
+      "address": 13,
+      "field": "path",
+      "label": "Gimel path",
+      "hebrew": "ג",
+      "xMm": 180,
+      "yMm": 82,
+      "connector": "J2"
+    },
+    {
+      "address": 14,
+      "field": "path",
+      "label": "Dalet path",
+      "hebrew": "ד",
+      "xMm": 135,
+      "yMm": 110,
+      "connector": "J2"
+    },
+    {
+      "address": 15,
+      "field": "path",
+      "label": "He path",
+      "hebrew": "ה",
+      "xMm": 225,
+      "yMm": 110,
+      "connector": "J2"
+    },
+    {
+      "address": 16,
+      "field": "path",
+      "label": "Vav path",
+      "hebrew": "ו",
+      "xMm": 180,
+      "yMm": 112,
+      "connector": "J2"
+    },
+    {
+      "address": 17,
+      "field": "path",
+      "label": "Zayin path",
+      "hebrew": "ז",
+      "xMm": 265,
+      "yMm": 152,
+      "connector": "J2"
+    },
+    {
+      "address": 18,
+      "field": "path",
+      "label": "Chet path",
+      "hebrew": "ח",
+      "xMm": 95,
+      "yMm": 152,
+      "connector": "J2"
+    },
+    {
+      "address": 19,
+      "field": "path",
+      "label": "Tet path",
+      "hebrew": "ט",
+      "xMm": 180,
+      "yMm": 187,
+      "connector": "J2"
+    },
+    {
+      "address": 20,
+      "field": "path",
+      "label": "Yud path",
+      "hebrew": "י",
+      "xMm": 222,
+      "yMm": 212,
+      "connector": "J2"
+    },
+    {
+      "address": 21,
+      "field": "path",
+      "label": "Kaf path",
+      "hebrew": "כ",
+      "xMm": 138,
+      "yMm": 212,
+      "connector": "J2"
+    },
+    {
+      "address": 22,
+      "field": "path",
+      "label": "Lamed path",
+      "hebrew": "ל",
+      "xMm": 222,
+      "yMm": 257,
+      "connector": "J3"
+    },
+    {
+      "address": 23,
+      "field": "path",
+      "label": "Mem path",
+      "hebrew": "מ",
+      "xMm": 138,
+      "yMm": 257,
+      "connector": "J3"
+    },
+    {
+      "address": 24,
+      "field": "path",
+      "label": "Nun path",
+      "hebrew": "נ",
+      "xMm": 265,
+      "yMm": 242,
+      "connector": "J3"
+    },
+    {
+      "address": 25,
+      "field": "path",
+      "label": "Samekh path",
+      "hebrew": "ס",
+      "xMm": 95,
+      "yMm": 242,
+      "connector": "J3"
+    },
+    {
+      "address": 26,
+      "field": "path",
+      "label": "Ayin path",
+      "hebrew": "ע",
+      "xMm": 222,
+      "yMm": 312,
+      "connector": "J3"
+    },
+    {
+      "address": 27,
+      "field": "path",
+      "label": "Pe path",
+      "hebrew": "פ",
+      "xMm": 138,
+      "yMm": 312,
+      "connector": "J3"
+    },
+    {
+      "address": 28,
+      "field": "path",
+      "label": "Tsadi path",
+      "hebrew": "צ",
+      "xMm": 180,
+      "yMm": 285,
+      "connector": "J3"
+    },
+    {
+      "address": 29,
+      "field": "path",
+      "label": "Qof path",
+      "hebrew": "ק",
+      "xMm": 180,
+      "yMm": 322,
+      "connector": "J3"
+    },
+    {
+      "address": 30,
+      "field": "path",
+      "label": "Resh path",
+      "hebrew": "ר",
+      "xMm": 180,
+      "yMm": 362,
+      "connector": "J3"
+    },
+    {
+      "address": 31,
+      "field": "path",
+      "label": "Shin path",
+      "hebrew": "ש",
+      "xMm": 122,
+      "yMm": 175,
+      "connector": "J3"
+    },
+    {
+      "address": 32,
+      "field": "path",
+      "label": "Tav path",
+      "hebrew": "ת",
+      "xMm": 238,
+      "yMm": 175,
+      "connector": "J3"
+    },
+    {
+      "address": 33,
+      "field": "register",
+      "label": "Aleph register",
+      "hebrew": "א",
+      "xMm": 398,
+      "yMm": 78,
+      "connector": "J4"
+    },
+    {
+      "address": 34,
+      "field": "register",
+      "label": "Bet register",
+      "hebrew": "ב",
+      "xMm": 414,
+      "yMm": 78,
+      "connector": "J4"
+    },
+    {
+      "address": 35,
+      "field": "register",
+      "label": "Gimel register",
+      "hebrew": "ג",
+      "xMm": 430,
+      "yMm": 78,
+      "connector": "J4"
+    },
+    {
+      "address": 36,
+      "field": "register",
+      "label": "Dalet register",
+      "hebrew": "ד",
+      "xMm": 446,
+      "yMm": 78,
+      "connector": "J4"
+    },
+    {
+      "address": 37,
+      "field": "register",
+      "label": "He register",
+      "hebrew": "ה",
+      "xMm": 462,
+      "yMm": 78,
+      "connector": "J4"
+    },
+    {
+      "address": 38,
+      "field": "register",
+      "label": "Vav register",
+      "hebrew": "ו",
+      "xMm": 478,
+      "yMm": 78,
+      "connector": "J4"
+    },
+    {
+      "address": 39,
+      "field": "register",
+      "label": "Zayin register",
+      "hebrew": "ז",
+      "xMm": 494,
+      "yMm": 78,
+      "connector": "J4"
+    },
+    {
+      "address": 40,
+      "field": "register",
+      "label": "Chet register",
+      "hebrew": "ח",
+      "xMm": 510,
+      "yMm": 78,
+      "connector": "J4"
+    },
+    {
+      "address": 41,
+      "field": "register",
+      "label": "Tet register",
+      "hebrew": "ט",
+      "xMm": 526,
+      "yMm": 78,
+      "connector": "J4"
+    },
+    {
+      "address": 42,
+      "field": "register",
+      "label": "Yud register",
+      "hebrew": "י",
+      "xMm": 542,
+      "yMm": 78,
+      "connector": "J4"
+    },
+    {
+      "address": 43,
+      "field": "register",
+      "label": "Kaf register",
+      "hebrew": "כ",
+      "xMm": 558,
+      "yMm": 78,
+      "connector": "J4"
+    },
+    {
+      "address": 44,
+      "field": "register",
+      "label": "Lamed register",
+      "hebrew": "ל",
+      "xMm": 398,
+      "yMm": 99,
+      "connector": "J4"
+    },
+    {
+      "address": 45,
+      "field": "register",
+      "label": "Mem register",
+      "hebrew": "מ",
+      "xMm": 414,
+      "yMm": 99,
+      "connector": "J4"
+    },
+    {
+      "address": 46,
+      "field": "register",
+      "label": "Nun register",
+      "hebrew": "נ",
+      "xMm": 430,
+      "yMm": 99,
+      "connector": "J4"
+    },
+    {
+      "address": 47,
+      "field": "register",
+      "label": "Samekh register",
+      "hebrew": "ס",
+      "xMm": 446,
+      "yMm": 99,
+      "connector": "J4"
+    },
+    {
+      "address": 48,
+      "field": "register",
+      "label": "Ayin register",
+      "hebrew": "ע",
+      "xMm": 462,
+      "yMm": 99,
+      "connector": "J4"
+    },
+    {
+      "address": 49,
+      "field": "register",
+      "label": "Pe register",
+      "hebrew": "פ",
+      "xMm": 478,
+      "yMm": 99,
+      "connector": "J4"
+    },
+    {
+      "address": 50,
+      "field": "register",
+      "label": "Tsadi register",
+      "hebrew": "צ",
+      "xMm": 494,
+      "yMm": 99,
+      "connector": "J4"
+    },
+    {
+      "address": 51,
+      "field": "register",
+      "label": "Qof register",
+      "hebrew": "ק",
+      "xMm": 510,
+      "yMm": 99,
+      "connector": "J4"
+    },
+    {
+      "address": 52,
+      "field": "register",
+      "label": "Resh register",
+      "hebrew": "ר",
+      "xMm": 526,
+      "yMm": 99,
+      "connector": "J4"
+    },
+    {
+      "address": 53,
+      "field": "register",
+      "label": "Shin register",
+      "hebrew": "ש",
+      "xMm": 542,
+      "yMm": 99,
+      "connector": "J4"
+    },
+    {
+      "address": 54,
+      "field": "register",
+      "label": "Tav register",
+      "hebrew": "ת",
+      "xMm": 558,
+      "yMm": 99,
+      "connector": "J4"
+    },
+    {
+      "address": 55,
+      "field": "aleph-olam",
+      "label": "Aleph Olam register",
+      "hebrew": "א∞",
+      "xMm": 574,
+      "yMm": 99,
+      "connector": "J4"
+    }
+  ]
+}

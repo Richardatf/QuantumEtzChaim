@@ -12,6 +12,7 @@ import {
   traceExport,
   TRANSFORM_REGISTRY,
 } from "../src/machine.js";
+import { createRunPassport } from "../src/passport.js";
 
 const schemaDirectory = fileURLToPath(
   new URL("../specifications/schemas/", import.meta.url),
@@ -47,7 +48,7 @@ const schemas = schemaFiles.map((name) =>
 );
 
 describe("qec contract pack", () => {
-  it("publishes and compiles all nine contract schemas", () => {
+  it("publishes and compiles all twelve contract schemas", () => {
     expect(schemaFiles).toEqual([
       "build-contract-v0.3.schema.json",
       "ivritcode-openqasm-v0.1.schema.json",
@@ -55,14 +56,43 @@ describe("qec contract pack", () => {
       "manifestation-v0.2.schema.json",
       "observation-v0.3.schema.json",
       "path-map-v0.3.schema.json",
+      "qec-bom-v0.1.schema.json",
       "qec-hardware-v0.1.schema.json",
       "qec-panel-link-v0.1.schema.json",
+      "qec-panel-map-v0.1.schema.json",
+      "qec-run-passport-v0.1.schema.json",
       "trace-v0.3.schema.json",
     ]);
 
     const ajv = new Ajv2020({ allErrors: true, strict: true });
     schemas.forEach((schema) =>
       expect(() => ajv.compile(schema)).not.toThrow(),
+    );
+  });
+
+  it("validates the fabrication BOM and exact panel map", () => {
+    const ajv = new Ajv2020({ allErrors: true, strict: true });
+    ["qec-bom-v0.1", "qec-panel-map-v0.1"].forEach((profileName) => {
+      const schema = readJson(`${schemaDirectory}/${profileName}.schema.json`);
+      const profile = readJson(
+        fileURLToPath(
+          new URL(`../specifications/${profileName}.json`, import.meta.url),
+        ),
+      );
+      expect(ajv.validate(schema, profile), JSON.stringify(ajv.errors)).toBe(
+        true,
+      );
+    });
+  });
+
+  it("validates the unified machine Run Passport profile", () => {
+    const ajv = new Ajv2020({ allErrors: true, strict: true });
+    const schema = readJson(
+      `${schemaDirectory}/qec-run-passport-v0.1.schema.json`,
+    );
+    const passport = createRunPassport(runProgram("אור", 9));
+    expect(ajv.validate(schema, passport), JSON.stringify(ajv.errors)).toBe(
+      true,
     );
   });
 

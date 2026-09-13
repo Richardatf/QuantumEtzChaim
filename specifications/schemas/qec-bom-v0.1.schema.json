@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quantumetzchaim.com/specifications/schemas/qec-bom-v0.1.schema.json",
+  "title": "QEC-1 Reference Bill of Materials",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "machineId",
+    "snapshotDate",
+    "currency",
+    "status",
+    "rules",
+    "items",
+    "allowance",
+    "referenceTotalUsd"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": "qec-bom-0.1" },
+    "machineId": { "const": "QEC-1" },
+    "snapshotDate": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "currency": { "const": "USD" },
+    "status": { "const": "reference-not-quote" },
+    "rules": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "items": {
+      "type": "array",
+      "minItems": 10,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "quantity",
+          "manufacturer",
+          "manufacturerPart",
+          "description",
+          "preferredSource",
+          "sourceUrl",
+          "referenceUnitPrice",
+          "substitutionRule"
+        ],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Z0-9_]+$" },
+          "quantity": { "type": "integer", "minimum": 1 },
+          "manufacturer": { "type": "string", "minLength": 1 },
+          "manufacturerPart": { "type": "string", "minLength": 1 },
+          "description": { "type": "string", "minLength": 1 },
+          "preferredSource": { "type": "string", "minLength": 1 },
+          "sourceUrl": { "type": "string", "pattern": "^https://" },
+          "referenceUnitPrice": { "type": "number", "minimum": 0 },
+          "substitutionRule": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "allowance": {
+      "type": "object",
+      "required": ["estimatedUsd", "covers"],
+      "properties": {
+        "estimatedUsd": { "type": "number", "minimum": 0 },
+        "covers": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "additionalProperties": false
+    },
+    "referenceTotalUsd": { "type": "number", "minimum": 0 }
+  },
+  "additionalProperties": false
+}

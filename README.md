@@ -21,6 +21,11 @@ data is ignored; it never becomes executable code.
 - Repository-native engineering plates: `schematics/`
 - [QEC-1 physical machine build guide](docs/QEC_1_PHYSICAL_BUILD.md), with
   system, low-voltage wiring, and dimensioned panel drawings
+- [QEC-1 fabrication pack](docs/QEC_1_FABRICATION_PACK.md), with full-scale
+  panel and key-subplate templates, exact 56-address harness map, preferred
+  manufacturer parts, substitution rules, and measurable stop gates
+- [QEC-1 build tracker](docs/QEC_1_BUILD_TRACKER.md), preserving physical
+  measurements, substitutions, harness tests, and Run Passport evidence
 - [Machine-readable QEC-1 hardware contract](specifications/qec-hardware-v0.1.json)
 - [QEC-1P four-key bench prototype](docs/QEC_1P_BENCH_BUILD.md), with
   exact Pico pin map, CircuitPython firmware, Web Serial acceptance console,
@@ -28,6 +33,10 @@ data is ignored; it never becomes executable code.
 - [Directional panel-link profile](specifications/qec-panel-link-v0.1.json),
   separating authoritative host commands from panel events and enforcing
   atomic fail-closed state application
+- Unified `qec-run-passport-0.1` workflow: the canonical QEC passport remains
+  the immutable run spine, while a versioned machine extension binds the trace,
+  manifestation, OpenQASM projection, QEC-1P state frames, acknowledgements,
+  and acceptance evidence
 - [IvritCode to OpenQASM 3 projection profile](specifications/ivritcode-openqasm-v0.1.json),
   with one explicit standard-gate mapping for every Hebrew opcode
 - [Quantum Etz Chaim / IvritOS v0.2 build specification](docs/BUILD_SPEC.md)

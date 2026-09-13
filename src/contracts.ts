@@ -9,7 +9,11 @@ import trace05 from "../tests/fixtures/golden-traces/or-seed-05.json";
 import trace09 from "../tests/fixtures/golden-traces/or-seed-09.json";
 import trace13 from "../tests/fixtures/golden-traces/or-seed-13.json";
 import trace21 from "../tests/fixtures/golden-traces/or-seed-21.json";
-import { parseRunPassport } from "./passport.js";
+import {
+  parseRunPassport,
+  RUN_PASSPORT_STORAGE_KEY,
+  serializeRunPassport,
+} from "./passport.js";
 
 const trace = trace09;
 const goldenTraces = [trace00, trace05, trace09, trace13, trace21];
@@ -40,16 +44,28 @@ passportFile.addEventListener("change", async () => {
   const passport = parsed.passport;
   const verdict = document.createElement("p");
   verdict.className = "valid";
-  verdict.textContent = `VALID / ${passport.schemaVersion}`;
+  const machine = passport.extensions?.qecMachine;
+  verdict.textContent = machine
+    ? `VALID / ${passport.schemaVersion} + ${machine.profileVersion}`
+    : `VALID / ${passport.schemaVersion} / canonical core`;
   const facts = document.createElement("dl");
-  [
+  const factRows = [
     ["Run", passport.runId],
     ["Source", passport.source],
     ["Seed", String(passport.seed)],
     ["Trace", `${passport.trace.length} complete events`],
     ["Engine", passport.engineVersion],
     ["Path map", passport.pathMapVersion],
-  ].forEach(([term, value]) => {
+  ];
+  if (machine) {
+    factRows.push(
+      ["Panel", `${machine.panel.frames.length} QEC-1P state frames`],
+      ["Evidence", machine.evidence.mode],
+      ["OpenQASM", machine.openQasm.profile],
+      ["Checksum", machine.manifestation.output.checksum],
+    );
+  }
+  factRows.forEach(([term, value]) => {
     const box = document.createElement("div"),
       dt = document.createElement("dt"),
       dd = document.createElement("dd");
@@ -77,6 +93,19 @@ passportFile.addEventListener("change", async () => {
   manifest.textContent = "Manifest in Malchut";
   manifest.href = `console.html?program=${encodeURIComponent(passport.source)}&seed=${passport.seed}#manifestation-inspector`;
   actions.append(inspect, manifest);
+  if (machine) {
+    const continueToBench = document.createElement("a");
+    continueToBench.className = "button";
+    continueToBench.textContent = "Continue on QEC-1P";
+    continueToBench.onclick = () => {
+      localStorage.setItem(
+        RUN_PASSPORT_STORAGE_KEY,
+        serializeRunPassport(passport),
+      );
+    };
+    continueToBench.href = "bench.html#active-run";
+    actions.append(continueToBench);
+  }
   passportResult.append(verdict, facts, actions);
 });
 const items = [

@@ -4,6 +4,7 @@ import {
   executeProgram as executeCanonicalProgram,
   makeAlphabetState,
   normalizeState,
+  parseProgram,
   type HebrewLetter,
 } from "@ivritcode/core";
 import { createManifest } from "@qec/core";
@@ -452,22 +453,30 @@ function executeProgram(program: string, seed = 9): ProgramExecutionResult {
   if ([...program].length > 1024) {
     throw new RangeError("IvritCode program exceeds the 1,024-step limit.");
   }
-  const seeded = [...makeAlphabetState(program)];
+  const normalizedProgram = parseProgram(program)
+    .instructions.map((instruction) => instruction.letter)
+    .join("");
+  if (normalizedProgram.length === 0) {
+    throw new SyntaxError(
+      "IvritCode program must contain at least one letter.",
+    );
+  }
+  const seeded = [...makeAlphabetState(normalizedProgram)];
   seeded[22] = seed;
   const initialState = normalizeState(seeded);
-  const canonical = executeCanonicalProgram(program, {
+  const canonical = executeCanonicalProgram(normalizedProgram, {
     initialState,
     deterministicSeed: seed,
     maxSteps: 1024,
     trace: "full",
   });
-  if (canonical.program.instructions.length === 0) {
-    throw new SyntaxError("IvritCode program must contain at least one letter.");
-  }
-  const normalizedProgram = canonical.program.instructions
-    .map((instruction) => instruction.letter)
-    .join("");
-  const contractManifest = createManifest(program, { deterministicSeed: seed });
+  // Bind provenance to the same canonical instruction stream exported by the
+  // trace and Run Passport. This keeps final Hebrew forms, niqqud, comments,
+  // and other source presentation details from changing the machine identity
+  // after parsing has already normalized them.
+  const contractManifest = createManifest(normalizedProgram, {
+    deterministicSeed: seed,
+  });
   let priorCoherence = 0;
 
   const pathEvents = canonical.trace.map((canonicalEvent, index) => {
@@ -627,7 +636,9 @@ export function traceExport(result: ProgramExecutionResult): TraceExport {
     completeTraceHash: result.observation.traceHash,
     observation: {
       ...result.observation,
-      candidates: result.observation.candidates.map((candidate) => ({ ...candidate })),
+      candidates: result.observation.candidates.map((candidate) => ({
+        ...candidate,
+      })),
       snapshot: [...result.observation.snapshot],
     },
   };

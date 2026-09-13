@@ -41,7 +41,7 @@ QEC-1B remains a classical timing and protocol test apparatus. The open-source [
 - Electronics mounting: M2.5/M3 standoffs on a removable internal tray
 - Feet: four non-slip feet, minimum 8 mm high
 
-The panel drawing is a placement model, not a CNC-ready tolerance drawing. Measure the chosen switches, pixels, connectors, and fasteners before cutting a final panel.
+The plate drawing remains the visual placement model. The fabrication pack now adds full-scale cut geometry, a separate 1.5 mm switch subplate, a 56-address coordinate map, and calibration bars. These are controlled templates, but they do not override purchased-part measurements: test the actual switch and pixel in scrap before cutting a final panel.
 
 ### Indicator count
 
@@ -63,6 +63,8 @@ The panel drawing is a placement model, not a CNC-ready tolerance drawing. Measu
 - Aleph Olam has **no user key**; its indicator is display-only and firmware-locked
 
 ## 4. Bill of materials
+
+The preferred manufacturer parts, substitution rules, dated price snapshot, and provisional total are published in `specifications/qec-bom-v0.1.json`. Treat it as a reference rather than a live quote. The table below remains the minimum electrical requirement.
 
 ### Required electronics
 
@@ -247,6 +249,12 @@ QEC never silently converts symbolic letters, sefirot, Gates, or coherence value
 ## 11. Repository artifacts
 
 - Machine model: `specifications/qec-hardware-v0.1.json`
+- Fabrication pack: `docs/QEC_1_FABRICATION_PACK.md`
+- Build tracker and acceptance record: `docs/QEC_1_BUILD_TRACKER.md`
+- Versioned reference BOM: `specifications/qec-bom-v0.1.json`
+- Exact 56-address and harness map: `specifications/qec-panel-map-v0.1.json`
+- Full-scale panel cut template: `schematics/qec-1-panel-cut-template.svg`
+- Full-scale 24-key subplate: `schematics/qec-1-key-subplate.svg`
 - Panel-link direction and validation profile: `specifications/qec-panel-link-v0.1.json`
 - Reduced prototype guide: `docs/QEC_1P_BENCH_BUILD.md`
 - Reduced prototype firmware: `firmware/qec1p/`

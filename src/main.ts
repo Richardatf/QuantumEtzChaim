@@ -4,7 +4,7 @@ import {
   type IvritCodeExchange,
   type QECRunPassport,
 } from "./exchange.js";
-import { serializeRunPassport } from "@qec/spec";
+import { serializeRunPassport } from "./passport.js";
 
 const letters = [..."אבגדהוזחטיכלמנסעפצקרשת"];
 const nodeIds = [

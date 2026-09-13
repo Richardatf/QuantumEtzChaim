@@ -1,0 +1,324 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quantumetzchaim.com/specifications/schemas/qec-run-passport-v0.1.schema.json",
+  "title": "QEC unified machine Run Passport 0.1",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "runId",
+    "engineVersion",
+    "pathMapVersion",
+    "manifestationVersion",
+    "seed",
+    "traceHash",
+    "source",
+    "sourceHash",
+    "initialState",
+    "finalState",
+    "hiddenKey",
+    "patternShape",
+    "returningLetters",
+    "gates",
+    "trace",
+    "validation",
+    "extensions"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "qec-run-passport-0.1" },
+    "runId": { "$ref": "#/$defs/hash" },
+    "engineVersion": { "const": "1.0.0" },
+    "pathMapVersion": { "const": "qec-path-map-0.3.0" },
+    "manifestationVersion": { "const": "qec-manifestation-0.2" },
+    "seed": { "type": "integer", "minimum": 0, "maximum": 21 },
+    "traceHash": { "$ref": "#/$defs/hash" },
+    "source": { "type": "string", "minLength": 1, "maxLength": 1024 },
+    "sourceHash": { "$ref": "#/$defs/hash" },
+    "initialState": { "$ref": "#/$defs/state" },
+    "finalState": { "$ref": "#/$defs/state" },
+    "hiddenKey": { "$ref": "#/$defs/hebrewLetter" },
+    "patternShape": { "type": "string", "minLength": 1 },
+    "returningLetters": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/hebrewLetter" },
+      "uniqueItems": true
+    },
+    "gates": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "trace": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/coreTraceEvent" }
+    },
+    "validation": {
+      "type": "object",
+      "required": ["status", "registerCount", "traceComplete", "deterministic"],
+      "properties": {
+        "status": { "const": "valid" },
+        "registerCount": { "const": 23 },
+        "traceComplete": { "const": true },
+        "deterministic": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "extensions": {
+      "type": "object",
+      "required": ["qecMachine"],
+      "properties": {
+        "qecMachine": { "$ref": "#/$defs/machineExtension" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "hash": { "type": "string", "minLength": 8 },
+    "hebrewLetter": {
+      "enum": [
+        "א",
+        "ב",
+        "ג",
+        "ד",
+        "ה",
+        "ו",
+        "ז",
+        "ח",
+        "ט",
+        "י",
+        "כ",
+        "ל",
+        "מ",
+        "נ",
+        "ס",
+        "ע",
+        "פ",
+        "צ",
+        "ק",
+        "ר",
+        "ש",
+        "ת"
+      ]
+    },
+    "state": {
+      "type": "array",
+      "minItems": 23,
+      "maxItems": 23,
+      "items": { "type": "integer", "minimum": 0, "maximum": 21 }
+    },
+    "coreTraceEvent": {
+      "type": "object",
+      "required": [
+        "sequence",
+        "letter",
+        "before",
+        "after",
+        "beforeHash",
+        "afterHash",
+        "changedRegisters"
+      ],
+      "properties": {
+        "sequence": { "type": "integer", "minimum": 0 },
+        "letter": { "$ref": "#/$defs/hebrewLetter" },
+        "before": { "$ref": "#/$defs/state" },
+        "after": { "$ref": "#/$defs/state" },
+        "beforeHash": { "$ref": "#/$defs/hash" },
+        "afterHash": { "$ref": "#/$defs/hash" },
+        "changedRegisters": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0, "maximum": 22 },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "stateFrame": {
+      "type": "object",
+      "required": [
+        "type",
+        "sequence",
+        "activePath",
+        "sourceNode",
+        "destinationNode",
+        "registers",
+        "traceHash",
+        "brightness"
+      ],
+      "properties": {
+        "type": { "const": "STATE" },
+        "sequence": { "type": "integer", "minimum": 1 },
+        "activePath": { "$ref": "#/$defs/hebrewLetter" },
+        "sourceNode": { "$ref": "#/$defs/sefirah" },
+        "destinationNode": { "$ref": "#/$defs/sefirah" },
+        "registers": { "$ref": "#/$defs/state" },
+        "traceHash": { "$ref": "#/$defs/hash" },
+        "brightness": { "type": "number", "minimum": 0, "maximum": 0.25 }
+      },
+      "additionalProperties": false
+    },
+    "sefirah": {
+      "enum": [
+        "Keter",
+        "Chokhmah",
+        "Binah",
+        "Chesed",
+        "Gevurah",
+        "Tiferet",
+        "Netzach",
+        "Hod",
+        "Yesod",
+        "Malchut",
+        "Daat"
+      ]
+    },
+    "panelFrame": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["type", "protocol", "pixels", "keys"],
+          "properties": {
+            "type": { "const": "READY" },
+            "protocol": { "const": "qec-panel-link-0.1" },
+            "pixels": { "type": "integer", "minimum": 0 },
+            "keys": { "type": "integer", "minimum": 0 }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["type", "key", "pressed", "sequence"],
+          "properties": {
+            "type": { "const": "KEY" },
+            "key": { "type": "string", "minLength": 1 },
+            "pressed": { "type": "boolean" },
+            "sequence": { "type": "integer", "minimum": 0 }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["type", "sequence"],
+          "properties": {
+            "type": { "enum": ["APPLIED", "HEARTBEAT"] },
+            "sequence": { "type": "integer", "minimum": 0 }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["type", "code", "detail"],
+          "properties": {
+            "type": { "const": "FAULT" },
+            "code": { "type": "string", "minLength": 1 },
+            "detail": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "machineExtension": {
+      "type": "object",
+      "required": [
+        "profileVersion",
+        "trace",
+        "manifestation",
+        "openQasm",
+        "panel",
+        "evidence"
+      ],
+      "properties": {
+        "profileVersion": { "const": "qec-machine-run-extension-0.1" },
+        "trace": {
+          "type": "object",
+          "required": ["schemaVersion", "events", "completeTraceHash"],
+          "properties": {
+            "schemaVersion": { "const": "qec-trace-0.3" },
+            "events": { "type": "array", "minItems": 1 },
+            "completeTraceHash": { "$ref": "#/$defs/hash" }
+          },
+          "additionalProperties": true
+        },
+        "manifestation": {
+          "type": "object",
+          "required": ["schemaVersion", "finalState", "output"],
+          "properties": {
+            "schemaVersion": { "const": "qec-manifestation-0.2" },
+            "finalState": { "$ref": "#/$defs/state" },
+            "output": {
+              "type": "object",
+              "required": [
+                "registerString",
+                "base22Registers",
+                "pathSignature",
+                "checksum"
+              ],
+              "properties": {
+                "registerString": {
+                  "type": "string",
+                  "minLength": 22,
+                  "maxLength": 22
+                },
+                "base22Registers": { "type": "string", "minLength": 1 },
+                "pathSignature": { "type": "string", "minLength": 1 },
+                "checksum": { "$ref": "#/$defs/hash" }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": true
+        },
+        "openQasm": {
+          "type": "object",
+          "required": ["profile", "source"],
+          "properties": {
+            "profile": { "const": "ivritcode-openqasm-0.1" },
+            "source": { "type": "string", "pattern": "^OPENQASM 3\\.0;" }
+          },
+          "additionalProperties": false
+        },
+        "panel": {
+          "type": "object",
+          "required": [
+            "protocol",
+            "machine",
+            "expectedPixels",
+            "expectedKeys",
+            "frames"
+          ],
+          "properties": {
+            "protocol": { "const": "qec-panel-link-0.1" },
+            "machine": { "const": "QEC-1P" },
+            "expectedPixels": { "const": 4 },
+            "expectedKeys": { "const": 4 },
+            "frames": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "$ref": "#/$defs/stateFrame" }
+            }
+          },
+          "additionalProperties": false
+        },
+        "evidence": {
+          "type": "object",
+          "required": ["mode", "acknowledgements", "acceptance"],
+          "properties": {
+            "mode": { "enum": ["not-run", "simulation", "physical"] },
+            "acknowledgements": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/panelFrame" }
+            },
+            "acceptance": {
+              "type": "object",
+              "propertyNames": {
+                "enum": ["map", "handshake", "states", "brightness", "watchdog"]
+              },
+              "additionalProperties": { "enum": ["PASS", "FAIL", "WAIT"] }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
