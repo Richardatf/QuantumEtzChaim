@@ -123,18 +123,19 @@ QEC currently distinguishes these claims:
 - **Deterministic projection:** implemented and tested inside the QEC repository.
 - **Schema-bound projection profile:** implemented.
 - **Run Passport binding:** implemented.
-- **Independent parser acceptance:** evidence still being expanded.
-- **Simulator execution:** evidence still being expanded.
-- **Hardware-backend execution:** not implied by parser or simulator success.
+- **Independent parser acceptance:** PASS for the canonical `אור` seed 09 and `שלום` → `שלומ` seed 17 corpus with the OpenQASM Python reference parser and pinned independent Qiskit Rust front end.
+- **Qiskit import + statevector execution:** PASS for the same canonical corpus; statevector evidence executes the unitary portion after removing final measurement.
+- **Validation record:** exact tool versions, diagnostics, source SHA-256 values, and scope are captured in `evidence/openqasm-validation-v0.1.json` and summarized in `docs/OPENQASM_VALIDATION.md`.
+- **Hardware-backend execution:** not implied by parser or statevector success and not yet claimed.
 - **QEC-1P physical panel execution:** separate classical hardware-validation track.
 
 This distinction is deliberate. We want every stronger compatibility statement to be backed by replayable evidence rather than by inference.
 
-## Suggested first collaboration task
+## Suggested next collaboration task
 
-Take the canonical emitted programs for `אור` and `שלום`, parse them with at least two independently maintained OpenQASM 3 toolchains, record exact tool versions and diagnostics, and attach the results to a versioned validation record that can be referenced by the corresponding QEC Run Passport.
+The first validation milestone is complete for `אור` and `שלום`. The next useful task is to broaden the corpus, review whether profile 0.1 should remain frozen at OpenQASM 3.0 or gain a parallel 3.1 profile, and add another simulator or backend-facing toolchain that is independent of the current parser path.
 
-If those passes disagree, the disagreement is valuable evidence and should remain visible.
+Please try to break the existing evidence too. If tools disagree, the disagreement should remain visible rather than being averaged into a compatibility claim.
 
 ## Where to inspect and respond
 

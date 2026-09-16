@@ -34,6 +34,15 @@ describe("IvritCode-to-QEC-1P release bridge", () => {
     expect(machine.openQasm.source).toMatch(/^OPENQASM 3\.0;/);
     expect(machine.openQasm.source).toContain('include "stdgates.inc";');
     expect(machine.openQasm.source).toContain("result = measure q;");
+    expect(machine.evidence.openQasmValidation).toMatchObject({
+      profile: "qec-openqasm-validation-0.1",
+      status: "PASS",
+      programId: "shalom-seed-17",
+      normalizedSource: "שלומ",
+      seed: 17,
+      openQasmSha256:
+        "0fbef195017714ce57f05053c73f4fc9ed916d22fa8f97d0929275a9b3355c6e",
+    });
     expect(machine.panel.frames).toHaveLength(
       first.execution.pathEvents.length,
     );
@@ -86,6 +95,10 @@ describe("IvritCode-to-QEC-1P release bridge", () => {
     expect(roundTrip.passport.extensions?.qecMachine?.evidence.mode).toBe(
       "simulation",
     );
+    expect(
+      roundTrip.passport.extensions?.qecMachine?.evidence.openQasmValidation
+        ?.programId,
+    ).toBe("shalom-seed-17");
   });
 
   it("fails closed when IvritCode compilation is invalid or empty", () => {

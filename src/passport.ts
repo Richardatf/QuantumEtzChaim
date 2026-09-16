@@ -12,6 +12,7 @@ import {
   type ProgramExecutionResult,
 } from "./machine.js";
 import { compileIvritToOpenQasm, IVRIT_OPENQASM_PROFILE } from "./openqasm.js";
+import openQasmValidationReport from "../evidence/openqasm-validation-v0.1.json";
 import {
   PANEL_PROTOCOL,
   validateHostFrame,
@@ -27,10 +28,28 @@ export const RUN_PASSPORT_STORAGE_KEY = "qec.active-run-passport";
 
 export type AcceptanceResult = "PASS" | "FAIL" | "WAIT";
 
+export const OPENQASM_VALIDATION_PROFILE =
+  "qec-openqasm-validation-0.1" as const;
+
+export interface OpenQasmValidationEvidence {
+  readonly profile: typeof OPENQASM_VALIDATION_PROFILE;
+  readonly status: "PASS";
+  readonly scope: "canonical-corpus";
+  readonly targetLanguage: "OpenQASM 3.0";
+  readonly evidencePath: "evidence/openqasm-validation-v0.1.json";
+  readonly capturedAt: string;
+  readonly programId: string;
+  readonly normalizedSource: string;
+  readonly seed: number;
+  readonly openQasmSha256: string;
+  readonly validators: Readonly<Record<string, string>>;
+}
+
 export interface RunPassportEvidence {
   readonly mode: "not-run" | "simulation" | "physical";
   readonly acknowledgements: readonly PanelFrame[];
   readonly acceptance: Readonly<Record<string, AcceptanceResult>>;
+  readonly openQasmValidation?: OpenQasmValidationEvidence;
 }
 
 export interface MachineRunExtension {
@@ -125,10 +144,47 @@ export function stateFramesForRun(
   }));
 }
 
+type ValidationReport = typeof openQasmValidationReport;
+type ValidationProgram = ValidationReport["programs"][number];
+
+function canonicalOpenQasmValidation(
+  result: ProgramExecutionResult,
+): OpenQasmValidationEvidence | undefined {
+  if (
+    openQasmValidationReport.profile !== OPENQASM_VALIDATION_PROFILE ||
+    openQasmValidationReport.status !== "PASS" ||
+    openQasmValidationReport.scope !== "canonical-corpus" ||
+    openQasmValidationReport.targetLanguage !== "OpenQASM 3.0"
+  ) {
+    return undefined;
+  }
+  const program = openQasmValidationReport.programs.find(
+    (candidate: ValidationProgram) =>
+      candidate.normalizedSource === result.program &&
+      candidate.seed === result.seed &&
+      candidate.status === "PASS",
+  );
+  if (!program) return undefined;
+  return {
+    profile: OPENQASM_VALIDATION_PROFILE,
+    status: "PASS",
+    scope: "canonical-corpus",
+    targetLanguage: "OpenQASM 3.0",
+    evidencePath: "evidence/openqasm-validation-v0.1.json",
+    capturedAt: openQasmValidationReport.capturedAt,
+    programId: program.id,
+    normalizedSource: program.normalizedSource,
+    seed: program.seed,
+    openQasmSha256: program.openQasmSha256,
+    validators: { ...openQasmValidationReport.validators },
+  };
+}
+
 export function createRunPassport(
   result: ProgramExecutionResult,
 ): MachineRunPassport {
   const core = canonicalCore(result);
+  const openQasmValidation = canonicalOpenQasmValidation(result);
   return {
     ...core,
     extensions: {
@@ -151,6 +207,7 @@ export function createRunPassport(
           mode: "not-run",
           acknowledgements: [],
           acceptance: {},
+          ...(openQasmValidation ? { openQasmValidation } : {}),
         },
       },
     },
@@ -198,6 +255,34 @@ function coreProjection(passport: QECRunPassport): QECRunPassport {
   };
 }
 
+function inspectOpenQasmValidation(value: unknown): string[] {
+  if (!isRecord(value)) return ["machine-openqasm-validation-object"];
+  const program = openQasmValidationReport.programs.find(
+    (candidate: ValidationProgram) =>
+      candidate.id === value.programId &&
+      candidate.normalizedSource === value.normalizedSource &&
+      candidate.seed === value.seed,
+  );
+  const expected = program
+    ? {
+        profile: OPENQASM_VALIDATION_PROFILE,
+        status: "PASS",
+        scope: "canonical-corpus",
+        targetLanguage: "OpenQASM 3.0",
+        evidencePath: "evidence/openqasm-validation-v0.1.json",
+        capturedAt: openQasmValidationReport.capturedAt,
+        programId: program.id,
+        normalizedSource: program.normalizedSource,
+        seed: program.seed,
+        openQasmSha256: program.openQasmSha256,
+        validators: openQasmValidationReport.validators,
+      }
+    : undefined;
+  return expected && JSON.stringify(value) === JSON.stringify(expected)
+    ? []
+    : ["machine-openqasm-validation-divergence"];
+}
+
 function inspectEvidence(value: unknown): string[] {
   if (!isRecord(value)) return ["machine-evidence-object"];
   const errors: string[] = [];
@@ -223,6 +308,9 @@ function inspectEvidence(value: unknown): string[] {
         errors.push(`machine-acceptance-result-${key}`);
       }
     });
+  }
+  if (value.openQasmValidation !== undefined) {
+    errors.push(...inspectOpenQasmValidation(value.openQasmValidation));
   }
   return errors;
 }
@@ -335,7 +423,15 @@ export function addRunEvidence(
       ...passport.extensions,
       qecMachine: {
         ...passport.extensions.qecMachine,
-        evidence,
+        evidence: {
+          ...evidence,
+          ...(passport.extensions.qecMachine.evidence.openQasmValidation
+            ? {
+                openQasmValidation:
+                  passport.extensions.qecMachine.evidence.openQasmValidation,
+              }
+            : {}),
+        },
       },
     },
   };

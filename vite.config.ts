@@ -7,6 +7,7 @@ const publishedDirectories = [
   "docs",
   "specifications",
   "firmware",
+  "evidence",
 ] as const;
 
 const publishedFiles = ["qec/spec.json"] as const;

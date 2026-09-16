@@ -39,7 +39,15 @@ does not complete QEC-1P physical Gate 1. The final panel and key subplate stay
 blocked until a real prototype passes map, handshake, state, brightness, and
 watchdog checks and its acknowledgements are saved in the same Run Passport.
 
-The OpenQASM artifact is checked against the project's versioned mapping and
-Run Passport schema, but remains emit-only. Acceptance, transpilation, or
-execution by a named independent OpenQASM parser, simulator, or laboratory
-backend requires separate backend-specific evidence.
+The OpenQASM projection remains an emit-only interoperability target rather than a
+claim of quantum-hardware execution. The canonical `אור` seed 09 and `שלום`
+normalized to `שלומ` seed 17 projections now carry separate external validation
+evidence in `qec-openqasm-validation-0.1`: both exact QASM fixtures pass the
+OpenQASM Python reference parser, Qiskit import, normalized statevector execution
+(after removing final measurement), and the pinned independent Qiskit Rust
+OpenQASM 3 front end. Their SHA-256 values and exact validator versions are
+recorded in `evidence/openqasm-validation-v0.1.json` and are bound into those
+canonical Run Passports. This evidence is intentionally corpus-scoped; it is not
+OpenQASM certification, project endorsement, or hardware-backend validation.
+Broader program coverage, OpenQASM 3.1 profile review, and laboratory/backend
+execution remain external work.

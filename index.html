@@ -1261,11 +1261,11 @@
             <p>Versioned deterministic mapping with schema and tests.</p>
           </article>
           <article>
-            <span>Current boundary</span>
-            <strong>Emit-only</strong>
+            <span>Canonical validation</span>
+            <strong>External PASS</strong>
             <p>
-              No claim of official OpenQASM conformance or quantum hardware
-              execution.
+              אור and שלום pass pinned parser/import/statevector checks; no
+              certification or hardware claim is implied.
             </p>
           </article>
           <article>
@@ -1382,8 +1382,8 @@
               <b>04</b>
               <h3>Validation</h3>
               <p>
-                The next frontier: independent parsers, simulators, and
-                backend-facing tools.
+                Canonical אור and שלום now pass external parser, Qiskit import,
+                statevector, and independent Rust front-end checks.
               </p>
             </article>
             <article class="bridge-step">
@@ -1417,9 +1417,10 @@
             <div>
               <strong>The claim stays narrow.</strong>
               <p>
-                Today: deterministic OpenQASM emission. Next: independent parser
-                evidence. Then: simulator and backend experiments, each recorded
-                with exact versions and results.
+                Today: deterministic emission plus corpus-scoped external parser
+                and statevector evidence. Next: broader corpus, OpenQASM 3.1
+                review, and backend-facing experiments with exact versions and
+                results.
               </p>
             </div>
           </div>
@@ -1550,10 +1551,10 @@
               <span class="ask-tag">PARSER VALIDATION</span>
               <h3>Break the emitted source.</h3>
               <p>
-                Run canonical QEC output through recognized OpenQASM parsers. We
-                want exact tool versions, diagnostics, disagreements, and
-                reproducible failure cases recorded as evidence rather than
-                quietly patched around.
+                The first canonical parser milestone now passes. Expand the
+                corpus, reproduce our pinned results, and bring us exact
+                diagnostics or failure cases from additional independently
+                maintained tools.
               </p>
             </article>
             <article class="panel-card ask-card">
@@ -1671,13 +1672,15 @@
               >
             </article>
             <article class="panel-card">
-              <span class="num">05 / RELEASE</span>
-              <h3>Current boundary</h3>
+              <span class="num">05 / VALIDATION</span>
+              <h3>External evidence</h3>
               <p>
-                The release-readiness document explicitly identifies the
-                OpenQASM projection as emit-only.
+                Exact validator versions, QASM hashes, parser results, and
+                statevector evidence are captured for the canonical corpus.
               </p>
-              <a href="docs/RELEASE_READINESS.md">Read release readiness →</a>
+              <a href="docs/OPENQASM_VALIDATION.md"
+                >Read validation evidence →</a
+              >
             </article>
             <article class="panel-card">
               <span class="num">06 / HARDWARE</span>
@@ -1702,13 +1705,11 @@
                 useful.
               </h2>
               <p>
-                A useful first contribution is small: take the emitted programs
-                for
-                <span lang="he" dir="rtl">אור</span> and
-                <span lang="he" dir="rtl">שלום</span>, run them through an
-                OpenQASM 3 parser or simulator you trust, record the exact
-                version and diagnostics, and tell us what must change. If two
-                tools disagree, preserve the disagreement. That is evidence too.
+                The first canonical validation milestone is now reproducible and
+                public. Help us broaden it: test more IvritCode programs, review
+                the 3.0-to-3.1 profile strategy, challenge the 22 mappings, or
+                add an independent simulator/backend-facing tool. Record exact
+                versions and preserve disagreements. That is evidence too.
               </p>
             </div>
             <div class="request-actions">
@@ -1909,7 +1910,7 @@
           const source = sourceInput.value.trim();
           qasmOutput.textContent = compileIvritToOpenQasm(source, 3);
           qasmStatus.textContent =
-            "VALID LOCAL PROJECTION / independent parser evidence requested";
+            "CANONICAL CORPUS EXTERNALLY VALIDATED / broader review requested";
           qasmStatus.dataset.state = "valid";
         } catch (error) {
           qasmOutput.textContent = "";

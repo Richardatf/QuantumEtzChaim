@@ -24,41 +24,87 @@
     "extensions"
   ],
   "properties": {
-    "schemaVersion": { "const": "qec-run-passport-0.1" },
-    "runId": { "$ref": "#/$defs/hash" },
-    "engineVersion": { "const": "1.0.0" },
-    "pathMapVersion": { "const": "qec-path-map-0.3.0" },
-    "manifestationVersion": { "const": "qec-manifestation-0.2" },
-    "seed": { "type": "integer", "minimum": 0, "maximum": 21 },
-    "traceHash": { "$ref": "#/$defs/hash" },
-    "source": { "type": "string", "minLength": 1, "maxLength": 1024 },
-    "sourceHash": { "$ref": "#/$defs/hash" },
-    "initialState": { "$ref": "#/$defs/state" },
-    "finalState": { "$ref": "#/$defs/state" },
-    "hiddenKey": { "$ref": "#/$defs/hebrewLetter" },
-    "patternShape": { "type": "string", "minLength": 1 },
+    "schemaVersion": {
+      "const": "qec-run-passport-0.1"
+    },
+    "runId": {
+      "$ref": "#/$defs/hash"
+    },
+    "engineVersion": {
+      "const": "1.0.0"
+    },
+    "pathMapVersion": {
+      "const": "qec-path-map-0.3.0"
+    },
+    "manifestationVersion": {
+      "const": "qec-manifestation-0.2"
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 21
+    },
+    "traceHash": {
+      "$ref": "#/$defs/hash"
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024
+    },
+    "sourceHash": {
+      "$ref": "#/$defs/hash"
+    },
+    "initialState": {
+      "$ref": "#/$defs/state"
+    },
+    "finalState": {
+      "$ref": "#/$defs/state"
+    },
+    "hiddenKey": {
+      "$ref": "#/$defs/hebrewLetter"
+    },
+    "patternShape": {
+      "type": "string",
+      "minLength": 1
+    },
     "returningLetters": {
       "type": "array",
-      "items": { "$ref": "#/$defs/hebrewLetter" },
+      "items": {
+        "$ref": "#/$defs/hebrewLetter"
+      },
       "uniqueItems": true
     },
     "gates": {
       "type": "array",
-      "items": { "type": "string", "minLength": 1 }
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
     },
     "trace": {
       "type": "array",
       "minItems": 1,
-      "items": { "$ref": "#/$defs/coreTraceEvent" }
+      "items": {
+        "$ref": "#/$defs/coreTraceEvent"
+      }
     },
     "validation": {
       "type": "object",
       "required": ["status", "registerCount", "traceComplete", "deterministic"],
       "properties": {
-        "status": { "const": "valid" },
-        "registerCount": { "const": 23 },
-        "traceComplete": { "const": true },
-        "deterministic": { "const": true }
+        "status": {
+          "const": "valid"
+        },
+        "registerCount": {
+          "const": 23
+        },
+        "traceComplete": {
+          "const": true
+        },
+        "deterministic": {
+          "const": true
+        }
       },
       "additionalProperties": false
     },
@@ -66,14 +112,19 @@
       "type": "object",
       "required": ["qecMachine"],
       "properties": {
-        "qecMachine": { "$ref": "#/$defs/machineExtension" }
+        "qecMachine": {
+          "$ref": "#/$defs/machineExtension"
+        }
       },
       "additionalProperties": false
     }
   },
   "additionalProperties": false,
   "$defs": {
-    "hash": { "type": "string", "minLength": 8 },
+    "hash": {
+      "type": "string",
+      "minLength": 8
+    },
     "hebrewLetter": {
       "enum": [
         "א",
@@ -104,7 +155,11 @@
       "type": "array",
       "minItems": 23,
       "maxItems": 23,
-      "items": { "type": "integer", "minimum": 0, "maximum": 21 }
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 21
+      }
     },
     "coreTraceEvent": {
       "type": "object",
@@ -118,15 +173,32 @@
         "changedRegisters"
       ],
       "properties": {
-        "sequence": { "type": "integer", "minimum": 0 },
-        "letter": { "$ref": "#/$defs/hebrewLetter" },
-        "before": { "$ref": "#/$defs/state" },
-        "after": { "$ref": "#/$defs/state" },
-        "beforeHash": { "$ref": "#/$defs/hash" },
-        "afterHash": { "$ref": "#/$defs/hash" },
+        "sequence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "letter": {
+          "$ref": "#/$defs/hebrewLetter"
+        },
+        "before": {
+          "$ref": "#/$defs/state"
+        },
+        "after": {
+          "$ref": "#/$defs/state"
+        },
+        "beforeHash": {
+          "$ref": "#/$defs/hash"
+        },
+        "afterHash": {
+          "$ref": "#/$defs/hash"
+        },
         "changedRegisters": {
           "type": "array",
-          "items": { "type": "integer", "minimum": 0, "maximum": 22 },
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 22
+          },
           "uniqueItems": true
         }
       },
@@ -145,14 +217,33 @@
         "brightness"
       ],
       "properties": {
-        "type": { "const": "STATE" },
-        "sequence": { "type": "integer", "minimum": 1 },
-        "activePath": { "$ref": "#/$defs/hebrewLetter" },
-        "sourceNode": { "$ref": "#/$defs/sefirah" },
-        "destinationNode": { "$ref": "#/$defs/sefirah" },
-        "registers": { "$ref": "#/$defs/state" },
-        "traceHash": { "$ref": "#/$defs/hash" },
-        "brightness": { "type": "number", "minimum": 0, "maximum": 0.25 }
+        "type": {
+          "const": "STATE"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "activePath": {
+          "$ref": "#/$defs/hebrewLetter"
+        },
+        "sourceNode": {
+          "$ref": "#/$defs/sefirah"
+        },
+        "destinationNode": {
+          "$ref": "#/$defs/sefirah"
+        },
+        "registers": {
+          "$ref": "#/$defs/state"
+        },
+        "traceHash": {
+          "$ref": "#/$defs/hash"
+        },
+        "brightness": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.25
+        }
       },
       "additionalProperties": false
     },
@@ -177,10 +268,20 @@
           "type": "object",
           "required": ["type", "protocol", "pixels", "keys"],
           "properties": {
-            "type": { "const": "READY" },
-            "protocol": { "const": "qec-panel-link-0.1" },
-            "pixels": { "type": "integer", "minimum": 0 },
-            "keys": { "type": "integer", "minimum": 0 }
+            "type": {
+              "const": "READY"
+            },
+            "protocol": {
+              "const": "qec-panel-link-0.1"
+            },
+            "pixels": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "keys": {
+              "type": "integer",
+              "minimum": 0
+            }
           },
           "additionalProperties": false
         },
@@ -188,10 +289,20 @@
           "type": "object",
           "required": ["type", "key", "pressed", "sequence"],
           "properties": {
-            "type": { "const": "KEY" },
-            "key": { "type": "string", "minLength": 1 },
-            "pressed": { "type": "boolean" },
-            "sequence": { "type": "integer", "minimum": 0 }
+            "type": {
+              "const": "KEY"
+            },
+            "key": {
+              "type": "string",
+              "minLength": 1
+            },
+            "pressed": {
+              "type": "boolean"
+            },
+            "sequence": {
+              "type": "integer",
+              "minimum": 0
+            }
           },
           "additionalProperties": false
         },
@@ -199,8 +310,13 @@
           "type": "object",
           "required": ["type", "sequence"],
           "properties": {
-            "type": { "enum": ["APPLIED", "HEARTBEAT"] },
-            "sequence": { "type": "integer", "minimum": 0 }
+            "type": {
+              "enum": ["APPLIED", "HEARTBEAT"]
+            },
+            "sequence": {
+              "type": "integer",
+              "minimum": 0
+            }
           },
           "additionalProperties": false
         },
@@ -208,9 +324,17 @@
           "type": "object",
           "required": ["type", "code", "detail"],
           "properties": {
-            "type": { "const": "FAULT" },
-            "code": { "type": "string", "minLength": 1 },
-            "detail": { "type": "string", "minLength": 1 }
+            "type": {
+              "const": "FAULT"
+            },
+            "code": {
+              "type": "string",
+              "minLength": 1
+            },
+            "detail": {
+              "type": "string",
+              "minLength": 1
+            }
           },
           "additionalProperties": false
         }
@@ -227,14 +351,23 @@
         "evidence"
       ],
       "properties": {
-        "profileVersion": { "const": "qec-machine-run-extension-0.1" },
+        "profileVersion": {
+          "const": "qec-machine-run-extension-0.1"
+        },
         "trace": {
           "type": "object",
           "required": ["schemaVersion", "events", "completeTraceHash"],
           "properties": {
-            "schemaVersion": { "const": "qec-trace-0.3" },
-            "events": { "type": "array", "minItems": 1 },
-            "completeTraceHash": { "$ref": "#/$defs/hash" }
+            "schemaVersion": {
+              "const": "qec-trace-0.3"
+            },
+            "events": {
+              "type": "array",
+              "minItems": 1
+            },
+            "completeTraceHash": {
+              "$ref": "#/$defs/hash"
+            }
           },
           "additionalProperties": true
         },
@@ -242,8 +375,12 @@
           "type": "object",
           "required": ["schemaVersion", "finalState", "output"],
           "properties": {
-            "schemaVersion": { "const": "qec-manifestation-0.2" },
-            "finalState": { "$ref": "#/$defs/state" },
+            "schemaVersion": {
+              "const": "qec-manifestation-0.2"
+            },
+            "finalState": {
+              "$ref": "#/$defs/state"
+            },
             "output": {
               "type": "object",
               "required": [
@@ -258,9 +395,17 @@
                   "minLength": 22,
                   "maxLength": 22
                 },
-                "base22Registers": { "type": "string", "minLength": 1 },
-                "pathSignature": { "type": "string", "minLength": 1 },
-                "checksum": { "$ref": "#/$defs/hash" }
+                "base22Registers": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "pathSignature": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "checksum": {
+                  "$ref": "#/$defs/hash"
+                }
               },
               "additionalProperties": false
             }
@@ -271,8 +416,13 @@
           "type": "object",
           "required": ["profile", "source"],
           "properties": {
-            "profile": { "const": "ivritcode-openqasm-0.1" },
-            "source": { "type": "string", "pattern": "^OPENQASM 3\\.0;" }
+            "profile": {
+              "const": "ivritcode-openqasm-0.1"
+            },
+            "source": {
+              "type": "string",
+              "pattern": "^OPENQASM 3\\.0;"
+            }
           },
           "additionalProperties": false
         },
@@ -286,14 +436,24 @@
             "frames"
           ],
           "properties": {
-            "protocol": { "const": "qec-panel-link-0.1" },
-            "machine": { "const": "QEC-1P" },
-            "expectedPixels": { "const": 4 },
-            "expectedKeys": { "const": 4 },
+            "protocol": {
+              "const": "qec-panel-link-0.1"
+            },
+            "machine": {
+              "const": "QEC-1P"
+            },
+            "expectedPixels": {
+              "const": 4
+            },
+            "expectedKeys": {
+              "const": 4
+            },
             "frames": {
               "type": "array",
               "minItems": 1,
-              "items": { "$ref": "#/$defs/stateFrame" }
+              "items": {
+                "$ref": "#/$defs/stateFrame"
+              }
             }
           },
           "additionalProperties": false
@@ -302,17 +462,113 @@
           "type": "object",
           "required": ["mode", "acknowledgements", "acceptance"],
           "properties": {
-            "mode": { "enum": ["not-run", "simulation", "physical"] },
+            "mode": {
+              "enum": ["not-run", "simulation", "physical"]
+            },
             "acknowledgements": {
               "type": "array",
-              "items": { "$ref": "#/$defs/panelFrame" }
+              "items": {
+                "$ref": "#/$defs/panelFrame"
+              }
             },
             "acceptance": {
               "type": "object",
               "propertyNames": {
                 "enum": ["map", "handshake", "states", "brightness", "watchdog"]
               },
-              "additionalProperties": { "enum": ["PASS", "FAIL", "WAIT"] }
+              "additionalProperties": {
+                "enum": ["PASS", "FAIL", "WAIT"]
+              }
+            },
+            "openQasmValidation": {
+              "$ref": "#/$defs/openQasmValidation"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "openQasmValidation": {
+      "type": "object",
+      "required": [
+        "profile",
+        "status",
+        "scope",
+        "targetLanguage",
+        "evidencePath",
+        "capturedAt",
+        "programId",
+        "normalizedSource",
+        "seed",
+        "openQasmSha256",
+        "validators"
+      ],
+      "properties": {
+        "profile": {
+          "const": "qec-openqasm-validation-0.1"
+        },
+        "status": {
+          "const": "PASS"
+        },
+        "scope": {
+          "const": "canonical-corpus"
+        },
+        "targetLanguage": {
+          "const": "OpenQASM 3.0"
+        },
+        "evidencePath": {
+          "const": "evidence/openqasm-validation-v0.1.json"
+        },
+        "capturedAt": {
+          "type": "string",
+          "minLength": 1
+        },
+        "programId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "normalizedSource": {
+          "type": "string",
+          "minLength": 1
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 21
+        },
+        "openQasmSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "validators": {
+          "type": "object",
+          "required": [
+            "openqasm3Reference",
+            "qiskitQasm3Import",
+            "qiskit",
+            "rustFrontEndRepository",
+            "rustFrontEndCommit"
+          ],
+          "properties": {
+            "openqasm3Reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "qiskitQasm3Import": {
+              "type": "string",
+              "minLength": 1
+            },
+            "qiskit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rustFrontEndRepository": {
+              "const": "Qiskit/openqasm3_parser"
+            },
+            "rustFrontEndCommit": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{40}$"
             }
           },
           "additionalProperties": false

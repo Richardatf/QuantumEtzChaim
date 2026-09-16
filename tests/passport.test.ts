@@ -86,6 +86,15 @@ describe("Run Passport file parser", () => {
     );
     expect(machine.manifestation.output.checksum).toMatch(/^[0-9a-f]{8}$/);
     expect(machine.openQasm.source).toContain("OPENQASM 3.0;");
+    expect(machine.evidence.openQasmValidation).toMatchObject({
+      profile: "qec-openqasm-validation-0.1",
+      status: "PASS",
+      programId: "or-seed-09",
+      normalizedSource: "אור",
+      seed: 9,
+      openQasmSha256:
+        "e0dda19344f486191a5520968cabdc844e30bcb2cbd786d76fd17d3689fa8101",
+    });
     expect(parseRunPassport(JSON.stringify(generated))).toMatchObject({
       ok: true,
     });
@@ -116,6 +125,9 @@ describe("Run Passport file parser", () => {
 
     expect(completed.runId).toBe(generated.runId);
     expect(completed.extensions.qecMachine.evidence.mode).toBe("physical");
+    expect(
+      completed.extensions.qecMachine.evidence.openQasmValidation?.programId,
+    ).toBe("or-seed-09");
     expect(validateRunPassport(completed)).toBe(true);
   });
 });
