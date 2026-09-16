@@ -48,8 +48,8 @@ data is ignored; it never becomes executable code.
   `qec-v0.1.html`, backed by the versioned
   [`qec-gate-rules-0.1`](specifications/qec-gate-rules-v0.1.json) contract.
   All 231 unordered identities and 462 directions resolve deterministically;
-  the two `אור` directions and three compiler-verified `שלום` directions are
-  approved with replayable evidence, while the other 457 directions remain
+  22 directional invocations across eight compiler-verified evidence programs
+  are approved with replayable evidence, while the other 440 directions remain
   explicitly reserved and non-executable
 - Infinite Wave explorer in `wave.html`, comparing sources, transformations,
   deterministic observation projections, and manifestation results

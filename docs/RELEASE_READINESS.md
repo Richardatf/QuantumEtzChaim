@@ -25,9 +25,12 @@ The test is `tests/ivritcode-machine-bridge.test.ts`. CI runs the same
 
 The Gate portion of that release check also replays every approved directional
 rule from the evidence program, seed, and Gate index declared in
-`qec-gate-rules-0.1`. At this milestone, two approvals come from canonical
-`אור` seed 09 and three come from the compiler-verified `שלום` bridge run,
-normalized to `שלומ` at seed 17. No other directional Gate is executable.
+`qec-gate-rules-0.1`. At this milestone, 22 directional approvals are replayed from eight
+compiler-verified evidence programs: `אור` seed 09, `שלום` normalized to `שלומ`
+seed 17, `בראשית` seed 05, `אמת` seed 07, `אחד` seed 11, `חיים` normalized to
+`חיימ` seed 13, `דעת` seed 19, and `מלכות` seed 21. The remaining 440
+directional Gates stay reserved and non-executable; repeated-letter reinforcement
+remains a self-transition outside the 231-Gate registry.
 
 ## Boundaries that remain physical or external
 

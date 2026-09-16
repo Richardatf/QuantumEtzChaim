@@ -198,7 +198,7 @@ Kernel 0.3 now loads that complete map into a 22-entry transform registry. `runP
 
 `qec-gate-rules-0.1` separates a traditional Gate identity from a directed runtime invocation. The 22 distinct letters generate exactly 231 canonical unordered pairs. Each pair owns two separately reviewed directions, yielding 462 deterministic resolutions. A repeated letter such as `א→א` is a reinforcement self-transition outside the 231-Gate registry.
 
-The default rule is fail-closed: a visible Gate is reserved and non-executable until its directional composition, technical basis, and replayable program evidence are approved. The acceptance program `אור`, seed 09, approves `א→ו` as a crossing and `ו→ר` as a continuation. The compiler-verified bridge program `שלום`, normalized to `שלומ` at seed 17, approves `ש→ל` as a continuation plus `ל→ו` and `ו→מ` as crossings. Each approval cites the evidence-program ID and exact zero-based Gate index. Runtime profile validation rejects an unknown evidence ID, an out-of-range index, a mismatched direction, inconsistent approval fields, or an approved rule whose declared composition disagrees with observed topology. The other 457 directions remain reserved and non-executable.
+The default rule is fail-closed: a visible Gate is reserved and non-executable until its directional composition, technical basis, and replayable program evidence are approved. The evidence registry now contains eight compiler-verified programs: `אור` seed 09, `שלום` normalized to `שלומ` seed 17, `בראשית` seed 05, `אמת` seed 07, `אחד` seed 11, `חיים` normalized to `חיימ` seed 13, `דעת` seed 19, and `מלכות` seed 21. Together they approve 22 directional Gate invocations. Each approval cites the evidence-program ID and exact zero-based Gate index. Runtime profile validation rejects an unknown evidence ID, an out-of-range index, a mismatched direction, inconsistent approval fields, or an approved rule whose declared composition disagrees with observed topology. Repeated letters remain reinforcement self-transitions outside the 231-Gate registry. The other 440 directions remain reserved and non-executable.
 
 The exhaustive Gate test compiles every declared evidence source through `@qec/ivrit-compiler`, confirms its normalized opcode stream, replays the QEC runtime at the declared seed, and matches the cited Gate ID, direction, approval, executability, and composition. A word appearing in UI copy or an incidental unit test does not qualify as approval evidence.
 
@@ -233,19 +233,19 @@ Generated code is never evaluated. The runtime receives no filesystem, process, 
 
 ## 12. Verification matrix
 
-| Gate          | Evidence required             | Pass condition                                              |
-| ------------- | ----------------------------- | ----------------------------------------------------------- |
-| Contract      | schema validation + typecheck | all fixtures valid; invalid fixtures fail closed            |
-| State         | unit + property tests         | 23 registers; bounds and immutability always hold           |
-| Paths         | coverage test                 | 22 unique letters and 22 valid routes                       |
-| Gates         | identity + direction coverage | 231 pairs; 462 resolutions; 5 evidence-backed; 457 reserved |
-| Determinism   | golden replay test            | 100 repeated runs produce identical bytes                   |
-| Separation    | mutation guard test           | coherence on/off yields identical classical state           |
-| Trace         | hash-chain test               | no sequence gaps or hash discontinuities                    |
-| Observation   | projection tests              | one stable selection and immutable snapshot                 |
-| Security      | malformed/fuzz corpus         | no code execution, hangs, or unbounded output               |
-| Accessibility | keyboard + automated audit    | WCAG 2.2 AA target; reduced motion honored                  |
-| Responsive UI | visual checks                 | no overflow at 375, 768, 1280, and 1440 px                  |
+| Gate          | Evidence required             | Pass condition                                               |
+| ------------- | ----------------------------- | ------------------------------------------------------------ |
+| Contract      | schema validation + typecheck | all fixtures valid; invalid fixtures fail closed             |
+| State         | unit + property tests         | 23 registers; bounds and immutability always hold            |
+| Paths         | coverage test                 | 22 unique letters and 22 valid routes                        |
+| Gates         | identity + direction coverage | 231 pairs; 462 resolutions; 22 evidence-backed; 440 reserved |
+| Determinism   | golden replay test            | 100 repeated runs produce identical bytes                    |
+| Separation    | mutation guard test           | coherence on/off yields identical classical state            |
+| Trace         | hash-chain test               | no sequence gaps or hash discontinuities                     |
+| Observation   | projection tests              | one stable selection and immutable snapshot                  |
+| Security      | malformed/fuzz corpus         | no code execution, hangs, or unbounded output                |
+| Accessibility | keyboard + automated audit    | WCAG 2.2 AA target; reduced motion honored                   |
+| Responsive UI | visual checks                 | no overflow at 375, 768, 1280, and 1440 px                   |
 
 No release advances with a skipped deterministic, contract, or security gate.
 

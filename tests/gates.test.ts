@@ -31,7 +31,7 @@ describe("qec-gate-rules-0.1", () => {
     );
     expect(resolutions).toHaveLength(462);
     const approved = resolutions.filter((rule) => rule.status === "approved");
-    expect(approved).toHaveLength(5);
+    expect(approved).toHaveLength(22);
     expect(approved).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
@@ -73,7 +73,7 @@ describe("qec-gate-rules-0.1", () => {
     ).toBe(true);
     expect(
       resolutions.filter((rule) => rule.status === "reserved"),
-    ).toHaveLength(457);
+    ).toHaveLength(440);
   });
 
   it("replays every approved direction from its compiler-verified evidence", () => {
@@ -86,7 +86,7 @@ describe("qec-gate-rules-0.1", () => {
         .map((direction) => ({ gate, direction })),
     );
 
-    expect(approvedDirections).toHaveLength(5);
+    expect(approvedDirections).toHaveLength(22);
     approvedDirections.forEach(({ gate, direction }) => {
       expect(direction.evidence).not.toBeNull();
       if (!direction.evidence) return;
@@ -109,6 +109,20 @@ describe("qec-gate-rules-0.1", () => {
         }),
       );
     });
+  });
+
+  it("tracks the expanded eight-program Gate evidence milestone", () => {
+    expect(GATE_EVIDENCE_PROGRAMS).toHaveLength(8);
+    expect(GATE_EVIDENCE_PROGRAMS.map((program) => program.id)).toEqual(
+      expect.arrayContaining([
+        "bereshit-seed-05",
+        "emet-seed-07",
+        "echad-seed-11",
+        "chayim-seed-13",
+        "daat-seed-19",
+        "malkhut-seed-21",
+      ]),
+    );
   });
 
   it("keeps repeated letters outside the 231-Gate registry", () => {

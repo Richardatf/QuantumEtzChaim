@@ -28,6 +28,48 @@
       "source": "שלום",
       "normalizedProgram": "שלומ",
       "seed": 17
+    },
+    {
+      "id": "bereshit-seed-05",
+      "profile": "ivritcode-qec-bridge-0.1",
+      "source": "בראשית",
+      "normalizedProgram": "בראשית",
+      "seed": 5
+    },
+    {
+      "id": "emet-seed-07",
+      "profile": "ivritcode-qec-bridge-0.1",
+      "source": "אמת",
+      "normalizedProgram": "אמת",
+      "seed": 7
+    },
+    {
+      "id": "echad-seed-11",
+      "profile": "ivritcode-qec-bridge-0.1",
+      "source": "אחד",
+      "normalizedProgram": "אחד",
+      "seed": 11
+    },
+    {
+      "id": "chayim-seed-13",
+      "profile": "ivritcode-qec-bridge-0.1",
+      "source": "חיים",
+      "normalizedProgram": "חיימ",
+      "seed": 13
+    },
+    {
+      "id": "daat-seed-19",
+      "profile": "ivritcode-qec-bridge-0.1",
+      "source": "דעת",
+      "normalizedProgram": "דעת",
+      "seed": 19
+    },
+    {
+      "id": "malkhut-seed-21",
+      "profile": "ivritcode-qec-bridge-0.1",
+      "source": "מלכות",
+      "normalizedProgram": "מלכות",
+      "seed": 21
     }
   ],
   "rules": [
@@ -44,7 +86,10 @@
           "status": "approved",
           "executable": true,
           "composition": "crossing",
-          "evidence": { "programId": "or-seed-09", "gateIndex": 0 },
+          "evidence": {
+            "programId": "or-seed-09",
+            "gateIndex": 0
+          },
           "description": "The preserved frame hands its trace to the Vav exchange across shared machine state."
         },
         {
@@ -55,6 +100,246 @@
           "composition": null,
           "evidence": null,
           "description": "The reverse invocation remains reserved for separate review."
+        }
+      ]
+    },
+    {
+      "id": "gate-1-8",
+      "pair": "א־ח",
+      "letters": ["א", "ח"],
+      "status": "approved",
+      "technicalBasis": "Compiler-verified אחד bridge run at seed 11: א followed by ח; observed crossing topology.",
+      "directions": [
+        {
+          "from": "א",
+          "to": "ח",
+          "status": "approved",
+          "executable": true,
+          "composition": "crossing",
+          "evidence": {
+            "programId": "echad-seed-11",
+            "gateIndex": 0
+          },
+          "description": "The א and ח routes cross through shared machine state without a direct continuation node."
+        },
+        {
+          "from": "ח",
+          "to": "א",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "evidence": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        }
+      ]
+    },
+    {
+      "id": "gate-1-13",
+      "pair": "א־מ",
+      "letters": ["א", "מ"],
+      "status": "approved",
+      "technicalBasis": "Compiler-verified אמת bridge run at seed 7: א followed by מ; observed continuation topology.",
+      "directions": [
+        {
+          "from": "א",
+          "to": "מ",
+          "status": "approved",
+          "executable": true,
+          "composition": "continuation",
+          "evidence": {
+            "programId": "emet-seed-07",
+            "gateIndex": 0
+          },
+          "description": "The א route continues directly into the מ route in the replayed machine topology."
+        },
+        {
+          "from": "מ",
+          "to": "א",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "evidence": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        }
+      ]
+    },
+    {
+      "id": "gate-1-20",
+      "pair": "א־ר",
+      "letters": ["א", "ר"],
+      "status": "approved",
+      "technicalBasis": "Compiler-verified בראשית bridge run at seed 5: ר followed by א; observed crossing topology.",
+      "directions": [
+        {
+          "from": "א",
+          "to": "ר",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "evidence": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        },
+        {
+          "from": "ר",
+          "to": "א",
+          "status": "approved",
+          "executable": true,
+          "composition": "crossing",
+          "evidence": {
+            "programId": "bereshit-seed-05",
+            "gateIndex": 1
+          },
+          "description": "The ר and א routes cross through shared machine state without a direct continuation node."
+        }
+      ]
+    },
+    {
+      "id": "gate-1-21",
+      "pair": "א־ש",
+      "letters": ["א", "ש"],
+      "status": "approved",
+      "technicalBasis": "Compiler-verified בראשית bridge run at seed 5: א followed by ש; observed continuation topology.",
+      "directions": [
+        {
+          "from": "א",
+          "to": "ש",
+          "status": "approved",
+          "executable": true,
+          "composition": "continuation",
+          "evidence": {
+            "programId": "bereshit-seed-05",
+            "gateIndex": 2
+          },
+          "description": "The א route continues directly into the ש route in the replayed machine topology."
+        },
+        {
+          "from": "ש",
+          "to": "א",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "evidence": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        }
+      ]
+    },
+    {
+      "id": "gate-2-20",
+      "pair": "ב־ר",
+      "letters": ["ב", "ר"],
+      "status": "approved",
+      "technicalBasis": "Compiler-verified בראשית bridge run at seed 5: ב followed by ר; observed crossing topology.",
+      "directions": [
+        {
+          "from": "ב",
+          "to": "ר",
+          "status": "approved",
+          "executable": true,
+          "composition": "crossing",
+          "evidence": {
+            "programId": "bereshit-seed-05",
+            "gateIndex": 0
+          },
+          "description": "The ב and ר routes cross through shared machine state without a direct continuation node."
+        },
+        {
+          "from": "ר",
+          "to": "ב",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "evidence": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        }
+      ]
+    },
+    {
+      "id": "gate-4-8",
+      "pair": "ד־ח",
+      "letters": ["ד", "ח"],
+      "status": "approved",
+      "technicalBasis": "Compiler-verified אחד bridge run at seed 11: ח followed by ד; observed crossing topology.",
+      "directions": [
+        {
+          "from": "ד",
+          "to": "ח",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "evidence": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        },
+        {
+          "from": "ח",
+          "to": "ד",
+          "status": "approved",
+          "executable": true,
+          "composition": "crossing",
+          "evidence": {
+            "programId": "echad-seed-11",
+            "gateIndex": 1
+          },
+          "description": "The ח and ד routes cross through shared machine state without a direct continuation node."
+        }
+      ]
+    },
+    {
+      "id": "gate-4-16",
+      "pair": "ד־ע",
+      "letters": ["ד", "ע"],
+      "status": "approved",
+      "technicalBasis": "Compiler-verified דעת bridge run at seed 19: ד followed by ע; observed crossing topology.",
+      "directions": [
+        {
+          "from": "ד",
+          "to": "ע",
+          "status": "approved",
+          "executable": true,
+          "composition": "crossing",
+          "evidence": {
+            "programId": "daat-seed-19",
+            "gateIndex": 0
+          },
+          "description": "The ד and ע routes cross through shared machine state without a direct continuation node."
+        },
+        {
+          "from": "ע",
+          "to": "ד",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "evidence": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        }
+      ]
+    },
+    {
+      "id": "gate-6-11",
+      "pair": "ו־כ",
+      "letters": ["ו", "כ"],
+      "status": "approved",
+      "technicalBasis": "Compiler-verified מלכות bridge run at seed 21: כ followed by ו; observed crossing topology.",
+      "directions": [
+        {
+          "from": "ו",
+          "to": "כ",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "evidence": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        },
+        {
+          "from": "כ",
+          "to": "ו",
+          "status": "approved",
+          "executable": true,
+          "composition": "crossing",
+          "evidence": {
+            "programId": "malkhut-seed-21",
+            "gateIndex": 2
+          },
+          "description": "The כ and ו routes cross through shared machine state without a direct continuation node."
         }
       ]
     },
@@ -80,7 +365,10 @@
           "status": "approved",
           "executable": true,
           "composition": "crossing",
-          "evidence": { "programId": "shalom-seed-17", "gateIndex": 1 },
+          "evidence": {
+            "programId": "shalom-seed-17",
+            "gateIndex": 1
+          },
           "description": "The Lamed rotation hands its trace to the Vav exchange across shared machine state."
         }
       ]
@@ -98,7 +386,10 @@
           "status": "approved",
           "executable": true,
           "composition": "crossing",
-          "evidence": { "programId": "shalom-seed-17", "gateIndex": 2 },
+          "evidence": {
+            "programId": "shalom-seed-17",
+            "gateIndex": 2
+          },
           "description": "The Vav exchange hands its trace to the Mem endurance flow across shared machine state."
         },
         {
@@ -125,7 +416,10 @@
           "status": "approved",
           "executable": true,
           "composition": "continuation",
-          "evidence": { "programId": "or-seed-09", "gateIndex": 1 },
+          "evidence": {
+            "programId": "or-seed-09",
+            "gateIndex": 1
+          },
           "description": "The Vav exchange arrives at Yesod and continues through the Resh reseed toward Malchut."
         },
         {
@@ -136,6 +430,216 @@
           "composition": null,
           "evidence": null,
           "description": "The reverse invocation remains reserved for separate review."
+        }
+      ]
+    },
+    {
+      "id": "gate-6-22",
+      "pair": "ו־ת",
+      "letters": ["ו", "ת"],
+      "status": "approved",
+      "technicalBasis": "Compiler-verified מלכות bridge run at seed 21: ו followed by ת; observed continuation topology.",
+      "directions": [
+        {
+          "from": "ו",
+          "to": "ת",
+          "status": "approved",
+          "executable": true,
+          "composition": "continuation",
+          "evidence": {
+            "programId": "malkhut-seed-21",
+            "gateIndex": 3
+          },
+          "description": "The ו route continues directly into the ת route in the replayed machine topology."
+        },
+        {
+          "from": "ת",
+          "to": "ו",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "evidence": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        }
+      ]
+    },
+    {
+      "id": "gate-8-10",
+      "pair": "ח־י",
+      "letters": ["ח", "י"],
+      "status": "approved",
+      "technicalBasis": "Compiler-verified חיים bridge run at seed 13: ח followed by י; observed continuation topology.",
+      "directions": [
+        {
+          "from": "ח",
+          "to": "י",
+          "status": "approved",
+          "executable": true,
+          "composition": "continuation",
+          "evidence": {
+            "programId": "chayim-seed-13",
+            "gateIndex": 0
+          },
+          "description": "The ח route continues directly into the י route in the replayed machine topology."
+        },
+        {
+          "from": "י",
+          "to": "ח",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "evidence": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        }
+      ]
+    },
+    {
+      "id": "gate-10-13",
+      "pair": "י־מ",
+      "letters": ["י", "מ"],
+      "status": "approved",
+      "technicalBasis": "Compiler-verified חיים bridge run at seed 13: י followed by מ; observed continuation topology.",
+      "directions": [
+        {
+          "from": "י",
+          "to": "מ",
+          "status": "approved",
+          "executable": true,
+          "composition": "continuation",
+          "evidence": {
+            "programId": "chayim-seed-13",
+            "gateIndex": 2
+          },
+          "description": "The י route continues directly into the מ route in the replayed machine topology."
+        },
+        {
+          "from": "מ",
+          "to": "י",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "evidence": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        }
+      ]
+    },
+    {
+      "id": "gate-10-21",
+      "pair": "י־ש",
+      "letters": ["י", "ש"],
+      "status": "approved",
+      "technicalBasis": "Compiler-verified בראשית bridge run at seed 5: ש followed by י; observed continuation topology.",
+      "directions": [
+        {
+          "from": "י",
+          "to": "ש",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "evidence": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        },
+        {
+          "from": "ש",
+          "to": "י",
+          "status": "approved",
+          "executable": true,
+          "composition": "continuation",
+          "evidence": {
+            "programId": "bereshit-seed-05",
+            "gateIndex": 3
+          },
+          "description": "The ש route continues directly into the י route in the replayed machine topology."
+        }
+      ]
+    },
+    {
+      "id": "gate-10-22",
+      "pair": "י־ת",
+      "letters": ["י", "ת"],
+      "status": "approved",
+      "technicalBasis": "Compiler-verified בראשית bridge run at seed 5: י followed by ת; observed crossing topology.",
+      "directions": [
+        {
+          "from": "י",
+          "to": "ת",
+          "status": "approved",
+          "executable": true,
+          "composition": "crossing",
+          "evidence": {
+            "programId": "bereshit-seed-05",
+            "gateIndex": 4
+          },
+          "description": "The י and ת routes cross through shared machine state without a direct continuation node."
+        },
+        {
+          "from": "ת",
+          "to": "י",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "evidence": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        }
+      ]
+    },
+    {
+      "id": "gate-11-12",
+      "pair": "כ־ל",
+      "letters": ["כ", "ל"],
+      "status": "approved",
+      "technicalBasis": "Compiler-verified מלכות bridge run at seed 21: ל followed by כ; observed crossing topology.",
+      "directions": [
+        {
+          "from": "כ",
+          "to": "ל",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "evidence": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        },
+        {
+          "from": "ל",
+          "to": "כ",
+          "status": "approved",
+          "executable": true,
+          "composition": "crossing",
+          "evidence": {
+            "programId": "malkhut-seed-21",
+            "gateIndex": 1
+          },
+          "description": "The ל and כ routes cross through shared machine state without a direct continuation node."
+        }
+      ]
+    },
+    {
+      "id": "gate-12-13",
+      "pair": "ל־מ",
+      "letters": ["ל", "מ"],
+      "status": "approved",
+      "technicalBasis": "Compiler-verified מלכות bridge run at seed 21: מ followed by ל; observed continuation topology.",
+      "directions": [
+        {
+          "from": "ל",
+          "to": "מ",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "evidence": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        },
+        {
+          "from": "מ",
+          "to": "ל",
+          "status": "approved",
+          "executable": true,
+          "composition": "continuation",
+          "evidence": {
+            "programId": "malkhut-seed-21",
+            "gateIndex": 0
+          },
+          "description": "The מ route continues directly into the ל route in the replayed machine topology."
         }
       ]
     },
@@ -161,8 +665,71 @@
           "status": "approved",
           "executable": true,
           "composition": "continuation",
-          "evidence": { "programId": "shalom-seed-17", "gateIndex": 0 },
+          "evidence": {
+            "programId": "shalom-seed-17",
+            "gateIndex": 0
+          },
           "description": "The paired Shin and Lamed routes meet at Tiferet and form a continuous machine path."
+        }
+      ]
+    },
+    {
+      "id": "gate-13-22",
+      "pair": "מ־ת",
+      "letters": ["מ", "ת"],
+      "status": "approved",
+      "technicalBasis": "Compiler-verified אמת bridge run at seed 7: מ followed by ת; observed crossing topology.",
+      "directions": [
+        {
+          "from": "מ",
+          "to": "ת",
+          "status": "approved",
+          "executable": true,
+          "composition": "crossing",
+          "evidence": {
+            "programId": "emet-seed-07",
+            "gateIndex": 1
+          },
+          "description": "The מ and ת routes cross through shared machine state without a direct continuation node."
+        },
+        {
+          "from": "ת",
+          "to": "מ",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "evidence": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        }
+      ]
+    },
+    {
+      "id": "gate-16-22",
+      "pair": "ע־ת",
+      "letters": ["ע", "ת"],
+      "status": "approved",
+      "technicalBasis": "Compiler-verified דעת bridge run at seed 19: ע followed by ת; observed crossing topology.",
+      "directions": [
+        {
+          "from": "ע",
+          "to": "ת",
+          "status": "approved",
+          "executable": true,
+          "composition": "crossing",
+          "evidence": {
+            "programId": "daat-seed-19",
+            "gateIndex": 1
+          },
+          "description": "The ע and ת routes cross through shared machine state without a direct continuation node."
+        },
+        {
+          "from": "ת",
+          "to": "ע",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "evidence": null,
+          "description": "The reverse invocation remains reserved for separate review."
         }
       ]
     }

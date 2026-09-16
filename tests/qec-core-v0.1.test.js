@@ -15,19 +15,23 @@ describe("QEC v0.1 browser core", () => {
     expect(new Set(QEC.LETTERS.map((item) => item.letter))).toHaveLength(22);
   });
 
-  it("builds exactly 231 unique unordered gates with five approved directions", () => {
+  it("builds exactly 231 unique unordered gates with 22 approved directions", () => {
     expect(QEC.GATES).toHaveLength(231);
     expect(new Set(QEC.GATES.map((item) => item.id))).toHaveLength(231);
     expect(QEC.GATES.every((item) => item.left !== item.right)).toBe(true);
     expect(QEC.GATE_RULE_PROFILE).toBe("qec-gate-rules-0.1");
-    expect(QEC.GATE_EVIDENCE_PROGRAMS).toHaveLength(2);
-    expect(QEC.GATES.filter((item) => item.status === "approved")).toEqual([
-      expect.objectContaining({ id: "gate-1-6", executable: true }),
-      expect.objectContaining({ id: "gate-6-12", executable: true }),
-      expect.objectContaining({ id: "gate-6-13", executable: true }),
-      expect.objectContaining({ id: "gate-6-20", executable: true }),
-      expect.objectContaining({ id: "gate-12-21", executable: true }),
-    ]);
+    expect(QEC.GATE_EVIDENCE_PROGRAMS).toHaveLength(8);
+    const approved = QEC.GATES.filter((item) => item.status === "approved");
+    expect(approved).toHaveLength(22);
+    expect(approved).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ id: "gate-1-6", executable: true }),
+        expect.objectContaining({ id: "gate-6-12", executable: true }),
+        expect.objectContaining({ id: "gate-6-13", executable: true }),
+        expect.objectContaining({ id: "gate-6-20", executable: true }),
+        expect.objectContaining({ id: "gate-12-21", executable: true }),
+      ]),
+    );
     expect(
       QEC.GATES.filter((item) => item.status === "reserved").every(
         (item) => !item.executable,
