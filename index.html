@@ -5,22 +5,25 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta
       name="description"
-      content="QEC-1 is a buildable tabletop computing machine with 24 keys, 56 indicators, a deterministic runtime, open schematics, and an interactive Sefirotic control map."
+      content="Quantum Etz Chaim is an independent experimental architecture with a deterministic IvritCode-to-OpenQASM 3 projection, reproducible Run Passports, and a physical QEC-1 demonstrator. We are asking the OpenQASM community to inspect, challenge, validate, and help expand the bridge."
     />
     <meta name="theme-color" content="#07100f" />
-    <title>QEC-1 Physical Computing Machine — Quantum Etz Chaim</title>
+    <title>Quantum Etz Chaim × OpenQASM — An Open Technical Invitation</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@300;400;500;600&family=Marcellus&display=swap");
       :root {
         --ink: #07100f;
-        --ink-2: #0b1715;
+        --ink-2: #0a1714;
+        --ink-3: #0e211d;
         --ivory: #eee9dc;
         --muted: #9ba9a3;
         --gold: #d4b46a;
         --gold-2: #f0d995;
         --cyan: #70c9c1;
+        --violet: #b8a8de;
+        --danger: #e58d78;
         --line: rgba(238, 233, 220, 0.14);
-        --panel: rgba(13, 28, 25, 0.74);
+        --panel: rgba(13, 28, 25, 0.78);
         --serif: "Marcellus", serif;
         --sans: "Manrope", sans-serif;
         --mono: "DM Mono", monospace;
@@ -33,99 +36,134 @@
       }
       body {
         margin: 0;
+        overflow-x: hidden;
         background: var(--ink);
         color: var(--ivory);
         font-family: var(--sans);
         font-weight: 300;
-        overflow-x: hidden;
       }
       body:before {
         content: "";
         position: fixed;
         inset: 0;
+        z-index: -1;
         pointer-events: none;
         background:
-          radial-gradient(
-            circle at 70% 8%,
-            rgba(45, 113, 103, 0.18),
-            transparent 28%
-          ),
-          radial-gradient(
-            circle at 10% 45%,
-            rgba(190, 148, 70, 0.08),
-            transparent 25%
-          ),
-          linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-          linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0.015) 1px,
-            transparent 1px
-          );
-        background-size:
-          auto,
-          auto,
-          48px 48px,
-          48px 48px;
-        z-index: -1;
+          radial-gradient(circle at 77% 5%, rgba(45, 113, 103, 0.2), transparent 30%),
+          radial-gradient(circle at 14% 52%, rgba(190, 148, 70, 0.08), transparent 24%),
+          linear-gradient(rgba(255, 255, 255, 0.014) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.014) 1px, transparent 1px);
+        background-size: auto, auto, 48px 48px, 48px 48px;
       }
       a {
         color: inherit;
+      }
+      code,
+      pre,
+      input,
+      button {
+        font-family: var(--mono);
       }
       .shell {
         width: min(1180px, calc(100% - 40px));
         margin: auto;
       }
       .eyebrow {
-        font: 500 11px/1 var(--mono);
+        color: var(--gold);
+        font: 500 11px/1.4 var(--mono);
         letter-spacing: 0.18em;
         text-transform: uppercase;
-        color: var(--gold);
+      }
+      .section {
+        padding: 105px 0;
+        border-top: 1px solid var(--line);
+        scroll-margin-top: 76px;
+      }
+      .section-head {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(300px, 1.1fr);
+        gap: 48px;
+        align-items: end;
+        margin-bottom: 46px;
+      }
+      .section h2 {
+        margin: 12px 0 0;
+        max-width: 760px;
+        font: 400 clamp(38px, 5vw, 68px)/1 var(--serif);
+        letter-spacing: -0.035em;
+      }
+      .section-intro {
+        margin: 0;
+        max-width: 610px;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.8;
       }
       header {
         position: sticky;
         top: 0;
         z-index: 50;
-        background: rgba(7, 16, 15, 0.82);
-        backdrop-filter: blur(18px);
         border-bottom: 1px solid var(--line);
+        background: rgba(7, 16, 15, 0.88);
+        backdrop-filter: blur(18px);
       }
       .nav {
-        height: 76px;
+        min-height: 76px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 28px;
+        gap: 24px;
       }
       .brand {
-        text-decoration: none;
         display: flex;
         align-items: center;
         gap: 12px;
+        text-decoration: none;
       }
       .brand-mark {
-        width: 32px;
-        height: 32px;
-        border: 1px solid var(--gold);
-        border-radius: 50%;
+        width: 34px;
+        height: 34px;
         display: grid;
         place-items: center;
-        color: var(--gold);
-        font-family: var(--serif);
+        border: 1px solid var(--gold);
+        border-radius: 50%;
+        color: var(--gold-2);
+        font: 400 18px/1 var(--serif);
+      }
+      .brand strong,
+      .brand small {
+        display: block;
       }
       .brand strong {
-        display: block;
         font: 400 14px/1.2 var(--serif);
-        letter-spacing: 0.09em;
+        letter-spacing: 0.08em;
       }
       .brand small {
-        font: 300 9px/1 var(--mono);
-        letter-spacing: 0.12em;
+        margin-top: 4px;
         color: var(--muted);
+        font: 300 8px/1 var(--mono);
+        letter-spacing: 0.11em;
       }
       nav {
         display: flex;
         align-items: center;
-        gap: 22px;
+        gap: 18px;
+      }
+      nav > a {
+        color: var(--muted);
+        font: 400 10px/1 var(--mono);
+        letter-spacing: 0.06em;
+        text-decoration: none;
+      }
+      nav > a:hover {
+        color: var(--ivory);
+      }
+      .cta {
+        padding: 11px 16px;
+        border: 1px solid rgba(212, 180, 106, 0.55);
+        border-radius: 100px;
+        color: var(--gold-2) !important;
+        background: rgba(212, 180, 106, 0.06);
       }
       .menu-toggle {
         display: none;
@@ -139,105 +177,100 @@
         font: 500 11px/1 var(--mono);
         letter-spacing: 0.08em;
       }
-      nav > a {
-        text-decoration: none;
-        font: 400 11px/1 var(--mono);
-        letter-spacing: 0.08em;
-        color: var(--muted);
-        transition: 0.2s;
-      }
-      nav > a:hover {
-        color: var(--ivory);
-      }
-      .cta {
-        padding: 11px 17px;
-        border: 1px solid rgba(212, 180, 106, 0.6);
-        border-radius: 100px;
-        color: var(--gold-2) !important;
-        background: rgba(212, 180, 106, 0.07);
-      }
       .hero {
         min-height: calc(100vh - 76px);
         display: grid;
-        grid-template-columns: 0.9fr 1.1fr;
+        grid-template-columns: minmax(0, 0.95fr) minmax(440px, 1.05fr);
+        gap: 42px;
         align-items: center;
-        gap: 36px;
-        padding: 70px 0 80px;
+        padding: 56px 0 64px;
       }
       .hero h1 {
-        font: 400 clamp(54px, 7vw, 100px)/0.92 var(--serif);
-        letter-spacing: -0.045em;
-        margin: 22px 0 26px;
+        margin: 20px 0 24px;
         max-width: 700px;
+        font: 400 clamp(52px, 6.4vw, 92px)/0.94 var(--serif);
+        letter-spacing: -0.05em;
       }
       .hero h1 em {
-        font-style: normal;
         color: var(--gold);
+        font-style: normal;
+      }
+      .lead {
+        margin: 0;
+        max-width: 670px;
+        color: #bec8c2;
+        font-size: 17px;
+        line-height: 1.78;
       }
       .mobile-intro {
         display: none;
       }
-      .lead {
-        max-width: 620px;
-        color: #bbc4bf;
-        font-size: 17px;
-        line-height: 1.8;
+      .independent-note {
+        margin-top: 18px;
+        max-width: 650px;
+        color: var(--muted);
+        font: 9px/1.65 var(--mono);
+        letter-spacing: 0.06em;
+      }
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 11px;
+        margin-top: 30px;
+      }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        min-height: 44px;
+        padding: 13px 18px;
+        border: 1px solid var(--line);
+        border-radius: 100px;
+        color: var(--ivory);
+        background: rgba(13, 28, 25, 0.45);
+        font: 400 10px/1 var(--mono);
+        letter-spacing: 0.06em;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .button.primary {
+        border-color: var(--gold);
+        background: var(--gold);
+        color: #11110d;
+      }
+      .button:hover {
+        border-color: rgba(240, 217, 149, 0.7);
       }
       .machine-facts {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 1px;
-        max-width: 620px;
         margin-top: 30px;
         border: 1px solid var(--line);
         background: var(--line);
       }
       .machine-facts div {
-        padding: 16px;
-        background: rgba(7, 16, 15, 0.94);
+        min-width: 0;
+        padding: 15px;
+        background: #091411;
       }
       .machine-facts strong,
       .machine-facts span {
         display: block;
       }
       .machine-facts strong {
-        color: var(--ivory);
-        font: 400 22px/1 var(--serif);
+        color: var(--gold-2);
+        font: 400 20px/1 var(--serif);
       }
       .machine-facts span {
         margin-top: 7px;
         color: var(--muted);
-        font: 9px/1.4 var(--mono);
-        letter-spacing: 0.08em;
-      }
-      .hero-actions {
-        display: flex;
-        gap: 12px;
-        margin-top: 34px;
-        flex-wrap: wrap;
-      }
-      .button {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        padding: 14px 20px;
-        border: 1px solid var(--line);
-        border-radius: 100px;
-        text-decoration: none;
-        font: 400 11px/1 var(--mono);
-        letter-spacing: 0.07em;
-      }
-      .button.primary {
-        background: var(--gold);
-        border-color: var(--gold);
-        color: #10100c;
-      }
-      .button span {
-        font-size: 17px;
+        font: 8px/1.4 var(--mono);
+        letter-spacing: 0.06em;
       }
       .tree-stage {
         position: relative;
-        min-height: 670px;
+        min-height: 650px;
         display: grid;
         grid-template-rows: minmax(0, 1fr) auto;
         align-items: center;
@@ -245,7 +278,7 @@
       .tree-glow {
         position: absolute;
         z-index: 0;
-        width: 70%;
+        width: 78%;
         aspect-ratio: 1;
         border-radius: 50%;
         background: rgba(74, 170, 155, 0.1);
@@ -256,12 +289,12 @@
         position: relative;
         z-index: 1;
         width: 100%;
-        max-height: 590px;
+        max-height: 560px;
         overflow: visible;
       }
       .path {
-        stroke: rgba(212, 180, 106, 0.35);
-        stroke-width: 1.1;
+        stroke: rgba(212, 180, 106, 0.34);
+        stroke-width: 1.15;
         transition: 0.3s;
       }
       .path.active {
@@ -269,9 +302,12 @@
         stroke-width: 2;
         filter: drop-shadow(0 0 7px var(--gold));
       }
+      .node {
+        cursor: pointer;
+      }
       .node circle {
         fill: #0d1c19;
-        stroke: rgba(212, 180, 106, 0.55);
+        stroke: rgba(212, 180, 106, 0.58);
         stroke-width: 1.1;
         transition: 0.3s;
       }
@@ -286,13 +322,11 @@
         font: 19px var(--serif);
       }
       .node:hover circle,
+      .node:focus-visible circle,
       .node.active circle {
         fill: #18342f;
         stroke: var(--gold-2);
-        filter: drop-shadow(0 0 12px rgba(212, 180, 106, 0.6));
-      }
-      .node {
-        cursor: pointer;
+        filter: drop-shadow(0 0 12px rgba(212, 180, 106, 0.55));
       }
       .daat-node .daat-hit {
         fill: transparent;
@@ -323,126 +357,268 @@
         stroke: rgba(221, 211, 239, 0.95);
         filter: drop-shadow(0 0 10px rgba(151, 135, 190, 0.42));
       }
-      .daat-node:hover .daat-label,
-      .daat-node:focus-visible .daat-label,
-      .daat-node.active .daat-label {
-        fill: rgba(238, 232, 248, 0.96);
-      }
-      .orbit {
-        fill: none;
-        stroke: rgba(112, 201, 193, 0.16);
-        stroke-dasharray: 3 8;
-        animation: spin 50s linear infinite;
-        transform-origin: center;
-      }
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
       .node-inspector {
         position: relative;
         z-index: 2;
         width: min(100%, 590px);
         margin: -12px auto 0;
-        padding: 20px;
-        scroll-margin-top: 92px;
+        padding: 18px 20px;
         border: 1px solid rgba(212, 180, 106, 0.34);
         background: rgba(7, 16, 15, 0.94);
-        box-shadow: 0 22px 60px rgba(0, 0, 0, 0.32);
+        box-shadow: 0 22px 60px rgba(0, 0, 0, 0.3);
+        scroll-margin-top: 92px;
       }
-      .node-inspector:focus-visible {
-        outline: 2px solid var(--cyan);
-        outline-offset: 4px;
+      .node-inspector h2 {
+        margin: 7px 0 8px;
+        font: 400 27px/1 var(--serif);
       }
-      .inspector-heading {
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-        gap: 18px;
-        margin: 8px 0 14px;
-      }
-      .inspector-heading h2 {
+      .node-inspector p {
         margin: 0;
-        font: 400 29px/1 var(--serif);
-      }
-      .inspector-heading span {
-        color: var(--gold-2);
-        font: 400 23px/1 var(--serif);
-      }
-      .node-inspector > p {
-        margin: 0 0 16px;
-        color: #bbc4bf;
-        font-size: 13px;
-        line-height: 1.65;
-      }
-      .node-inspector dl {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px 18px;
-        margin: 0;
-      }
-      .node-inspector dl div {
-        padding-top: 10px;
-        border-top: 1px solid var(--line);
-      }
-      .node-inspector dt {
-        color: var(--cyan);
-        font: 500 9px/1 var(--mono);
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-      }
-      .node-inspector dd {
-        margin: 7px 0 0;
         color: var(--muted);
         font-size: 12px;
-        line-height: 1.55;
+        line-height: 1.65;
+      }
+      .node-inspector .technical {
+        margin-top: 11px;
+        color: var(--cyan);
+        font: 9px/1.55 var(--mono);
       }
       .inspector-controls {
         display: none;
       }
-      .release-status {
+      .status-ribbon {
         display: grid;
-        grid-template-columns: 1.15fr repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 1px;
-        margin-bottom: 40px;
         border: 1px solid var(--line);
         background: var(--line);
       }
-      .release-status > div {
-        min-width: 0;
-        padding: 16px;
+      .status-ribbon article {
+        min-height: 150px;
+        padding: 20px;
         background: #091411;
       }
-      .release-status strong,
-      .release-status small,
-      .release-status span {
-        display: block;
-      }
-      .release-status strong {
-        color: var(--gold-2);
-        font: 400 18px/1.2 var(--serif);
-      }
-      .release-status small {
-        margin-top: 7px;
+      .status-ribbon span {
         color: var(--cyan);
-        font: 9px/1.35 var(--mono);
+        font: 9px/1 var(--mono);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
       }
-      .release-status span {
-        margin-top: 5px;
+      .status-ribbon strong {
+        display: block;
+        margin-top: 26px;
+        color: var(--gold-2);
+        font: 400 22px/1.1 var(--serif);
+      }
+      .status-ribbon p {
+        margin: 8px 0 0;
         color: var(--muted);
         font-size: 11px;
-        line-height: 1.45;
+        line-height: 1.55;
+      }
+      .why-grid,
+      .ask-grid,
+      .evidence-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .panel-card {
+        padding: 27px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+      }
+      .panel-card .num {
+        color: var(--cyan);
+        font: 9px/1 var(--mono);
+        letter-spacing: 0.1em;
+      }
+      .panel-card h3 {
+        margin: 34px 0 12px;
+        color: var(--ivory);
+        font: 400 24px/1.15 var(--serif);
+      }
+      .panel-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.72;
+      }
+      .panel-card a {
+        display: inline-block;
+        margin-top: 18px;
+        color: var(--gold);
+        font: 10px/1.5 var(--mono);
+        text-underline-offset: 4px;
+      }
+      .bridge-flow {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 1px;
+        border: 1px solid var(--line);
+        background: var(--line);
+      }
+      .bridge-step {
+        position: relative;
+        min-height: 200px;
+        padding: 20px;
+        background: #091411;
+      }
+      .bridge-step:not(:last-child):after {
+        content: "→";
+        position: absolute;
+        z-index: 2;
+        right: -11px;
+        top: 28px;
+        width: 22px;
+        height: 22px;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        color: var(--gold);
+        background: var(--ink);
+        font: 10px/1 var(--mono);
+      }
+      .bridge-step b {
+        color: var(--cyan);
+        font: 9px/1 var(--mono);
+      }
+      .bridge-step h3 {
+        margin: 42px 0 10px;
+        font: 400 20px/1.15 var(--serif);
+      }
+      .bridge-step p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.58;
+      }
+      .boundary-note {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 18px;
+        margin-top: 18px;
+      }
+      .boundary-note > div {
+        padding: 24px;
+        border: 1px solid var(--line);
+        background: rgba(13, 28, 25, 0.55);
+      }
+      .boundary-note strong {
+        display: block;
+        margin-bottom: 9px;
+        color: var(--gold-2);
+        font: 400 21px/1.1 var(--serif);
+      }
+      .boundary-note p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.7;
+      }
+      .qasm-lab {
+        display: grid;
+        grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
+        border: 1px solid var(--line);
+        background: #091411;
+      }
+      .qasm-controls {
+        padding: clamp(24px, 4vw, 42px);
+        border-right: 1px solid var(--line);
+      }
+      .qasm-controls h3 {
+        margin: 10px 0 14px;
+        font: 400 33px/1.05 var(--serif);
+      }
+      .qasm-controls p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.72;
+      }
+      .qasm-controls label {
+        display: block;
+        margin: 28px 0 8px;
+        color: var(--cyan);
+        font: 9px/1 var(--mono);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .qasm-controls input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid rgba(212, 180, 106, 0.42);
+        border-radius: 0;
+        background: #050c0b;
+        color: var(--gold-2);
+        font: 26px/1.2 var(--serif);
+      }
+      .qasm-controls input:focus-visible {
+        outline: 2px solid var(--cyan);
+        outline-offset: 2px;
+      }
+      .qasm-status {
+        display: block;
+        margin-top: 16px;
+        min-height: 30px;
+        color: var(--cyan);
+        font: 9px/1.55 var(--mono);
+      }
+      .qasm-status[data-state="invalid"] {
+        color: var(--danger);
+      }
+      .qasm-output-shell {
+        min-width: 0;
+        padding: 18px;
+        background: #040a09;
+      }
+      .qasm-output-shell pre {
+        min-height: 440px;
+        max-height: 570px;
+        margin: 0;
+        overflow: auto;
+        padding: 22px;
+        background: #020706;
+        color: #a9d8cf;
+        font: 12px/1.72 var(--mono);
+        white-space: pre;
+      }
+      .qasm-map {
+        display: grid;
+        grid-template-columns: repeat(11, minmax(0, 1fr));
+        gap: 1px;
+        margin: 18px 0 0;
+        padding: 1px;
+        list-style: none;
+        background: var(--line);
+      }
+      .qasm-map li {
+        min-width: 0;
+        padding: 12px 5px;
+        background: #091411;
+        text-align: center;
+      }
+      .qasm-map b,
+      .qasm-map code {
+        display: block;
+      }
+      .qasm-map b {
+        color: var(--gold-2);
+        font: 19px/1 var(--serif);
+      }
+      .qasm-map code {
+        margin-top: 7px;
+        overflow: hidden;
+        color: var(--muted);
+        font: 8px/1.2 var(--mono);
+        text-overflow: ellipsis;
       }
       .gate-milestone {
         margin: 0 auto 48px;
         padding: 28px;
         border: 1px solid rgba(112, 201, 193, 0.24);
-        background: linear-gradient(
-          135deg,
-          rgba(13, 28, 25, 0.9),
-          rgba(9, 20, 17, 0.96)
-        );
+        background: linear-gradient(135deg, rgba(13, 28, 25, 0.9), rgba(9, 20, 17, 0.96));
       }
       .gate-milestone-head {
         display: grid;
@@ -494,535 +670,54 @@
         color: var(--gold-2);
         font: 400 14px/1.7 var(--serif);
       }
-      .gate-actions {
-        display: flex;
-        gap: 10px;
-        margin-top: 18px;
-        flex-wrap: wrap;
+      .ask-card {
+        min-height: 270px;
       }
-      .machine-flow {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1px;
-        border: 1px solid var(--line);
-        background: var(--line);
+      .ask-card h3 {
+        margin-top: 28px;
       }
-      .machine-flow article {
-        min-height: 220px;
-        padding: 26px;
-        background: #091411;
-      }
-      .machine-flow .flow-index {
+      .ask-card .ask-tag {
+        display: inline-flex;
+        padding: 7px 9px;
+        border: 1px solid rgba(112, 201, 193, 0.22);
         color: var(--cyan);
-        font: 10px/1 var(--mono);
-      }
-      .machine-flow h3 {
-        margin: 45px 0 12px;
-        font: 400 23px/1.1 var(--serif);
-      }
-      .machine-flow p {
-        margin: 0;
-        color: var(--muted);
-        font-size: 13px;
-        line-height: 1.7;
-      }
-      .machine-boundary {
-        display: grid;
-        grid-template-columns: 1.15fr 0.85fr;
-        gap: 22px;
-        margin-top: 22px;
-      }
-      .machine-boundary > div {
-        padding: 24px;
-        border: 1px solid var(--line);
-        background: rgba(13, 28, 25, 0.58);
-      }
-      .machine-boundary h3 {
-        margin: 6px 0 12px;
-        font: 400 24px/1.15 var(--serif);
-      }
-      .machine-boundary p {
-        margin: 0;
-        color: var(--muted);
-        font-size: 13px;
-        line-height: 1.7;
-      }
-      .qasm-lab {
-        display: grid;
-        grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.28fr);
-        border: 1px solid var(--line);
-        background: #091411;
-      }
-      .qasm-controls {
-        padding: clamp(24px, 4vw, 44px);
-        border-right: 1px solid var(--line);
-      }
-      .qasm-controls h3 {
-        margin: 12px 0 14px;
-        font: 400 34px/1.05 var(--serif);
-      }
-      .qasm-controls p {
-        color: var(--muted);
-        font-size: 13px;
-        line-height: 1.7;
-      }
-      .qasm-controls label {
-        display: block;
-        margin: 28px 0 8px;
-        color: var(--cyan);
-        font: 10px/1 var(--mono);
-        letter-spacing: 0.12em;
-      }
-      .qasm-controls input {
-        width: 100%;
-        border: 1px solid rgba(212, 180, 106, 0.4);
-        border-radius: 0;
-        background: #050c0b;
-        color: var(--gold-2);
-        padding: 14px 16px;
-        font: 26px/1.2 var(--serif);
-      }
-      .qasm-controls input:focus-visible {
-        outline: 2px solid var(--cyan);
-        outline-offset: 2px;
-      }
-      .qasm-controls button {
-        margin-top: 12px;
-      }
-      .qasm-status {
-        display: block;
-        margin-top: 18px;
-        color: var(--cyan);
-        font: 9px/1.5 var(--mono);
+        font: 8px/1 var(--mono);
         letter-spacing: 0.08em;
       }
-      .qasm-status[data-state="invalid"] {
-        color: #e58d78;
+      .request-banner {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 36px;
+        align-items: center;
+        padding: clamp(30px, 5vw, 58px);
+        border: 1px solid rgba(212, 180, 106, 0.3);
+        background: linear-gradient(135deg, rgba(212, 180, 106, 0.07), rgba(112, 201, 193, 0.04));
       }
-      .qasm-output-shell {
-        min-width: 0;
-        padding: 18px;
-        background: #040a09;
+      .request-banner h2 {
+        margin: 10px 0 16px;
+        font: 400 clamp(37px, 5vw, 64px)/1 var(--serif);
       }
-      .qasm-output-shell pre {
-        min-height: 390px;
-        max-height: 520px;
+      .request-banner p {
         margin: 0;
-        overflow: auto;
-        padding: 22px;
-        color: #a9d8cf;
-        background: #020706;
-        font: 13px/1.72 var(--mono);
-        tab-size: 2;
-      }
-      .qasm-map {
-        display: grid;
-        grid-template-columns: repeat(11, minmax(0, 1fr));
-        gap: 1px;
-        margin: 18px 0 0;
-        padding: 1px;
-        list-style: none;
-        background: var(--line);
-      }
-      .qasm-map li {
-        min-width: 0;
-        padding: 12px 6px;
-        background: #091411;
-        text-align: center;
-      }
-      .qasm-map b,
-      .qasm-map code {
-        display: block;
-      }
-      .qasm-map b {
-        color: var(--gold-2);
-        font: 20px/1 var(--serif);
-      }
-      .qasm-map code {
-        margin-top: 7px;
-        overflow: hidden;
         color: var(--muted);
-        font: 8px/1.2 var(--mono);
-        text-overflow: ellipsis;
-      }
-      .section {
-        padding: 110px 0;
-        border-top: 1px solid var(--line);
-        scroll-margin-top: 75px;
-      }
-      .section-head {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 40px;
-        margin-bottom: 60px;
-      }
-      .section h2 {
-        font: 400 clamp(38px, 5vw, 68px)/1 var(--serif);
-        letter-spacing: -0.03em;
-        margin: 12px 0;
-      }
-      .section-intro {
-        color: var(--muted);
+        font-size: 14px;
         line-height: 1.8;
-        align-self: end;
-        max-width: 550px;
       }
-      .notice {
-        border: 1px solid rgba(212, 180, 106, 0.25);
-        background: rgba(212, 180, 106, 0.045);
-        padding: 17px 20px;
-        color: #c7c1ad;
-        font-size: 13px;
-        line-height: 1.7;
-      }
-      .image-band {
-        width: min(1440px, calc(100% - 40px));
-        margin: 0 auto 40px;
-        position: relative;
-        overflow: hidden;
-        border: 1px solid var(--line);
-        border-radius: 24px;
-        background: #08110f;
-      }
-      .image-band img {
-        width: 100%;
-        height: min(62vw, 700px);
-        object-fit: cover;
-        display: block;
-        opacity: 0.88;
-      }
-      .image-band:after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          180deg,
-          transparent 45%,
-          rgba(7, 16, 15, 0.86)
-        );
-      }
-      .image-caption {
-        position: absolute;
-        z-index: 2;
-        left: 34px;
-        right: 34px;
-        bottom: 28px;
-        display: flex;
-        justify-content: space-between;
-        align-items: end;
-        gap: 24px;
-      }
-      .image-caption strong {
-        font: 400 clamp(24px, 4vw, 52px)/1 var(--serif);
-        max-width: 650px;
-      }
-      .image-caption span {
-        font: 10px/1.7 var(--mono);
-        color: var(--muted);
-        max-width: 300px;
-        text-align: right;
-      }
-      .frontier-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        border-top: 1px solid var(--line);
-        border-left: 1px solid var(--line);
-      }
-      .frontier-card {
-        min-height: 300px;
-        padding: 28px;
-        border-right: 1px solid var(--line);
-        border-bottom: 1px solid var(--line);
+      .request-actions {
         display: flex;
         flex-direction: column;
-      }
-      .card-index {
-        font: 10px var(--mono);
-        color: var(--gold);
-      }
-      .frontier-card h3 {
-        font: 400 23px/1.2 var(--serif);
-        margin: 44px 0 15px;
-      }
-      .frontier-card p {
-        font-size: 13px;
-        line-height: 1.7;
-        color: var(--muted);
-        flex: 1;
-      }
-      .source {
-        margin-top: 20px;
-        font: 400 10px var(--mono);
-        color: var(--cyan);
-        text-underline-offset: 4px;
-      }
-      .visual-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 18px;
-      }
-      .visual-card {
-        margin: 0;
-        border: 1px solid var(--line);
-        background: var(--panel);
-        overflow: hidden;
-      }
-      .visual-card img {
-        width: 100%;
-        aspect-ratio: 3/2;
-        object-fit: cover;
-        display: block;
-        transition: transform 0.7s ease;
-      }
-      .visual-card:hover img {
-        transform: scale(1.02);
-      }
-      .visual-card figcaption {
-        padding: 22px 24px;
-      }
-      .visual-card strong {
-        display: block;
-        font: 400 24px var(--serif);
-        margin-bottom: 8px;
-      }
-      .visual-card span {
-        font: 11px/1.7 var(--mono);
-        color: var(--muted);
-      }
-      .architecture {
-        display: grid;
-        grid-template-columns: 320px 1fr;
-        border: 1px solid var(--line);
-        min-height: 560px;
-      }
-      .arch-list {
-        border-right: 1px solid var(--line);
-        padding: 10px;
-      }
-      .arch-button {
-        width: 100%;
-        padding: 17px 16px;
-        border: 0;
-        border-bottom: 1px solid var(--line);
-        color: var(--muted);
-        background: transparent;
-        text-align: left;
-        font: 400 11px var(--mono);
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-      }
-      .arch-button.active {
-        background: rgba(212, 180, 106, 0.08);
-        color: var(--gold-2);
-      }
-      .arch-panel {
-        padding: 52px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 40px;
-        align-items: center;
-      }
-      .arch-panel h3 {
-        font: 400 48px/1 var(--serif);
-        margin: 12px 0 20px;
-      }
-      .arch-panel p {
-        color: var(--muted);
-        line-height: 1.8;
-      }
-      .spec {
-        font: 300 11px/1.9 var(--mono);
-        border-left: 1px solid var(--cyan);
-        padding-left: 20px;
-        color: #9bc3bd;
-      }
-      .spec b {
-        color: var(--ivory);
-        font-weight: 400;
-      }
-      .status {
-        display: inline-flex;
-        margin-top: 20px;
-        padding: 8px 10px;
-        border: 1px solid var(--line);
-        font: 10px var(--mono);
-        color: var(--gold);
-      }
-      .schematic-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 18px;
-      }
-      .schematic {
-        border: 1px solid var(--line);
-        background: #091411;
-        padding: 18px;
-        text-decoration: none;
-        transition: 0.25s;
-      }
-      .schematic:first-child {
-        grid-column: 1/-1;
-      }
-      .schematic:hover {
-        border-color: rgba(212, 180, 106, 0.55);
-        transform: translateY(-2px);
-      }
-      .schematic img {
-        width: 100%;
-        display: block;
-      }
-      .schematic-label {
-        display: flex;
-        justify-content: space-between;
-        padding: 15px 4px 2px;
-        font: 10px var(--mono);
-        color: var(--muted);
-      }
-      .schematic-label b {
-        font-weight: 400;
-        color: var(--gold);
-      }
-      .spec-download {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 24px;
-        margin-top: 18px;
-        padding: 24px;
-        border: 1px solid rgba(112, 201, 193, 0.3);
-        background: rgba(112, 201, 193, 0.04);
-      }
-      .spec-download p {
-        margin: 5px 0;
-        color: var(--muted);
-        font-size: 13px;
-      }
-      .build-brief {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1px;
-        margin-top: 18px;
-        border: 1px solid var(--line);
-        background: var(--line);
-      }
-      .build-brief article {
-        min-height: 190px;
-        padding: 25px;
-        background: #091411;
-        border-top: 3px solid transparent;
-        transition: 0.25s;
-      }
-      .build-brief article:hover {
-        border-top-color: var(--cyan);
-        background: #0c1916;
-      }
-      .build-brief span {
-        font: 10px var(--mono);
-        letter-spacing: 0.12em;
-        color: var(--cyan);
-      }
-      .build-brief h3 {
-        margin: 38px 0 10px;
-        font: 400 22px/1.1 var(--serif);
-      }
-      .build-brief p {
-        margin: 0;
-        color: var(--muted);
-        font-size: 12px;
-        line-height: 1.65;
-      }
-      .build-brief p b {
-        color: var(--ivory);
-        font-weight: 500;
-      }
-      .build-brief code {
-        display: block;
-        margin-top: 18px;
-        color: var(--gold);
-        font: 10px/1.5 var(--mono);
-      }
-      .schematic-guide {
-        grid-column: 1 / -1;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1px;
-        margin-top: -18px;
-        border: 1px solid var(--line);
-        background: var(--line);
-      }
-      .schematic-guide article {
-        display: flex;
-        gap: 14px;
-        padding: 20px;
-        background: #0a1512;
-      }
-      .schematic-guide b {
-        color: var(--cyan);
-        font: 20px var(--serif);
-      }
-      .schematic-guide span {
-        color: var(--muted);
-        font-size: 11px;
-        line-height: 1.6;
-      }
-      .schematic-guide strong {
-        display: block;
-        margin-bottom: 4px;
-        color: var(--ivory);
-        font: 400 15px var(--serif);
-      }
-      .schematic-guide a {
-        display: inline-block;
-        margin-top: 7px;
-        color: var(--gold);
-        text-underline-offset: 4px;
-      }
-      .spec-links {
-        display: flex;
         gap: 10px;
-        flex-wrap: wrap;
       }
-      .principles {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 18px;
+      .request-actions .button {
+        justify-content: space-between;
+        width: 100%;
       }
-      .principle {
-        padding: 30px;
-        background: var(--panel);
-        border: 1px solid var(--line);
+      .evidence-grid .panel-card {
+        min-height: 245px;
       }
-      .principle .num {
-        font: 10px var(--mono);
+      .evidence-grid code {
         color: var(--cyan);
-      }
-      .principle h3 {
-        font: 400 25px var(--serif);
-      }
-      .principle p {
-        font-size: 13px;
-        line-height: 1.75;
-        color: var(--muted);
-      }
-      .manifesto {
-        padding: 130px 0;
-        text-align: center;
-      }
-      .manifesto blockquote {
-        font: 400 clamp(37px, 6vw, 78px)/1.13 var(--serif);
-        letter-spacing: -0.035em;
-        margin: 22px auto 40px;
-        max-width: 1050px;
-      }
-      .manifesto blockquote span {
-        color: var(--gold);
-      }
-      .manifesto p {
-        max-width: 720px;
-        margin: auto;
-        color: var(--muted);
-        line-height: 1.8;
+        font-size: 10px;
       }
       footer {
         padding: 35px 0;
@@ -1033,11 +728,22 @@
         justify-content: space-between;
         gap: 30px;
         color: var(--muted);
-        font: 10px/1.6 var(--mono);
+        font: 9px/1.65 var(--mono);
+      }
+      @media (max-width: 1060px) {
+        .bridge-flow {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .bridge-step:nth-child(3):after {
+          display: none;
+        }
+        .qasm-map {
+          grid-template-columns: repeat(6, minmax(0, 1fr));
+        }
       }
       @media (max-width: 900px) {
         .nav {
-          height: 66px;
+          min-height: 66px;
         }
         .menu-toggle {
           display: inline-flex;
@@ -1054,15 +760,12 @@
           max-height: 0;
           overflow: hidden;
           border: 0 solid var(--line);
-          background: rgba(7, 16, 15, 0.98);
+          background: rgba(7, 16, 15, 0.99);
           box-shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
           opacity: 0;
           transform: translateY(-8px);
           pointer-events: none;
-          transition:
-            max-height 0.25s ease,
-            opacity 0.2s ease,
-            transform 0.2s ease;
+          transition: max-height 0.25s ease, opacity 0.2s ease, transform 0.2s ease;
         }
         nav[data-open="true"] {
           max-height: calc(100svh - 78px);
@@ -1088,7 +791,8 @@
         }
         .hero-copy > .eyebrow,
         .hero h1,
-        .hero .lead {
+        .hero .lead,
+        .independent-note {
           display: none;
         }
         .mobile-intro {
@@ -1096,7 +800,7 @@
           margin: 0;
           color: #bbc4bf;
           font-size: 14px;
-          line-height: 1.45;
+          line-height: 1.5;
         }
         .mobile-intro strong {
           color: var(--gold-2);
@@ -1106,47 +810,19 @@
           display: none;
         }
         .hero-actions {
-          gap: 8px;
           margin-top: 10px;
-        }
-        .hero-actions .button {
-          min-height: 36px;
-          padding: 9px 13px;
-          font-size: 10px;
-        }
-        .hero-actions .build-guide-link {
-          display: none;
         }
         .tree-stage {
           min-height: 0;
-          display: block;
         }
         #tree {
-          display: block;
-          width: 100%;
           height: min(62svh, 590px);
-          max-height: none;
-          margin: 0 auto;
         }
         .node-inspector {
-          position: fixed;
-          z-index: 80;
-          left: 12px;
-          right: 12px;
-          bottom: 12px;
-          width: auto;
-          max-height: min(76svh, 650px);
-          margin: 0;
-          overflow-y: auto;
-          border-color: rgba(212, 180, 106, 0.62);
-          box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.58);
           opacity: 0;
-          transform: translateY(calc(100% + 24px));
+          transform: translateY(8px);
           visibility: hidden;
-          transition:
-            transform 0.24s ease,
-            opacity 0.2s ease,
-            visibility 0.24s;
+          transition: 0.2s;
         }
         .node-inspector.is-open {
           opacity: 1;
@@ -1165,34 +841,21 @@
           color: var(--ivory);
           background: rgba(112, 201, 193, 0.07);
           font: 500 10px/1 var(--mono);
-          letter-spacing: 0.07em;
         }
         .inspector-controls .return-tree {
           grid-column: 1 / -1;
           border-color: rgba(212, 180, 106, 0.55);
           color: var(--gold-2);
         }
-        .section-head {
+        .section-head,
+        .boundary-note,
+        .request-banner {
           grid-template-columns: 1fr;
         }
-        .frontier-grid {
+        .why-grid,
+        .ask-grid,
+        .evidence-grid {
           grid-template-columns: 1fr 1fr;
-        }
-        .architecture {
-          grid-template-columns: 1fr;
-        }
-        .arch-list {
-          border-right: 0;
-          border-bottom: 1px solid var(--line);
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-        }
-        .arch-panel {
-          grid-template-columns: 1fr;
-          padding: 32px;
-        }
-        .principles {
-          grid-template-columns: 1fr;
         }
         .qasm-lab {
           grid-template-columns: 1fr;
@@ -1201,20 +864,7 @@
           border-right: 0;
           border-bottom: 1px solid var(--line);
         }
-        .qasm-map {
-          grid-template-columns: repeat(6, minmax(0, 1fr));
-        }
-        .build-brief {
-          grid-template-columns: 1fr 1fr;
-        }
-        .schematic-guide {
-          grid-template-columns: 1fr 1fr;
-        }
-        .spec-download {
-          align-items: flex-start;
-          flex-direction: column;
-        }
-        .release-status {
+        .status-ribbon {
           grid-template-columns: 1fr 1fr;
         }
         .gate-milestone-head {
@@ -1222,9 +872,6 @@
         }
         .gate-stats {
           grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-        .release-status > div:first-child {
-          grid-column: 1 / -1;
         }
       }
       @media (max-width: 560px) {
@@ -1234,71 +881,21 @@
         .brand small {
           display: none;
         }
-        .tree-stage {
-          min-height: 0;
+        .section {
+          padding: 78px 0;
         }
-        #tree {
-          height: min(60svh, 500px);
-        }
-        .hero-note {
-          position: static;
-          width: 100%;
-        }
-        .image-band {
-          width: calc(100% - 24px);
-          border-radius: 16px;
-        }
-        .image-band img {
-          height: 540px;
-        }
-        .image-caption {
-          left: 20px;
-          right: 20px;
-          bottom: 20px;
-          display: block;
-        }
-        .image-caption span {
-          display: block;
-          text-align: left;
-          margin-top: 10px;
-        }
-        .frontier-grid,
-        .visual-grid,
-        .schematic-grid {
+        .why-grid,
+        .ask-grid,
+        .evidence-grid,
+        .status-ribbon,
+        .bridge-flow {
           grid-template-columns: 1fr;
         }
-        .schematic:first-child {
-          grid-column: auto;
-        }
-        .build-brief {
-          grid-template-columns: 1fr;
-        }
-        .machine-facts,
-        .node-inspector dl,
-        .machine-flow,
-        .machine-boundary {
-          grid-template-columns: 1fr;
+        .bridge-step:not(:last-child):after {
+          display: none;
         }
         .qasm-map {
           grid-template-columns: repeat(4, minmax(0, 1fr));
-        }
-        .schematic-guide {
-          grid-template-columns: 1fr;
-        }
-        .arch-list {
-          grid-template-columns: 1fr 1fr;
-        }
-        .arch-button {
-          font-size: 9px;
-        }
-        .section {
-          padding: 80px 0;
-        }
-        .footer-row {
-          flex-direction: column;
-        }
-        .release-status {
-          grid-template-columns: 1fr;
         }
         .gate-milestone {
           padding: 22px;
@@ -1306,16 +903,13 @@
         .gate-stats {
           grid-template-columns: 1fr 1fr;
         }
-        .release-status > div:first-child {
-          grid-column: auto;
+        .footer-row {
+          flex-direction: column;
         }
       }
       @media (prefers-reduced-motion: reduce) {
         html {
           scroll-behavior: auto;
-        }
-        .orbit {
-          animation: none;
         }
       }
     </style>
@@ -1323,13 +917,13 @@
   <body>
     <header>
       <div class="shell nav">
-        <a class="brand" href="#top"
-          ><span class="brand-mark">א</span
-          ><span
-            ><strong>QUANTUM ETZ CHAIM</strong
-            ><small>ARCHITECTURE ATLAS / 2026</small></span
-          ></a
-        >
+        <a class="brand" href="#top">
+          <span class="brand-mark">א</span>
+          <span>
+            <strong>QUANTUM ETZ CHAIM</strong>
+            <small>OPENQASM COLLABORATION INVITATION / 2026</small>
+          </span>
+        </a>
         <button
           class="menu-toggle"
           type="button"
@@ -1339,16 +933,14 @@
           MENU
         </button>
         <nav id="primary-nav" aria-label="Primary navigation" data-open="false">
-          <a href="#machine">How it works</a
-          ><a href="#quantum-target">Quantum target</a
-          ><a href="machine.html">Build QEC-1</a
-          ><a href="bench.html">Bench proof</a
-          ><a href="#schematics">Schematics</a
-          ><a href="#architecture">System map</a
-          ><a href="qec-v0.1.html">Runtime</a
-          ><a href="wave.html">Infinite Wave</a
-          ><a href="console.html">Console</a>
-          <a class="cta" href="https://ivritcode.org/">Open IvritCode ↗</a>
+          <a href="#why-openqasm">Why OpenQASM</a>
+          <a href="#bridge">The bridge</a>
+          <a href="#quantum-target">Try it</a>
+          <a href="#help">Help expand it</a>
+          <a href="#evidence">Evidence</a>
+          <a href="machine.html">Physical QEC</a>
+          <a href="console.html">Runtime</a>
+          <a class="cta" href="docs/OPENQASM_COLLABORATION.md">Collaboration brief ↗</a>
         </nav>
       </div>
     </header>
@@ -1356,454 +948,270 @@
     <main id="top">
       <section class="shell hero">
         <div class="hero-copy">
-          <div class="eyebrow">QEC-1 / Buildable classical demonstrator</div>
-          <h1>A physical machine for <em>coherent computation.</em></h1>
+          <div class="eyebrow">An open technical invitation to the OpenQASM community</div>
+          <h1>Help us make the <em>IvritCode → OpenQASM</em> bridge useful.</h1>
           <p class="lead">
-            QEC-1 turns Hebrew-letter programs into visible, deterministic state
-            across a Pi 5, Pico 2, 24 keys, and 56 addressable lights.
+            Quantum Etz Chaim is an independent experimental architecture that turns
+            Hebrew-letter programs into deterministic execution traces, emits an
+            OpenQASM 3 projection, binds the result into a replayable Run Passport,
+            and can manifest machine state on a physical QEC-1 panel. We are asking
+            OpenQASM engineers and users to inspect the bridge, challenge the mapping,
+            validate it against real toolchains, and help us expand it responsibly.
           </p>
           <p class="mobile-intro">
-            <strong>QEC-1 physical machine.</strong> Hebrew-letter programs
-            become deterministic state across 24 keys and 56 lights.
+            <strong>QEC is asking for OpenQASM review.</strong> Inspect the deterministic
+            IvritCode → OpenQASM bridge, test it against real tools, and help us improve it.
           </p>
-          <div class="machine-facts" aria-label="QEC-1 key specifications">
-            <div><strong>24</strong><span>PHYSICAL KEYS</span></div>
-            <div><strong>56</strong><span>STATE INDICATORS</span></div>
-            <div><strong>5 V</strong><span>LOW-VOLTAGE DOMAINS</span></div>
-          </div>
           <div class="hero-actions">
-            <a class="button primary" href="machine.html"
-              >Explore the physical machine <span>→</span></a
-            ><a class="button" href="bench.html">Build the 4-key prototype</a
-            ><a
-              class="button build-guide-link"
-              href="docs/QEC_1_PHYSICAL_BUILD.md"
-              >Open the build guide</a
-            >
+            <a class="button primary" href="#quantum-target">Try the projection <span>→</span></a>
+            <a class="button" href="#help">See exactly where we need help</a>
+            <a class="button" href="docs/OPENQASM_COLLABORATION.md">Read the technical brief</a>
           </div>
+          <div class="machine-facts" aria-label="Current project facts">
+            <div><strong>22</strong><span>IVRITCODE INSTRUCTIONS</span></div>
+            <div><strong>3.0</strong><span>CURRENT EMITTED QASM HEADER</span></div>
+            <div><strong>3.1</strong><span>CURRENT OPENQASM SPEC CHECKED 2026-09-16</span></div>
+            <div><strong>56</strong><span>QEC-1 STATE INDICATORS</span></div>
+          </div>
+          <p class="independent-note">
+            Independent project. Quantum Etz Chaim is not affiliated with, endorsed by,
+            or part of the OpenQASM or Qiskit projects. The current QEC projection is
+            intentionally described as emit-only while independent compatibility evidence
+            is expanded.
+          </p>
         </div>
-        <div
-          class="tree-stage"
-          aria-label="Interactive Tree of Life architecture diagram"
-        >
+
+        <div class="tree-stage" aria-label="Interactive QEC architecture map">
           <div class="tree-glow"></div>
-          <svg
-            id="tree"
-            viewBox="0 0 600 700"
-            role="img"
-            aria-labelledby="treeTitle treeDesc"
-          >
+          <svg id="tree" viewBox="0 0 600 700" role="img" aria-labelledby="treeTitle treeDesc">
             <title id="treeTitle">Quantum Etz Chaim architecture map</title>
             <desc id="treeDesc">
-              Ten sefirot organize services from intent through output. A
-              smaller, dimmed Da’at marker remains visible at the observation
-              boundary without being counted among the ten.
+              Ten sefirot organize services from intent through output. A smaller,
+              dimmed Da’at marker remains visible at the observation boundary without
+              being counted among the ten.
             </desc>
-            <circle class="orbit" cx="300" cy="345" r="250" />
             <g id="paths">
-              <path
-                class="path"
-                data-nodes="keter chokhmah"
-                d="M300 70L440 170"
-              />
+              <path class="path" data-nodes="keter chokhmah" d="M300 70L440 170" />
               <path class="path" data-nodes="keter binah" d="M300 70L160 170" />
               <path class="path" data-nodes="chokhmah binah" d="M440 170H160" />
               <path class="path" data-nodes="keter daat" d="M300 70V220" />
-              <path
-                class="path"
-                data-nodes="chokhmah chesed"
-                d="M440 170V300"
-              />
+              <path class="path" data-nodes="chokhmah chesed" d="M440 170V300" />
               <path class="path" data-nodes="binah gevurah" d="M160 170V300" />
               <path class="path" data-nodes="daat tiferet" d="M300 220V390" />
-              <path
-                class="path"
-                data-nodes="chesed tiferet"
-                d="M440 300L300 390"
-              />
-              <path
-                class="path"
-                data-nodes="gevurah tiferet"
-                d="M160 300L300 390"
-              />
-              <path
-                class="path"
-                data-nodes="tiferet netzach"
-                d="M300 390L440 480"
-              />
-              <path
-                class="path"
-                data-nodes="tiferet hod"
-                d="M300 390L160 480"
-              />
-              <path
-                class="path"
-                data-nodes="netzach yesod"
-                d="M440 480L300 570"
-              />
+              <path class="path" data-nodes="chesed tiferet" d="M440 300L300 390" />
+              <path class="path" data-nodes="gevurah tiferet" d="M160 300L300 390" />
+              <path class="path" data-nodes="tiferet netzach" d="M300 390L440 480" />
+              <path class="path" data-nodes="tiferet hod" d="M300 390L160 480" />
+              <path class="path" data-nodes="netzach yesod" d="M440 480L300 570" />
               <path class="path" data-nodes="hod yesod" d="M160 480L300 570" />
               <path class="path" data-nodes="yesod malchut" d="M300 570V655" />
             </g>
-            <g
-              id="keter"
-              class="node"
-              data-node="keter"
-              tabindex="0"
-              role="button"
-              aria-controls="sefirah-description"
-              aria-label="Open the Keter description"
-            >
+            <g id="keter" class="node" data-node="keter" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Keter description">
               <circle cx="300" cy="70" r="36" />
               <text class="he" x="300" y="67">כתר</text>
               <text x="300" y="88">INTENT</text>
             </g>
-            <g
-              id="chokhmah"
-              class="node"
-              data-node="chokhmah"
-              tabindex="0"
-              role="button"
-              aria-controls="sefirah-description"
-              aria-label="Open the Chokhmah description"
-            >
+            <g id="chokhmah" class="node" data-node="chokhmah" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Chokhmah description">
               <circle cx="440" cy="170" r="36" />
               <text class="he" x="440" y="167">חכמה</text>
               <text x="440" y="188">GENERATION</text>
             </g>
-            <g
-              id="binah"
-              class="node"
-              data-node="binah"
-              tabindex="0"
-              role="button"
-              aria-controls="sefirah-description"
-              aria-label="Open the Binah description"
-            >
+            <g id="binah" class="node" data-node="binah" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Binah description">
               <circle cx="160" cy="170" r="36" />
               <text class="he" x="160" y="167">בינה</text>
               <text x="160" y="188">STRUCTURE</text>
             </g>
-            <g
-              id="daat"
-              class="node daat-node"
-              data-node="daat"
-              tabindex="0"
-              role="button"
-              aria-controls="sefirah-description"
-              aria-label="Open the Da’at observation-boundary description"
-            >
+            <g id="daat" class="node daat-node" data-node="daat" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Da’at observation-boundary description">
               <circle class="daat-hit" cx="300" cy="220" r="30" />
               <circle class="daat-presence" cx="300" cy="220" r="27" />
               <text class="he daat-label" x="300" y="217">דעת</text>
               <text class="daat-label" x="300" y="237">DA’AT</text>
             </g>
-            <g
-              id="chesed"
-              class="node"
-              data-node="chesed"
-              tabindex="0"
-              role="button"
-              aria-controls="sefirah-description"
-              aria-label="Open the Chesed description"
-            >
+            <g id="chesed" class="node" data-node="chesed" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Chesed description">
               <circle cx="440" cy="300" r="36" />
               <text class="he" x="440" y="297">חסד</text>
               <text x="440" y="318">EXPAND</text>
             </g>
-            <g
-              id="gevurah"
-              class="node"
-              data-node="gevurah"
-              tabindex="0"
-              role="button"
-              aria-controls="sefirah-description"
-              aria-label="Open the Gevurah description"
-            >
+            <g id="gevurah" class="node" data-node="gevurah" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Gevurah description">
               <circle cx="160" cy="300" r="36" />
               <text class="he" x="160" y="297">גבורה</text>
               <text x="160" y="318">CONSTRAIN</text>
             </g>
-            <g
-              id="tiferet"
-              class="node active"
-              data-node="tiferet"
-              tabindex="0"
-              role="button"
-              aria-controls="sefirah-description"
-              aria-label="Open the Tiferet description"
-            >
+            <g id="tiferet" class="node active" data-node="tiferet" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Tiferet description">
               <circle cx="300" cy="390" r="42" />
               <text class="he" x="300" y="387">תפארת</text>
               <text x="300" y="409">COHERENCE</text>
             </g>
-            <g
-              id="netzach"
-              class="node"
-              data-node="netzach"
-              tabindex="0"
-              role="button"
-              aria-controls="sefirah-description"
-              aria-label="Open the Netzach description"
-            >
+            <g id="netzach" class="node" data-node="netzach" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Netzach description">
               <circle cx="440" cy="480" r="36" />
               <text class="he" x="440" y="477">נצח</text>
               <text x="440" y="498">CONTINUE</text>
             </g>
-            <g
-              id="hod"
-              class="node"
-              data-node="hod"
-              tabindex="0"
-              role="button"
-              aria-controls="sefirah-description"
-              aria-label="Open the Hod description"
-            >
+            <g id="hod" class="node" data-node="hod" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Hod description">
               <circle cx="160" cy="480" r="36" />
               <text class="he" x="160" y="477">הוד</text>
               <text x="160" y="498">REPRESENT</text>
             </g>
-            <g
-              id="yesod"
-              class="node"
-              data-node="yesod"
-              tabindex="0"
-              role="button"
-              aria-controls="sefirah-description"
-              aria-label="Open the Yesod description"
-            >
+            <g id="yesod" class="node" data-node="yesod" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Yesod description">
               <circle cx="300" cy="570" r="36" />
               <text class="he" x="300" y="567">יסוד</text>
               <text x="300" y="588">INTEGRATE</text>
             </g>
-            <g
-              id="malchut"
-              class="node"
-              data-node="malchut"
-              tabindex="0"
-              role="button"
-              aria-controls="sefirah-description"
-              aria-label="Open the Malchut description"
-            >
+            <g id="malchut" class="node" data-node="malchut" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Malchut description">
               <circle cx="300" cy="655" r="36" />
               <text class="he" x="300" y="652">מלכות</text>
-              <text x="300" y="673">MANIFEST</text>
+              <text x="300" y="673">OUTPUT</text>
             </g>
           </svg>
-          <aside
-            id="sefirah-description"
-            class="node-inspector"
-            tabindex="-1"
-            aria-live="polite"
-            aria-labelledby="node-name"
-          >
-            <div class="eyebrow" id="node-kicker">
-              Selected sefirah / machine description
-            </div>
-            <div class="inspector-heading">
-              <h2 id="node-name">Tiferet</h2>
-              <span id="node-hebrew" lang="he" dir="rtl">תפארת</span>
-            </div>
-            <p id="node-summary">
-              Coordinates the runtime so every operation advances one coherent,
-              reproducible machine state.
+          <aside class="node-inspector" id="sefirah-description" aria-labelledby="node-name" tabindex="-1">
+            <div class="eyebrow">QEC architecture service</div>
+            <h2 id="node-name">Tiferet / תפארת</h2>
+            <p id="node-description">
+              Coherence service. Tiferet reconciles constrained and expansive state into
+              a stable execution view before continuation and representation.
             </p>
-            <dl>
-              <div>
-                <dt>QEC-1 counterpart</dt>
-                <dd id="node-machine">
-                  Pi 5 runtime scheduler + central node indicator
-                </dd>
-              </div>
-              <div>
-                <dt>Observable action</dt>
-                <dd id="node-action">
-                  Orders services, resolves state updates, and lights the active
-                  path.
-                </dd>
-              </div>
-              <div>
-                <dt>Mystical meaning</dt>
-                <dd id="node-mystical">
-                  Harmony and balance become a design rule for coordinating the
-                  whole.
-                </dd>
-              </div>
-              <div>
-                <dt>Evidence</dt>
-                <dd id="node-evidence">
-                  Ordered trace events and a reproducible state hash.
-                </dd>
-              </div>
-            </dl>
-            <div
-              class="inspector-controls"
-              aria-label="Tree description navigation"
-            >
-              <button type="button" id="node-previous">← Previous</button>
-              <button type="button" id="node-next">Next →</button>
-              <button type="button" class="return-tree" id="return-to-tree">
-                Return to Tree
-              </button>
+            <p class="technical" id="node-technical">Machine role: coherence / state reconciliation</p>
+            <div class="inspector-controls">
+              <button id="node-previous" type="button">← PREVIOUS</button>
+              <button id="node-next" type="button">NEXT →</button>
+              <button class="return-tree" id="return-to-tree" type="button">RETURN TO TREE</button>
             </div>
           </aside>
         </div>
       </section>
 
-      <section class="shell release-status" aria-label="QEC release status">
-        <div>
-          <div class="eyebrow">ONE MACHINE / VERSIONED PARTS</div>
-          <span
-            >Each number names one interface, not a competing QEC release.</span
-          >
-        </div>
-        <div>
-          <strong>Runtime</strong><small>0.3</small
-          ><span>Canonical paths, trace, observation, and output.</span>
-        </div>
-        <div>
-          <strong>Hardware</strong><small>0.1</small
-          ><span>Buildable QEC-1 panel and electrical boundary.</span>
-        </div>
-        <div>
-          <strong>Panel link</strong><small>0.1</small
-          ><span>Directional Pi-to-Pico state and evidence protocol.</span>
-        </div>
-        <div>
-          <strong>OpenQASM</strong><small>0.1</small
-          ><span>Emit-only IvritCode quantum projection profile.</span>
-        </div>
-      </section>
-
-      <section
-        class="shell gate-milestone"
-        aria-labelledby="gate-milestone-title"
-      >
-        <div class="gate-milestone-head">
-          <div>
-            <div class="eyebrow">Gate evidence milestone</div>
-            <h2 id="gate-milestone-title">
-              231 Gates. Evidence before execution.
-            </h2>
-            <p>
-              Quantum Etz Chaim keeps every directional Gate fail-closed until a
-              replayable IvritCode run supplies the program, deterministic seed,
-              exact Gate index, and observed machine topology needed to approve
-              it. Symbolism alone never activates a Gate.
-            </p>
-          </div>
-          <div>
-            <p>
-              The current milestone spans eight compiler-verified evidence
-              programs. Repeated-letter reinforcement remains a self-transition
-              outside the canonical 231-Gate registry.
-            </p>
-            <div class="gate-actions">
-              <a class="button" href="qec-v0.1.html"
-                >Explore Gate rules <span>→</span></a
-              >
-              <a class="button" href="console.html"
-                >Open the runtime <span>→</span></a
-              >
-            </div>
-          </div>
-        </div>
-        <div class="gate-stats" aria-label="Gate evidence counts">
-          <div><strong>231</strong><span>Canonical Gates</span></div>
-          <div><strong>462</strong><span>Directional possibilities</span></div>
-          <div><strong>22</strong><span>Evidence-backed directions</span></div>
-          <div><strong>440</strong><span>Reserved directions</span></div>
-          <div><strong>8</strong><span>Evidence programs</span></div>
-        </div>
-        <div class="gate-programs" lang="he" dir="rtl">
-          אור · שלום · בראשית · אמת · אחד · חיים · דעת · מלכות
+      <section class="shell" aria-label="Current compatibility status">
+        <div class="status-ribbon">
+          <article>
+            <span>Projection profile</span>
+            <strong>ivritcode-openqasm-0.1</strong>
+            <p>Versioned deterministic mapping with schema and tests.</p>
+          </article>
+          <article>
+            <span>Current boundary</span>
+            <strong>Emit-only</strong>
+            <p>No claim of official OpenQASM conformance or quantum hardware execution.</p>
+          </article>
+          <article>
+            <span>QEC evidence</span>
+            <strong>Run Passport</strong>
+            <p>Emitted source, trace, hashes, panel frames, and provenance travel together.</p>
+          </article>
+          <article>
+            <span>Request</span>
+            <strong>Review + expansion</strong>
+            <p>Parser validation, semantic critique, backend tests, and profile evolution.</p>
+          </article>
         </div>
       </section>
 
-      <figure class="image-band">
-        <img
-          src="schematics/qec-1-panel.svg"
-          alt="Dimensioned QEC-1 tabletop panel with Hebrew keys, Sefirotic indicators, path lights, and register lights"
-          width="1400"
-          height="920"
-        />
-        <figcaption class="image-caption">
-          <strong
-            >The symbolic Tree is also the machine’s control surface.</strong
-          ><span
-            >FIXED PANEL MODEL / 600 × 420 MM / 24 KEYS / 56 INDICATORS</span
-          >
-        </figcaption>
-      </figure>
-
-      <section class="section" id="machine">
+      <section class="section" id="why-openqasm">
         <div class="shell">
           <div class="section-head">
             <div>
-              <div class="eyebrow">What the machine actually does</div>
-              <h2>Input becomes visible state.</h2>
+              <div class="eyebrow">Why this boundary</div>
+              <h2>We do not want a private quantum interchange format.</h2>
             </div>
             <p class="section-intro">
-              The Tree supplies the responsibility map. Conventional, available
-              electronics do the work. A key press becomes a versioned event;
-              the host advances the canonical runtime; the panel displays the
-              exact state that the trace records.
+              OpenQASM is built to serve as an intermediate representation between higher-level
+              tooling and quantum execution systems. That makes it the right place for QEC to
+              expose its circuit-level projection and invite outside scrutiny rather than hide
+              behind a proprietary output format.
             </p>
           </div>
-          <div class="machine-flow" aria-label="QEC-1 machine flow">
-            <article>
-              <span class="flow-index">01 / INPUT</span>
-              <h3>Press a Hebrew key</h3>
+          <div class="why-grid">
+            <article class="panel-card">
+              <span class="num">01 / INTEROPERABILITY</span>
+              <h3>A legible handoff</h3>
               <p>
-                Twenty-two letter keys enter instructions. STEP and RUN control
-                execution. The 6 × 4 diode matrix prevents ambiguous key events.
+                IvritCode remains the symbolic source language. OpenQASM becomes the explicit
+                quantum-toolchain handoff. QEC can evolve without asking outside tools to learn
+                QEC’s internal symbolic runtime.
+              </p>
+              <a href="https://openqasm.com/">Open the OpenQASM specification ↗</a>
+            </article>
+            <article class="panel-card">
+              <span class="num">02 / CRITICISM</span>
+              <h3>A boundary experts can attack</h3>
+              <p>
+                The current 22-letter mapping is deterministic. That does not make it optimal.
+                Publishing the profile lets compiler and quantum-language experts identify bad
+                assumptions, weak semantics, or avoidable incompatibilities.
               </p>
             </article>
-            <article>
-              <span class="flow-index">02 / PANEL CONTROL</span>
-              <h3>Pico 2 reports the event</h3>
+            <article class="panel-card">
+              <span class="num">03 / EVIDENCE</span>
+              <h3>Claims can become testable</h3>
               <p>
-                The panel controller debounces the switch and sends a versioned
-                JSON Lines message to the host over USB serial.
-              </p>
-            </article>
-            <article>
-              <span class="flow-index">03 / COMPUTE</span>
-              <h3>Pi 5 advances the runtime</h3>
-              <p>
-                The host validates the program, applies the deterministic letter
-                operation, updates 23 registers, and records the trace.
-              </p>
-            </article>
-            <article>
-              <span class="flow-index">04 / MANIFEST</span>
-              <h3>The panel shows the result</h3>
-              <p>
-                Node, path, and register lights render the same canonical state
-                shown on screen and preserved by checksum.
+                “It emits OpenQASM” is a small claim. Parser acceptance, simulator execution,
+                and backend testing are stronger claims. QEC is designed to record those steps
+                separately rather than blur them together.
               </p>
             </article>
           </div>
-          <div class="machine-boundary">
+        </div>
+      </section>
+
+      <section class="section" id="bridge">
+        <div class="shell">
+          <div class="section-head">
             <div>
-              <div class="eyebrow">Engineering boundary</div>
-              <h3>A real machine, honestly classified.</h3>
+              <div class="eyebrow">The complete bridge</div>
+              <h2>Source, projection, evidence, machine.</h2>
+            </div>
+            <p class="section-intro">
+              The OpenQASM output is one part of a larger reproducibility chain. The same run can
+              carry a deterministic symbolic trace, its OpenQASM projection, transport frames for
+              the physical panel, acknowledgements, and provenance in one versioned passport.
+            </p>
+          </div>
+          <div class="bridge-flow" aria-label="QEC execution flow">
+            <article class="bridge-step">
+              <b>01</b>
+              <h3>IvritCode</h3>
+              <p>Hebrew-letter source with final-form and combining-mark normalization.</p>
+            </article>
+            <article class="bridge-step">
+              <b>02</b>
+              <h3>QEC runtime</h3>
+              <p>Deterministic symbolic execution with trace, state, Gates, and provenance.</p>
+            </article>
+            <article class="bridge-step">
+              <b>03</b>
+              <h3>Projection</h3>
+              <p>Versioned 22-instruction mapping emits ordinary OpenQASM 3 source.</p>
+            </article>
+            <article class="bridge-step">
+              <b>04</b>
+              <h3>Validation</h3>
+              <p>The next frontier: independent parsers, simulators, and backend-facing tools.</p>
+            </article>
+            <article class="bridge-step">
+              <b>05</b>
+              <h3>Run Passport</h3>
+              <p>Source, hashes, emitted QASM, trace, machine frames, and evidence stay bound.</p>
+            </article>
+            <article class="bridge-step">
+              <b>06</b>
+              <h3>QEC-1P</h3>
+              <p>A separate classical hardware witness manifests deterministic machine state.</p>
+            </article>
+          </div>
+          <div class="boundary-note">
+            <div>
+              <strong>The physical machine remains central.</strong>
               <p>
-                QEC-1 is a buildable classical control-and-display computer. It
-                contains no qubits and claims no superposition, entanglement,
-                quantum error correction, or quantum speedup. Two external,
-                fused 5 V supplies power separate host and panel domains; there
-                is no mains voltage inside the enclosure.
+                QEC-1 is not presented as quantum processing hardware. It is the tangible end of
+                the QEC state pipeline: 24 keys, 56 addressable indicators, low-voltage control,
+                and a visible manifestation of deterministic execution. The OpenQASM bridge is
+                how QEC reaches outward into quantum software ecosystems.
               </p>
             </div>
             <div>
-              <div class="eyebrow">Meaning boundary</div>
-              <h3>The Tree guides responsibilities.</h3>
+              <strong>The claim stays narrow.</strong>
               <p>
-                The sefirot are not claimed as electronic forces. Their
-                relationships give the machine a disciplined way to separate
-                intention, generation, structure, permission, restraint,
-                coordination, persistence, representation, integration,
-                observation, and output.
+                Today: deterministic OpenQASM emission. Next: independent parser evidence. Then:
+                simulator and backend experiments, each recorded with exact versions and results.
               </p>
             </div>
           </div>
@@ -1814,870 +1222,347 @@
         <div class="shell">
           <div class="section-head">
             <div>
-              <div class="eyebrow">IvritCode → OpenQASM 3</div>
-              <h2>Hebrew opcodes become modern quantum instructions.</h2>
+              <div class="eyebrow">Live projection / profile 0.1</div>
+              <h2>Put Hebrew source on one side. Inspect OpenQASM on the other.</h2>
             </div>
             <p class="section-intro">
-              IvritCode now has a versioned OpenQASM 3 projection target. Each
-              of the twenty-two Hebrew instructions emits an operation from the
-              standard gate library, receives explicit qubit addresses, and ends
-              in measurement. The output is portable quantum source code, ready
-              for validation or later transpilation by a compatible toolchain.
+              This browser demo uses the repository’s real compiler function, not a hand-written
+              example. The default target allocates three qubits. The current profile emits an
+              `OPENQASM 3.0;` declaration while the broader OpenQASM project currently identifies
+              3.1 as its current public specification. That version question is part of the review
+              we are asking for.
             </p>
           </div>
           <div class="qasm-lab">
-            <form class="qasm-controls" id="qasm-form">
-              <div class="eyebrow">Live translation boundary</div>
-              <h3>Write in IvritCode. Inspect the circuit.</h3>
+            <div class="qasm-controls">
+              <div class="eyebrow">IvritCode source</div>
+              <h3>Try a program.</h3>
               <p>
-                This translator emits code only. It does not send a job to a
-                simulator or quantum processor, and the letter-to-gate profile
-                is an explicit QEC project convention rather than a claim about
-                the inherent meaning of the Hebrew letters.
+                Use Hebrew letters only. Niqqud and cantillation are stripped; final forms are
+                normalized. Try <span lang="he" dir="rtl">אור</span> or
+                <span lang="he" dir="rtl">שלום</span>.
               </p>
-              <label for="qasm-source">IVRITCODE SOURCE</label>
-              <input
-                id="qasm-source"
-                name="source"
-                value="אור"
-                lang="he"
-                dir="rtl"
-                maxlength="128"
-                autocomplete="off"
-                spellcheck="false"
-              />
-              <button class="button" type="submit">
-                Compile to OpenQASM 3
-              </button>
-              <span class="qasm-status" id="qasm-status"></span>
-              <p>
-                Target profile:
-                <a href="specifications/ivritcode-openqasm-v0.1.json"
-                  >ivritcode-openqasm-0.1 ↗</a
-                >
-              </p>
-            </form>
+              <label for="qasm-source">Source</label>
+              <input id="qasm-source" value="אור" lang="he" dir="rtl" autocomplete="off" />
+              <button class="button primary" id="compile-qasm" type="button">Compile to OpenQASM →</button>
+              <span class="qasm-status" id="qasm-status">PROFILE READY / ivritcode-openqasm-0.1</span>
+              <div class="hero-actions">
+                <a class="button" href="specifications/ivritcode-openqasm-v0.1.json">Profile JSON</a>
+                <a class="button" href="specifications/schemas/ivritcode-openqasm-v0.1.schema.json">Schema</a>
+              </div>
+            </div>
             <div class="qasm-output-shell">
               <pre id="qasm-output" aria-live="polite"></pre>
             </div>
           </div>
-          <ol
-            class="qasm-map"
-            id="qasm-map"
-            aria-label="Twenty-two IvritCode to OpenQASM gate mappings"
-          ></ol>
-          <div class="notice" style="margin-top: 18px">
-            <strong>Execution boundary:</strong> OpenQASM output becomes a real
-            quantum experiment only after a named backend accepts, transpiles,
-            and runs it on independently verified quantum hardware. QEC-1A
-            remains classical; QEC-LAB owns that future adapter and its
-            evidence.
-          </div>
+          <ul class="qasm-map" id="qasm-map" aria-label="IvritCode to OpenQASM operation map"></ul>
         </div>
       </section>
 
-      <section class="section" id="frontier">
-        <div class="shell">
-          <div class="section-head">
-            <div>
-              <div class="eyebrow">What changed / 2024—2026</div>
-              <h2>The fault-tolerant frontier</h2>
-            </div>
-            <p class="section-intro">
-              Recent progress converges on one lesson: useful quantum
-              computation is a systems problem. Better physical devices matter,
-              but so do codes, connectivity, real-time decoding, logical
-              operations, and hybrid control.
-            </p>
-          </div>
-          <div class="frontier-grid">
-            <article class="frontier-card">
-              <span class="card-index">01 / BELOW THRESHOLD</span>
-              <h3>Errors fall as codes grow</h3>
-              <p>
-                Google’s Willow experiments showed exponential logical-error
-                suppression as surface-code distance increased—an essential
-                fault-tolerance milestone, not yet a general-purpose machine.
-              </p>
-              <a
-                class="source"
-                href="https://research.google/blog/making-quantum-error-correction-work/"
-                >GOOGLE RESEARCH ↗</a
-              >
-            </article>
-            <article class="frontier-card">
-              <span class="card-index">02 / DYNAMIC CODES</span>
-              <h3>Architectures become adaptable</h3>
-              <p>
-                Dynamic surface-code circuits demonstrated error correction with
-                fewer couplers and alternative gates, allowing architectures to
-                route around defective components.
-              </p>
-              <a
-                class="source"
-                href="https://research.google/blog/dynamic-surface-codes-open-new-avenues-for-quantum-error-correction/"
-                >GOOGLE RESEARCH ↗</a
-              >
-            </article>
-            <article class="frontier-card">
-              <span class="card-index">03 / NEUTRAL ATOMS</span>
-              <h3>Logical systems scale differently</h3>
-              <p>
-                A 2025 experiment used up to 448 neutral atoms to combine
-                below-threshold correction, logical operations, qubit reuse, and
-                universal gate ingredients.
-              </p>
-              <a
-                class="source"
-                href="https://www.nature.com/articles/s41586-025-09848-5"
-                >NATURE ↗</a
-              >
-            </article>
-            <article class="frontier-card">
-              <span class="card-index">04 / REAL-TIME CONTROL</span>
-              <h3>Decoding enters the loop</h3>
-              <p>
-                IBM reported sub-480-nanosecond decoding on FPGA hardware while
-                developing the higher-connectivity Loon architecture for qLDPC
-                experiments.
-              </p>
-              <a class="source" href="https://www.ibm.com/quantum/blog/qdc-2025"
-                >IBM QUANTUM ↗</a
-              >
-            </article>
-          </div>
-          <div class="notice" style="margin-top: 20px">
-            <strong>Scientific boundary:</strong> Quantum Etz Chaim is not a
-            physical quantum computer and does not claim that Kabbalah predicts
-            quantum mechanics. It is a project-defined systems model inspired by
-            both fields. The research above motivates engineering principles;
-            the Tree mapping below is interpretive.
-          </div>
-        </div>
-      </section>
-
-      <section class="section" aria-labelledby="visual-title">
-        <div class="shell">
-          <div class="section-head">
-            <div>
-              <div class="eyebrow">Visual studies</div>
-              <h2 id="visual-title">Coherence needs structure</h2>
-            </div>
-            <p class="section-intro">
-              These project images translate two essential engineering ideas
-              into the Atlas visual language: protecting information through
-              distributed structure and turning state into a readable
-              observation.
-            </p>
-          </div>
-          <div class="visual-grid">
-            <figure class="visual-card">
-              <img
-                loading="lazy"
-                src="assets/images/logical-coherence-lattice.png"
-                alt="A geometric error-correction lattice protecting a luminous logical core"
-                width="1536"
-                height="1024"
-              />
-              <figcaption>
-                <strong>Logical coherence lattice</strong
-                ><span
-                  >PHYSICAL NODES → SYNDROME PATHS → PROTECTED LOGICAL
-                  STATE</span
-                >
-              </figcaption>
-            </figure>
-            <figure class="visual-card">
-              <img
-                loading="lazy"
-                src="assets/images/daat-observation-boundary.png"
-                alt="Teal and golden information waves converging through an observation boundary into an ordered output plane"
-                width="1536"
-                height="1024"
-              />
-              <figcaption>
-                <strong>Da’at observation boundary</strong
-                ><span
-                  >POSSIBILITY → DETERMINISTIC SNAPSHOT → MALCHUT OUTPUT</span
-                >
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="architecture">
-        <div class="shell">
-          <div class="section-head">
-            <div>
-              <div class="eyebrow">The two-plane machine</div>
-              <h2>From possibility to output</h2>
-            </div>
-            <p class="section-intro">
-              The Sefirotic Plane organizes system responsibilities. The Letter
-              Plane performs deterministic transformations. Da’at marks
-              observation; Malchut presents the result.
-            </p>
-          </div>
-          <div class="architecture">
-            <div class="arch-list" role="tablist">
-              <button class="arch-button active" data-arch="intent" role="tab">
-                01 — INTENT <span>כתר</span></button
-              ><button class="arch-button" data-arch="formation" role="tab">
-                02 — FORMATION <span>חכמה / בינה</span></button
-              ><button class="arch-button" data-arch="control" role="tab">
-                03 — CONTROL <span>חסד / גבורה</span></button
-              ><button class="arch-button" data-arch="coherence" role="tab">
-                04 — COHERENCE <span>תפארת</span></button
-              ><button class="arch-button" data-arch="runtime" role="tab">
-                05 — RUNTIME <span>נצח / הוד / יסוד</span></button
-              ><button class="arch-button" data-arch="output" role="tab">
-                06 — OBSERVE & OUTPUT <span>דעת / מלכות</span>
-              </button>
-            </div>
-            <div class="arch-panel" id="arch-panel" role="tabpanel"></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="schematics">
-        <div class="shell">
-          <div class="section-head">
-            <div>
-              <div class="eyebrow">Engineering plates / contract 0.3</div>
-              <h2>Schematics and build specification</h2>
-            </div>
-            <p class="section-intro">
-              The artwork establishes atmosphere. These plates establish
-              boundaries, data flow, and build order. Each diagram is a
-              repository-native SVG suitable for documentation, print, and
-              future implementation work.
-            </p>
-          </div>
-          <div class="build-brief" aria-label="Build specification summary">
-            <article>
-              <span>01 / STATE</span>
-              <h3>23 fixed registers</h3>
-              <p>
-                <b>Input:</b> Hebrew source + seed.<br />Twenty-two visible
-                base-22 registers and one Aleph Olam register. Every value is
-                bounded from 0–21 and every transition is immutable.
-              </p>
-              <code>@ivritcode/core</code>
-            </article>
-            <article>
-              <span>02 / ENGINE</span>
-              <h3>One canonical execution</h3>
-              <p>
-                Hebrew letters execute once in IvritCode. Quantum Etz Chaim
-                consumes those results as an architectural view; it does not run
-                an alternate set of transforms.
-              </p>
-              <code>@ivritcode/core → @qec/core</code>
-            </article>
-            <article>
-              <span>03 / CONTRACT</span>
-              <h3>Versioned handoff</h3>
-              <p>
-                Engine version, path-map version, seed, complete trace hash, and
-                manifestation version bind both sites to the same run.
-              </p>
-              <code>ivritcode-exchange-0.2</code>
-            </article>
-            <article>
-              <span>04 / OUTPUT</span>
-              <h3>Inspect before manifesting</h3>
-              <p>
-                Da’at records a reproducible observation. Malchut renders only
-                validated state as a screen view, file, sound descriptor, or
-                export.
-              </p>
-              <code>Daat → Malchut</code>
-            </article>
-          </div>
-          <div class="schematic-grid">
-            <a class="schematic" href="schematics/two-plane-machine.html"
-              ><img
-                loading="lazy"
-                src="schematics/two-plane-machine.svg"
-                alt="Schematic of the Sefirotic service plane connected to the 23-register IvritCode letter plane"
-              /><span class="schematic-label"
-                ><b>PLATE 01</b><span>TWO-PLANE MACHINE ↗</span></span
-              ></a
-            >
-            <div class="schematic-guide" aria-label="How to read plate 01">
-              <article>
-                <b>1</b
-                ><span
-                  ><strong>Orchestrate</strong>The left plane assigns intent,
-                  validation, policy, scheduling, and observation.</span
-                >
-              </article>
-              <article>
-                <b>2</b
-                ><span
-                  ><strong>Execute</strong>The right plane applies IvritCode’s
-                  canonical operations to the 23-register state.</span
-                >
-              </article>
-              <article>
-                <b>3</b
-                ><span
-                  ><strong>Bind</strong>The shared contract carries versioned
-                  state and the complete trace between planes.</span
-                >
-              </article>
-              <article>
-                <b>4</b
-                ><span
-                  ><strong>Manifest</strong>Malchut presents the validated
-                  observation without changing the computation.
-                  <a href="console.html#manifestation-inspector"
-                    >Open live output →</a
-                  ></span
-                >
-              </article>
-            </div>
-            <a class="schematic" href="schematics/execution-lifecycle.html"
-              ><img
-                loading="lazy"
-                src="schematics/execution-lifecycle.svg"
-                alt="Ten-stage deterministic instruction execution lifecycle"
-              /><span class="schematic-label"
-                ><b>PLATE 02</b><span>EXECUTION LIFECYCLE ↗</span></span
-              ></a
-            >
-            <a class="schematic" href="schematics/fault-tolerance-stack.html"
-              ><img
-                loading="lazy"
-                src="schematics/fault-tolerance-stack.svg"
-                alt="Layered schematic separating quantum research from the project model"
-              /><span class="schematic-label"
-                ><b>PLATE 03</b><span>FAULT-TOLERANCE STACK ↗</span></span
-              ></a
-            >
-            <a class="schematic" href="schematics/qec-1-physical-machine.html"
-              ><img
-                loading="lazy"
-                src="schematics/qec-1-system.svg"
-                alt="QEC-1 physical machine architecture showing host, panel controller, controls, indicators, and laboratory boundary"
-              /><span class="schematic-label"
-                ><b>PLATE 04–06</b><span>QEC-1 PHYSICAL MACHINE ↗</span></span
-              ></a
-            >
-            <a class="schematic" href="schematics/qec-1p-bench-wiring.svg"
-              ><img
-                loading="lazy"
-                src="schematics/qec-1p-bench-wiring.svg"
-                alt="Exact low-voltage wiring for the QEC-1P four-key and four-pixel bench prototype"
-              /><span class="schematic-label"
-                ><b>PLATE 07</b><span>QEC-1P BENCH WIRING ↗</span></span
-              ></a
-            >
-          </div>
-          <div class="spec-download">
-            <div>
-              <div class="eyebrow">Build package</div>
-              <p>
-                Normative state and event interfaces, package ownership, failure
-                atomicity, bounded execution, canonical serialization,
-                verification evidence, and an implementation backlog.
-              </p>
-            </div>
-            <div class="spec-links">
-              <a class="button" href="bench.html">Run bench proof ↗</a>
-              <a class="button" href="machine.html">Build QEC-1 ↗</a>
-              <a class="button" href="contract-explorer.html"
-                >Explore contracts ↗</a
-              ><a class="button" href="specifications/qec-build-v0.3.json"
-                >JSON contract ↗</a
-              ><a
-                class="button"
-                href="specifications/schemas/trace-v0.3.schema.json"
-                >Trace schema ↗</a
-              ><a class="button" href="specifications/qec-paths-v0.3.json"
-                >22-path map ↗</a
-              >
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="principles">
-        <div class="shell">
-          <div class="section-head">
-            <div>
-              <div class="eyebrow">Design doctrine</div>
-              <h2>What the frontier teaches the Tree</h2>
-            </div>
-            <p class="section-intro">
-              The model borrows structural lessons—not scientific authority—from
-              quantum computing’s most important advances.
-            </p>
-          </div>
-          <div class="principles">
-            <article class="principle">
-              <span class="num">I / ENCODE</span>
-              <h3>Protect meaning through relationship</h3>
-              <p>
-                A logical qubit is distributed across physical qubits. In this
-                model, meaning likewise lives in patterns among registers and
-                paths, never in an isolated symbol.
-              </p>
-            </article>
-            <article class="principle">
-              <span class="num">II / CORRECT</span>
-              <h3>Constraint makes scale possible</h3>
-              <p>
-                Error correction succeeds only below a threshold. Gevurah
-                represents the necessary boundaries—validation, permissions, and
-                correction—that let expansion remain coherent.
-              </p>
-            </article>
-            <article class="principle">
-              <span class="num">III / OBSERVE</span>
-              <h3>Measurement is an interface</h3>
-              <p>
-                Quantum measurement produces classical information. Da’at is
-                modeled as that boundary: an event layer that selects and
-                records a readable state without claiming literal wave-function
-                collapse.
-              </p>
-            </article>
-            <article class="principle">
-              <span class="num">IV / DECODE</span>
-              <h3>Interpretation belongs in the loop</h3>
-              <p>
-                Fast decoders turn noisy syndrome data into corrective action.
-                Hod and Yesod render, route, and reconcile trace information
-                before it becomes output.
-              </p>
-            </article>
-            <article class="principle">
-              <span class="num">V / CO-DESIGN</span>
-              <h3>No layer succeeds alone</h3>
-              <p>
-                Hardware, codes, connectivity, controls, and compilers must
-                evolve together. Tiferet is the coordinating service, not a
-                decorative center.
-              </p>
-            </article>
-            <article class="principle">
-              <span class="num">VI / VERIFY</span>
-              <h3>Poetry must remain traceable</h3>
-              <p>
-                Every symbolic reading should point back to computed state, a
-                path event, or an explicit project convention. Unsupported marks
-                remain visible, never silently meaningful.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="shell manifesto" id="ivritcode">
-        <div class="eyebrow">Quantum Etz Chaim / IvritOS / IvritCode</div>
-        <h2>One computation, two complementary views</h2>
-        <div class="frontier-grid" style="margin: 28px 0">
-          <article class="frontier-card">
-            <span class="card-index">01 / IVRITCODE</span>
-            <h3>The executable foundation</h3>
+      <section class="shell gate-milestone" aria-labelledby="gate-milestone-title">
+        <div class="gate-milestone-head">
+          <div>
+            <div class="eyebrow">Gate evidence milestone</div>
+            <h2 id="gate-milestone-title">231 Gates. Evidence before execution.</h2>
             <p>
-              IvritCode is the language and deterministic 23-register engine.
-              Hebrew letters are instructions; the engine owns parsing, state
-              transitions, seeds, and the complete execution trace.
+              QEC separately tracks symbolic directional Gate rules. Every direction remains
+              fail-closed until replayable evidence supplies the program, deterministic seed,
+              exact Gate index, and observed machine topology needed to approve it. Symbolism
+              alone never activates a Gate.
             </p>
-          </article>
-          <article class="frontier-card">
-            <span class="card-index">02 / QUANTUM ETZ CHAIM</span>
-            <h3>The architectural view</h3>
+          </div>
+          <div>
             <p>
-              Quantum Etz Chaim is the Tree-based systems atlas and workbench.
-              It maps the same run through services, paths, gates, Da’at
-              observation, and Malchut manifestation. It does not maintain a
-              separate register engine.
+              This is not the same layer as the 22-letter OpenQASM mapping. It is shown here
+              because the same design principle governs both: stronger claims require stronger,
+              replayable evidence.
             </p>
-          </article>
-          <article class="frontier-card">
-            <span class="card-index">03 / IVRITOS</span>
-            <h3>The organizing layer</h3>
-            <p>
-              IvritOS names the orchestration model: intent enters at Keter,
-              validation and policy shape the run, Yesod records replayable
-              state, and Malchut presents an observed result.
-            </p>
-          </article>
-          <article class="frontier-card">
-            <span class="card-index">04 / EXCHANGE</span>
-            <h3>The reproducible handoff</h3>
-            <p>
-              IvritCode sends source, initial and final state, engine and path
-              versions, seed, complete trace hash, and manifestation version.
-              Quantum Etz Chaim validates that envelope before visualizing it.
-            </p>
-          </article>
+          </div>
         </div>
-        <blockquote>
-          “The Tree is the architecture. <span>IvritOS</span> is the order
-          within it. IvritCode is the language that moves through it.”
-        </blockquote>
-        <p>
-          The working loop is simple: write Hebrew source in IvritCode, execute
-          it once in the canonical engine, carry the versioned trace across the
-          exchange contract, and inspect that same result here. Edit in
-          IvritCode returns the original source, so exploration can continue
-          without losing provenance. The framework is experimental, the
-          coherence layer is simulated, and the invitation is to study—not to
-          mistake correspondence for proof.
-        </p>
-        <div class="hero-actions" style="justify-content: center">
-          <a class="button primary" href="console.html"
-            >Run אור in the Living Tree Console <span>→</span></a
-          >
-          <a class="button" href="machine.html"
-            >Build the physical machine <span>→</span></a
-          >
-          <a class="button" href="bench.html"
-            >Prove the four-key prototype <span>→</span></a
-          >
-          <a class="button" href="https://ivritcode.org/"
-            >Open IvritCode <span>↗</span></a
-          >
+        <div class="gate-stats" aria-label="Gate evidence counts">
+          <div><strong>231</strong><span>Canonical Gates</span></div>
+          <div><strong>462</strong><span>Directional possibilities</span></div>
+          <div><strong>22</strong><span>Evidence-backed directions</span></div>
+          <div><strong>440</strong><span>Reserved directions</span></div>
+          <div><strong>8</strong><span>Evidence programs</span></div>
+        </div>
+        <div class="gate-programs" lang="he" dir="rtl">אור · שלום · בראשית · אמת · אחד · חיים · דעת · מלכות</div>
+      </section>
+
+      <section class="section" id="help">
+        <div class="shell">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Where we need help</div>
+              <h2>We want criticism that changes the implementation.</h2>
+            </div>
+            <p class="section-intro">
+              We are not asking the OpenQASM community to accept QEC’s assumptions. We are asking
+              people who know the language, parsers, compiler IRs, simulators, and backend
+              interfaces to tell us where the bridge is wrong, shallow, obsolete, or useful.
+            </p>
+          </div>
+          <div class="ask-grid">
+            <article class="panel-card ask-card">
+              <span class="ask-tag">PARSER VALIDATION</span>
+              <h3>Break the emitted source.</h3>
+              <p>
+                Run canonical QEC output through recognized OpenQASM parsers. We want exact tool
+                versions, diagnostics, disagreements, and reproducible failure cases recorded as
+                evidence rather than quietly patched around.
+              </p>
+            </article>
+            <article class="panel-card ask-card">
+              <span class="ask-tag">3.0 → 3.1</span>
+              <h3>Tell us how to version the target.</h3>
+              <p>
+                Should profile 0.1 remain a frozen 3.0 contract, migrate to 3.1, or coexist with a
+                new versioned profile? We want the answer driven by compatibility and semantics,
+                not by changing a header because a newer number exists.
+              </p>
+            </article>
+            <article class="panel-card ask-card">
+              <span class="ask-tag">SEMANTIC REVIEW</span>
+              <h3>Challenge all 22 mappings.</h3>
+              <p>
+                Deterministic is not synonymous with well-designed. Review gate choice, arity,
+                parameter values, operand rotation, measurement behavior, and whether the profile
+                teaches the wrong abstraction about quantum programs.
+              </p>
+            </article>
+            <article class="panel-card ask-card">
+              <span class="ask-tag">SIMULATORS + BACKENDS</span>
+              <h3>Build a compatibility matrix.</h3>
+              <p>
+                Help us test multiple independently maintained tools and separate “parses,”
+                “simulates,” and “runs on a hardware-facing stack” into distinct, versioned claims.
+              </p>
+            </article>
+            <article class="panel-card ask-card">
+              <span class="ask-tag">LANGUAGE GROWTH</span>
+              <h3>Expand beyond a flat gate stream.</h3>
+              <p>
+                Guide the next profile toward OpenQASM-native control flow, parameterization,
+                subroutines, timing, richer measurement behavior, and calibration-aware boundaries
+                where those features actually add technical value.
+              </p>
+            </article>
+            <article class="panel-card ask-card">
+              <span class="ask-tag">PROVENANCE</span>
+              <h3>Improve the Run Passport.</h3>
+              <p>
+                Review whether binding the emitted OpenQASM and validation artifacts to the same
+                execution passport is useful. Tell us what metadata a real reproducibility record
+                should contain and what should remain outside it.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="evidence">
+        <div class="shell">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Inspect, do not trust</div>
+              <h2>The contracts and evidence are public.</h2>
+            </div>
+            <p class="section-intro">
+              The fastest way to understand QEC is to inspect the actual contracts, tests, and
+              physical build path. The site is the invitation; the repository is the argument.
+            </p>
+          </div>
+          <div class="evidence-grid">
+            <article class="panel-card">
+              <span class="num">01 / PROFILE</span>
+              <h3>Translation contract</h3>
+              <p><code>ivritcode-openqasm-v0.1.json</code> is the machine-readable 22-letter projection profile.</p>
+              <a href="specifications/ivritcode-openqasm-v0.1.json">Inspect the profile →</a>
+            </article>
+            <article class="panel-card">
+              <span class="num">02 / SCHEMA</span>
+              <h3>Versioned validation</h3>
+              <p>The profile and Run Passport have JSON Schemas so structural claims can fail closed.</p>
+              <a href="specifications/schemas/ivritcode-openqasm-v0.1.schema.json">Inspect the schema →</a>
+            </article>
+            <article class="panel-card">
+              <span class="num">03 / SOURCE</span>
+              <h3>The actual compiler</h3>
+              <p>The live demo imports the same TypeScript implementation tested by the repository.</p>
+              <a href="https://github.com/Richardatf/QuantumEtzChaim/blob/main/src/openqasm.ts">Read src/openqasm.ts ↗</a>
+            </article>
+            <article class="panel-card">
+              <span class="num">04 / TESTS</span>
+              <h3>Deterministic behavior</h3>
+              <p>Normalization, mapping, output shape, and Run Passport binding are covered by automated tests.</p>
+              <a href="https://github.com/Richardatf/QuantumEtzChaim/blob/main/tests/openqasm.test.ts">Read the tests ↗</a>
+            </article>
+            <article class="panel-card">
+              <span class="num">05 / RELEASE</span>
+              <h3>Current boundary</h3>
+              <p>The release-readiness document explicitly identifies the OpenQASM projection as emit-only.</p>
+              <a href="docs/RELEASE_READINESS.md">Read release readiness →</a>
+            </article>
+            <article class="panel-card">
+              <span class="num">06 / HARDWARE</span>
+              <h3>Physical manifestation</h3>
+              <p>QEC-1P is the separate classical bench-validation path for panel state, transport, and acknowledgements.</p>
+              <a href="bench.html">Open the bench proof →</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="join">
+        <div class="shell">
+          <div class="request-banner">
+            <div>
+              <div class="eyebrow">The request</div>
+              <h2>Inspect it. Break it. Help us make the bridge technically useful.</h2>
+              <p>
+                A useful first contribution is small: take the emitted programs for
+                <span lang="he" dir="rtl">אור</span> and <span lang="he" dir="rtl">שלום</span>,
+                run them through an OpenQASM 3 parser or simulator you trust, record the exact
+                version and diagnostics, and tell us what must change. If two tools disagree,
+                preserve the disagreement. That is evidence too.
+              </p>
+            </div>
+            <div class="request-actions">
+              <a class="button primary" href="https://github.com/Richardatf/QuantumEtzChaim/issues/new">Open a QEC issue <span>↗</span></a>
+              <a class="button" href="docs/OPENQASM_COLLABORATION.md">Read the collaboration brief <span>→</span></a>
+              <a class="button" href="https://github.com/Richardatf/QuantumEtzChaim">Inspect the repository <span>↗</span></a>
+              <a class="button" href="console.html">Open the QEC runtime <span>→</span></a>
+              <a class="button" href="machine.html">See the physical machine <span>→</span></a>
+            </div>
+          </div>
         </div>
       </section>
     </main>
 
     <footer>
       <div class="shell footer-row">
-        <span
-          >QUANTUM ETZ CHAIM © 2026<br />AN EXPERIMENTAL SYMBOLIC-COMPUTING
-          FRAMEWORK</span
-        ><span
-          >COHERENCE MODEL: SIMULATED<br />PHYSICAL QUANTUM COMPUTATION: NOT
-          CLAIMED</span
-        >
+        <span>QUANTUM ETZ CHAIM / INDEPENDENT EXPERIMENTAL ARCHITECTURE</span>
+        <span>OPENQASM IS REFERENCED FOR INTEROPERABILITY; NO AFFILIATION OR ENDORSEMENT IS IMPLIED.</span>
       </div>
     </footer>
-    <script>
-      const nodeDetails = {
-        keter: {
-          name: "Keter",
-          hebrew: "כתר",
-          summary:
-            "Establishes what the run is allowed to do before the machine changes state.",
-          machine: "RUN key + Pi 5 job initializer",
-          action:
-            "Captures the source, seed, runtime version, permissions, and run identity.",
-          mystical:
-            "Crown and intention become an engineering requirement: purpose precedes execution.",
-          evidence: "Run Passport header and immutable starting-state hash.",
-        },
-        chokhmah: {
-          name: "Chokhmah",
-          hebrew: "חכמה",
-          summary:
-            "Turns a Hebrew key event into the first executable form of an instruction.",
-          machine: "22-key Hebrew field + instruction generator",
-          action:
-            "Receives the selected letter and constructs the candidate operation for the runtime.",
-          mystical:
-            "The first flash of wisdom is paired with the machine’s generative step.",
-          evidence: "Key event and compiled instruction in the trace.",
-        },
-        binah: {
-          name: "Binah",
-          hebrew: "בינה",
-          summary:
-            "Gives each proposed instruction a valid, bounded structure or rejects it.",
-          machine: "Pi 5 parser, compiler, and schema validators",
-          action:
-            "Preserves Hebrew text, checks versions and shapes, and emits a typed instruction.",
-          mystical:
-            "Understanding becomes form: an impulse must acquire boundaries before it can act.",
-          evidence: "Validation result, typed instruction, or explicit fault.",
-        },
-        daat: {
-          name: "Da’at",
-          hebrew: "דעת",
-          summary:
-            "Freezes one inspectable record of the current state without changing it.",
-          machine: "Observation service + dimmed Da’at boundary indicator",
-          action:
-            "Remains visible at low intensity and brightens when observation writes a checkpoint containing state, trace position, hashes, and provenance.",
-          mystical:
-            "Da’at is shown as a distinct threshold rather than counted among the ten sefirot; it becomes emphasized when wisdom and understanding are consciously joined.",
-          evidence: "Observation record, trace hash, and state hash.",
-        },
-        chesed: {
-          name: "Chesed",
-          hebrew: "חסד",
-          summary:
-            "Permits the runtime to allocate, branch, retrieve, and extend within policy.",
-          machine: "Host allocation and permission service",
-          action:
-            "Approves allowed growth in state, memory use, and candidate paths.",
-          mystical:
-            "Lovingkindness becomes governed provision: the system makes room for possibility.",
-          evidence: "Permission decision and resource-allocation trace event.",
-        },
-        gevurah: {
-          name: "Gevurah",
-          hebrew: "גבורה",
-          summary:
-            "Stops unsafe, invalid, over-budget, or disconnected operation.",
-          machine: "Pico watchdog, 5 A fuse, brightness cap, and validators",
-          action:
-            "Enforces current, step, capability, protocol, and fault limits.",
-          mystical:
-            "Strength and restraint become the limits that keep power usable.",
-          evidence:
-            "Typed fault, rejected command, or visible panel fault state.",
-        },
-        tiferet: {
-          name: "Tiferet",
-          hebrew: "תפארת",
-          summary:
-            "Coordinates the runtime so every operation advances one coherent, reproducible machine state.",
-          machine: "Pi 5 runtime scheduler + central node indicator",
-          action:
-            "Orders services, resolves state updates, and lights the active path.",
-          mystical:
-            "Harmony and balance become a design rule for coordinating the whole.",
-          evidence: "Ordered trace events and a reproducible state hash.",
-        },
-        netzach: {
-          name: "Netzach",
-          hebrew: "נצח",
-          summary:
-            "Keeps a valid execution moving across steps, loops, retries, and longer runs.",
-          machine: "STEP/RUN controls + deterministic execution loop",
-          action:
-            "Advances one instruction or continues until completion or a bounded stop.",
-          mystical:
-            "Endurance becomes controlled continuation rather than endless motion.",
-          evidence: "Monotonic step counter and complete sequence of events.",
-        },
-        hod: {
-          name: "Hod",
-          hebrew: "הוד",
-          summary:
-            "Makes the internal state readable to a builder, operator, or another system.",
-          machine: "Local display + USB diagnostics + trace serializer",
-          action:
-            "Names operations, explains faults, and encodes state into inspectable records.",
-          mystical:
-            "Splendor becomes representation: hidden process is given an intelligible form.",
-          evidence:
-            "Human-readable trace, diagnostic message, and exported JSON.",
-        },
-        yesod: {
-          name: "Yesod",
-          hebrew: "יסוד",
-          summary:
-            "Holds the shared state from which the panel, trace, and final output agree.",
-          machine: "23 register indicators + canonical state store",
-          action:
-            "Synchronizes registers, event history, caches, and indicator addresses.",
-          mystical:
-            "Foundation becomes the reliable layer that gathers the system before output.",
-          evidence: "Register values and matching host-to-panel STATE frame.",
-        },
-        malchut: {
-          name: "Malchut",
-          hebrew: "מלכות",
-          summary:
-            "Presents the observed result in the physical world of the operator.",
-          machine: "56-light panel + screen and file outputs",
-          action:
-            "Renders node, path, and register state and exports the completed manifestation.",
-          mystical:
-            "Kingdom becomes manifestation: the design is judged by what it actually produces.",
-          evidence: "Visible light pattern, result string, and checksum.",
-        },
-      };
-      const nodes = [...document.querySelectorAll(".node")],
-        paths = [...document.querySelectorAll(".path")],
-        nodeName = document.querySelector("#node-name"),
-        nodeHebrew = document.querySelector("#node-hebrew"),
-        nodeSummary = document.querySelector("#node-summary"),
-        nodeMachine = document.querySelector("#node-machine"),
-        nodeAction = document.querySelector("#node-action"),
-        nodeMystical = document.querySelector("#node-mystical"),
-        nodeEvidence = document.querySelector("#node-evidence");
-      const nodeInspector = document.querySelector("#sefirah-description"),
-        nodeKicker = document.querySelector("#node-kicker"),
-        reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-      const nodeOrder = [
-          "keter",
-          "chokhmah",
-          "binah",
-          "daat",
-          "chesed",
-          "gevurah",
-          "tiferet",
-          "netzach",
-          "hod",
-          "yesod",
-          "malchut",
-        ],
-        previousNode = document.querySelector("#node-previous"),
-        nextNode = document.querySelector("#node-next"),
-        returnToTree = document.querySelector("#return-to-tree"),
-        menuToggle = document.querySelector(".menu-toggle"),
-        primaryNav = document.querySelector("#primary-nav");
-      let selectedNodeName = "tiferet";
-      function revealNodeDetails() {
-        nodeInspector.classList.add("is-open");
-        nodeInspector.focus({ preventScroll: true });
-        if (window.matchMedia("(min-width: 901px)").matches) {
-          nodeInspector.scrollIntoView({
-            behavior: reducedMotion.matches ? "auto" : "smooth",
-            block: "start",
-          });
-        }
-        history.replaceState(null, "", "#sefirah-description");
-      }
-      function closeNodeDetails() {
-        nodeInspector.classList.remove("is-open");
-        const selectedNode = nodes.find(
-          (node) => node.dataset.node === selectedNodeName,
-        );
-        selectedNode?.focus({ preventScroll: true });
-        document.querySelector("#tree").scrollIntoView({
-          behavior: reducedMotion.matches ? "auto" : "smooth",
-          block: "center",
+
+    <script type="module">
+      import {
+        compileIvritToOpenQasm,
+        IVRIT_OPENQASM_GATES,
+      } from "./src/openqasm.ts";
+
+      const menuToggle = document.querySelector(".menu-toggle");
+      const primaryNav = document.querySelector("#primary-nav");
+      menuToggle?.addEventListener("click", () => {
+        const open = primaryNav?.dataset.open !== "true";
+        if (primaryNav) primaryNav.dataset.open = String(open);
+        menuToggle.setAttribute("aria-expanded", String(open));
+      });
+      primaryNav?.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          primaryNav.dataset.open = "false";
+          menuToggle?.setAttribute("aria-expanded", "false");
         });
-        history.replaceState(null, "", "#top");
-      }
+      });
+
+      const nodeData = {
+        keter: ["Keter / כתר", "Intent service. Establishes the governing run intention and top-level execution boundary.", "Machine role: intent / run initialization"],
+        chokhmah: ["Chokhmah / חכמה", "Generation service. Introduces candidate operations and new state into the execution path.", "Machine role: generation / operation proposal"],
+        binah: ["Binah / בינה", "Structure service. Shapes generated possibility into validated, bounded machine form.", "Machine role: structure / validation"],
+        daat: ["Da’at / דעת", "Observation boundary. Da’at remains visible but distinct from the ten sefirot and marks checkpointed knowledge of machine state.", "Machine role: observation service + dimmed Da’at boundary indicator"],
+        chesed: ["Chesed / חסד", "Expansion service. Permits state to propagate where the active contract allows additional reach.", "Machine role: expansion / propagation"],
+        gevurah: ["Gevurah / גבורה", "Constraint service. Applies limits, rejects invalid transitions, and keeps the runtime fail-closed.", "Machine role: constraint / guardrails"],
+        tiferet: ["Tiferet / תפארת", "Coherence service. Reconciles constrained and expansive state into a stable execution view.", "Machine role: coherence / state reconciliation"],
+        netzach: ["Netzach / נצח", "Continuation service. Carries accepted state forward through deterministic execution.", "Machine role: continuation / sequencing"],
+        hod: ["Hod / הוד", "Representation service. Serializes internal state into inspectable traces, projections, and records.", "Machine role: representation / serialization"],
+        yesod: ["Yesod / יסוד", "Integration service. Binds trace, projection, provenance, and physical output into a coherent run artifact.", "Machine role: integration / Run Passport binding"],
+        malchut: ["Malchut / מלכות", "Output service. Manifests the accepted run as files, transport frames, acknowledgements, and visible machine state.", "Machine role: output / physical manifestation"],
+      };
+      const nodeOrder = Object.keys(nodeData);
+      const nodes = [...document.querySelectorAll(".node[data-node]")];
+      const nodeInspector = document.querySelector("#sefirah-description");
+      const nodeName = document.querySelector("#node-name");
+      const nodeDescription = document.querySelector("#node-description");
+      const nodeTechnical = document.querySelector("#node-technical");
+      let activeNode = "tiferet";
+
       function selectNode(name, reveal = false) {
-        const detail = nodeDetails[name];
-        if (!detail) return;
-        selectedNodeName = name;
-        nodes.forEach((n) =>
-          n.classList.toggle("active", n.dataset.node === name),
-        );
-        nodes.forEach((n) =>
-          n.setAttribute("aria-pressed", String(n.dataset.node === name)),
-        );
-        paths.forEach((p) =>
-          p.classList.toggle(
-            "active",
-            p.dataset.nodes.split(" ").includes(name),
-          ),
-        );
-        nodeName.textContent = detail.name;
-        nodeHebrew.textContent = detail.hebrew;
-        nodeSummary.textContent = detail.summary;
-        nodeMachine.textContent = detail.machine;
-        nodeAction.textContent = detail.action;
-        nodeMystical.textContent = detail.mystical;
-        nodeEvidence.textContent = detail.evidence;
-        nodeKicker.textContent =
-          name === "daat"
-            ? "Da’at boundary / machine description"
-            : "Selected sefirah / machine description";
+        if (!nodeData[name]) return;
+        activeNode = name;
+        nodes.forEach((node) => node.classList.toggle("active", node.dataset.node === name));
+        document.querySelectorAll(".path").forEach((path) => {
+          path.classList.toggle("active", path.dataset.nodes?.split(" ").includes(name));
+        });
+        const [title, description, technical] = nodeData[name];
+        nodeName.textContent = title;
+        nodeDescription.textContent = description;
+        nodeTechnical.textContent = technical;
         if (reveal) revealNodeDetails();
       }
+
+      function revealNodeDetails() {
+        nodeInspector.classList.add("is-open");
+        if (window.matchMedia("(max-width: 900px)").matches) {
+          nodeInspector.scrollIntoView({ behavior: "smooth", block: "center" });
+          nodeInspector.focus({ preventScroll: true });
+        }
+      }
+
       nodes.forEach((n) => {
         n.addEventListener("click", () => selectNode(n.dataset.node, true));
-        n.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
+        n.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
             selectNode(n.dataset.node, true);
           }
         });
       });
-      function moveNode(direction) {
-        const currentIndex = nodeOrder.indexOf(selectedNodeName);
-        const nextIndex =
-          (currentIndex + direction + nodeOrder.length) % nodeOrder.length;
-        selectNode(nodeOrder[nextIndex], true);
-      }
-      previousNode.addEventListener("click", () => moveNode(-1));
-      nextNode.addEventListener("click", () => moveNode(1));
-      returnToTree.addEventListener("click", closeNodeDetails);
-      menuToggle.addEventListener("click", () => {
-        const open = primaryNav.dataset.open !== "true";
-        primaryNav.dataset.open = String(open);
-        menuToggle.setAttribute("aria-expanded", String(open));
-        menuToggle.textContent = open ? "CLOSE" : "MENU";
+      document.querySelector("#node-previous")?.addEventListener("click", () => {
+        const index = nodeOrder.indexOf(activeNode);
+        selectNode(nodeOrder[(index - 1 + nodeOrder.length) % nodeOrder.length]);
       });
-      primaryNav.addEventListener("click", (event) => {
-        if (!event.target.closest("a")) return;
-        primaryNav.dataset.open = "false";
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.textContent = "MENU";
+      document.querySelector("#node-next")?.addEventListener("click", () => {
+        const index = nodeOrder.indexOf(activeNode);
+        selectNode(nodeOrder[(index + 1) % nodeOrder.length]);
       });
-      document.addEventListener("keydown", (event) => {
-        if (event.key !== "Escape") return;
-        if (nodeInspector.classList.contains("is-open")) closeNodeDetails();
-        if (primaryNav.dataset.open === "true") {
-          primaryNav.dataset.open = "false";
-          menuToggle.setAttribute("aria-expanded", "false");
-          menuToggle.textContent = "MENU";
-          menuToggle.focus();
-        }
+      document.querySelector("#return-to-tree")?.addEventListener("click", () => {
+        nodeInspector.classList.remove("is-open");
+        document.querySelector(`#${activeNode}`)?.focus();
+        document.querySelector("#tree")?.scrollIntoView({ behavior: "smooth", block: "center" });
       });
       selectNode("tiferet");
-      const architecture = {
-        intent: {
-          tag: "KETER / ALEPH OLAM",
-          title: "Intent becomes context",
-          body: "A program begins with a declared purpose, deterministic seed, permissions, and coherence target. Aleph Olam supplies common orientation without flattening every register into the same value.",
-          spec: "<b>Inputs</b> program + seed<br><b>Kernel</b> AlephOlamContext<br><b>Guarantee</b> reproducible execution<br><b>Mode</b> classical | coherence",
-          status: "PROJECT-DEFINED / IMPLEMENTATION TARGET",
-        },
-        formation: {
-          tag: "CHOCHMAH + BINAH",
-          title: "Generation meets structure",
-          body: "Candidate states are useful only when syntax and boundaries make them executable. Chokhmah proposes; Binah parses Hebrew text, preserves marks, compiles instructions, and rejects ambiguity in strict mode.",
-          spec: "<b>Input</b> Unicode Hebrew<br><b>Output</b> typed instruction stream<br><b>Preserves</b> niqqud + cantillation<br><b>Rule</b> unsupported ≠ discarded",
-          status: "DETERMINISTIC LANGUAGE LAYER",
-        },
-        control: {
-          tag: "CHESED + GEVURAH",
-          title: "Scale within limits",
-          body: "Expansion and constraint form a control pair. Allocation, branching, and candidate growth pass through permissions, resource ceilings, step limits, and explicit validation.",
-          spec: "<b>Expand</b> allocation + branching<br><b>Constrain</b> policy + sandbox<br><b>Failure</b> typed and inspectable<br><b>Balance</b> scheduled by Tiferet",
-          status: "OPERATING-SYSTEM MODEL",
-        },
-        coherence: {
-          tag: "TIFERET",
-          title: "Coordinate, don’t mystify",
-          body: "Tiferet schedules services and evaluates consistency across both planes. In coherence mode it updates activation, phase, and coherence deterministically. These values are visualization data—not physical qubit amplitudes.",
-          spec: "<b>Activation</b> 0…1<br><b>Phase</b> 0…2π<br><b>Coherence</b> 0…1<br><b>Randomness</b> seeded only",
-          status: "THEORETICAL SIMULATION",
-        },
-        runtime: {
-          tag: "NETZACH + HOD + YESOD",
-          title: "Continue, explain, integrate",
-          body: "Execution persists through Netzach, becomes human-readable through Hod, and synchronizes through Yesod. Together they form the runtime spine: loops, logs, shared state, register updates, gates, and trace history.",
-          spec: "<b>Microstate</b> 23 letter registers<br><b>History</b> paths + gates<br><b>Interface</b> trace + explanation<br><b>Bus</b> deterministic shared state",
-          status: "RUNTIME ARCHITECTURE",
-        },
-        output: {
-          tag: "DA’AT + MALCHUT",
-          title: "Observation becomes output",
-          body: "Da’at records what the model has become at checkpoints or user request. Malchut renders that observed state. The system selects an observable snapshot; it does not claim literal quantum measurement.",
-          spec: "<b>Triggers</b> observe | checkpoint | end<br><b>Record</b> immutable snapshot<br><b>Output</b> screen | file | sound<br><b>Claim</b> symbolic computation only",
-          status: "OBSERVATION BOUNDARY",
-        },
-      };
-      const panel = document.querySelector("#arch-panel"),
-        buttons = [...document.querySelectorAll(".arch-button")];
-      function renderArch(key) {
-        const a = architecture[key];
-        panel.innerHTML = `<div><div class="eyebrow">${a.tag}</div><h3>${a.title}</h3><p>${a.body}</p><span class="status">${a.status}</span></div><div class="spec">${a.spec}</div>`;
-        buttons.forEach((b) =>
-          b.classList.toggle("active", b.dataset.arch === key),
-        );
+
+      const sourceInput = document.querySelector("#qasm-source");
+      const qasmOutput = document.querySelector("#qasm-output");
+      const qasmStatus = document.querySelector("#qasm-status");
+      const compileButton = document.querySelector("#compile-qasm");
+      const qasmMap = document.querySelector("#qasm-map");
+
+      IVRIT_OPENQASM_GATES.forEach((gate) => {
+        const item = document.createElement("li");
+        item.innerHTML = `<b lang="he">${gate.letter}</b><code>${gate.operation}</code>`;
+        item.title = `${gate.label} / arity ${gate.arity}`;
+        qasmMap.append(item);
+      });
+
+      function renderQasm() {
+        try {
+          const source = sourceInput.value.trim();
+          qasmOutput.textContent = compileIvritToOpenQasm(source, 3);
+          qasmStatus.textContent = "VALID LOCAL PROJECTION / independent parser evidence requested";
+          qasmStatus.dataset.state = "valid";
+        } catch (error) {
+          qasmOutput.textContent = "";
+          qasmStatus.textContent = error instanceof Error ? error.message : String(error);
+          qasmStatus.dataset.state = "invalid";
+        }
       }
-      buttons.forEach((b) =>
-        b.addEventListener("click", () => renderArch(b.dataset.arch)),
-      );
-      renderArch("intent");
+      compileButton.addEventListener("click", renderQasm);
+      sourceInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") renderQasm();
+      });
+      renderQasm();
     </script>
-    <script type="module" src="/src/main.ts"></script>
-    <script type="module" src="/src/openqasm-ui.ts"></script>
   </body>
 </html>
