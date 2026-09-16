@@ -8,7 +8,10 @@ import {
 } from "../src/openqasm.js";
 
 function fixture(path: string): string {
-  return readFileSync(fileURLToPath(new URL(path, import.meta.url)), "utf8").trimEnd();
+  return readFileSync(
+    fileURLToPath(new URL(path, import.meta.url)),
+    "utf8",
+  ).trimEnd();
 }
 
 describe("IvritCode OpenQASM 3 projection", () => {

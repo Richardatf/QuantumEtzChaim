@@ -1,0 +1,97 @@
+{
+  "profile": "qec-openqasm-validation-0.1",
+  "capturedAt": "2026-09-16T20:06:13+00:00",
+  "status": "PASS",
+  "scope": "canonical-corpus",
+  "targetLanguage": "OpenQASM 3.0",
+  "validators": {
+    "openqasm3Reference": "1.0.1",
+    "qiskitQasm3Import": "0.6.0",
+    "qiskit": "2.5.0",
+    "rustFrontEndRepository": "Qiskit/openqasm3_parser",
+    "rustFrontEndCommit": "3eac9970f37baf6d030a3a185b9421cca3cf0a59"
+  },
+  "programs": [
+    {
+      "id": "or-seed-09",
+      "ivritSource": "אור",
+      "normalizedSource": "אור",
+      "seed": 9,
+      "fixture": "tests/fixtures/openqasm/or-seed-09.qasm",
+      "openQasmSha256": "e0dda19344f486191a5520968cabdc844e30bcb2cbd786d76fd17d3689fa8101",
+      "openQasmBytes": 276,
+      "status": "PASS",
+      "checks": {
+        "referenceParser": {
+          "status": "PASS",
+          "statementCount": 7,
+          "diagnostic": "Parsed into the OpenQASM reference AST."
+        },
+        "qiskitImporter": {
+          "status": "PASS",
+          "qubits": 3,
+          "classicalBits": 3,
+          "operations": {
+            "measure": 3,
+            "p": 1,
+            "s": 1,
+            "cry": 1
+          },
+          "diagnostic": "Imported into a Qiskit QuantumCircuit."
+        },
+        "qiskitStatevector": {
+          "status": "PASS",
+          "dimension": 8,
+          "probabilityNorm": 1.0,
+          "diagnostic": "Unitary portion executed as a normalized Qiskit statevector."
+        },
+        "rustFrontEnd": {
+          "status": "PASS",
+          "exitCode": 0,
+          "diagnostic": "Found no parse errors"
+        }
+      }
+    },
+    {
+      "id": "shalom-seed-17",
+      "ivritSource": "שלום",
+      "normalizedSource": "שלומ",
+      "seed": 17,
+      "fixture": "tests/fixtures/openqasm/shalom-seed-17.qasm",
+      "openQasmSha256": "0fbef195017714ce57f05053c73f4fc9ed916d22fa8f97d0929275a9b3355c6e",
+      "openQasmBytes": 290,
+      "status": "PASS",
+      "checks": {
+        "referenceParser": {
+          "status": "PASS",
+          "statementCount": 8,
+          "diagnostic": "Parsed into the OpenQASM reference AST."
+        },
+        "qiskitImporter": {
+          "status": "PASS",
+          "qubits": 3,
+          "classicalBits": 3,
+          "operations": {
+            "measure": 3,
+            "swap": 1,
+            "ry": 1,
+            "s": 1,
+            "rz": 1
+          },
+          "diagnostic": "Imported into a Qiskit QuantumCircuit."
+        },
+        "qiskitStatevector": {
+          "status": "PASS",
+          "dimension": 8,
+          "probabilityNorm": 1.0,
+          "diagnostic": "Unitary portion executed as a normalized Qiskit statevector."
+        },
+        "rustFrontEnd": {
+          "status": "PASS",
+          "exitCode": 0,
+          "diagnostic": "Found no parse errors"
+        }
+      }
+    }
+  ]
+}
