@@ -7,6 +7,7 @@ on:
     paths:
       - .github/workflows/expand-gate-evidence.yml
       - .github/expand_gate_evidence.py
+      - .github/fix_gate_core_test.py
 
 permissions:
   contents: write
@@ -23,13 +24,14 @@ jobs:
           node-version: 22
           cache: npm
       - run: python .github/expand_gate_evidence.py
-      - run: npx prettier --write specifications/qec-gate-rules-v0.1.json qec/core.js tests/gates.test.ts README.md docs/BUILD_SPEC.md qec-v0.1.html docs/RELEASE_READINESS.md
+      - run: python .github/fix_gate_core_test.py
+      - run: npx prettier --write specifications/qec-gate-rules-v0.1.json qec/core.js tests/gates.test.ts tests/qec-core-v0.1.test.js README.md docs/BUILD_SPEC.md qec-v0.1.html docs/RELEASE_READINESS.md
       - run: npm ci
       - run: npm run release:check
       - run: |
           git config user.name "QEC Release Bot"
           git config user.email "actions@users.noreply.github.com"
-          git rm .github/workflows/expand-gate-evidence.yml .github/expand_gate_evidence.py
-          git add specifications/qec-gate-rules-v0.1.json qec/core.js tests/gates.test.ts README.md docs/BUILD_SPEC.md qec-v0.1.html docs/RELEASE_READINESS.md
+          git rm .github/workflows/expand-gate-evidence.yml .github/expand_gate_evidence.py .github/fix_gate_core_test.py
+          git add specifications/qec-gate-rules-v0.1.json qec/core.js tests/gates.test.ts tests/qec-core-v0.1.test.js README.md docs/BUILD_SPEC.md qec-v0.1.html docs/RELEASE_READINESS.md
           git commit -m "Expand evidence-backed QEC Gates"
           git push origin main
