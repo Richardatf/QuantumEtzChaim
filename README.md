@@ -2,6 +2,26 @@
 
 The visual Tree companion to [IvritCode](https://ivritcode.org/).
 
+## Free and open release policy
+
+Quantum Etz Chaim is released under the MIT License. The source code, OpenQASM
+projection profiles, JSON Schemas, examples, validation tooling, public evidence,
+documentation, firmware, and published hardware-reference materials in this
+repository may be used, copied, modified, forked, published, redistributed, and
+commercialized under the terms of that license.
+
+The technical contracts remain versioned and fail-closed so results can be
+reproduced. Those contracts are interoperability specifications, not permission
+gates. Nobody needs project approval to implement a compatible tool, test a
+projection, build from the public reference material, propose a different
+mapping, or maintain a fork.
+
+QEC welcomes independent implementations and incompatible experiments as long
+as they identify their profile/version clearly and do not imply endorsement by
+Quantum Etz Chaim, OpenQASM, Qiskit, or any other project.
+
+See [`LICENSE`](LICENSE) and [`docs/OPEN_COLLABORATION.md`](docs/OPEN_COLLABORATION.md).
+
 ## IvritCode exchange
 
 IvritCode can open this site with a versioned, validated execution snapshot in
