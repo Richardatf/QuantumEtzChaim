@@ -1,13 +1,5 @@
 from pathlib import Path
 
-
-def replace_once(path: str, old: str, new: str) -> None:
-    p = Path(path)
-    text = p.read_text(encoding="utf-8")
-    if old not in text:
-        raise SystemExit(f"Expected anchor not found in {path}")
-    p.write_text(text.replace(old, new, 1), encoding="utf-8")
-
 index = Path("index.html")
 text = index.read_text(encoding="utf-8")
 
@@ -79,7 +71,7 @@ css = '''      .gate-milestone {
       .machine-flow {
         display: grid;
 '''
-if 'class="gate-milestone"' not in text:
+if ".gate-milestone {" not in text:
     if css_anchor not in text:
         raise SystemExit("CSS anchor not found")
     text = text.replace(css_anchor, css, 1)
@@ -124,19 +116,18 @@ html = '''      <section class="shell gate-milestone" aria-labelledby="gate-mile
 
       <figure class="image-band">
 '''
-if 'class="gate-milestone"' not in text:
-    raise SystemExit("CSS insertion did not register")
 if 'id="gate-milestone-title"' not in text:
     if html_anchor not in text:
         raise SystemExit("HTML anchor not found")
     text = text.replace(html_anchor, html, 1)
 
-text = text.replace(
-'''        .release-status {
+if ".gate-milestone-head {\n          grid-template-columns: 1fr;" not in text:
+    text = text.replace(
+        '''        .release-status {
           grid-template-columns: 1fr 1fr;
         }
 ''',
-'''        .release-status {
+        '''        .release-status {
           grid-template-columns: 1fr 1fr;
         }
         .gate-milestone-head {
@@ -146,14 +137,15 @@ text = text.replace(
           grid-template-columns: repeat(3, minmax(0, 1fr));
         }
 ''',
-1,
-)
-text = text.replace(
-'''        .release-status {
+        1,
+    )
+if ".gate-milestone {\n          padding: 22px;" not in text:
+    text = text.replace(
+        '''        .release-status {
           grid-template-columns: 1fr;
         }
 ''',
-'''        .release-status {
+        '''        .release-status {
           grid-template-columns: 1fr;
         }
         .gate-milestone {
@@ -163,8 +155,8 @@ text = text.replace(
           grid-template-columns: 1fr 1fr;
         }
 ''',
-1,
-)
+        1,
+    )
 index.write_text(text, encoding="utf-8")
 
 test_path = Path("tests/landing-interaction.test.ts")
