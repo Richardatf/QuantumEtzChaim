@@ -7,6 +7,10 @@ import {
   normalizeIvritSource,
 } from "../src/openqasm.js";
 
+function fixture(path: string): string {
+  return readFileSync(fileURLToPath(new URL(path, import.meta.url)), "utf8").trimEnd();
+}
+
 describe("IvritCode OpenQASM 3 projection", () => {
   it("publishes one explicit mapping for every Hebrew letter", () => {
     expect(IVRIT_OPENQASM_GATES).toHaveLength(22);
@@ -39,6 +43,15 @@ describe("IvritCode OpenQASM 3 projection", () => {
     expect(qasm).toContain("cry(pi/2) q[2], q[0];");
     expect(qasm).toContain("result = measure q;");
     expect(compileIvritToOpenQasm("אור")).toBe(qasm);
+  });
+
+  it("binds external-validation fixtures to the exact emitter output", () => {
+    expect(compileIvritToOpenQasm("אור")).toBe(
+      fixture("./fixtures/openqasm/or-seed-09.qasm"),
+    );
+    expect(compileIvritToOpenQasm("שלום")).toBe(
+      fixture("./fixtures/openqasm/shalom-seed-17.qasm"),
+    );
   });
 
   it("normalizes final forms and removes Hebrew marks", () => {
