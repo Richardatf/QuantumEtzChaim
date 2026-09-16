@@ -4,16 +4,26 @@ on:
   push:
     paths:
       - src/openqasm.ts
+      - specifications/ivritcode-openqasm-v0.1.json
+      - specifications/ivritcode-openqasm-v0.2.json
+      - specifications/schemas/ivritcode-openqasm-v0.1.schema.json
+      - specifications/schemas/ivritcode-openqasm-v0.2.schema.json
       - tests/openqasm.test.ts
       - tests/fixtures/openqasm/**
+      - tests/fixtures/openqasm31/**
       - scripts/validate-openqasm.py
       - requirements-openqasm-validation.txt
       - .github/workflows/openqasm-validation.yml
   pull_request:
     paths:
       - src/openqasm.ts
+      - specifications/ivritcode-openqasm-v0.1.json
+      - specifications/ivritcode-openqasm-v0.2.json
+      - specifications/schemas/ivritcode-openqasm-v0.1.schema.json
+      - specifications/schemas/ivritcode-openqasm-v0.2.schema.json
       - tests/openqasm.test.ts
       - tests/fixtures/openqasm/**
+      - tests/fixtures/openqasm31/**
       - scripts/validate-openqasm.py
       - requirements-openqasm-validation.txt
       - .github/workflows/openqasm-validation.yml
@@ -33,9 +43,9 @@ jobs:
         run: |
           git clone https://github.com/Qiskit/openqasm3_parser.git /tmp/openqasm3_parser
           git -C /tmp/openqasm3_parser checkout 3eac9970f37baf6d030a3a185b9421cca3cf0a59
-      - name: Validate canonical QASM
+      - name: Validate OpenQASM 3.0 / 3.1 matrix
         run: |
           python scripts/validate-openqasm.py \
             --rust-parser-dir /tmp/openqasm3_parser \
-            --json-output /tmp/openqasm-validation.json \
-            --markdown-output /tmp/openqasm-validation.md
+            --json-output /tmp/openqasm-validation-matrix.json \
+            --markdown-output /tmp/openqasm-validation-matrix.md
