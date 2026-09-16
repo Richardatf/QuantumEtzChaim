@@ -13,7 +13,12 @@ export type OpenQasmGate = Readonly<{
   arity: 1 | 2 | 3;
 }>;
 
-export const IVRIT_OPENQASM_PROFILE = "ivritcode-openqasm-0.1";
+export type OpenQasmVersion = "3.0" | "3.1";
+
+export const IVRIT_OPENQASM_PROFILE_30 = "ivritcode-openqasm-0.1" as const;
+export const IVRIT_OPENQASM_PROFILE_31 = "ivritcode-openqasm-0.2" as const;
+// Backward-compatible name for the normative Run Passport projection.
+export const IVRIT_OPENQASM_PROFILE = IVRIT_OPENQASM_PROFILE_30;
 
 export const IVRIT_OPENQASM_GATES: readonly OpenQasmGate[] = Object.freeze([
   { letter: "א", operation: "p(0)", label: "Identity phase", arity: 1 },
@@ -54,6 +59,17 @@ const gateByLetter = new Map(
   IVRIT_OPENQASM_GATES.map((gate) => [gate.letter, gate]),
 );
 
+const targets = Object.freeze({
+  "3.0": {
+    header: "OPENQASM 3.0;",
+    profile: IVRIT_OPENQASM_PROFILE_30,
+  },
+  "3.1": {
+    header: "OPENQASM 3.1;",
+    profile: IVRIT_OPENQASM_PROFILE_31,
+  },
+});
+
 export function normalizeIvritSource(source: string): string {
   return [...source.normalize("NFD")]
     .filter((character) => !/[\u0591-\u05c7]/u.test(character))
@@ -70,7 +86,11 @@ function operands(index: number, qubitCount: number, arity: 1 | 2 | 3) {
   return available.join(", ");
 }
 
-export function compileIvritToOpenQasm(source: string, qubitCount = 3): string {
+export function compileIvritToOpenQasmVersion(
+  source: string,
+  version: OpenQasmVersion,
+  qubitCount = 3,
+): string {
   if (!Number.isInteger(qubitCount) || qubitCount < 3 || qubitCount > 32) {
     throw new RangeError("OpenQASM target requires 3 to 32 qubits");
   }
@@ -90,12 +110,13 @@ export function compileIvritToOpenQasm(source: string, qubitCount = 3): string {
     (gate, index) =>
       `// ${gate.letter} / ${gate.label}\n${gate.operation} ${operands(index, qubitCount, gate.arity)};`,
   );
+  const target = targets[version];
 
   return [
-    "OPENQASM 3.0;",
+    target.header,
     'include "stdgates.inc";',
     "",
-    `// QEC projection profile: ${IVRIT_OPENQASM_PROFILE}`,
+    `// QEC projection profile: ${target.profile}`,
     `// IvritCode source: ${normalized}`,
     `qubit[${qubitCount}] q;`,
     `bit[${qubitCount}] result;`,
@@ -104,4 +125,15 @@ export function compileIvritToOpenQasm(source: string, qubitCount = 3): string {
     "",
     "result = measure q;",
   ].join("\n");
+}
+
+export function compileIvritToOpenQasm(source: string, qubitCount = 3): string {
+  return compileIvritToOpenQasmVersion(source, "3.0", qubitCount);
+}
+
+export function compileIvritToOpenQasm31(
+  source: string,
+  qubitCount = 3,
+): string {
+  return compileIvritToOpenQasmVersion(source, "3.1", qubitCount);
 }

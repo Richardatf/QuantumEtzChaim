@@ -48,10 +48,11 @@ const schemas = schemaFiles.map((name) =>
 );
 
 describe("qec contract pack", () => {
-  it("publishes and compiles all thirteen contract schemas", () => {
+  it("publishes and compiles all fourteen contract schemas", () => {
     expect(schemaFiles).toEqual([
       "build-contract-v0.3.schema.json",
       "ivritcode-openqasm-v0.1.schema.json",
+      "ivritcode-openqasm-v0.2.schema.json",
       "machine-state-v0.3.schema.json",
       "manifestation-v0.2.schema.json",
       "observation-v0.3.schema.json",
@@ -127,22 +128,24 @@ describe("qec contract pack", () => {
     );
   });
 
-  it("validates the IvritCode OpenQASM translation profile", () => {
+  it("validates both IvritCode OpenQASM translation profiles", () => {
     const ajv = new Ajv2020({ allErrors: true });
-    const schema = readJson(
-      `${schemaDirectory}/ivritcode-openqasm-v0.1.schema.json`,
-    );
-    const profile = readJson(
-      fileURLToPath(
-        new URL(
-          "../specifications/ivritcode-openqasm-v0.1.json",
-          import.meta.url,
+    for (const version of ["v0.1", "v0.2"]) {
+      const schema = readJson(
+        `${schemaDirectory}/ivritcode-openqasm-${version}.schema.json`,
+      );
+      const profile = readJson(
+        fileURLToPath(
+          new URL(
+            `../specifications/ivritcode-openqasm-${version}.json`,
+            import.meta.url,
+          ),
         ),
-      ),
-    );
-    expect(ajv.validate(schema, profile), JSON.stringify(ajv.errors)).toBe(
-      true,
-    );
+      );
+      expect(ajv.validate(schema, profile), JSON.stringify(ajv.errors)).toBe(
+        true,
+      );
+    }
   });
 
   it("validates the normative build contract", () => {

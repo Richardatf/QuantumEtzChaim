@@ -1,8 +1,8 @@
 # Quantum Etz Chaim × OpenQASM collaboration brief
 
 **Status:** public technical invitation  
-**QEC projection profile:** `ivritcode-openqasm-0.1`  
-**QEC emitted language declaration:** `OPENQASM 3.0;`  
+**Normative QEC projection:** `ivritcode-openqasm-0.1` → `OPENQASM 3.0;`  
+**Experimental companion:** `ivritcode-openqasm-0.2` → `OPENQASM 3.1;`  
 **OpenQASM ecosystem reference checked:** 2026-09-16; the public OpenQASM project identifies 3.1 as its current specification.
 
 Quantum Etz Chaim (QEC) is an independent experimental computing architecture. It is not affiliated with, endorsed by, or part of the OpenQASM or Qiskit projects.
@@ -11,7 +11,7 @@ Quantum Etz Chaim (QEC) is an independent experimental computing architecture. I
 
 QEC accepts IvritCode programs whose executable alphabet is the 22 Hebrew letters. The current deterministic projection profile maps each normalized IvritCode instruction to an OpenQASM 3 operation from `stdgates.inc`, allocates operands deterministically, emits a measurement result, and binds the emitted source into the QEC Run Passport alongside the symbolic execution trace and physical-panel state frames.
 
-The OpenQASM projection is intentionally described as **emit-only** today. QEC does not claim that its symbolic runtime is quantum hardware, and the existence of an OpenQASM projection does not itself establish backend compatibility, physical quantum execution, or OpenQASM project endorsement.
+Both OpenQASM projections are intentionally described as **emit-only**. Profile 0.1 remains frozen and normative for the current Run Passport; profile 0.2 is a semantic-hold experiment that changes the explicit OpenQASM version/profile boundary without changing the 22 gate mappings. QEC does not claim that its symbolic runtime is quantum hardware, and the existence of an OpenQASM projection does not itself establish backend compatibility, physical quantum execution, or OpenQASM project endorsement.
 
 The physical QEC-1/QEC-1P machine is a separate low-voltage demonstrator that manifests deterministic QEC state across addressable indicators. It is useful as a reproducible physical witness of the QEC execution path, not as a claim of quantum processing hardware.
 
@@ -53,8 +53,9 @@ We would value critical technical review more than endorsement.
 
 The normative machine-readable profile is:
 
-- `specifications/ivritcode-openqasm-v0.1.json`
-- schema: `specifications/schemas/ivritcode-openqasm-v0.1.schema.json`
+- normative 3.0: `specifications/ivritcode-openqasm-v0.1.json`
+- experimental 3.1: `specifications/ivritcode-openqasm-v0.2.json`
+- schemas: `specifications/schemas/ivritcode-openqasm-v0.1.schema.json` and `specifications/schemas/ivritcode-openqasm-v0.2.schema.json`
 - implementation: `src/openqasm.ts`
 - tests: `tests/openqasm.test.ts`
 
@@ -147,3 +148,7 @@ OpenQASM specification site: <https://openqasm.com/>
 We are especially interested in review from people who work on OpenQASM parsing, compiler IRs, circuit lowering, simulator integration, backend interfaces, or reproducible execution records.
 
 **The request is simple: inspect it, break it, tell us what is wrong, and help us make the bridge technically useful.**
+
+## 3.0 / 3.1 comparison
+
+The cross-version validation record is published at `docs/OPENQASM_30_31_MATRIX.md` with machine-readable evidence in `evidence/openqasm-validation-matrix-v0.2.json`. Profile 0.2 intentionally keeps the 0.1 circuit body semantics unchanged so review can focus first on version declaration and toolchain behavior.

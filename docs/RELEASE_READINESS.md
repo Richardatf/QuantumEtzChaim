@@ -14,7 +14,7 @@ The release gate verifies that one canonical source crosses the published
 the deterministic QEC runtime, and remains bound to one Run Passport through:
 
 1. the complete trace and manifestation;
-2. the `ivritcode-openqasm-0.1` emit-only projection;
+2. the frozen `ivritcode-openqasm-0.1` OpenQASM 3.0 emit-only projection;
 3. monotonic, transport-bounded `qec-panel-link-0.1` state frames;
 4. simulated QEC-1P `READY` and `APPLIED` acknowledgements;
 5. acceptance evidence, JSON Schema validation, serialization, and parsing;
