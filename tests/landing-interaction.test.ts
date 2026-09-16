@@ -62,6 +62,23 @@ describe("landing-page Sefirotic navigation", () => {
     expect(landingPage).toContain('id="node-next"');
   });
 
+  it("surfaces the evidence-backed Gate milestone", () => {
+    expect(landingPage).toContain('id="gate-milestone-title"');
+    expect(landingPage).toContain("231 Gates. Evidence before execution.");
+    expect(landingPage).toContain(
+      "<strong>22</strong><span>Evidence-backed directions</span>",
+    );
+    expect(landingPage).toContain(
+      "<strong>440</strong><span>Reserved directions</span>",
+    );
+    expect(landingPage).toContain(
+      "<strong>8</strong><span>Evidence programs</span>",
+    );
+    expect(landingPage).toContain(
+      "אור · שלום · בראשית · אמת · אחד · חיים · דעת · מלכות",
+    );
+  });
+
   it("provides complete mobile navigation instead of hiding site routes", () => {
     expect(landingPage).toContain('class="menu-toggle"');
     expect(landingPage).toContain('aria-controls="primary-nav"');
