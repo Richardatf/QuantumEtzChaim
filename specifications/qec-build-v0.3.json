@@ -4,7 +4,11 @@
   "status": "executable-prototype",
   "updated": "2026-07-19",
   "packages": {
-    "ivritCodeCore": { "name": "@ivritcode/core", "version": "1.0.0", "canonical": true },
+    "ivritCodeCore": {
+      "name": "@ivritcode/core",
+      "version": "1.0.0",
+      "canonical": true
+    },
     "qecCore": { "name": "@qec/core", "version": "0.1.0", "canonical": true },
     "qecSpec": { "name": "@qec/spec", "version": "0.1.0", "canonical": true }
   },

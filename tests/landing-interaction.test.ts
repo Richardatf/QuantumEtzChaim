@@ -48,7 +48,7 @@ describe("landing-page Sefirotic navigation", () => {
     expect(landingPage).toContain("nodeInspector.scrollIntoView({");
     expect(landingPage).toContain("selectNode(n.dataset.node, true)");
     expect(landingPage).toContain('class="node-inspector"');
-    expect(landingPage).toContain("nodeInspector.classList.add(\"is-open\")");
+    expect(landingPage).toContain('nodeInspector.classList.add("is-open")');
     expect(landingPage).toContain('id="return-to-tree"');
     expect(landingPage).toContain('id="node-previous"');
     expect(landingPage).toContain('id="node-next"');

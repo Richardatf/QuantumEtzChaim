@@ -31,7 +31,8 @@ for (const file of htmlFiles) {
     const target = path.startsWith("/")
       ? join(dist, path.slice(1))
       : resolve(dirname(file), path);
-    if (!existsSync(target)) missing.push(`${file.slice(dist.length + 1)}: ${link}`);
+    if (!existsSync(target))
+      missing.push(`${file.slice(dist.length + 1)}: ${link}`);
   }
 }
 

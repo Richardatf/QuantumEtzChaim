@@ -2,3 +2,6 @@ dist/
 node_modules/
 package-lock.json
 pnpm-lock.yaml
+
+# Canonical trace bytes are verified verbatim by golden-traces.test.ts.
+tests/fixtures/golden-traces/*.json
