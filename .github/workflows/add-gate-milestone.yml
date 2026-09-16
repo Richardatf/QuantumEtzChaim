@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - .github/workflows/add-gate-milestone.yml
+      - .github/add_gate_milestone.py
 
 permissions:
   contents: write
