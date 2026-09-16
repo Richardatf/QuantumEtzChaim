@@ -32,15 +32,23 @@ describe("landing-page Sefirotic navigation", () => {
     );
   });
 
-  it("presents Da’at as a hidden boundary rather than an eleventh visible sefirah", () => {
+  it("presents Da’at as a visible boundary distinct from the ten sefirot", () => {
+    expect(landingPage).toContain('id="daat"');
     expect(landingPage).toContain('class="node daat-node"');
     expect(landingPage).toContain(
-      'aria-label="Reveal the hidden Da’at observation boundary"',
+      'aria-label="Open the Da’at observation-boundary description"',
     );
     expect(landingPage).toContain('class="daat-hit"');
-    expect(landingPage).not.toContain(
-      '<text class="he" x="300" y="217">דעת</text>',
+    expect(landingPage).toContain(
+      'class="daat-presence" cx="300" cy="220" r="27"',
     );
+    expect(landingPage).toContain(
+      '<text class="he daat-label" x="300" y="217">דעת</text>',
+    );
+    expect(landingPage).toContain(
+      '<text class="daat-label" x="300" y="237">DA’AT</text>',
+    );
+    expect(landingPage).toContain("stroke-dasharray: 3 4;");
   });
 
   it("moves the user to the updated description after activation", () => {

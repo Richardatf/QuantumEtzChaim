@@ -203,7 +203,7 @@ function renderPanelPreview(): void {
               ([, nodeAddress]) => nodeAddress === address,
             )?.[0]
           : kind === "daat"
-            ? "Hidden Da’at observation boundary"
+            ? "Dimmed Da’at observation boundary"
             : kind === "path"
               ? `${HEBREW_ALPHABET[address - 11]} path`
               : registerIndex === 22

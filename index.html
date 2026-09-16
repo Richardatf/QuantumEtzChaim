@@ -300,18 +300,33 @@
         pointer-events: all;
       }
       .daat-node .daat-presence {
-        fill: transparent;
-        stroke: transparent;
-        stroke-width: 1;
+        fill: rgba(151, 135, 190, 0.08);
+        stroke: rgba(184, 168, 222, 0.72);
+        stroke-width: 1.4;
+        stroke-dasharray: 3 4;
         pointer-events: none;
+        filter: drop-shadow(0 0 6px rgba(151, 135, 190, 0.16));
         transition: 0.3s;
+      }
+      .daat-node .daat-label {
+        fill: rgba(209, 198, 232, 0.72);
+        font: 9px var(--mono);
+      }
+      .daat-node .daat-label.he {
+        fill: rgba(221, 211, 239, 0.82);
+        font: 16px var(--serif);
       }
       .daat-node:hover .daat-presence,
       .daat-node:focus-visible .daat-presence,
       .daat-node.active .daat-presence {
-        fill: rgba(112, 201, 193, 0.09);
-        stroke: rgba(112, 201, 193, 0.46);
-        filter: drop-shadow(0 0 8px rgba(112, 201, 193, 0.3));
+        fill: rgba(151, 135, 190, 0.16);
+        stroke: rgba(221, 211, 239, 0.95);
+        filter: drop-shadow(0 0 10px rgba(151, 135, 190, 0.42));
+      }
+      .daat-node:hover .daat-label,
+      .daat-node:focus-visible .daat-label,
+      .daat-node.active .daat-label {
+        fill: rgba(238, 232, 248, 0.96);
       }
       .orbit {
         fill: none;
@@ -1302,8 +1317,9 @@
           >
             <title id="treeTitle">Quantum Etz Chaim architecture map</title>
             <desc id="treeDesc">
-              Ten visible sefirot organize services from intent through output.
-              A smaller hidden Da’at control marks the observation boundary.
+              Ten sefirot organize services from intent through output. A
+              smaller, dimmed Da’at marker remains visible at the observation
+              boundary without being counted among the ten.
             </desc>
             <circle class="orbit" cx="300" cy="345" r="250" />
             <g id="paths">
@@ -1390,15 +1406,18 @@
               <text x="160" y="188">STRUCTURE</text>
             </g>
             <g
+              id="daat"
               class="node daat-node"
               data-node="daat"
               tabindex="0"
               role="button"
               aria-controls="sefirah-description"
-              aria-label="Reveal the hidden Da’at observation boundary"
+              aria-label="Open the Da’at observation-boundary description"
             >
               <circle class="daat-hit" cx="300" cy="220" r="30" />
-              <circle class="daat-presence" cx="300" cy="220" r="10" />
+              <circle class="daat-presence" cx="300" cy="220" r="27" />
+              <text class="he daat-label" x="300" y="217">דעת</text>
+              <text class="daat-label" x="300" y="237">DA’AT</text>
             </g>
             <g
               id="chesed"
@@ -2259,12 +2278,11 @@
           hebrew: "דעת",
           summary:
             "Freezes one inspectable record of the current state without changing it.",
-          machine:
-            "Observation service + normally dark Da’at boundary indicator",
+          machine: "Observation service + dimmed Da’at boundary indicator",
           action:
-            "Appears only when observation writes a checkpoint containing state, trace position, hashes, and provenance.",
+            "Remains visible at low intensity and brightens when observation writes a checkpoint containing state, trace position, hashes, and provenance.",
           mystical:
-            "Da’at remains hidden rather than standing as an eleventh sefirah; it becomes present when wisdom and understanding are consciously joined.",
+            "Da’at is shown as a distinct threshold rather than counted among the ten sefirot; it becomes emphasized when wisdom and understanding are consciously joined.",
           evidence: "Observation record, trace hash, and state hash.",
         },
         chesed: {
@@ -2433,7 +2451,7 @@
         nodeEvidence.textContent = detail.evidence;
         nodeKicker.textContent =
           name === "daat"
-            ? "Hidden boundary / machine description"
+            ? "Da’at boundary / machine description"
             : "Selected sefirah / machine description";
         if (reveal) revealNodeDetails();
       }

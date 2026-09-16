@@ -53,7 +53,7 @@ describe("QEC-1 physical hardware model", () => {
     expect(hardware.protocol.panelOwns).not.toContain("canonical state");
   });
 
-  it("maps every address once and preserves hidden Da’at geometry", () => {
+  it("maps every address once and preserves distinct Da’at geometry", () => {
     expect(panelMap.indicators).toHaveLength(56);
     expect(panelMap.indicators.map((item) => item.address)).toEqual(
       Array.from({ length: 56 }, (_, index) => index),

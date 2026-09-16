@@ -63,12 +63,12 @@ The display and panel-power-switch areas are intentionally not finalized in the 
 
 The signal chain is always address 0 through 55. Power is injected at address 0 and near address 33; injection branches do not alter data order.
 
-| Connector | Addresses | Field                              | Nominal harness | Label color |
-| --------- | --------: | ---------------------------------- | --------------: | ----------- |
-| J1        |      0–10 | Ten visible sefirot + hidden Da’at |        1,100 mm | Gold        |
-| J2        |     11–21 | Paths Aleph through Kaf            |          900 mm | Teal        |
-| J3        |     22–32 | Paths Lamed through Tav            |          900 mm | Blue        |
-| J4        |     33–55 | Twenty-two registers + Aleph Olam  |          850 mm | Violet      |
+| Connector | Addresses | Field                               | Nominal harness | Label color |
+| --------- | --------: | ----------------------------------- | --------------: | ----------- |
+| J1        |      0–10 | Ten sefirot + distinct dimmed Da’at |        1,100 mm | Gold        |
+| J2        |     11–21 | Paths Aleph through Kaf             |          900 mm | Teal        |
+| J3        |     22–32 | Paths Lamed through Tav             |          900 mm | Blue        |
+| J4        |     33–55 | Twenty-two registers + Aleph Olam   |          850 mm | Violet      |
 
 Each removable indicator connector must be keyed and labeled at both ends. Use `5V / DATA / GND` order only if it matches the selected pixel. Manufacturer pin markings are authoritative. Provide a ground conductor alongside data between every section.
 
