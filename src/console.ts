@@ -11,11 +11,8 @@ import {
   type ProgramExecutionResult,
 } from "./machine.js";
 import { decodeProgramPermalink, encodeProgramPermalink } from "./permalink.js";
-import {
-  createRunPassport,
-  RUN_PASSPORT_STORAGE_KEY,
-  serializeRunPassport,
-} from "./passport.js";
+import { RUN_PASSPORT_STORAGE_KEY, serializeRunPassport } from "./passport.js";
+import { createIvritCodeMachineRun } from "./ivritcode-bridge.js";
 
 const get = <T extends Element>(selector: string): T => {
   const element = document.querySelector<T>(selector);
@@ -757,7 +754,10 @@ exportProvenance.addEventListener("click", () => {
 });
 
 exportRunPassport.addEventListener("click", () => {
-  const passport = createRunPassport(result);
+  const passport = createIvritCodeMachineRun(
+    result.program,
+    result.seed,
+  ).passport;
   downloadArtifact(
     serializeRunPassport(passport),
     "application/json;charset=utf-8",
@@ -767,7 +767,10 @@ exportRunPassport.addEventListener("click", () => {
 });
 
 sendToBench.addEventListener("click", () => {
-  const passport = createRunPassport(result);
+  const passport = createIvritCodeMachineRun(
+    result.program,
+    result.seed,
+  ).passport;
   localStorage.setItem(
     RUN_PASSPORT_STORAGE_KEY,
     serializeRunPassport(passport),

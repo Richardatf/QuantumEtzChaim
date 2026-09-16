@@ -8,9 +8,11 @@
     "build": "tsc --noEmit && vite build && node scripts/verify-published-links.mjs",
     "format:check": "prettier --check .",
     "test": "vitest run tests",
+    "bridge:check": "vitest run tests/ivritcode-machine-bridge.test.ts",
     "golden:check": "vitest run tests/golden-traces.test.ts",
     "golden:update": "cross-env UPDATE_GOLDENS=1 vitest run tests/golden-traces.test.ts",
     "production:check": "node scripts/check-production-coherence.mjs",
+    "release:check": "npm run format:check && npm run typecheck && npm test && npm run build",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

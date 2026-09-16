@@ -94,3 +94,13 @@ npm run typecheck
 npm test
 npm run build
 ```
+
+Release-candidate verification, including the published IvritCode compiler to
+QEC-1P Run Passport bridge:
+
+```bash
+npm run release:check
+```
+
+See [QEC release readiness](docs/RELEASE_READINESS.md) for the automated gate
+and the remaining physical and external-backend boundaries.
