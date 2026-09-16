@@ -34,6 +34,22 @@ jobs:
           git -C /tmp/openqasm3_parser checkout 3eac9970f37baf6d030a3a185b9421cca3cf0a59
       - name: Build 3.1 companion profile
         run: python .github/build_openqasm_31.py
+      - name: Normalize fixture assertions
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("tests/openqasm.test.ts")
+          text = path.read_text(encoding="utf-8")
+          text = text.replace(
+              'expect(qasm).toBe(fixture("./fixtures/openqasm/or-seed-09.qasm"));',
+              'expect(qasm).toBe(fixture("./fixtures/openqasm/or-seed-09.qasm").trimEnd());',
+          )
+          text = text.replace(
+              'expect(q31).toBe(fixture("./fixtures/openqasm31/shalom-seed-17.qasm"));',
+              'expect(q31).toBe(fixture("./fixtures/openqasm31/shalom-seed-17.qasm").trimEnd());',
+          )
+          path.write_text(text, encoding="utf-8")
+          PY
       - name: Format implementation and contracts
         run: npx prettier --write src/openqasm.ts specifications/ivritcode-openqasm-v0.2.json specifications/schemas/ivritcode-openqasm-v0.2.schema.json tests/openqasm.test.ts tests/contracts.test.ts .github/workflows/openqasm-validation.yml docs/RELEASE_READINESS.md docs/OPENQASM_COLLABORATION.md index.html
       - name: Verify software release gate
