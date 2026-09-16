@@ -60,30 +60,30 @@ The normative machine-readable profile is:
 
 Current letter-to-operation map:
 
-| Letter | Operation | Arity |
-| --- | --- | ---: |
-| א | `p(0)` | 1 |
-| ב | `x` | 1 |
-| ג | `y` | 1 |
-| ד | `z` | 1 |
-| ה | `h` | 1 |
-| ו | `s` | 1 |
-| ז | `sdg` | 1 |
-| ח | `t` | 1 |
-| ט | `tdg` | 1 |
-| י | `sx` | 1 |
-| כ | `rx(pi/2)` | 1 |
-| ל | `ry(pi/2)` | 1 |
-| מ | `rz(pi/2)` | 1 |
-| נ | `p(pi/4)` | 1 |
-| ס | `cx` | 2 |
-| ע | `cy` | 2 |
-| פ | `cz` | 2 |
-| צ | `cp(pi/2)` | 2 |
-| ק | `crx(pi/2)` | 2 |
-| ר | `cry(pi/2)` | 2 |
-| ש | `swap` | 2 |
-| ת | `ccx` | 3 |
+| Letter | Operation   | Arity |
+| ------ | ----------- | ----: |
+| א      | `p(0)`      |     1 |
+| ב      | `x`         |     1 |
+| ג      | `y`         |     1 |
+| ד      | `z`         |     1 |
+| ה      | `h`         |     1 |
+| ו      | `s`         |     1 |
+| ז      | `sdg`       |     1 |
+| ח      | `t`         |     1 |
+| ט      | `tdg`       |     1 |
+| י      | `sx`        |     1 |
+| כ      | `rx(pi/2)`  |     1 |
+| ל      | `ry(pi/2)`  |     1 |
+| מ      | `rz(pi/2)`  |     1 |
+| נ      | `p(pi/4)`   |     1 |
+| ס      | `cx`        |     2 |
+| ע      | `cy`        |     2 |
+| פ      | `cz`        |     2 |
+| צ      | `cp(pi/2)`  |     2 |
+| ק      | `crx(pi/2)` |     2 |
+| ר      | `cry(pi/2)` |     2 |
+| ש      | `swap`      |     2 |
+| ת      | `ccx`       |     3 |
 
 Hebrew final forms are normalized to their ordinary forms, and Hebrew combining marks in the U+0591–U+05C7 range are stripped before translation.
 

@@ -49,11 +49,27 @@
         z-index: -1;
         pointer-events: none;
         background:
-          radial-gradient(circle at 77% 5%, rgba(45, 113, 103, 0.2), transparent 30%),
-          radial-gradient(circle at 14% 52%, rgba(190, 148, 70, 0.08), transparent 24%),
+          radial-gradient(
+            circle at 77% 5%,
+            rgba(45, 113, 103, 0.2),
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at 14% 52%,
+            rgba(190, 148, 70, 0.08),
+            transparent 24%
+          ),
           linear-gradient(rgba(255, 255, 255, 0.014) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.014) 1px, transparent 1px);
-        background-size: auto, auto, 48px 48px, 48px 48px;
+          linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.014) 1px,
+            transparent 1px
+          );
+        background-size:
+          auto,
+          auto,
+          48px 48px,
+          48px 48px;
       }
       a {
         color: inherit;
@@ -618,7 +634,11 @@
         margin: 0 auto 48px;
         padding: 28px;
         border: 1px solid rgba(112, 201, 193, 0.24);
-        background: linear-gradient(135deg, rgba(13, 28, 25, 0.9), rgba(9, 20, 17, 0.96));
+        background: linear-gradient(
+          135deg,
+          rgba(13, 28, 25, 0.9),
+          rgba(9, 20, 17, 0.96)
+        );
       }
       .gate-milestone-head {
         display: grid;
@@ -691,7 +711,11 @@
         align-items: center;
         padding: clamp(30px, 5vw, 58px);
         border: 1px solid rgba(212, 180, 106, 0.3);
-        background: linear-gradient(135deg, rgba(212, 180, 106, 0.07), rgba(112, 201, 193, 0.04));
+        background: linear-gradient(
+          135deg,
+          rgba(212, 180, 106, 0.07),
+          rgba(112, 201, 193, 0.04)
+        );
       }
       .request-banner h2 {
         margin: 10px 0 16px;
@@ -765,7 +789,10 @@
           opacity: 0;
           transform: translateY(-8px);
           pointer-events: none;
-          transition: max-height 0.25s ease, opacity 0.2s ease, transform 0.2s ease;
+          transition:
+            max-height 0.25s ease,
+            opacity 0.2s ease,
+            transform 0.2s ease;
         }
         nav[data-open="true"] {
           max-height: calc(100svh - 78px);
@@ -940,7 +967,9 @@
           <a href="#evidence">Evidence</a>
           <a href="machine.html">Physical QEC</a>
           <a href="console.html">Runtime</a>
-          <a class="cta" href="docs/OPENQASM_COLLABORATION.md">Collaboration brief ↗</a>
+          <a class="cta" href="docs/OPENQASM_COLLABORATION.md"
+            >Collaboration brief ↗</a
+          >
         </nav>
       </div>
     </header>
@@ -948,133 +977,277 @@
     <main id="top">
       <section class="shell hero">
         <div class="hero-copy">
-          <div class="eyebrow">An open technical invitation to the OpenQASM community</div>
+          <div class="eyebrow">
+            An open technical invitation to the OpenQASM community
+          </div>
           <h1>Help us make the <em>IvritCode → OpenQASM</em> bridge useful.</h1>
           <p class="lead">
-            Quantum Etz Chaim is an independent experimental architecture that turns
-            Hebrew-letter programs into deterministic execution traces, emits an
-            OpenQASM 3 projection, binds the result into a replayable Run Passport,
-            and can manifest machine state on a physical QEC-1 panel. We are asking
-            OpenQASM engineers and users to inspect the bridge, challenge the mapping,
-            validate it against real toolchains, and help us expand it responsibly.
+            Quantum Etz Chaim is an independent experimental architecture that
+            turns Hebrew-letter programs into deterministic execution traces,
+            emits an OpenQASM 3 projection, binds the result into a replayable
+            Run Passport, and can manifest machine state on a physical QEC-1
+            panel. We are asking OpenQASM engineers and users to inspect the
+            bridge, challenge the mapping, validate it against real toolchains,
+            and help us expand it responsibly.
           </p>
           <p class="mobile-intro">
-            <strong>QEC is asking for OpenQASM review.</strong> Inspect the deterministic
-            IvritCode → OpenQASM bridge, test it against real tools, and help us improve it.
+            <strong>QEC is asking for OpenQASM review.</strong> Inspect the
+            deterministic IvritCode → OpenQASM bridge, test it against real
+            tools, and help us improve it.
           </p>
           <div class="hero-actions">
-            <a class="button primary" href="#quantum-target">Try the projection <span>→</span></a>
+            <a class="button primary" href="#quantum-target"
+              >Try the projection <span>→</span></a
+            >
             <a class="button" href="#help">See exactly where we need help</a>
-            <a class="button" href="docs/OPENQASM_COLLABORATION.md">Read the technical brief</a>
+            <a class="button" href="docs/OPENQASM_COLLABORATION.md"
+              >Read the technical brief</a
+            >
           </div>
           <div class="machine-facts" aria-label="Current project facts">
             <div><strong>22</strong><span>IVRITCODE INSTRUCTIONS</span></div>
-            <div><strong>3.0</strong><span>CURRENT EMITTED QASM HEADER</span></div>
-            <div><strong>3.1</strong><span>CURRENT OPENQASM SPEC CHECKED 2026-09-16</span></div>
+            <div>
+              <strong>3.0</strong><span>CURRENT EMITTED QASM HEADER</span>
+            </div>
+            <div>
+              <strong>3.1</strong
+              ><span>CURRENT OPENQASM SPEC CHECKED 2026-09-16</span>
+            </div>
             <div><strong>56</strong><span>QEC-1 STATE INDICATORS</span></div>
           </div>
           <p class="independent-note">
-            Independent project. Quantum Etz Chaim is not affiliated with, endorsed by,
-            or part of the OpenQASM or Qiskit projects. The current QEC projection is
-            intentionally described as emit-only while independent compatibility evidence
-            is expanded.
+            Independent project. Quantum Etz Chaim is not affiliated with,
+            endorsed by, or part of the OpenQASM or Qiskit projects. The current
+            QEC projection is intentionally described as emit-only while
+            independent compatibility evidence is expanded.
           </p>
         </div>
 
         <div class="tree-stage" aria-label="Interactive QEC architecture map">
           <div class="tree-glow"></div>
-          <svg id="tree" viewBox="0 0 600 700" role="img" aria-labelledby="treeTitle treeDesc">
+          <svg
+            id="tree"
+            viewBox="0 0 600 700"
+            role="img"
+            aria-labelledby="treeTitle treeDesc"
+          >
             <title id="treeTitle">Quantum Etz Chaim architecture map</title>
             <desc id="treeDesc">
-              Ten sefirot organize services from intent through output. A smaller,
-              dimmed Da’at marker remains visible at the observation boundary without
-              being counted among the ten.
+              Ten sefirot organize services from intent through output. A
+              smaller, dimmed Da’at marker remains visible at the observation
+              boundary without being counted among the ten.
             </desc>
             <g id="paths">
-              <path class="path" data-nodes="keter chokhmah" d="M300 70L440 170" />
+              <path
+                class="path"
+                data-nodes="keter chokhmah"
+                d="M300 70L440 170"
+              />
               <path class="path" data-nodes="keter binah" d="M300 70L160 170" />
               <path class="path" data-nodes="chokhmah binah" d="M440 170H160" />
               <path class="path" data-nodes="keter daat" d="M300 70V220" />
-              <path class="path" data-nodes="chokhmah chesed" d="M440 170V300" />
+              <path
+                class="path"
+                data-nodes="chokhmah chesed"
+                d="M440 170V300"
+              />
               <path class="path" data-nodes="binah gevurah" d="M160 170V300" />
               <path class="path" data-nodes="daat tiferet" d="M300 220V390" />
-              <path class="path" data-nodes="chesed tiferet" d="M440 300L300 390" />
-              <path class="path" data-nodes="gevurah tiferet" d="M160 300L300 390" />
-              <path class="path" data-nodes="tiferet netzach" d="M300 390L440 480" />
-              <path class="path" data-nodes="tiferet hod" d="M300 390L160 480" />
-              <path class="path" data-nodes="netzach yesod" d="M440 480L300 570" />
+              <path
+                class="path"
+                data-nodes="chesed tiferet"
+                d="M440 300L300 390"
+              />
+              <path
+                class="path"
+                data-nodes="gevurah tiferet"
+                d="M160 300L300 390"
+              />
+              <path
+                class="path"
+                data-nodes="tiferet netzach"
+                d="M300 390L440 480"
+              />
+              <path
+                class="path"
+                data-nodes="tiferet hod"
+                d="M300 390L160 480"
+              />
+              <path
+                class="path"
+                data-nodes="netzach yesod"
+                d="M440 480L300 570"
+              />
               <path class="path" data-nodes="hod yesod" d="M160 480L300 570" />
               <path class="path" data-nodes="yesod malchut" d="M300 570V655" />
             </g>
-            <g id="keter" class="node" data-node="keter" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Keter description">
+            <g
+              id="keter"
+              class="node"
+              data-node="keter"
+              tabindex="0"
+              role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Keter description"
+            >
               <circle cx="300" cy="70" r="36" />
               <text class="he" x="300" y="67">כתר</text>
               <text x="300" y="88">INTENT</text>
             </g>
-            <g id="chokhmah" class="node" data-node="chokhmah" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Chokhmah description">
+            <g
+              id="chokhmah"
+              class="node"
+              data-node="chokhmah"
+              tabindex="0"
+              role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Chokhmah description"
+            >
               <circle cx="440" cy="170" r="36" />
               <text class="he" x="440" y="167">חכמה</text>
               <text x="440" y="188">GENERATION</text>
             </g>
-            <g id="binah" class="node" data-node="binah" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Binah description">
+            <g
+              id="binah"
+              class="node"
+              data-node="binah"
+              tabindex="0"
+              role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Binah description"
+            >
               <circle cx="160" cy="170" r="36" />
               <text class="he" x="160" y="167">בינה</text>
               <text x="160" y="188">STRUCTURE</text>
             </g>
-            <g id="daat" class="node daat-node" data-node="daat" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Da’at observation-boundary description">
+            <g
+              id="daat"
+              class="node daat-node"
+              data-node="daat"
+              tabindex="0"
+              role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Da’at observation-boundary description"
+            >
               <circle class="daat-hit" cx="300" cy="220" r="30" />
               <circle class="daat-presence" cx="300" cy="220" r="27" />
               <text class="he daat-label" x="300" y="217">דעת</text>
               <text class="daat-label" x="300" y="237">DA’AT</text>
             </g>
-            <g id="chesed" class="node" data-node="chesed" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Chesed description">
+            <g
+              id="chesed"
+              class="node"
+              data-node="chesed"
+              tabindex="0"
+              role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Chesed description"
+            >
               <circle cx="440" cy="300" r="36" />
               <text class="he" x="440" y="297">חסד</text>
               <text x="440" y="318">EXPAND</text>
             </g>
-            <g id="gevurah" class="node" data-node="gevurah" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Gevurah description">
+            <g
+              id="gevurah"
+              class="node"
+              data-node="gevurah"
+              tabindex="0"
+              role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Gevurah description"
+            >
               <circle cx="160" cy="300" r="36" />
               <text class="he" x="160" y="297">גבורה</text>
               <text x="160" y="318">CONSTRAIN</text>
             </g>
-            <g id="tiferet" class="node active" data-node="tiferet" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Tiferet description">
+            <g
+              id="tiferet"
+              class="node active"
+              data-node="tiferet"
+              tabindex="0"
+              role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Tiferet description"
+            >
               <circle cx="300" cy="390" r="42" />
               <text class="he" x="300" y="387">תפארת</text>
               <text x="300" y="409">COHERENCE</text>
             </g>
-            <g id="netzach" class="node" data-node="netzach" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Netzach description">
+            <g
+              id="netzach"
+              class="node"
+              data-node="netzach"
+              tabindex="0"
+              role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Netzach description"
+            >
               <circle cx="440" cy="480" r="36" />
               <text class="he" x="440" y="477">נצח</text>
               <text x="440" y="498">CONTINUE</text>
             </g>
-            <g id="hod" class="node" data-node="hod" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Hod description">
+            <g
+              id="hod"
+              class="node"
+              data-node="hod"
+              tabindex="0"
+              role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Hod description"
+            >
               <circle cx="160" cy="480" r="36" />
               <text class="he" x="160" y="477">הוד</text>
               <text x="160" y="498">REPRESENT</text>
             </g>
-            <g id="yesod" class="node" data-node="yesod" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Yesod description">
+            <g
+              id="yesod"
+              class="node"
+              data-node="yesod"
+              tabindex="0"
+              role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Yesod description"
+            >
               <circle cx="300" cy="570" r="36" />
               <text class="he" x="300" y="567">יסוד</text>
               <text x="300" y="588">INTEGRATE</text>
             </g>
-            <g id="malchut" class="node" data-node="malchut" tabindex="0" role="button" aria-controls="sefirah-description" aria-label="Open the Malchut description">
+            <g
+              id="malchut"
+              class="node"
+              data-node="malchut"
+              tabindex="0"
+              role="button"
+              aria-controls="sefirah-description"
+              aria-label="Open the Malchut description"
+            >
               <circle cx="300" cy="655" r="36" />
               <text class="he" x="300" y="652">מלכות</text>
               <text x="300" y="673">OUTPUT</text>
             </g>
           </svg>
-          <aside class="node-inspector" id="sefirah-description" aria-labelledby="node-name" tabindex="-1">
+          <aside
+            class="node-inspector"
+            id="sefirah-description"
+            aria-labelledby="node-name"
+            tabindex="-1"
+          >
             <div class="eyebrow">QEC architecture service</div>
             <h2 id="node-name">Tiferet / תפארת</h2>
             <p id="node-description">
-              Coherence service. Tiferet reconciles constrained and expansive state into
-              a stable execution view before continuation and representation.
+              Coherence service. Tiferet reconciles constrained and expansive
+              state into a stable execution view before continuation and
+              representation.
             </p>
-            <p class="technical" id="node-technical">Machine role: coherence / state reconciliation</p>
+            <p class="technical" id="node-technical">
+              Machine role: coherence / state reconciliation
+            </p>
             <div class="inspector-controls">
               <button id="node-previous" type="button">← PREVIOUS</button>
               <button id="node-next" type="button">NEXT →</button>
-              <button class="return-tree" id="return-to-tree" type="button">RETURN TO TREE</button>
+              <button class="return-tree" id="return-to-tree" type="button">
+                RETURN TO TREE
+              </button>
             </div>
           </aside>
         </div>
@@ -1090,17 +1263,26 @@
           <article>
             <span>Current boundary</span>
             <strong>Emit-only</strong>
-            <p>No claim of official OpenQASM conformance or quantum hardware execution.</p>
+            <p>
+              No claim of official OpenQASM conformance or quantum hardware
+              execution.
+            </p>
           </article>
           <article>
             <span>QEC evidence</span>
             <strong>Run Passport</strong>
-            <p>Emitted source, trace, hashes, panel frames, and provenance travel together.</p>
+            <p>
+              Emitted source, trace, hashes, panel frames, and provenance travel
+              together.
+            </p>
           </article>
           <article>
             <span>Request</span>
             <strong>Review + expansion</strong>
-            <p>Parser validation, semantic critique, backend tests, and profile evolution.</p>
+            <p>
+              Parser validation, semantic critique, backend tests, and profile
+              evolution.
+            </p>
           </article>
         </div>
       </section>
@@ -1113,10 +1295,11 @@
               <h2>We do not want a private quantum interchange format.</h2>
             </div>
             <p class="section-intro">
-              OpenQASM is built to serve as an intermediate representation between higher-level
-              tooling and quantum execution systems. That makes it the right place for QEC to
-              expose its circuit-level projection and invite outside scrutiny rather than hide
-              behind a proprietary output format.
+              OpenQASM is built to serve as an intermediate representation
+              between higher-level tooling and quantum execution systems. That
+              makes it the right place for QEC to expose its circuit-level
+              projection and invite outside scrutiny rather than hide behind a
+              proprietary output format.
             </p>
           </div>
           <div class="why-grid">
@@ -1124,28 +1307,32 @@
               <span class="num">01 / INTEROPERABILITY</span>
               <h3>A legible handoff</h3>
               <p>
-                IvritCode remains the symbolic source language. OpenQASM becomes the explicit
-                quantum-toolchain handoff. QEC can evolve without asking outside tools to learn
-                QEC’s internal symbolic runtime.
+                IvritCode remains the symbolic source language. OpenQASM becomes
+                the explicit quantum-toolchain handoff. QEC can evolve without
+                asking outside tools to learn QEC’s internal symbolic runtime.
               </p>
-              <a href="https://openqasm.com/">Open the OpenQASM specification ↗</a>
+              <a href="https://openqasm.com/"
+                >Open the OpenQASM specification ↗</a
+              >
             </article>
             <article class="panel-card">
               <span class="num">02 / CRITICISM</span>
               <h3>A boundary experts can attack</h3>
               <p>
-                The current 22-letter mapping is deterministic. That does not make it optimal.
-                Publishing the profile lets compiler and quantum-language experts identify bad
-                assumptions, weak semantics, or avoidable incompatibilities.
+                The current 22-letter mapping is deterministic. That does not
+                make it optimal. Publishing the profile lets compiler and
+                quantum-language experts identify bad assumptions, weak
+                semantics, or avoidable incompatibilities.
               </p>
             </article>
             <article class="panel-card">
               <span class="num">03 / EVIDENCE</span>
               <h3>Claims can become testable</h3>
               <p>
-                “It emits OpenQASM” is a small claim. Parser acceptance, simulator execution,
-                and backend testing are stronger claims. QEC is designed to record those steps
-                separately rather than blur them together.
+                “It emits OpenQASM” is a small claim. Parser acceptance,
+                simulator execution, and backend testing are stronger claims.
+                QEC is designed to record those steps separately rather than
+                blur them together.
               </p>
             </article>
           </div>
@@ -1160,58 +1347,79 @@
               <h2>Source, projection, evidence, machine.</h2>
             </div>
             <p class="section-intro">
-              The OpenQASM output is one part of a larger reproducibility chain. The same run can
-              carry a deterministic symbolic trace, its OpenQASM projection, transport frames for
-              the physical panel, acknowledgements, and provenance in one versioned passport.
+              The OpenQASM output is one part of a larger reproducibility chain.
+              The same run can carry a deterministic symbolic trace, its
+              OpenQASM projection, transport frames for the physical panel,
+              acknowledgements, and provenance in one versioned passport.
             </p>
           </div>
           <div class="bridge-flow" aria-label="QEC execution flow">
             <article class="bridge-step">
               <b>01</b>
               <h3>IvritCode</h3>
-              <p>Hebrew-letter source with final-form and combining-mark normalization.</p>
+              <p>
+                Hebrew-letter source with final-form and combining-mark
+                normalization.
+              </p>
             </article>
             <article class="bridge-step">
               <b>02</b>
               <h3>QEC runtime</h3>
-              <p>Deterministic symbolic execution with trace, state, Gates, and provenance.</p>
+              <p>
+                Deterministic symbolic execution with trace, state, Gates, and
+                provenance.
+              </p>
             </article>
             <article class="bridge-step">
               <b>03</b>
               <h3>Projection</h3>
-              <p>Versioned 22-instruction mapping emits ordinary OpenQASM 3 source.</p>
+              <p>
+                Versioned 22-instruction mapping emits ordinary OpenQASM 3
+                source.
+              </p>
             </article>
             <article class="bridge-step">
               <b>04</b>
               <h3>Validation</h3>
-              <p>The next frontier: independent parsers, simulators, and backend-facing tools.</p>
+              <p>
+                The next frontier: independent parsers, simulators, and
+                backend-facing tools.
+              </p>
             </article>
             <article class="bridge-step">
               <b>05</b>
               <h3>Run Passport</h3>
-              <p>Source, hashes, emitted QASM, trace, machine frames, and evidence stay bound.</p>
+              <p>
+                Source, hashes, emitted QASM, trace, machine frames, and
+                evidence stay bound.
+              </p>
             </article>
             <article class="bridge-step">
               <b>06</b>
               <h3>QEC-1P</h3>
-              <p>A separate classical hardware witness manifests deterministic machine state.</p>
+              <p>
+                A separate classical hardware witness manifests deterministic
+                machine state.
+              </p>
             </article>
           </div>
           <div class="boundary-note">
             <div>
               <strong>The physical machine remains central.</strong>
               <p>
-                QEC-1 is not presented as quantum processing hardware. It is the tangible end of
-                the QEC state pipeline: 24 keys, 56 addressable indicators, low-voltage control,
-                and a visible manifestation of deterministic execution. The OpenQASM bridge is
-                how QEC reaches outward into quantum software ecosystems.
+                QEC-1 is not presented as quantum processing hardware. It is the
+                tangible end of the QEC state pipeline: 24 keys, 56 addressable
+                indicators, low-voltage control, and a visible manifestation of
+                deterministic execution. The OpenQASM bridge is how QEC reaches
+                outward into quantum software ecosystems.
               </p>
             </div>
             <div>
               <strong>The claim stays narrow.</strong>
               <p>
-                Today: deterministic OpenQASM emission. Next: independent parser evidence. Then:
-                simulator and backend experiments, each recorded with exact versions and results.
+                Today: deterministic OpenQASM emission. Next: independent parser
+                evidence. Then: simulator and backend experiments, each recorded
+                with exact versions and results.
               </p>
             </div>
           </div>
@@ -1223,14 +1431,17 @@
           <div class="section-head">
             <div>
               <div class="eyebrow">Live projection / profile 0.1</div>
-              <h2>Put Hebrew source on one side. Inspect OpenQASM on the other.</h2>
+              <h2>
+                Put Hebrew source on one side. Inspect OpenQASM on the other.
+              </h2>
             </div>
             <p class="section-intro">
-              This browser demo uses the repository’s real compiler function, not a hand-written
-              example. The default target allocates three qubits. The current profile emits an
-              `OPENQASM 3.0;` declaration while the broader OpenQASM project currently identifies
-              3.1 as its current public specification. That version question is part of the review
-              we are asking for.
+              This browser demo uses the repository’s real compiler function,
+              not a hand-written example. The default target allocates three
+              qubits. The current profile emits an `OPENQASM 3.0;` declaration
+              while the broader OpenQASM project currently identifies 3.1 as its
+              current public specification. That version question is part of the
+              review we are asking for.
             </p>
           </div>
           <div class="qasm-lab">
@@ -1238,44 +1449,73 @@
               <div class="eyebrow">IvritCode source</div>
               <h3>Try a program.</h3>
               <p>
-                Use Hebrew letters only. Niqqud and cantillation are stripped; final forms are
-                normalized. Try <span lang="he" dir="rtl">אור</span> or
+                Use Hebrew letters only. Niqqud and cantillation are stripped;
+                final forms are normalized. Try
+                <span lang="he" dir="rtl">אור</span> or
                 <span lang="he" dir="rtl">שלום</span>.
               </p>
               <label for="qasm-source">Source</label>
-              <input id="qasm-source" value="אור" lang="he" dir="rtl" autocomplete="off" />
-              <button class="button primary" id="compile-qasm" type="button">Compile to OpenQASM →</button>
-              <span class="qasm-status" id="qasm-status">PROFILE READY / ivritcode-openqasm-0.1</span>
+              <input
+                id="qasm-source"
+                value="אור"
+                lang="he"
+                dir="rtl"
+                autocomplete="off"
+              />
+              <button class="button primary" id="compile-qasm" type="button">
+                Compile to OpenQASM →
+              </button>
+              <span class="qasm-status" id="qasm-status"
+                >PROFILE READY / ivritcode-openqasm-0.1</span
+              >
               <div class="hero-actions">
-                <a class="button" href="specifications/ivritcode-openqasm-v0.1.json">Profile JSON</a>
-                <a class="button" href="specifications/schemas/ivritcode-openqasm-v0.1.schema.json">Schema</a>
+                <a
+                  class="button"
+                  href="specifications/ivritcode-openqasm-v0.1.json"
+                  >Profile JSON</a
+                >
+                <a
+                  class="button"
+                  href="specifications/schemas/ivritcode-openqasm-v0.1.schema.json"
+                  >Schema</a
+                >
               </div>
             </div>
             <div class="qasm-output-shell">
               <pre id="qasm-output" aria-live="polite"></pre>
             </div>
           </div>
-          <ul class="qasm-map" id="qasm-map" aria-label="IvritCode to OpenQASM operation map"></ul>
+          <ul
+            class="qasm-map"
+            id="qasm-map"
+            aria-label="IvritCode to OpenQASM operation map"
+          ></ul>
         </div>
       </section>
 
-      <section class="shell gate-milestone" aria-labelledby="gate-milestone-title">
+      <section
+        class="shell gate-milestone"
+        aria-labelledby="gate-milestone-title"
+      >
         <div class="gate-milestone-head">
           <div>
             <div class="eyebrow">Gate evidence milestone</div>
-            <h2 id="gate-milestone-title">231 Gates. Evidence before execution.</h2>
+            <h2 id="gate-milestone-title">
+              231 Gates. Evidence before execution.
+            </h2>
             <p>
-              QEC separately tracks symbolic directional Gate rules. Every direction remains
-              fail-closed until replayable evidence supplies the program, deterministic seed,
-              exact Gate index, and observed machine topology needed to approve it. Symbolism
-              alone never activates a Gate.
+              QEC separately tracks symbolic directional Gate rules. Every
+              direction remains fail-closed until replayable evidence supplies
+              the program, deterministic seed, exact Gate index, and observed
+              machine topology needed to approve it. Symbolism alone never
+              activates a Gate.
             </p>
           </div>
           <div>
             <p>
-              This is not the same layer as the 22-letter OpenQASM mapping. It is shown here
-              because the same design principle governs both: stronger claims require stronger,
-              replayable evidence.
+              This is not the same layer as the 22-letter OpenQASM mapping. It
+              is shown here because the same design principle governs both:
+              stronger claims require stronger, replayable evidence.
             </p>
           </div>
         </div>
@@ -1286,7 +1526,9 @@
           <div><strong>440</strong><span>Reserved directions</span></div>
           <div><strong>8</strong><span>Evidence programs</span></div>
         </div>
-        <div class="gate-programs" lang="he" dir="rtl">אור · שלום · בראשית · אמת · אחד · חיים · דעת · מלכות</div>
+        <div class="gate-programs" lang="he" dir="rtl">
+          אור · שלום · בראשית · אמת · אחד · חיים · דעת · מלכות
+        </div>
       </section>
 
       <section class="section" id="help">
@@ -1297,9 +1539,10 @@
               <h2>We want criticism that changes the implementation.</h2>
             </div>
             <p class="section-intro">
-              We are not asking the OpenQASM community to accept QEC’s assumptions. We are asking
-              people who know the language, parsers, compiler IRs, simulators, and backend
-              interfaces to tell us where the bridge is wrong, shallow, obsolete, or useful.
+              We are not asking the OpenQASM community to accept QEC’s
+              assumptions. We are asking people who know the language, parsers,
+              compiler IRs, simulators, and backend interfaces to tell us where
+              the bridge is wrong, shallow, obsolete, or useful.
             </p>
           </div>
           <div class="ask-grid">
@@ -1307,53 +1550,59 @@
               <span class="ask-tag">PARSER VALIDATION</span>
               <h3>Break the emitted source.</h3>
               <p>
-                Run canonical QEC output through recognized OpenQASM parsers. We want exact tool
-                versions, diagnostics, disagreements, and reproducible failure cases recorded as
-                evidence rather than quietly patched around.
+                Run canonical QEC output through recognized OpenQASM parsers. We
+                want exact tool versions, diagnostics, disagreements, and
+                reproducible failure cases recorded as evidence rather than
+                quietly patched around.
               </p>
             </article>
             <article class="panel-card ask-card">
               <span class="ask-tag">3.0 → 3.1</span>
               <h3>Tell us how to version the target.</h3>
               <p>
-                Should profile 0.1 remain a frozen 3.0 contract, migrate to 3.1, or coexist with a
-                new versioned profile? We want the answer driven by compatibility and semantics,
-                not by changing a header because a newer number exists.
+                Should profile 0.1 remain a frozen 3.0 contract, migrate to 3.1,
+                or coexist with a new versioned profile? We want the answer
+                driven by compatibility and semantics, not by changing a header
+                because a newer number exists.
               </p>
             </article>
             <article class="panel-card ask-card">
               <span class="ask-tag">SEMANTIC REVIEW</span>
               <h3>Challenge all 22 mappings.</h3>
               <p>
-                Deterministic is not synonymous with well-designed. Review gate choice, arity,
-                parameter values, operand rotation, measurement behavior, and whether the profile
-                teaches the wrong abstraction about quantum programs.
+                Deterministic is not synonymous with well-designed. Review gate
+                choice, arity, parameter values, operand rotation, measurement
+                behavior, and whether the profile teaches the wrong abstraction
+                about quantum programs.
               </p>
             </article>
             <article class="panel-card ask-card">
               <span class="ask-tag">SIMULATORS + BACKENDS</span>
               <h3>Build a compatibility matrix.</h3>
               <p>
-                Help us test multiple independently maintained tools and separate “parses,”
-                “simulates,” and “runs on a hardware-facing stack” into distinct, versioned claims.
+                Help us test multiple independently maintained tools and
+                separate “parses,” “simulates,” and “runs on a hardware-facing
+                stack” into distinct, versioned claims.
               </p>
             </article>
             <article class="panel-card ask-card">
               <span class="ask-tag">LANGUAGE GROWTH</span>
               <h3>Expand beyond a flat gate stream.</h3>
               <p>
-                Guide the next profile toward OpenQASM-native control flow, parameterization,
-                subroutines, timing, richer measurement behavior, and calibration-aware boundaries
-                where those features actually add technical value.
+                Guide the next profile toward OpenQASM-native control flow,
+                parameterization, subroutines, timing, richer measurement
+                behavior, and calibration-aware boundaries where those features
+                actually add technical value.
               </p>
             </article>
             <article class="panel-card ask-card">
               <span class="ask-tag">PROVENANCE</span>
               <h3>Improve the Run Passport.</h3>
               <p>
-                Review whether binding the emitted OpenQASM and validation artifacts to the same
-                execution passport is useful. Tell us what metadata a real reproducibility record
-                should contain and what should remain outside it.
+                Review whether binding the emitted OpenQASM and validation
+                artifacts to the same execution passport is useful. Tell us what
+                metadata a real reproducibility record should contain and what
+                should remain outside it.
               </p>
             </article>
           </div>
@@ -1368,45 +1617,75 @@
               <h2>The contracts and evidence are public.</h2>
             </div>
             <p class="section-intro">
-              The fastest way to understand QEC is to inspect the actual contracts, tests, and
-              physical build path. The site is the invitation; the repository is the argument.
+              The fastest way to understand QEC is to inspect the actual
+              contracts, tests, and physical build path. The site is the
+              invitation; the repository is the argument.
             </p>
           </div>
           <div class="evidence-grid">
             <article class="panel-card">
               <span class="num">01 / PROFILE</span>
               <h3>Translation contract</h3>
-              <p><code>ivritcode-openqasm-v0.1.json</code> is the machine-readable 22-letter projection profile.</p>
-              <a href="specifications/ivritcode-openqasm-v0.1.json">Inspect the profile →</a>
+              <p>
+                <code>ivritcode-openqasm-v0.1.json</code> is the
+                machine-readable 22-letter projection profile.
+              </p>
+              <a href="specifications/ivritcode-openqasm-v0.1.json"
+                >Inspect the profile →</a
+              >
             </article>
             <article class="panel-card">
               <span class="num">02 / SCHEMA</span>
               <h3>Versioned validation</h3>
-              <p>The profile and Run Passport have JSON Schemas so structural claims can fail closed.</p>
-              <a href="specifications/schemas/ivritcode-openqasm-v0.1.schema.json">Inspect the schema →</a>
+              <p>
+                The profile and Run Passport have JSON Schemas so structural
+                claims can fail closed.
+              </p>
+              <a
+                href="specifications/schemas/ivritcode-openqasm-v0.1.schema.json"
+                >Inspect the schema →</a
+              >
             </article>
             <article class="panel-card">
               <span class="num">03 / SOURCE</span>
               <h3>The actual compiler</h3>
-              <p>The live demo imports the same TypeScript implementation tested by the repository.</p>
-              <a href="https://github.com/Richardatf/QuantumEtzChaim/blob/main/src/openqasm.ts">Read src/openqasm.ts ↗</a>
+              <p>
+                The live demo imports the same TypeScript implementation tested
+                by the repository.
+              </p>
+              <a
+                href="https://github.com/Richardatf/QuantumEtzChaim/blob/main/src/openqasm.ts"
+                >Read src/openqasm.ts ↗</a
+              >
             </article>
             <article class="panel-card">
               <span class="num">04 / TESTS</span>
               <h3>Deterministic behavior</h3>
-              <p>Normalization, mapping, output shape, and Run Passport binding are covered by automated tests.</p>
-              <a href="https://github.com/Richardatf/QuantumEtzChaim/blob/main/tests/openqasm.test.ts">Read the tests ↗</a>
+              <p>
+                Normalization, mapping, output shape, and Run Passport binding
+                are covered by automated tests.
+              </p>
+              <a
+                href="https://github.com/Richardatf/QuantumEtzChaim/blob/main/tests/openqasm.test.ts"
+                >Read the tests ↗</a
+              >
             </article>
             <article class="panel-card">
               <span class="num">05 / RELEASE</span>
               <h3>Current boundary</h3>
-              <p>The release-readiness document explicitly identifies the OpenQASM projection as emit-only.</p>
+              <p>
+                The release-readiness document explicitly identifies the
+                OpenQASM projection as emit-only.
+              </p>
               <a href="docs/RELEASE_READINESS.md">Read release readiness →</a>
             </article>
             <article class="panel-card">
               <span class="num">06 / HARDWARE</span>
               <h3>Physical manifestation</h3>
-              <p>QEC-1P is the separate classical bench-validation path for panel state, transport, and acknowledgements.</p>
+              <p>
+                QEC-1P is the separate classical bench-validation path for panel
+                state, transport, and acknowledgements.
+              </p>
               <a href="bench.html">Open the bench proof →</a>
             </article>
           </div>
@@ -1418,21 +1697,40 @@
           <div class="request-banner">
             <div>
               <div class="eyebrow">The request</div>
-              <h2>Inspect it. Break it. Help us make the bridge technically useful.</h2>
+              <h2>
+                Inspect it. Break it. Help us make the bridge technically
+                useful.
+              </h2>
               <p>
-                A useful first contribution is small: take the emitted programs for
-                <span lang="he" dir="rtl">אור</span> and <span lang="he" dir="rtl">שלום</span>,
-                run them through an OpenQASM 3 parser or simulator you trust, record the exact
-                version and diagnostics, and tell us what must change. If two tools disagree,
-                preserve the disagreement. That is evidence too.
+                A useful first contribution is small: take the emitted programs
+                for
+                <span lang="he" dir="rtl">אור</span> and
+                <span lang="he" dir="rtl">שלום</span>, run them through an
+                OpenQASM 3 parser or simulator you trust, record the exact
+                version and diagnostics, and tell us what must change. If two
+                tools disagree, preserve the disagreement. That is evidence too.
               </p>
             </div>
             <div class="request-actions">
-              <a class="button primary" href="https://github.com/Richardatf/QuantumEtzChaim/issues/new">Open a QEC issue <span>↗</span></a>
-              <a class="button" href="docs/OPENQASM_COLLABORATION.md">Read the collaboration brief <span>→</span></a>
-              <a class="button" href="https://github.com/Richardatf/QuantumEtzChaim">Inspect the repository <span>↗</span></a>
-              <a class="button" href="console.html">Open the QEC runtime <span>→</span></a>
-              <a class="button" href="machine.html">See the physical machine <span>→</span></a>
+              <a
+                class="button primary"
+                href="https://github.com/Richardatf/QuantumEtzChaim/issues/new"
+                >Open a QEC issue <span>↗</span></a
+              >
+              <a class="button" href="docs/OPENQASM_COLLABORATION.md"
+                >Read the collaboration brief <span>→</span></a
+              >
+              <a
+                class="button"
+                href="https://github.com/Richardatf/QuantumEtzChaim"
+                >Inspect the repository <span>↗</span></a
+              >
+              <a class="button" href="console.html"
+                >Open the QEC runtime <span>→</span></a
+              >
+              <a class="button" href="machine.html"
+                >See the physical machine <span>→</span></a
+              >
             </div>
           </div>
         </div>
@@ -1442,7 +1740,10 @@
     <footer>
       <div class="shell footer-row">
         <span>QUANTUM ETZ CHAIM / INDEPENDENT EXPERIMENTAL ARCHITECTURE</span>
-        <span>OPENQASM IS REFERENCED FOR INTEROPERABILITY; NO AFFILIATION OR ENDORSEMENT IS IMPLIED.</span>
+        <span
+          >OPENQASM IS REFERENCED FOR INTEROPERABILITY; NO AFFILIATION OR
+          ENDORSEMENT IS IMPLIED.</span
+        >
       </div>
     </footer>
 
@@ -1467,17 +1768,61 @@
       });
 
       const nodeData = {
-        keter: ["Keter / כתר", "Intent service. Establishes the governing run intention and top-level execution boundary.", "Machine role: intent / run initialization"],
-        chokhmah: ["Chokhmah / חכמה", "Generation service. Introduces candidate operations and new state into the execution path.", "Machine role: generation / operation proposal"],
-        binah: ["Binah / בינה", "Structure service. Shapes generated possibility into validated, bounded machine form.", "Machine role: structure / validation"],
-        daat: ["Da’at / דעת", "Observation boundary. Da’at remains visible but distinct from the ten sefirot and marks checkpointed knowledge of machine state.", "Machine role: observation service + dimmed Da’at boundary indicator"],
-        chesed: ["Chesed / חסד", "Expansion service. Permits state to propagate where the active contract allows additional reach.", "Machine role: expansion / propagation"],
-        gevurah: ["Gevurah / גבורה", "Constraint service. Applies limits, rejects invalid transitions, and keeps the runtime fail-closed.", "Machine role: constraint / guardrails"],
-        tiferet: ["Tiferet / תפארת", "Coherence service. Reconciles constrained and expansive state into a stable execution view.", "Machine role: coherence / state reconciliation"],
-        netzach: ["Netzach / נצח", "Continuation service. Carries accepted state forward through deterministic execution.", "Machine role: continuation / sequencing"],
-        hod: ["Hod / הוד", "Representation service. Serializes internal state into inspectable traces, projections, and records.", "Machine role: representation / serialization"],
-        yesod: ["Yesod / יסוד", "Integration service. Binds trace, projection, provenance, and physical output into a coherent run artifact.", "Machine role: integration / Run Passport binding"],
-        malchut: ["Malchut / מלכות", "Output service. Manifests the accepted run as files, transport frames, acknowledgements, and visible machine state.", "Machine role: output / physical manifestation"],
+        keter: [
+          "Keter / כתר",
+          "Intent service. Establishes the governing run intention and top-level execution boundary.",
+          "Machine role: intent / run initialization",
+        ],
+        chokhmah: [
+          "Chokhmah / חכמה",
+          "Generation service. Introduces candidate operations and new state into the execution path.",
+          "Machine role: generation / operation proposal",
+        ],
+        binah: [
+          "Binah / בינה",
+          "Structure service. Shapes generated possibility into validated, bounded machine form.",
+          "Machine role: structure / validation",
+        ],
+        daat: [
+          "Da’at / דעת",
+          "Observation boundary. Da’at remains visible but distinct from the ten sefirot and marks checkpointed knowledge of machine state.",
+          "Machine role: observation service + dimmed Da’at boundary indicator",
+        ],
+        chesed: [
+          "Chesed / חסד",
+          "Expansion service. Permits state to propagate where the active contract allows additional reach.",
+          "Machine role: expansion / propagation",
+        ],
+        gevurah: [
+          "Gevurah / גבורה",
+          "Constraint service. Applies limits, rejects invalid transitions, and keeps the runtime fail-closed.",
+          "Machine role: constraint / guardrails",
+        ],
+        tiferet: [
+          "Tiferet / תפארת",
+          "Coherence service. Reconciles constrained and expansive state into a stable execution view.",
+          "Machine role: coherence / state reconciliation",
+        ],
+        netzach: [
+          "Netzach / נצח",
+          "Continuation service. Carries accepted state forward through deterministic execution.",
+          "Machine role: continuation / sequencing",
+        ],
+        hod: [
+          "Hod / הוד",
+          "Representation service. Serializes internal state into inspectable traces, projections, and records.",
+          "Machine role: representation / serialization",
+        ],
+        yesod: [
+          "Yesod / יסוד",
+          "Integration service. Binds trace, projection, provenance, and physical output into a coherent run artifact.",
+          "Machine role: integration / Run Passport binding",
+        ],
+        malchut: [
+          "Malchut / מלכות",
+          "Output service. Manifests the accepted run as files, transport frames, acknowledgements, and visible machine state.",
+          "Machine role: output / physical manifestation",
+        ],
       };
       const nodeOrder = Object.keys(nodeData);
       const nodes = [...document.querySelectorAll(".node[data-node]")];
@@ -1490,9 +1835,14 @@
       function selectNode(name, reveal = false) {
         if (!nodeData[name]) return;
         activeNode = name;
-        nodes.forEach((node) => node.classList.toggle("active", node.dataset.node === name));
+        nodes.forEach((node) =>
+          node.classList.toggle("active", node.dataset.node === name),
+        );
         document.querySelectorAll(".path").forEach((path) => {
-          path.classList.toggle("active", path.dataset.nodes?.split(" ").includes(name));
+          path.classList.toggle(
+            "active",
+            path.dataset.nodes?.split(" ").includes(name),
+          );
         });
         const [title, description, technical] = nodeData[name];
         nodeName.textContent = title;
@@ -1518,19 +1868,27 @@
           }
         });
       });
-      document.querySelector("#node-previous")?.addEventListener("click", () => {
-        const index = nodeOrder.indexOf(activeNode);
-        selectNode(nodeOrder[(index - 1 + nodeOrder.length) % nodeOrder.length]);
-      });
+      document
+        .querySelector("#node-previous")
+        ?.addEventListener("click", () => {
+          const index = nodeOrder.indexOf(activeNode);
+          selectNode(
+            nodeOrder[(index - 1 + nodeOrder.length) % nodeOrder.length],
+          );
+        });
       document.querySelector("#node-next")?.addEventListener("click", () => {
         const index = nodeOrder.indexOf(activeNode);
         selectNode(nodeOrder[(index + 1) % nodeOrder.length]);
       });
-      document.querySelector("#return-to-tree")?.addEventListener("click", () => {
-        nodeInspector.classList.remove("is-open");
-        document.querySelector(`#${activeNode}`)?.focus();
-        document.querySelector("#tree")?.scrollIntoView({ behavior: "smooth", block: "center" });
-      });
+      document
+        .querySelector("#return-to-tree")
+        ?.addEventListener("click", () => {
+          nodeInspector.classList.remove("is-open");
+          document.querySelector(`#${activeNode}`)?.focus();
+          document
+            .querySelector("#tree")
+            ?.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
       selectNode("tiferet");
 
       const sourceInput = document.querySelector("#qasm-source");
@@ -1550,11 +1908,13 @@
         try {
           const source = sourceInput.value.trim();
           qasmOutput.textContent = compileIvritToOpenQasm(source, 3);
-          qasmStatus.textContent = "VALID LOCAL PROJECTION / independent parser evidence requested";
+          qasmStatus.textContent =
+            "VALID LOCAL PROJECTION / independent parser evidence requested";
           qasmStatus.dataset.state = "valid";
         } catch (error) {
           qasmOutput.textContent = "";
-          qasmStatus.textContent = error instanceof Error ? error.message : String(error);
+          qasmStatus.textContent =
+            error instanceof Error ? error.message : String(error);
           qasmStatus.dataset.state = "invalid";
         }
       }
