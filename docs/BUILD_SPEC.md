@@ -174,7 +174,7 @@ Canonical JSON uses UTF-8, lexicographically ordered object keys, no insignifica
 
 ### Published schema pack
 
-The repository publishes Draft 2020-12 schemas under `specifications/schemas/` for machine state, path maps, traces, observations, and manifestation exports. Tests compile every schema, validate the implemented `אור` path fixture and a real manifestation export, and verify that out-of-range data fails closed.
+The repository publishes Draft 2020-12 schemas under `specifications/schemas/` for machine state, path maps, Gate rules, traces, observations, and manifestation exports. Tests compile every schema, validate the implemented `אור` path and Gate fixtures and a real manifestation export, and verify that out-of-range data fails closed.
 
 ## 9. Configuration contracts
 
@@ -193,6 +193,14 @@ Startup fails closed on missing paths, duplicates, unknown services, invalid tra
 The architecture candidate is published as `specifications/qec-paths-v0.3.json`. It covers all 22 Hebrew letters in canonical order. Each entry names its Sefirotic route, operation, transform ID/version, service owners, and project-convention rationale. Its SHA-256 digest covers the canonical JSON representation of the `paths` array. The smaller `qec-or-paths-v0.1.json` fixture remains the implemented executable subset.
 
 Kernel 0.3 now loads that complete map into a 22-entry transform registry. `runProgram(source, seed)` accepts arbitrary mapped Hebrew programs, normalizes NFC and final letter forms (`ךםןףץ`), enforces the 1,024-instruction ceiling, composes adjacent gates, and returns the same deterministic observation and manifestation structures used by the `אור` console. `runOrVerticalSlice` remains as a compatibility wrapper.
+
+### 231-Gate rule contract
+
+`qec-gate-rules-0.1` separates a traditional Gate identity from a directed runtime invocation. The 22 distinct letters generate exactly 231 canonical unordered pairs. Each pair owns two separately reviewed directions, yielding 462 deterministic resolutions. A repeated letter such as `א→א` is a reinforcement self-transition outside the 231-Gate registry.
+
+The default rule is fail-closed: a visible Gate is reserved and non-executable until its directional composition and technical basis are approved. The first reference milestone approves `א→ו` as a crossing and `ו→ר` as a continuation, matching the observed topology of the canonical `אור` program. Their reverse directions remain reserved. Runtime execution records the rule profile, canonical Gate ID, direction, approval status, and executability alongside computed route evidence. An approved rule that disagrees with observed topology terminates with an integrity error rather than silently falling back.
+
+Gate rules are deterministic software contracts. Symbolic commentary may describe them but cannot change their technical behavior, grant capabilities, or serve as evidence of physical quantum operation.
 
 The Living Tree Console exposes this engine through the IvritCode Program Lab. It reports normalized source, path/gate counts, Da’at selection, checksum, and the complete resolved route. Submitting a valid program installs that run in the instruction stepper, Tree highlighting, Gate Explorer, seed comparison, observation boundary, and manifestation inspector. A permalink records normalized source and seed as URL parameters and restores the run after reload. Invalid or oversized permalink state falls back safely to canonical `אור` seed 09. Invalid source produces a typed rejection message and explicitly confirms that no partial state was committed.
 
@@ -228,6 +236,7 @@ Generated code is never evaluated. The runtime receives no filesystem, process, 
 | Contract      | schema validation + typecheck | all fixtures valid; invalid fixtures fail closed  |
 | State         | unit + property tests         | 23 registers; bounds and immutability always hold |
 | Paths         | coverage test                 | 22 unique letters and 22 valid routes             |
+| Gates         | identity + direction coverage | 231 pairs; 462 resolutions; reserved fail closed  |
 | Determinism   | golden replay test            | 100 repeated runs produce identical bytes         |
 | Separation    | mutation guard test           | coherence on/off yields identical classical state |
 | Trace         | hash-chain test               | no sequence gaps or hash discontinuities          |

@@ -6,6 +6,7 @@
   "use strict";
 
   const VERSION = "0.1.0";
+  const GATE_RULE_PROFILE = "qec-gate-rules-0.1";
   const LETTERS = Object.freeze(
     [
       ["א", "Aleph"],
@@ -72,22 +73,76 @@
     return "fnv1a32:" + (h >>> 0).toString(16).padStart(8, "0");
   }
 
+  const REFERENCE_GATE_RULES = Object.freeze({
+    "gate-1-6": Object.freeze({
+      status: "approved",
+      technicalBasis:
+        "Aleph frame followed by Vav exchange in the canonical אור program.",
+      directions: Object.freeze([
+        Object.freeze({
+          from: "א",
+          to: "ו",
+          status: "approved",
+          executable: true,
+          composition: "crossing",
+        }),
+        Object.freeze({
+          from: "ו",
+          to: "א",
+          status: "reserved",
+          executable: false,
+          composition: null,
+        }),
+      ]),
+    }),
+    "gate-6-20": Object.freeze({
+      status: "approved",
+      technicalBasis:
+        "Vav exchange followed by Resh reseed in the canonical אור program.",
+      directions: Object.freeze([
+        Object.freeze({
+          from: "ו",
+          to: "ר",
+          status: "approved",
+          executable: true,
+          composition: "continuation",
+        }),
+        Object.freeze({
+          from: "ר",
+          to: "ו",
+          status: "reserved",
+          executable: false,
+          composition: null,
+        }),
+      ]),
+    }),
+  });
+
   function buildGateRegistry() {
     const gates = [];
     for (let i = 0; i < LETTERS.length; i++)
       for (let j = i + 1; j < LETTERS.length; j++) {
         const left = LETTERS[i],
           right = LETTERS[j];
+        const id = `gate-${left.index + 1}-${right.index + 1}`,
+          rule = REFERENCE_GATE_RULES[id];
         gates.push(
           Object.freeze({
             schemaVersion: VERSION,
-            id: `gate-${left.index + 1}-${right.index + 1}`,
+            ruleProfile: GATE_RULE_PROFILE,
+            id,
             letters: left.letter + right.letter,
             names: left.name + " " + right.name,
             left: left.letter,
             right: right.letter,
-            status: "unassigned",
-            executable: false,
+            status: rule?.status ?? "reserved",
+            executable:
+              rule?.directions.some((direction) => direction.executable) ??
+              false,
+            technicalBasis:
+              rule?.technicalBasis ??
+              "Reserved until its directional rule is explicitly reviewed.",
+            directions: rule?.directions ?? Object.freeze([]),
           }),
         );
       }
@@ -226,6 +281,7 @@
 
   return Object.freeze({
     VERSION,
+    GATE_RULE_PROFILE,
     LETTERS,
     STAGES,
     GATES,

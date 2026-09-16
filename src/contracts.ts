@@ -1,7 +1,9 @@
 import Ajv2020 from "ajv/dist/2020.js";
 import build from "../specifications/qec-build-v0.3.json";
+import gateRules from "../specifications/qec-gate-rules-v0.1.json";
 import paths from "../specifications/qec-paths-v0.3.json";
 import buildSchema from "../specifications/schemas/build-contract-v0.3.schema.json";
+import gateRulesSchema from "../specifications/schemas/qec-gate-rules-v0.1.schema.json";
 import pathSchema from "../specifications/schemas/path-map-v0.3.schema.json";
 import traceSchema from "../specifications/schemas/trace-v0.3.schema.json";
 import trace00 from "../tests/fixtures/golden-traces/or-seed-00.json";
@@ -152,6 +154,7 @@ trace.events.forEach((event) => {
 const ajv = new Ajv2020({ allErrors: true, strict: true });
 const checks = [
   { name: "Build contract", schema: buildSchema, data: build },
+  { name: "231-Gate rules", schema: gateRulesSchema, data: gateRules },
   { name: "22-path map", schema: pathSchema, data: paths },
   ...goldenTraces.map((item) => ({
     name: `Golden trace seed ${String(item.seed).padStart(2, "0")}`,
@@ -171,6 +174,11 @@ checks.forEach((check) => {
 });
 const artifacts = [
   { label: "Build contract", data: build, file: "qec-build-v0.3.json" },
+  {
+    label: "231-Gate rules",
+    data: gateRules,
+    file: "qec-gate-rules-v0.1.json",
+  },
   { label: "Path map", data: paths, file: "qec-paths-v0.3.json" },
   ...goldenTraces.map((item) => ({
     label: `Trace seed ${String(item.seed).padStart(2, "0")}`,

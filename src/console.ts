@@ -367,12 +367,15 @@ function renderGates(): void {
     ...result.gates.map((gate, index) => {
       const card = document.createElement("article");
       card.className = `gate ${index < visibleGateCount ? "formed" : ""}`;
+      if (index < visibleGateCount) card.classList.add(gate.ruleStatus);
       card.classList.toggle("selected", index === selectedGate);
       const id = document.createElement("strong");
       id.textContent = gate.id;
       const type = document.createElement("span");
       type.textContent =
-        index < visibleGateCount ? gate.composition : "awaiting path";
+        index < visibleGateCount
+          ? `${gate.composition} · ${gate.ruleStatus}`
+          : "awaiting path";
       const detail = document.createElement("p");
       detail.textContent =
         index < visibleGateCount
@@ -419,7 +422,8 @@ function renderGateDetail(visibleGateCount: number): void {
 
   const gate = result.gates[selectedGate]!;
   gateExplorerId.textContent = gate.id;
-  gateExplorerType.textContent = gate.composition.toUpperCase();
+  gateExplorerType.textContent =
+    `${gate.composition} · ${gate.ruleStatus}${gate.executable ? " · executable" : " · blocked"}`.toUpperCase();
   gateExplorerRoute.textContent = gate.route.join(" → ");
   gateExplorerNodes.textContent = gate.sharedNodes.join(" · ") || "None";
   gateExplorerServices.textContent = gate.sharedServices.join(" · ") || "None";

@@ -248,6 +248,8 @@ import "../qec/core.js";
   const gates = globalThis.QECCore.GATES.map((g) => ({
     he: g.letters,
     name: g.names,
+    status: g.status,
+    executable: g.executable,
   }));
   const grid = document.querySelector("#gate-grid"),
     count = document.querySelector("#gate-count"),
@@ -260,8 +262,8 @@ import "../qec/core.js";
       grid.replaceChildren(
         ...shown.map((g) => {
           const a = document.createElement("article");
-          a.className = "gate-card-qec";
-          a.innerHTML = `<b lang="he" dir="rtl">${g.he}</b><small>${g.name}</small>`;
+          a.className = `gate-card-qec ${g.status}`;
+          a.innerHTML = `<b lang="he" dir="rtl">${g.he}</b><small>${g.name}</small><span>${g.status}${g.executable ? " · reference direction active" : " · blocked"}</span>`;
           return a;
         }),
       );

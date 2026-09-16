@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://quantumetzchaim.com/specifications/schemas/qec-gate-rules-v0.1.schema.json",
+  "title": "QEC 231-Gate rules profile 0.1",
+  "type": "object",
+  "required": [
+    "$schema",
+    "id",
+    "status",
+    "alphabet",
+    "pairing",
+    "defaultRule",
+    "rules",
+    "scientificBoundary"
+  ],
+  "properties": {
+    "$schema": { "type": "string", "minLength": 1 },
+    "id": { "const": "qec-gate-rules-0.1" },
+    "status": { "const": "reference-milestone" },
+    "alphabet": { "const": "אבגדהוזחטיכלמנסעפצקרשת" },
+    "pairing": {
+      "type": "object",
+      "required": [
+        "identity",
+        "expectedCount",
+        "directionPolicy",
+        "selfTransitionPolicy"
+      ],
+      "properties": {
+        "identity": { "const": "unordered-distinct" },
+        "expectedCount": { "const": 231 },
+        "directionPolicy": { "type": "string", "minLength": 1 },
+        "selfTransitionPolicy": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "defaultRule": {
+      "type": "object",
+      "required": ["status", "executable", "reason"],
+      "properties": {
+        "status": { "const": "reserved" },
+        "executable": { "const": false },
+        "reason": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/rule" }
+    },
+    "scientificBoundary": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "letter": {
+      "enum": [
+        "א",
+        "ב",
+        "ג",
+        "ד",
+        "ה",
+        "ו",
+        "ז",
+        "ח",
+        "ט",
+        "י",
+        "כ",
+        "ל",
+        "מ",
+        "נ",
+        "ס",
+        "ע",
+        "פ",
+        "צ",
+        "ק",
+        "ר",
+        "ש",
+        "ת"
+      ]
+    },
+    "direction": {
+      "type": "object",
+      "required": [
+        "from",
+        "to",
+        "status",
+        "executable",
+        "composition",
+        "description"
+      ],
+      "properties": {
+        "from": { "$ref": "#/$defs/letter" },
+        "to": { "$ref": "#/$defs/letter" },
+        "status": { "enum": ["approved", "reserved", "rejected"] },
+        "executable": { "type": "boolean" },
+        "composition": {
+          "type": ["string", "null"],
+          "enum": ["continuation", "crossing", "reinforcement", null]
+        },
+        "description": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "rule": {
+      "type": "object",
+      "required": [
+        "id",
+        "pair",
+        "letters",
+        "status",
+        "technicalBasis",
+        "directions"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^gate-[1-9][0-9]*-[1-9][0-9]*$" },
+        "pair": { "type": "string", "minLength": 3, "maxLength": 3 },
+        "letters": {
+          "type": "array",
+          "prefixItems": [
+            { "$ref": "#/$defs/letter" },
+            { "$ref": "#/$defs/letter" }
+          ],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "status": { "enum": ["approved", "reserved", "rejected"] },
+        "technicalBasis": { "type": "string", "minLength": 1 },
+        "directions": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/direction" },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

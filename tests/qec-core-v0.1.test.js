@@ -15,15 +15,18 @@ describe("QEC v0.1 browser core", () => {
     expect(new Set(QEC.LETTERS.map((item) => item.letter))).toHaveLength(22);
   });
 
-  it("builds exactly 231 unique, unordered, non-executable gates", () => {
+  it("builds exactly 231 unique unordered gates with two reference rules", () => {
     expect(QEC.GATES).toHaveLength(231);
     expect(new Set(QEC.GATES.map((item) => item.id))).toHaveLength(231);
+    expect(QEC.GATES.every((item) => item.left !== item.right)).toBe(true);
+    expect(QEC.GATE_RULE_PROFILE).toBe("qec-gate-rules-0.1");
+    expect(QEC.GATES.filter((item) => item.status === "approved")).toEqual([
+      expect.objectContaining({ id: "gate-1-6", executable: true }),
+      expect.objectContaining({ id: "gate-6-20", executable: true }),
+    ]);
     expect(
-      QEC.GATES.every(
-        (item) =>
-          item.left !== item.right &&
-          item.status === "unassigned" &&
-          !item.executable,
+      QEC.GATES.filter((item) => item.status === "reserved").every(
+        (item) => !item.executable,
       ),
     ).toBe(true);
   });

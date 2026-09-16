@@ -411,6 +411,21 @@ body.qec-page {
 .gate-card-qec small {
   color: var(--qec-muted);
 }
+.gate-card-qec span {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--qec-gold);
+  font: 0.58rem var(--qec-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.gate-card-qec.approved {
+  border-color: rgba(120, 230, 220, 0.42);
+  background: rgba(120, 230, 220, 0.055);
+}
+.gate-card-qec.approved span {
+  color: var(--qec-cyan);
+}
 .boundary {
   margin-top: 1.25rem;
 }

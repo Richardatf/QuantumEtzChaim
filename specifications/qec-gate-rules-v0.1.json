@@ -1,0 +1,70 @@
+{
+  "$schema": "https://quantumetzchaim.com/specifications/schemas/qec-gate-rules-v0.1.schema.json",
+  "id": "qec-gate-rules-0.1",
+  "status": "reference-milestone",
+  "alphabet": "אבגדהוזחטיכלמנסעפצקרשת",
+  "pairing": {
+    "identity": "unordered-distinct",
+    "expectedCount": 231,
+    "directionPolicy": "Each canonical pair owns two separately reviewed directional invocations.",
+    "selfTransitionPolicy": "Repeated letters are reinforcement transitions outside the 231-Gate registry."
+  },
+  "defaultRule": {
+    "status": "reserved",
+    "executable": false,
+    "reason": "No Gate becomes executable until its directional rule and technical basis are explicitly reviewed."
+  },
+  "rules": [
+    {
+      "id": "gate-1-6",
+      "pair": "א־ו",
+      "letters": ["א", "ו"],
+      "status": "approved",
+      "technicalBasis": "Reference rule for the canonical אור acceptance program: Aleph frame followed by Vav exchange.",
+      "directions": [
+        {
+          "from": "א",
+          "to": "ו",
+          "status": "approved",
+          "executable": true,
+          "composition": "crossing",
+          "description": "The preserved frame hands its trace to the Vav exchange across shared machine state."
+        },
+        {
+          "from": "ו",
+          "to": "א",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        }
+      ]
+    },
+    {
+      "id": "gate-6-20",
+      "pair": "ו־ר",
+      "letters": ["ו", "ר"],
+      "status": "approved",
+      "technicalBasis": "Reference rule for the canonical אור acceptance program: Vav exchange followed by Resh reseed.",
+      "directions": [
+        {
+          "from": "ו",
+          "to": "ר",
+          "status": "approved",
+          "executable": true,
+          "composition": "continuation",
+          "description": "The Vav exchange arrives at Yesod and continues through the Resh reseed toward Malchut."
+        },
+        {
+          "from": "ר",
+          "to": "ו",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        }
+      ]
+    }
+  ],
+  "scientificBoundary": "Gate rules are deterministic software contracts inspired by the traditional 231 letter pairs. They are not evidence of physical quantum behavior or inherent natural operations in Hebrew letters."
+}

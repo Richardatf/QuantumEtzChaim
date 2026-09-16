@@ -45,11 +45,15 @@ data is ignored; it never becomes executable code.
   path maps, traces, observations, and manifestation exports
 - Executable `אור` vertical slice in `console.html`
 - Living sefirotic runtime and searchable 231 Gate registry in
-  `qec-v0.1.html`
+  `qec-v0.1.html`, backed by the versioned
+  [`qec-gate-rules-0.1`](specifications/qec-gate-rules-v0.1.json) contract.
+  All 231 unordered identities and 462 directions resolve deterministically;
+  א→ו and ו→ר are the first approved reference invocations, while every other
+  direction remains explicitly reserved and non-executable
 - Infinite Wave explorer in `wave.html`, comparing sources, transformations,
   deterministic observation projections, and manifestation results
-- Interactive Gate Explorer with computed routes, shared services, register
-  changes, and coherence deltas
+- Interactive Gate Explorer with rule status, executability, computed routes,
+  shared services, register changes, and coherence deltas
 - Da’at Observation Inspector with three deterministic candidate projections,
   recorded selection, and immutable snapshot metadata
 - Malchut Manifestation Inspector with Hebrew, base-22, path-signature,

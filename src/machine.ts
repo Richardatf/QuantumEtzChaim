@@ -8,6 +8,7 @@ import {
   type HebrewLetter,
 } from "@ivritcode/core";
 import { createManifest } from "@qec/core";
+import { resolveGateInvocation, type GateRuleStatus } from "./gates.js";
 import {
   IVRIT_ENGINE_VERSION,
   QEC_MANIFESTATION_VERSION,
@@ -67,6 +68,11 @@ export interface GateEvent {
   id: string;
   left: HebrewLetter;
   right: HebrewLetter;
+  ruleProfile: "qec-gate-rules-0.1";
+  canonicalGateId: string | null;
+  direction: string;
+  ruleStatus: GateRuleStatus | "self-transition";
+  executable: boolean;
   route: readonly [SefirahName, SefirahName, SefirahName, SefirahName];
   sharedNodes: readonly SefirahName[];
   sharedServices: readonly ServiceName[];
@@ -408,6 +414,15 @@ function composeGate(left: PathEvent, right: PathEvent): GateEvent {
     : continuation
       ? "continuation"
       : "crossing";
+  const rule = resolveGateInvocation(left.letter, right.letter);
+  if (
+    rule.status === "approved" &&
+    (!rule.executable || rule.composition !== composition)
+  ) {
+    throw new Error(
+      `Approved Gate rule ${rule.direction} diverges from observed ${composition} topology.`,
+    );
+  }
   const sharedServices = left.servicesInvoked.filter((service) =>
     right.servicesInvoked.includes(service),
   );
@@ -419,6 +434,11 @@ function composeGate(left: PathEvent, right: PathEvent): GateEvent {
     id: `${left.letter}־${right.letter}`,
     left: left.letter,
     right: right.letter,
+    ruleProfile: rule.profile,
+    canonicalGateId: rule.gateId,
+    direction: rule.direction,
+    ruleStatus: rule.status,
+    executable: rule.executable,
     route: [
       left.path.source,
       left.path.destination,
@@ -432,12 +452,13 @@ function composeGate(left: PathEvent, right: PathEvent): GateEvent {
     coherenceDelta: Number(
       (right.coherence.coherence - left.coherence.coherence).toFixed(3),
     ),
-    technicalDescription:
+    technicalDescription: `${rule.description} ${
       composition === "continuation"
         ? `${left.path.destination} carries state directly into ${right.path.name}.`
         : composition === "reinforcement"
           ? "Both instructions reinforce the same architectural route."
-          : "The routes cross through shared machine state without a common node.",
+          : "The routes cross through shared machine state without a common node."
+    }`,
   };
 }
 

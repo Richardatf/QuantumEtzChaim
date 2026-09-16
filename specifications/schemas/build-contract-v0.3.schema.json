@@ -60,9 +60,10 @@
     "artifacts": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["pathMap", "trace", "manifestation"],
+      "required": ["pathMap", "gateRules", "trace", "manifestation"],
       "properties": {
         "pathMap": { "const": "qec-paths-v0.3.json" },
+        "gateRules": { "const": "qec-gate-rules-v0.1.json" },
         "trace": { "const": "schemas/trace-v0.3.schema.json" },
         "manifestation": { "const": "schemas/manifestation-v0.2.schema.json" }
       }
@@ -111,12 +112,13 @@
     "requiredSchemas": {
       "type": "array",
       "uniqueItems": true,
-      "minItems": 6,
+      "minItems": 7,
       "items": {
         "enum": [
           "build-contract",
           "machine-state",
           "path-map",
+          "gate-rules",
           "trace",
           "observation",
           "manifestation"
@@ -125,7 +127,8 @@
       "allOf": [
         { "contains": { "const": "build-contract" } },
         { "contains": { "const": "trace" } },
-        { "contains": { "const": "path-map" } }
+        { "contains": { "const": "path-map" } },
+        { "contains": { "const": "gate-rules" } }
       ]
     },
     "verificationGates": { "$ref": "#/$defs/nonEmptyUniqueStrings" },
