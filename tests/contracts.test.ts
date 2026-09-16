@@ -71,7 +71,7 @@ describe("qec contract pack", () => {
     );
   });
 
-  it("validates the versioned 231-Gate reference profile", () => {
+  it("validates the versioned 231-Gate evidence profile", () => {
     const ajv = new Ajv2020({ allErrors: true, strict: true });
     const schema = readJson(
       `${schemaDirectory}/qec-gate-rules-v0.1.schema.json`,

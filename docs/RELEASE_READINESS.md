@@ -23,6 +23,12 @@ the deterministic QEC runtime, and remains bound to one Run Passport through:
 The test is `tests/ivritcode-machine-bridge.test.ts`. CI runs the same
 `release:check` command on every push and pull request.
 
+The Gate portion of that release check also replays every approved directional
+rule from the evidence program, seed, and Gate index declared in
+`qec-gate-rules-0.1`. At this milestone, two approvals come from canonical
+`אור` seed 09 and three come from the compiler-verified `שלום` bridge run,
+normalized to `שלומ` at seed 17. No other directional Gate is executable.
+
 ## Boundaries that remain physical or external
 
 Passing the automated gate makes the software workflow a release candidate. It

@@ -8,7 +8,11 @@ import {
   type HebrewLetter,
 } from "@ivritcode/core";
 import { createManifest } from "@qec/core";
-import { resolveGateInvocation, type GateRuleStatus } from "./gates.js";
+import {
+  resolveGateInvocation,
+  type GateEvidenceReference,
+  type GateRuleStatus,
+} from "./gates.js";
 import {
   IVRIT_ENGINE_VERSION,
   QEC_MANIFESTATION_VERSION,
@@ -73,6 +77,7 @@ export interface GateEvent {
   direction: string;
   ruleStatus: GateRuleStatus | "self-transition";
   executable: boolean;
+  ruleEvidence: GateEvidenceReference | null;
   route: readonly [SefirahName, SefirahName, SefirahName, SefirahName];
   sharedNodes: readonly SefirahName[];
   sharedServices: readonly ServiceName[];
@@ -439,6 +444,7 @@ function composeGate(left: PathEvent, right: PathEvent): GateEvent {
     direction: rule.direction,
     ruleStatus: rule.status,
     executable: rule.executable,
+    ruleEvidence: rule.evidence,
     route: [
       left.path.source,
       left.path.destination,

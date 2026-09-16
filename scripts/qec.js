@@ -263,7 +263,7 @@ import "../qec/core.js";
         ...shown.map((g) => {
           const a = document.createElement("article");
           a.className = `gate-card-qec ${g.status}`;
-          a.innerHTML = `<b lang="he" dir="rtl">${g.he}</b><small>${g.name}</small><span>${g.status}${g.executable ? " · reference direction active" : " · blocked"}</span>`;
+          a.innerHTML = `<b lang="he" dir="rtl">${g.he}</b><small>${g.name}</small><span>${g.status}${g.executable ? " · evidence-backed direction active" : " · blocked"}</span>`;
           return a;
         }),
       );

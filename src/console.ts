@@ -34,6 +34,7 @@ const gateExplorerNodes = get<HTMLElement>("#gate-explorer-nodes");
 const gateExplorerServices = get<HTMLElement>("#gate-explorer-services");
 const gateExplorerChanges = get<HTMLElement>("#gate-explorer-changes");
 const gateExplorerCoherence = get<HTMLElement>("#gate-explorer-coherence");
+const gateExplorerEvidence = get<HTMLElement>("#gate-explorer-evidence");
 const gateExplorerDescription = get<HTMLElement>("#gate-explorer-description");
 const observation = get<HTMLElement>("#observation");
 const observationHash = get<HTMLElement>("#observation-hash");
@@ -417,6 +418,7 @@ function renderGateDetail(visibleGateCount: number): void {
     gateExplorerCoherence.textContent = "—";
     gateExplorerDescription.textContent =
       "Gate metrics will be derived from two consecutive path events.";
+    gateExplorerEvidence.textContent = "—";
     return;
   }
 
@@ -432,6 +434,11 @@ function renderGateDetail(visibleGateCount: number): void {
     gate.coherenceDelta > 0
       ? `+${gate.coherenceDelta.toFixed(3)}`
       : gate.coherenceDelta.toFixed(3);
+  gateExplorerEvidence.textContent = gate.ruleEvidence
+    ? `${gate.ruleEvidence.programId} / gate ${gate.ruleEvidence.gateIndex}`
+    : gate.ruleStatus === "self-transition"
+      ? "self-transition policy"
+      : "none / direction reserved";
   gateExplorerDescription.textContent = gate.technicalDescription;
 }
 

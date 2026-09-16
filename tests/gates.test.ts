@@ -1,10 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
+  GATE_EVIDENCE_PROGRAMS,
   GATE_REGISTRY,
   GATE_RULE_PROFILE,
   buildCanonicalGateRegistry,
   resolveGateInvocation,
 } from "../src/gates.js";
+import { createIvritCodeMachineRun } from "../src/ivritcode-bridge.js";
 import { HEBREW_ALPHABET, runProgram } from "../src/machine.js";
 
 describe("qec-gate-rules-0.1", () => {
@@ -21,32 +23,92 @@ describe("qec-gate-rules-0.1", () => {
     ).toBe(true);
   });
 
-  it("resolves all 462 directions and approves only the reference pairings", () => {
+  it("resolves all 462 directions and approves only evidence-backed pairings", () => {
     const resolutions = HEBREW_ALPHABET.flatMap((from) =>
       HEBREW_ALPHABET.filter((to) => to !== from).map((to) =>
         resolveGateInvocation(from, to),
       ),
     );
     expect(resolutions).toHaveLength(462);
-    expect(resolutions.filter((rule) => rule.status === "approved")).toEqual([
-      expect.objectContaining({
-        gateId: "gate-1-6",
-        direction: "א→ו",
-        executable: true,
-        composition: "crossing",
-      }),
-      expect.objectContaining({
-        gateId: "gate-6-20",
-        direction: "ו→ר",
-        executable: true,
-        composition: "continuation",
-      }),
-    ]);
+    const approved = resolutions.filter((rule) => rule.status === "approved");
+    expect(approved).toHaveLength(5);
+    expect(approved).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          gateId: "gate-1-6",
+          direction: "א→ו",
+          executable: true,
+          composition: "crossing",
+        }),
+        expect.objectContaining({
+          gateId: "gate-6-20",
+          direction: "ו→ר",
+          executable: true,
+          composition: "continuation",
+        }),
+        expect.objectContaining({
+          gateId: "gate-6-12",
+          direction: "ל→ו",
+          executable: true,
+          composition: "crossing",
+        }),
+        expect.objectContaining({
+          gateId: "gate-6-13",
+          direction: "ו→מ",
+          executable: true,
+          composition: "crossing",
+        }),
+        expect.objectContaining({
+          gateId: "gate-12-21",
+          direction: "ש→ל",
+          executable: true,
+          composition: "continuation",
+        }),
+      ]),
+    );
     expect(
       resolutions
         .filter((rule) => rule.status !== "approved")
         .every((rule) => !rule.executable && rule.status === "reserved"),
     ).toBe(true);
+    expect(
+      resolutions.filter((rule) => rule.status === "reserved"),
+    ).toHaveLength(457);
+  });
+
+  it("replays every approved direction from its compiler-verified evidence", () => {
+    const evidenceById = new Map(
+      GATE_EVIDENCE_PROGRAMS.map((program) => [program.id, program]),
+    );
+    const approvedDirections = GATE_REGISTRY.flatMap((gate) =>
+      gate.directions
+        .filter((direction) => direction.status === "approved")
+        .map((direction) => ({ gate, direction })),
+    );
+
+    expect(approvedDirections).toHaveLength(5);
+    approvedDirections.forEach(({ gate, direction }) => {
+      expect(direction.evidence).not.toBeNull();
+      if (!direction.evidence) return;
+      const evidence = evidenceById.get(direction.evidence.programId);
+      expect(evidence).toBeDefined();
+      if (!evidence) return;
+      const verified = createIvritCodeMachineRun(
+        evidence.source,
+        evidence.seed,
+      );
+      expect(verified.opcodeStream).toBe(evidence.normalizedProgram);
+      expect(verified.execution.gates[direction.evidence.gateIndex]).toEqual(
+        expect.objectContaining({
+          canonicalGateId: gate.id,
+          direction: `${direction.from}→${direction.to}`,
+          ruleStatus: "approved",
+          executable: true,
+          composition: direction.composition,
+          ruleEvidence: direction.evidence,
+        }),
+      );
+    });
   });
 
   it("keeps repeated letters outside the 231-Gate registry", () => {
@@ -83,6 +145,29 @@ describe("qec-gate-rules-0.1", () => {
         ruleStatus: "approved",
         executable: true,
         composition: "continuation",
+      }),
+    ]);
+  });
+
+  it("binds the approved שלום bridge invocations to observed topology", () => {
+    expect(runProgram("שלום", 17).gates).toEqual([
+      expect.objectContaining({
+        canonicalGateId: "gate-12-21",
+        direction: "ש→ל",
+        ruleStatus: "approved",
+        composition: "continuation",
+      }),
+      expect.objectContaining({
+        canonicalGateId: "gate-6-12",
+        direction: "ל→ו",
+        ruleStatus: "approved",
+        composition: "crossing",
+      }),
+      expect.objectContaining({
+        canonicalGateId: "gate-6-13",
+        direction: "ו→מ",
+        ruleStatus: "approved",
+        composition: "crossing",
       }),
     ]);
   });

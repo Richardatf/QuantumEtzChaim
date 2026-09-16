@@ -7,6 +7,22 @@
 
   const VERSION = "0.1.0";
   const GATE_RULE_PROFILE = "qec-gate-rules-0.1";
+  const GATE_EVIDENCE_PROGRAMS = Object.freeze([
+    Object.freeze({
+      id: "or-seed-09",
+      profile: "ivritcode-qec-bridge-0.1",
+      source: "אור",
+      normalizedProgram: "אור",
+      seed: 9,
+    }),
+    Object.freeze({
+      id: "shalom-seed-17",
+      profile: "ivritcode-qec-bridge-0.1",
+      source: "שלום",
+      normalizedProgram: "שלומ",
+      seed: 17,
+    }),
+  ]);
   const LETTERS = Object.freeze(
     [
       ["א", "Aleph"],
@@ -85,6 +101,7 @@
           status: "approved",
           executable: true,
           composition: "crossing",
+          evidence: Object.freeze({ programId: "or-seed-09", gateIndex: 0 }),
         }),
         Object.freeze({
           from: "ו",
@@ -92,6 +109,59 @@
           status: "reserved",
           executable: false,
           composition: null,
+          evidence: null,
+        }),
+      ]),
+    }),
+    "gate-6-12": Object.freeze({
+      status: "approved",
+      technicalBasis:
+        "Lamed understanding rotation followed by Vav exchange in the compiler-verified שלום bridge run.",
+      directions: Object.freeze([
+        Object.freeze({
+          from: "ו",
+          to: "ל",
+          status: "reserved",
+          executable: false,
+          composition: null,
+          evidence: null,
+        }),
+        Object.freeze({
+          from: "ל",
+          to: "ו",
+          status: "approved",
+          executable: true,
+          composition: "crossing",
+          evidence: Object.freeze({
+            programId: "shalom-seed-17",
+            gateIndex: 1,
+          }),
+        }),
+      ]),
+    }),
+    "gate-6-13": Object.freeze({
+      status: "approved",
+      technicalBasis:
+        "Vav exchange followed by Mem endurance flow in the compiler-verified שלום bridge run.",
+      directions: Object.freeze([
+        Object.freeze({
+          from: "ו",
+          to: "מ",
+          status: "approved",
+          executable: true,
+          composition: "crossing",
+          evidence: Object.freeze({
+            programId: "shalom-seed-17",
+            gateIndex: 2,
+          }),
+        }),
+        Object.freeze({
+          from: "מ",
+          to: "ו",
+          status: "reserved",
+          executable: false,
+          composition: null,
+          evidence: null,
         }),
       ]),
     }),
@@ -106,6 +176,7 @@
           status: "approved",
           executable: true,
           composition: "continuation",
+          evidence: Object.freeze({ programId: "or-seed-09", gateIndex: 1 }),
         }),
         Object.freeze({
           from: "ר",
@@ -113,6 +184,33 @@
           status: "reserved",
           executable: false,
           composition: null,
+          evidence: null,
+        }),
+      ]),
+    }),
+    "gate-12-21": Object.freeze({
+      status: "approved",
+      technicalBasis:
+        "Shin center descent followed by Lamed understanding rotation in the compiler-verified שלום bridge run.",
+      directions: Object.freeze([
+        Object.freeze({
+          from: "ל",
+          to: "ש",
+          status: "reserved",
+          executable: false,
+          composition: null,
+          evidence: null,
+        }),
+        Object.freeze({
+          from: "ש",
+          to: "ל",
+          status: "approved",
+          executable: true,
+          composition: "continuation",
+          evidence: Object.freeze({
+            programId: "shalom-seed-17",
+            gateIndex: 0,
+          }),
         }),
       ]),
     }),
@@ -282,6 +380,7 @@
   return Object.freeze({
     VERSION,
     GATE_RULE_PROFILE,
+    GATE_EVIDENCE_PROGRAMS,
     LETTERS,
     STAGES,
     GATES,

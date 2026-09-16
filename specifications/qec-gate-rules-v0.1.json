@@ -1,7 +1,7 @@
 {
   "$schema": "https://quantumetzchaim.com/specifications/schemas/qec-gate-rules-v0.1.schema.json",
   "id": "qec-gate-rules-0.1",
-  "status": "reference-milestone",
+  "status": "evidence-milestone",
   "alphabet": "אבגדהוזחטיכלמנסעפצקרשת",
   "pairing": {
     "identity": "unordered-distinct",
@@ -14,6 +14,22 @@
     "executable": false,
     "reason": "No Gate becomes executable until its directional rule and technical basis are explicitly reviewed."
   },
+  "evidencePrograms": [
+    {
+      "id": "or-seed-09",
+      "profile": "ivritcode-qec-bridge-0.1",
+      "source": "אור",
+      "normalizedProgram": "אור",
+      "seed": 9
+    },
+    {
+      "id": "shalom-seed-17",
+      "profile": "ivritcode-qec-bridge-0.1",
+      "source": "שלום",
+      "normalizedProgram": "שלומ",
+      "seed": 17
+    }
+  ],
   "rules": [
     {
       "id": "gate-1-6",
@@ -28,6 +44,7 @@
           "status": "approved",
           "executable": true,
           "composition": "crossing",
+          "evidence": { "programId": "or-seed-09", "gateIndex": 0 },
           "description": "The preserved frame hands its trace to the Vav exchange across shared machine state."
         },
         {
@@ -36,6 +53,61 @@
           "status": "reserved",
           "executable": false,
           "composition": null,
+          "evidence": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        }
+      ]
+    },
+    {
+      "id": "gate-6-12",
+      "pair": "ו־ל",
+      "letters": ["ו", "ל"],
+      "status": "approved",
+      "technicalBasis": "Compiler-verified שלום bridge run: Lamed understanding rotation followed by Vav exchange.",
+      "directions": [
+        {
+          "from": "ו",
+          "to": "ל",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "evidence": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        },
+        {
+          "from": "ל",
+          "to": "ו",
+          "status": "approved",
+          "executable": true,
+          "composition": "crossing",
+          "evidence": { "programId": "shalom-seed-17", "gateIndex": 1 },
+          "description": "The Lamed rotation hands its trace to the Vav exchange across shared machine state."
+        }
+      ]
+    },
+    {
+      "id": "gate-6-13",
+      "pair": "ו־מ",
+      "letters": ["ו", "מ"],
+      "status": "approved",
+      "technicalBasis": "Compiler-verified שלום bridge run: Vav exchange followed by Mem endurance flow.",
+      "directions": [
+        {
+          "from": "ו",
+          "to": "מ",
+          "status": "approved",
+          "executable": true,
+          "composition": "crossing",
+          "evidence": { "programId": "shalom-seed-17", "gateIndex": 2 },
+          "description": "The Vav exchange hands its trace to the Mem endurance flow across shared machine state."
+        },
+        {
+          "from": "מ",
+          "to": "ו",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "evidence": null,
           "description": "The reverse invocation remains reserved for separate review."
         }
       ]
@@ -53,6 +125,7 @@
           "status": "approved",
           "executable": true,
           "composition": "continuation",
+          "evidence": { "programId": "or-seed-09", "gateIndex": 1 },
           "description": "The Vav exchange arrives at Yesod and continues through the Resh reseed toward Malchut."
         },
         {
@@ -61,7 +134,35 @@
           "status": "reserved",
           "executable": false,
           "composition": null,
+          "evidence": null,
           "description": "The reverse invocation remains reserved for separate review."
+        }
+      ]
+    },
+    {
+      "id": "gate-12-21",
+      "pair": "ל־ש",
+      "letters": ["ל", "ש"],
+      "status": "approved",
+      "technicalBasis": "Compiler-verified שלום bridge run: Shin center descent followed by Lamed understanding rotation.",
+      "directions": [
+        {
+          "from": "ל",
+          "to": "ש",
+          "status": "reserved",
+          "executable": false,
+          "composition": null,
+          "evidence": null,
+          "description": "The reverse invocation remains reserved for separate review."
+        },
+        {
+          "from": "ש",
+          "to": "ל",
+          "status": "approved",
+          "executable": true,
+          "composition": "continuation",
+          "evidence": { "programId": "shalom-seed-17", "gateIndex": 0 },
+          "description": "The paired Shin and Lamed routes meet at Tiferet and form a continuous machine path."
         }
       ]
     }

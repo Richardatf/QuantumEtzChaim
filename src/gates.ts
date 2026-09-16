@@ -6,12 +6,26 @@ export const GATE_RULE_PROFILE = "qec-gate-rules-0.1" as const;
 export type GateRuleStatus = "approved" | "reserved" | "rejected";
 export type GateComposition = "continuation" | "crossing" | "reinforcement";
 
+export interface GateEvidenceReference {
+  readonly programId: string;
+  readonly gateIndex: number;
+}
+
+export interface GateEvidenceProgram {
+  readonly id: string;
+  readonly profile: "ivritcode-qec-bridge-0.1";
+  readonly source: string;
+  readonly normalizedProgram: string;
+  readonly seed: number;
+}
+
 export interface GateDirectionRule {
   readonly from: HebrewLetter;
   readonly to: HebrewLetter;
   readonly status: GateRuleStatus;
   readonly executable: boolean;
   readonly composition: GateComposition | null;
+  readonly evidence: GateEvidenceReference | null;
   readonly description: string;
 }
 
@@ -35,6 +49,7 @@ export interface GateInvocationResolution {
   readonly status: GateRuleStatus | "self-transition";
   readonly executable: boolean;
   readonly composition: GateComposition | null;
+  readonly evidence: GateEvidenceReference | null;
   readonly description: string;
 }
 
@@ -45,6 +60,16 @@ const explicitRules = new Map(
   gateRules.rules.map((rule) => [rule.id, rule] as const),
 );
 const defaultStatus = gateRules.defaultRule.status as GateRuleStatus;
+export const GATE_EVIDENCE_PROGRAMS: readonly GateEvidenceProgram[] =
+  Object.freeze(
+    gateRules.evidencePrograms.map((program) => ({
+      ...program,
+      profile: program.profile as GateEvidenceProgram["profile"],
+    })),
+  );
+const evidenceById = new Map(
+  GATE_EVIDENCE_PROGRAMS.map((program) => [program.id, program] as const),
+);
 
 function gateId(leftIndex: number, rightIndex: number): string {
   return `gate-${leftIndex + 1}-${rightIndex + 1}`;
@@ -62,6 +87,9 @@ function validateRuleProfile(): void {
   }
   if (explicitRules.size !== gateRules.rules.length) {
     throw new Error("Gate rule profile contains a duplicate rule ID.");
+  }
+  if (evidenceById.size !== GATE_EVIDENCE_PROGRAMS.length) {
+    throw new Error("Gate rule profile contains a duplicate evidence ID.");
   }
 
   gateRules.rules.forEach((rule) => {
@@ -108,10 +136,28 @@ function validateRuleProfile(): void {
         direction.executable !== approved ||
         (approved
           ? direction.composition === null
-          : direction.composition !== null)
+          : direction.composition !== null) ||
+        (approved ? direction.evidence === null : direction.evidence !== null)
       ) {
         throw new Error(
           `Gate direction ${direction.from}→${direction.to} has inconsistent approval fields.`,
+        );
+      }
+      if (!direction.evidence) return;
+      const evidence = evidenceById.get(direction.evidence.programId);
+      if (!evidence) {
+        throw new Error(
+          `Gate direction ${direction.from}→${direction.to} cites unknown evidence ${direction.evidence.programId}.`,
+        );
+      }
+      const { gateIndex } = direction.evidence;
+      if (
+        gateIndex >= evidence.normalizedProgram.length - 1 ||
+        evidence.normalizedProgram[gateIndex] !== direction.from ||
+        evidence.normalizedProgram[gateIndex + 1] !== direction.to
+      ) {
+        throw new Error(
+          `Gate direction ${direction.from}→${direction.to} does not match its cited evidence step.`,
         );
       }
     });
@@ -149,6 +195,7 @@ export function buildCanonicalGateRegistry(): CanonicalGateDefinition[] {
             to: direction.to as HebrewLetter,
             status: direction.status as GateRuleStatus,
             composition: direction.composition as GateComposition | null,
+            evidence: direction.evidence,
           })) ?? [],
       });
     }
@@ -173,6 +220,7 @@ export function resolveGateInvocation(
       status: "self-transition",
       executable: true,
       composition: "reinforcement",
+      evidence: null,
       description:
         "Repeated-letter reinforcement is a self-transition outside the 231-Gate registry.",
     };
@@ -202,6 +250,7 @@ export function resolveGateInvocation(
       status: direction.status,
       executable: direction.executable,
       composition: direction.composition,
+      evidence: direction.evidence,
       description: direction.description,
     };
   }
@@ -214,6 +263,7 @@ export function resolveGateInvocation(
     status: defaultStatus,
     executable: gateRules.defaultRule.executable,
     composition: null,
+    evidence: null,
     description: gateRules.defaultRule.reason,
   };
 }
