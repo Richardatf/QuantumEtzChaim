@@ -40,6 +40,7 @@ export default defineConfig({
       input: {
         atlas: "index.html",
         console: "console.html",
+        ivritcode: "ivritcode.html",
         contracts: "contract-explorer.html",
         runtime: "qec-v0.1.html",
         wave: "wave.html",

@@ -2,6 +2,40 @@
 
 The visual Tree companion to [IvritCode](https://ivritcode.org/).
 
+## Integrated IvritCode workbench
+
+Open [`ivritcode.html`](ivritcode.html) for a Learn → Read → Build gateway inside
+QEC: five loadable lessons, an RTL Hebrew editor and letter keyboard, Unicode
+graphemes and original source spans, tokens, Ivrit AST, QEC IR, and inspectable
+Python. Its searchable alphabet atlas joins the published language specification
+to the existing versioned Tree path map without copying either mapping.
+
+Two explicit execution profiles preserve their separate semantics:
+
+- **Symbolic Tree simulation:** 1–1,024 unpointed Hebrew letters with final-form
+  normalization and `#` comments. Uses the existing 23-register machine,
+  all 22 visible paths, observation, and exportable machine Run Passports. The
+  console and physical bench workflow consume the same passport contract.
+- **Integer ADD sandbox:** 1–128 `יִ $r1, integer` instructions, one per line.
+  Uses the published `@qec/core` verification, policy, sandbox, and provenance
+  implementation. For initial `r1 = 7`, `יִ $r1, 5` produces `r1 = 12`.
+  Generated Python is inspectable only; it is never evaluated. This profile
+  does not claim machine-passport or OpenQASM equivalence.
+
+Both profiles reject unsupported syntax, hidden control characters, discarded
+operands, and unsafe numeric inputs before execution. Source is limited to 4,096
+UTF-16 code units; integer intermediate results must remain exact. Web and grid
+capabilities remain disabled. The reserved Aleph Olam language opcode remains
+unavailable; the existing Tree's twenty-third seed register is explicit metadata.
+
+Study links restore the exact source, profile, seed, and initial r1 without
+executing. Inspecting and selecting lessons also never execute. Editing any input
+clears stale results. Tree-only links to IvritCode restore original source in
+its existing demo editor. No server storage or additional service is introduced.
+
+Use `npm run dev`, then open `/ivritcode.html`. Run `npm run release:check` to
+check the workbench together with the existing compiler-to-machine contracts.
+
 ## Free and open release policy
 
 Quantum Etz Chaim is released under the MIT License. The source code, OpenQASM
