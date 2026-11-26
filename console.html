@@ -8,7 +8,7 @@
       content="Run the first executable Quantum Etz Chaim vertical slice and follow אור through paths, services, gates, coherence, observation, and manifestation."
     />
     <meta name="theme-color" content="#06100e" />
-    <title>Living Tree Console — אור</title>
+    <title>Tree Console — Quantum Etz Chaim</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -1318,37 +1318,55 @@
         }
       }
     </style>
+    <link rel="stylesheet" href="/css/site.css" />
   </head>
-  <body>
-    <header>
-      <a class="brand" href="index.html">
-        <span class="brand-mark">א</span>
-        <span
-          ><strong>LIVING TREE CONSOLE</strong
-          ><small>QUANTUM ETZ CHAIM / VERTICAL SLICE 0.1</small></span
+  <body data-page="console">
+    <a class="qec-skip" href="#main-content">Skip to content</a>
+    <header class="qec-site-header" data-site-header>
+      <div class="qec-site-bar">
+        <a class="qec-site-brand" href="index.html"
+          ><span class="qec-site-mark" aria-hidden="true">א</span
+          ><span
+            ><strong>QUANTUM ETZ CHAIM</strong><small>Tree console</small></span
+          ></a
         >
-      </a>
-      <nav>
-        <a href="ivritcode.html">IvritCode Workbench</a>
-        <a href="qec-v0.1.html">Living Runtime</a>
-        <a href="wave.html">Infinite Wave</a>
-        <a href="machine.html">Physical Machine</a>
-        <a href="index.html">Architecture Atlas</a>
-        <a href="https://ivritcode.org/">IvritCode ↗</a>
-        <span class="status">DETERMINISTIC SIMULATION</span>
-      </nav>
+        <button
+          class="qec-site-menu"
+          type="button"
+          data-menu-toggle
+          aria-controls="primary-nav"
+          aria-expanded="false"
+          hidden
+        >
+          Menu
+        </button>
+        <nav
+          class="qec-site-links"
+          id="primary-nav"
+          aria-label="Primary navigation"
+          data-open="false"
+        >
+          <a href="index.html">Overview</a>
+          <a href="console.html" aria-current="page">Tree console</a>
+          <a href="ivritcode.html">IvritCode</a>
+          <a href="qec-v0.1.html">Paths &amp; Gates</a>
+          <a href="wave.html">Infinite Wave</a>
+          <a href="machine.html">Physical QEC</a>
+          <a href="contract-explorer.html">Run evidence</a>
+        </nav>
+      </div>
     </header>
 
-    <main>
+    <main id="main-content" tabindex="-1">
       <div class="intro">
         <div>
           <div class="eyebrow">First executable path / אור</div>
           <h1>Watch the word move.</h1>
         </div>
         <p>
-          Three Hebrew instructions transform a real 23-register state. Follow
-          each configured path, inspect its IvritOS services, watch two gates
-          form, and observe the manifested result.
+          Follow each Hebrew instruction through a 23-register state. Inspect
+          its configured path, runtime services, adjacent Gates, and observed
+          result. The initial אור example is ready to step through.
         </p>
       </div>
 
@@ -1833,6 +1851,23 @@
         the deterministic events shown above.
       </p>
     </main>
+    <footer class="qec-site-footer">
+      <div>
+        <p><strong>Continue exploring</strong></p>
+        <div class="qec-next-links">
+          <a href="ivritcode.html">Learn the language</a
+          ><a href="contract-explorer.html">Inspect run evidence</a>
+        </div>
+        <p>
+          Symbolic architecture · deterministic software · classical hardware
+          interface.
+        </p>
+      </div>
+      <a href="https://github.com/Richardatf/QuantumEtzChaim"
+        >Source &amp; documentation</a
+      >
+    </footer>
     <script type="module" src="/src/console.ts"></script>
+    <script type="module" src="/src/site.ts"></script>
   </body>
 </html>

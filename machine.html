@@ -10,37 +10,46 @@
     <meta name="theme-color" content="#05070c" />
     <title>QEC-1 Physical Machine — Quantum Etz Chaim</title>
     <link rel="stylesheet" href="/css/machine.css" />
+    <link rel="stylesheet" href="/css/site.css" />
   </head>
-  <body>
-    <header class="topbar">
-      <div
-        class="shell"
-        style="
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 1rem;
-        "
-      >
-        <a class="brand" href="/">
-          <span class="brand-mark" aria-hidden="true">א</span>
-          <span
-            ><strong>QEC-1 PHYSICAL MACHINE</strong
-            ><small>HARDWARE CONTRACT 0.1</small></span
-          >
-        </a>
-        <nav aria-label="Primary navigation">
-          <a href="ivritcode.html">IvritCode Workbench</a>
-          <a href="#schematics">Schematics</a>
-          <a href="bench.html">Bench prototype</a>
-          <a href="#build">Build sequence</a>
-          <a href="console.html">Console</a>
-          <a href="index.html">Atlas</a>
+  <body data-page="machine">
+    <a class="qec-skip" href="#main-content">Skip to content</a>
+    <header class="qec-site-header" data-site-header>
+      <div class="qec-site-bar">
+        <a class="qec-site-brand" href="index.html"
+          ><span class="qec-site-mark" aria-hidden="true">א</span
+          ><span
+            ><strong>QUANTUM ETZ CHAIM</strong><small>Physical QEC</small></span
+          ></a
+        >
+        <button
+          class="qec-site-menu"
+          type="button"
+          data-menu-toggle
+          aria-controls="primary-nav"
+          aria-expanded="false"
+          hidden
+        >
+          Menu
+        </button>
+        <nav
+          class="qec-site-links"
+          id="primary-nav"
+          aria-label="Primary navigation"
+          data-open="false"
+        >
+          <a href="index.html">Overview</a>
+          <a href="console.html">Tree console</a>
+          <a href="ivritcode.html">IvritCode</a>
+          <a href="qec-v0.1.html">Paths &amp; Gates</a>
+          <a href="wave.html">Infinite Wave</a>
+          <a href="machine.html" aria-current="page">Physical QEC</a>
+          <a href="contract-explorer.html">Run evidence</a>
         </nav>
       </div>
     </header>
 
-    <main>
+    <main id="main-content" tabindex="-1">
       <section class="shell hero">
         <p class="eyebrow">
           PHYSICAL INTERFACE / DETERMINISTIC RUNTIME / BUILDABLE NOW
@@ -51,6 +60,10 @@
           Quantum Etz Chaim runtime: 24 keys, 56 addressable indicators, one
           auditable state, and a complete reproducible trace.
         </p>
+        <div class="qec-section-nav" aria-label="On this page">
+          <a href="#schematics">Schematics</a><a href="#build">Build sequence</a
+          ><a href="bench.html">Bench prototype</a>
+        </div>
         <div class="actions">
           <a class="button primary" href="bench.html"
             >Build the four-key prototype →</a
@@ -479,11 +492,22 @@
       </section>
     </main>
 
-    <footer>
-      <div class="shell">
-        QUANTUM ETZ CHAIM · QEC-1 · PANEL LINK 0.1 · CLASSICAL DETERMINISTIC
-        DEMONSTRATOR
+    <footer class="qec-site-footer">
+      <div>
+        <p><strong>Continue exploring</strong></p>
+        <div class="qec-next-links">
+          <a href="bench.html">Open the bench prototype</a
+          ><a href="console.html">Create a Tree run</a>
+        </div>
+        <p>
+          Symbolic architecture · deterministic software · classical hardware
+          interface.
+        </p>
       </div>
+      <a href="https://github.com/Richardatf/QuantumEtzChaim"
+        >Source &amp; documentation</a
+      >
     </footer>
+    <script type="module" src="/src/site.ts"></script>
   </body>
 </html>

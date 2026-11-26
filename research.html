@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Inspect QEC’s experimental IvritCode-to-OpenQASM projection, versioned contracts, validation evidence, and opportunities to contribute."
+    />
+    <meta name="theme-color" content="#07100f" />
+    <title>OpenQASM Research — Quantum Etz Chaim</title>
+    <link rel="stylesheet" href="/css/overview.css" />
+    <link rel="stylesheet" href="/css/site.css" />
+  </head>
+  <body data-page="research">
+    <a class="qec-skip" href="#main-content">Skip to content</a>
+    <header class="qec-site-header" data-site-header>
+      <div class="qec-site-bar">
+        <a class="qec-site-brand" href="index.html"
+          ><span class="qec-site-mark" aria-hidden="true">א</span
+          ><span
+            ><strong>QUANTUM ETZ CHAIM</strong
+            ><small>OpenQASM research</small></span
+          ></a
+        >
+        <button
+          class="qec-site-menu"
+          type="button"
+          data-menu-toggle
+          aria-controls="primary-nav"
+          aria-expanded="false"
+          hidden
+        >
+          Menu
+        </button>
+        <nav
+          class="qec-site-links"
+          id="primary-nav"
+          aria-label="Primary navigation"
+          data-open="false"
+        >
+          <a href="index.html">Overview</a>
+          <a href="console.html">Tree console</a>
+          <a href="ivritcode.html">IvritCode</a>
+          <a href="qec-v0.1.html">Paths &amp; Gates</a>
+          <a href="wave.html">Infinite Wave</a>
+          <a href="machine.html">Physical QEC</a>
+          <a href="contract-explorer.html">Run evidence</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main-content" tabindex="-1">
+      <section class="shell qec-research-intro">
+        <div class="eyebrow">Research &amp; interoperability</div>
+        <h1>The OpenQASM bridge.</h1>
+        <p>
+          Inspect the circuit projection, reproduce the published validation
+          evidence, and help expand the experimental boundary between QEC and
+          external quantum software tools.
+        </p>
+        <div class="qec-section-nav" aria-label="On this page">
+          <a href="#quantum-target">Try the projection</a
+          ><a href="#evidence">Inspect the evidence</a
+          ><a href="#help">Contribute</a
+          ><a href="index.html">Return to the QEC overview</a>
+        </div>
+        <p class="qec-research-boundary">
+          QEC is an independent project. The projection exports circuit source;
+          it does not execute quantum hardware or imply endorsement by OpenQASM
+          or Qiskit.
+        </p>
+      </section>
+      <section class="shell" aria-label="Current compatibility status">
+        <div class="status-ribbon">
+          <article>
+            <span>Projection profiles</span>
+            <strong>3.0 frozen / 3.1 experimental</strong>
+            <p>
+              Profile 0.1 stays normative; profile 0.2 isolates 3.1 toolchain
+              compatibility.
+            </p>
+          </article>
+          <article>
+            <span>3.0 evidence</span>
+            <strong>External PASS</strong>
+            <p>
+              אור and שלום pass pinned parser/import/statevector checks; no
+              certification or hardware claim is implied.
+            </p>
+          </article>
+          <article>
+            <span>QEC evidence</span>
+            <strong>Run Passport</strong>
+            <p>
+              Emitted source, trace, hashes, panel frames, and provenance travel
+              together.
+            </p>
+          </article>
+          <article>
+            <span>Request</span>
+            <strong>Review + expansion</strong>
+            <p>
+              Parser validation, semantic critique, backend tests, and profile
+              evolution.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="why-openqasm">
+        <div class="shell">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Why this boundary</div>
+              <h2>We do not want a private quantum interchange format.</h2>
+            </div>
+            <p class="section-intro">
+              OpenQASM is built to serve as an intermediate representation
+              between higher-level tooling and quantum execution systems. That
+              makes it the right place for QEC to expose its circuit-level
+              projection and invite outside scrutiny rather than hide behind a
+              proprietary output format.
+            </p>
+          </div>
+          <div class="why-grid">
+            <article class="panel-card">
+              <span class="num">01 / INTEROPERABILITY</span>
+              <h3>A legible handoff</h3>
+              <p>
+                IvritCode remains the symbolic source language. OpenQASM becomes
+                the explicit quantum-toolchain handoff. QEC can evolve without
+                asking outside tools to learn QEC’s internal symbolic runtime.
+              </p>
+              <a href="https://openqasm.com/"
+                >Open the OpenQASM specification ↗</a
+              >
+            </article>
+            <article class="panel-card">
+              <span class="num">02 / CRITICISM</span>
+              <h3>A boundary experts can attack</h3>
+              <p>
+                The current 22-letter mapping is deterministic. That does not
+                make it optimal. Publishing the profile lets compiler and
+                quantum-language experts identify bad assumptions, weak
+                semantics, or avoidable incompatibilities.
+              </p>
+            </article>
+            <article class="panel-card">
+              <span class="num">03 / EVIDENCE</span>
+              <h3>Claims can become testable</h3>
+              <p>
+                “It emits OpenQASM” is a small claim. Parser acceptance,
+                simulator execution, and backend testing are stronger claims.
+                QEC is designed to record those steps separately rather than
+                blur them together.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="bridge">
+        <div class="shell">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">The complete bridge</div>
+              <h2>Source, projection, evidence, machine.</h2>
+            </div>
+            <p class="section-intro">
+              The OpenQASM output is one part of a larger reproducibility chain.
+              The same run can carry a deterministic symbolic trace, its
+              OpenQASM projection, transport frames for the physical panel,
+              acknowledgements, and provenance in one versioned passport.
+            </p>
+          </div>
+          <div class="bridge-flow" aria-label="QEC execution flow">
+            <article class="bridge-step">
+              <b>01</b>
+              <h3>IvritCode</h3>
+              <p>
+                Hebrew-letter source with final-form and combining-mark
+                normalization.
+              </p>
+            </article>
+            <article class="bridge-step">
+              <b>02</b>
+              <h3>QEC runtime</h3>
+              <p>
+                Deterministic symbolic execution with trace, state, Gates, and
+                provenance.
+              </p>
+            </article>
+            <article class="bridge-step">
+              <b>03</b>
+              <h3>Projection</h3>
+              <p>
+                Versioned 22-instruction mapping emits ordinary OpenQASM 3
+                source.
+              </p>
+            </article>
+            <article class="bridge-step">
+              <b>04</b>
+              <h3>Validation</h3>
+              <p>
+                Canonical אור and שלום now pass external parser, Qiskit import,
+                statevector, and independent Rust front-end checks.
+              </p>
+            </article>
+            <article class="bridge-step">
+              <b>05</b>
+              <h3>Run Passport</h3>
+              <p>
+                Source, hashes, emitted QASM, trace, machine frames, and
+                evidence stay bound.
+              </p>
+            </article>
+            <article class="bridge-step">
+              <b>06</b>
+              <h3>QEC-1P</h3>
+              <p>
+                A separate classical hardware witness manifests deterministic
+                machine state.
+              </p>
+            </article>
+          </div>
+          <div class="boundary-note">
+            <div>
+              <strong>The physical machine remains central.</strong>
+              <p>
+                QEC-1 is not presented as quantum processing hardware. It is the
+                tangible end of the QEC state pipeline: 24 keys, 56 addressable
+                indicators, low-voltage control, and a visible manifestation of
+                deterministic execution. The OpenQASM bridge is how QEC reaches
+                outward into quantum software ecosystems.
+              </p>
+            </div>
+            <div>
+              <strong>The claim stays narrow.</strong>
+              <p>
+                Today: deterministic emission plus corpus-scoped external parser
+                and statevector evidence. Next: broader corpus, OpenQASM 3.1
+                review, and backend-facing experiments with exact versions and
+                results.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="quantum-target">
+        <div class="shell">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Live projection / profile 0.1</div>
+              <h2>
+                Put Hebrew source on one side. Inspect OpenQASM on the other.
+              </h2>
+            </div>
+            <p class="section-intro">
+              This browser demo uses the repository’s real compiler function,
+              not a hand-written example. The default target allocates three
+              qubits. The current profile emits an `OPENQASM 3.0;` declaration
+              and the repository also carries an experimental 3.1 companion
+              profile. The two profiles preserve a clear boundary for
+              compatibility review.
+            </p>
+          </div>
+          <div class="qasm-lab">
+            <div class="qasm-controls">
+              <div class="eyebrow">IvritCode source</div>
+              <h3>Try a program.</h3>
+              <p>
+                Use Hebrew letters only. Niqqud and cantillation are stripped;
+                final forms are normalized. Try
+                <span lang="he" dir="rtl">אור</span> or
+                <span lang="he" dir="rtl">שלום</span>.
+              </p>
+              <label for="qasm-source">Source</label>
+              <input
+                id="qasm-source"
+                value="אור"
+                lang="he"
+                dir="rtl"
+                autocomplete="off"
+              />
+              <button class="button primary" id="compile-qasm" type="button">
+                Compile to OpenQASM →
+              </button>
+              <span class="qasm-status" id="qasm-status"
+                >PROFILE READY / ivritcode-openqasm-0.1</span
+              >
+              <div class="hero-actions">
+                <a
+                  class="button"
+                  href="specifications/ivritcode-openqasm-v0.1.json"
+                  >3.0 profile</a
+                >
+                <a
+                  class="button"
+                  href="specifications/ivritcode-openqasm-v0.2.json"
+                  >3.1 experiment</a
+                >
+                <a
+                  class="button"
+                  href="specifications/schemas/ivritcode-openqasm-v0.1.schema.json"
+                  >Schema</a
+                >
+              </div>
+            </div>
+            <div class="qasm-output-shell">
+              <pre id="qasm-output" aria-live="polite"></pre>
+            </div>
+          </div>
+          <ul
+            class="qasm-map"
+            id="qasm-map"
+            aria-label="IvritCode to OpenQASM operation map"
+          ></ul>
+        </div>
+      </section>
+
+      <section class="section" id="help">
+        <div class="shell">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Where we need help</div>
+              <h2>We want criticism that changes the implementation.</h2>
+            </div>
+            <p class="section-intro">
+              We are not asking the OpenQASM community to accept QEC’s
+              assumptions. We are asking people who know the language, parsers,
+              compiler IRs, simulators, and backend interfaces to tell us where
+              the bridge is wrong, shallow, obsolete, or useful.
+            </p>
+          </div>
+          <div class="ask-grid">
+            <article class="panel-card ask-card">
+              <span class="ask-tag">PARSER VALIDATION</span>
+              <h3>Break the emitted source.</h3>
+              <p>
+                The first canonical parser milestone now passes. Expand the
+                corpus, reproduce our pinned results, and bring us exact
+                diagnostics or failure cases from additional independently
+                maintained tools.
+              </p>
+            </article>
+            <article class="panel-card ask-card">
+              <span class="ask-tag">3.0 → 3.1</span>
+              <h3>Tell us how to version the target.</h3>
+              <p>
+                Should profile 0.1 remain a frozen 3.0 contract, migrate to 3.1,
+                or coexist with a new versioned profile? We want the answer
+                driven by compatibility and semantics, not by changing a header
+                because a newer number exists.
+              </p>
+            </article>
+            <article class="panel-card ask-card">
+              <span class="ask-tag">SEMANTIC REVIEW</span>
+              <h3>Challenge all 22 mappings.</h3>
+              <p>
+                Deterministic is not synonymous with well-designed. Review gate
+                choice, arity, parameter values, operand rotation, measurement
+                behavior, and whether the profile teaches the wrong abstraction
+                about quantum programs.
+              </p>
+            </article>
+            <article class="panel-card ask-card">
+              <span class="ask-tag">SIMULATORS + BACKENDS</span>
+              <h3>Build a compatibility matrix.</h3>
+              <p>
+                Help us test multiple independently maintained tools and
+                separate “parses,” “simulates,” and “runs on a hardware-facing
+                stack” into distinct, versioned claims.
+              </p>
+            </article>
+            <article class="panel-card ask-card">
+              <span class="ask-tag">LANGUAGE GROWTH</span>
+              <h3>Expand beyond a flat gate stream.</h3>
+              <p>
+                Guide the next profile toward OpenQASM-native control flow,
+                parameterization, subroutines, timing, richer measurement
+                behavior, and calibration-aware boundaries where those features
+                actually add technical value.
+              </p>
+            </article>
+            <article class="panel-card ask-card">
+              <span class="ask-tag">PROVENANCE</span>
+              <h3>Improve the Run Passport.</h3>
+              <p>
+                Review whether binding the emitted OpenQASM and validation
+                artifacts to the same execution passport is useful. Tell us what
+                metadata a real reproducibility record should contain and what
+                should remain outside it.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="evidence">
+        <div class="shell">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Inspect, do not trust</div>
+              <h2>The contracts and evidence are public.</h2>
+            </div>
+            <p class="section-intro">
+              The fastest way to understand QEC is to inspect the actual
+              contracts, tests, and physical build path. The site is the
+              invitation; the repository is the argument.
+            </p>
+          </div>
+          <div class="evidence-grid">
+            <article class="panel-card">
+              <span class="num">01 / PROFILE</span>
+              <h3>Translation contract</h3>
+              <p>
+                <code>ivritcode-openqasm-v0.1.json</code> is the
+                machine-readable 22-letter projection profile.
+              </p>
+              <a href="specifications/ivritcode-openqasm-v0.1.json"
+                >Inspect the profile →</a
+              >
+            </article>
+            <article class="panel-card">
+              <span class="num">02 / SCHEMA</span>
+              <h3>Versioned validation</h3>
+              <p>
+                The profile and Run Passport have JSON Schemas so structural
+                claims can fail closed.
+              </p>
+              <a
+                href="specifications/schemas/ivritcode-openqasm-v0.1.schema.json"
+                >Inspect the schema →</a
+              >
+            </article>
+            <article class="panel-card">
+              <span class="num">03 / SOURCE</span>
+              <h3>The actual compiler</h3>
+              <p>
+                The live demo imports the same TypeScript implementation tested
+                by the repository.
+              </p>
+              <a
+                href="https://github.com/Richardatf/QuantumEtzChaim/blob/main/src/openqasm.ts"
+                >Read src/openqasm.ts ↗</a
+              >
+            </article>
+            <article class="panel-card">
+              <span class="num">04 / TESTS</span>
+              <h3>Deterministic behavior</h3>
+              <p>
+                Normalization, mapping, output shape, and Run Passport binding
+                are covered by automated tests.
+              </p>
+              <a
+                href="https://github.com/Richardatf/QuantumEtzChaim/blob/main/tests/openqasm.test.ts"
+                >Read the tests ↗</a
+              >
+            </article>
+            <article class="panel-card">
+              <span class="num">05 / VALIDATION</span>
+              <h3>External evidence</h3>
+              <p>
+                Exact validator versions, QASM hashes, parser results, and
+                statevector evidence are captured for the canonical corpus.
+              </p>
+              <a href="docs/OPENQASM_VALIDATION.md"
+                >Read validation evidence →</a
+              >
+            </article>
+            <article class="panel-card">
+              <span class="num">06 / HARDWARE</span>
+              <h3>Physical manifestation</h3>
+              <p>
+                QEC-1P is the separate classical bench-validation path for panel
+                state, transport, and acknowledgements.
+              </p>
+              <a href="bench.html">Open the bench proof →</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="join">
+        <div class="shell">
+          <div class="request-banner">
+            <div>
+              <div class="eyebrow">The request</div>
+              <h2>
+                Inspect it. Break it. Help us make the bridge technically
+                useful.
+              </h2>
+              <p>
+                The first canonical validation milestone is now reproducible and
+                public. Help us broaden it: test more IvritCode programs, review
+                the 3.0-to-3.1 profile strategy, challenge the 22 mappings, or
+                add an independent simulator/backend-facing tool. Record exact
+                versions and preserve disagreements. That is evidence too.
+              </p>
+            </div>
+            <div class="request-actions">
+              <a
+                class="button primary"
+                href="https://github.com/Richardatf/QuantumEtzChaim/issues/new"
+                >Open a QEC issue <span>↗</span></a
+              >
+              <a class="button" href="docs/OPENQASM_COLLABORATION.md"
+                >Read the collaboration brief <span>→</span></a
+              >
+              <a
+                class="button"
+                href="https://github.com/Richardatf/QuantumEtzChaim"
+                >Inspect the repository <span>↗</span></a
+              >
+              <a class="button" href="console.html"
+                >Open the QEC runtime <span>→</span></a
+              >
+              <a class="button" href="machine.html"
+                >See the physical machine <span>→</span></a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="qec-site-footer">
+      <div>
+        <p><strong>Continue exploring</strong></p>
+        <div class="qec-next-links">
+          <a href="index.html">Return to the QEC overview</a
+          ><a href="contract-explorer.html">Inspect run evidence</a>
+        </div>
+        <p>
+          Symbolic architecture · deterministic software · classical hardware
+          interface.
+        </p>
+      </div>
+      <a href="https://github.com/Richardatf/QuantumEtzChaim"
+        >Source &amp; documentation</a
+      >
+    </footer>
+    <script type="module" src="/src/research.ts"></script>
+    <script type="module" src="/src/site.ts"></script>
+  </body>
+</html>

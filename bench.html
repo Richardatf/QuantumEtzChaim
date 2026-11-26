@@ -11,28 +11,47 @@
     <title>QEC-1P Bench Prototype — Quantum Etz Chaim</title>
     <link rel="stylesheet" href="/css/machine.css" />
     <link rel="stylesheet" href="/css/bench.css" />
+    <link rel="stylesheet" href="/css/site.css" />
   </head>
-  <body>
-    <header class="topbar">
-      <div class="shell bar-layout">
-        <a class="brand" href="machine.html">
-          <span class="brand-mark" aria-hidden="true">א</span>
-          <span
-            ><strong>QEC-1P BENCH PROTOTYPE</strong
-            ><small>FOUR KEYS / FOUR PIXELS / ONE PROTOCOL</small></span
-          >
-        </a>
-        <nav aria-label="Primary navigation">
-          <a href="ivritcode.html">IvritCode Workbench</a>
-          <a href="console.html">Living Console</a>
-          <a href="#console">Bench console</a>
-          <a href="docs/QEC_1P_BENCH_BUILD.md">Build guide</a>
-          <a href="machine.html">Full machine</a>
+  <body data-page="bench">
+    <a class="qec-skip" href="#main-content">Skip to content</a>
+    <header class="qec-site-header" data-site-header>
+      <div class="qec-site-bar">
+        <a class="qec-site-brand" href="index.html"
+          ><span class="qec-site-mark" aria-hidden="true">א</span
+          ><span
+            ><strong>QUANTUM ETZ CHAIM</strong
+            ><small>Bench prototype</small></span
+          ></a
+        >
+        <button
+          class="qec-site-menu"
+          type="button"
+          data-menu-toggle
+          aria-controls="primary-nav"
+          aria-expanded="false"
+          hidden
+        >
+          Menu
+        </button>
+        <nav
+          class="qec-site-links"
+          id="primary-nav"
+          aria-label="Primary navigation"
+          data-open="false"
+        >
+          <a href="index.html">Overview</a>
+          <a href="console.html">Tree console</a>
+          <a href="ivritcode.html">IvritCode</a>
+          <a href="qec-v0.1.html">Paths &amp; Gates</a>
+          <a href="wave.html">Infinite Wave</a>
+          <a href="machine.html">Physical QEC</a>
+          <a href="contract-explorer.html">Run evidence</a>
         </nav>
       </div>
     </header>
 
-    <main>
+    <main id="main-content" tabindex="-1">
       <section class="shell bench-hero">
         <div>
           <p class="eyebrow">FIRST PHYSICAL MILESTONE / BUILD BEFORE PANEL</p>
@@ -43,6 +62,10 @@
             four pixels expose node, path, register, and link/fault state. It
             proves the part that must work before any 600 × 420 mm panel is cut.
           </p>
+          <div class="qec-section-nav" aria-label="On this page">
+            <a href="#console">Bench console</a
+            ><a href="machine.html">Full machine</a>
+          </div>
           <div class="actions">
             <a class="button primary" href="docs/QEC_1P_BENCH_BUILD.md"
               >Build QEC-1P →</a
@@ -226,11 +249,23 @@ QEC-1P bench console ready.</pre>
       </section>
     </main>
 
-    <footer>
-      <div class="shell">
-        QUANTUM ETZ CHAIM · QEC-1P · BUILDABLE CLASSICAL BENCH PROTOTYPE
+    <footer class="qec-site-footer">
+      <div>
+        <p><strong>Continue exploring</strong></p>
+        <div class="qec-next-links">
+          <a href="machine.html">Return to the full machine</a
+          ><a href="contract-explorer.html">Inspect a Run Passport</a>
+        </div>
+        <p>
+          Symbolic architecture · deterministic software · classical hardware
+          interface.
+        </p>
       </div>
+      <a href="https://github.com/Richardatf/QuantumEtzChaim"
+        >Source &amp; documentation</a
+      >
     </footer>
     <script type="module" src="/src/bench.ts"></script>
+    <script type="module" src="/src/site.ts"></script>
   </body>
 </html>

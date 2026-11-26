@@ -1,6 +1,33 @@
 # Quantum Etz Chaim
 
-The visual Tree companion to [IvritCode](https://ivritcode.org/).
+An experimental computing architecture inspired by the Tree of Life, with an
+inspectable deterministic runtime, [IvritCode](https://ivritcode.org/) language
+workbench, versioned evidence, and a classical hardware interface.
+
+## Explore the site
+
+| What you want to do                                  | Start here                                         |
+| ---------------------------------------------------- | -------------------------------------------------- |
+| Understand QEC and choose a starting point           | [`index.html`](index.html)                         |
+| Follow a program through the Tree                    | [`console.html`](console.html)                     |
+| Learn and inspect IvritCode                          | [`ivritcode.html`](ivritcode.html)                 |
+| Explore service roles and Gate evidence              | [`qec-v0.1.html`](qec-v0.1.html)                   |
+| Compare deterministic observation projections        | [`wave.html`](wave.html)                           |
+| Explore the classical control surface                | [`machine.html`](machine.html)                     |
+| Prove a four-key prototype                           | [`bench.html`](bench.html)                         |
+| Validate a Run Passport and inspect contracts        | [`contract-explorer.html`](contract-explorer.html) |
+| Review the OpenQASM bridge and contribution material | [`research.html`](research.html)                   |
+
+All nine pages share static primary navigation, current-page labels, a keyboard
+skip link, contextual continuation links, and the progressive mobile menu in
+`src/site.ts`. Navigation remains available when JavaScript is disabled. The
+homepage introduces QEC before the technical research; previously shared
+homepage research anchors still resolve to the corresponding research section.
+
+The Paths & Gates explorer filters pairs by evidence status, shows each
+direction separately, links approved directions to their canonical evidence
+runs, and explains empty searches. Its acceptance example releases the Run
+button after asynchronous playback so the demonstration can be repeated.
 
 ## Integrated IvritCode workbench
 

@@ -39,6 +39,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         atlas: "index.html",
+        research: "research.html",
         console: "console.html",
         ivritcode: "ivritcode.html",
         contracts: "contract-explorer.html",

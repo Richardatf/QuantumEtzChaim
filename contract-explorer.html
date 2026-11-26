@@ -3,7 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Contract Explorer — Quantum Etz Chaim</title>
+    <meta
+      name="description"
+      content="Validate a QEC Run Passport locally and inspect the contracts, path map, deterministic trace, and published evidence that support it."
+    />
+    <title>Run Evidence &amp; Contracts — Quantum Etz Chaim</title>
     <style>
       :root {
         color-scheme: dark;
@@ -243,24 +247,48 @@
         }
       }
     </style>
+    <link rel="stylesheet" href="/css/site.css" />
   </head>
-  <body>
-    <nav class="shell">
-      <a href="ivritcode.html">IvritCode Workbench</a>
-      <a href="index.html">← Architecture Atlas</a>
-      <div>
-        <a class="button optional" href="qec-v0.1.html">Living runtime</a>
-        <a class="button optional" href="wave.html">Infinite Wave</a>
-        <a class="button optional" href="machine.html">Physical Machine</a>
-        <a class="button optional" href="docs/build-spec.html"
-          >Build specification</a
-        ><a class="button" href="console.html">Run console</a>
+  <body data-page="evidence">
+    <a class="qec-skip" href="#main-content">Skip to content</a>
+    <header class="qec-site-header" data-site-header>
+      <div class="qec-site-bar">
+        <a class="qec-site-brand" href="index.html"
+          ><span class="qec-site-mark" aria-hidden="true">א</span
+          ><span
+            ><strong>QUANTUM ETZ CHAIM</strong><small>Run evidence</small></span
+          ></a
+        >
+        <button
+          class="qec-site-menu"
+          type="button"
+          data-menu-toggle
+          aria-controls="primary-nav"
+          aria-expanded="false"
+          hidden
+        >
+          Menu
+        </button>
+        <nav
+          class="qec-site-links"
+          id="primary-nav"
+          aria-label="Primary navigation"
+          data-open="false"
+        >
+          <a href="index.html">Overview</a>
+          <a href="console.html">Tree console</a>
+          <a href="ivritcode.html">IvritCode</a>
+          <a href="qec-v0.1.html">Paths &amp; Gates</a>
+          <a href="wave.html">Infinite Wave</a>
+          <a href="machine.html">Physical QEC</a>
+          <a href="contract-explorer.html" aria-current="page">Run evidence</a>
+        </nav>
       </div>
-    </nav>
-    <main class="shell">
+    </header>
+    <main class="shell" id="main-content" tabindex="-1">
       <header class="hero">
         <div class="eyebrow">Normative system evidence / qec 0.3</div>
-        <h1>Contract Explorer</h1>
+        <h1>Run evidence &amp; contracts</h1>
         <p>
           Inspect the exact contracts that bind the canonical engine, 22-path
           architecture, deterministic trace, and release gates. Every displayed
@@ -329,6 +357,23 @@
       </section>
       <div class="downloads" id="downloads"></div>
     </main>
+    <footer class="qec-site-footer">
+      <div>
+        <p><strong>Continue exploring</strong></p>
+        <div class="qec-next-links">
+          <a href="console.html">Create a Tree run</a
+          ><a href="machine.html">Explore the physical QEC</a>
+        </div>
+        <p>
+          Symbolic architecture · deterministic software · classical hardware
+          interface.
+        </p>
+      </div>
+      <a href="https://github.com/Richardatf/QuantumEtzChaim"
+        >Source &amp; documentation</a
+      >
+    </footer>
     <script type="module" src="/src/contracts.ts"></script>
+    <script type="module" src="/src/site.ts"></script>
   </body>
 </html>

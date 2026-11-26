@@ -10,23 +10,46 @@
     <meta name="theme-color" content="#07100f" />
     <title>IvritCode Workbench · Quantum Etz Chaim</title>
     <link rel="stylesheet" href="/css/ivritcode.css" />
+    <link rel="stylesheet" href="/css/site.css" />
   </head>
-  <body>
-    <a class="skip" href="#editor">Skip to editor</a>
-    <header class="shell header">
-      <a class="brand" href="index.html"
-        ><span class="brand-mark" lang="he">א</span
-        ><span>QUANTUM ETZ CHAIM<small>IVRITCODE WORKBENCH</small></span></a
-      >
-      <nav aria-label="Primary navigation">
-        <a href="index.html">Architecture</a
-        ><a href="ivritcode.html" aria-current="page">IvritCode</a
-        ><a href="console.html">Tree console</a
-        ><a href="qec-v0.1.html">Paths &amp; Gates</a
-        ><a href="machine.html">Physical QEC</a>
-      </nav>
+  <body data-page="ivritcode">
+    <a class="qec-skip" href="#main-content">Skip to content</a>
+    <header class="qec-site-header" data-site-header>
+      <div class="qec-site-bar">
+        <a class="qec-site-brand" href="index.html"
+          ><span class="qec-site-mark" aria-hidden="true">א</span
+          ><span
+            ><strong>QUANTUM ETZ CHAIM</strong
+            ><small>IvritCode learning</small></span
+          ></a
+        >
+        <button
+          class="qec-site-menu"
+          type="button"
+          data-menu-toggle
+          aria-controls="primary-nav"
+          aria-expanded="false"
+          hidden
+        >
+          Menu
+        </button>
+        <nav
+          class="qec-site-links"
+          id="primary-nav"
+          aria-label="Primary navigation"
+          data-open="false"
+        >
+          <a href="index.html">Overview</a>
+          <a href="console.html">Tree console</a>
+          <a href="ivritcode.html" aria-current="page">IvritCode</a>
+          <a href="qec-v0.1.html">Paths &amp; Gates</a>
+          <a href="wave.html">Infinite Wave</a>
+          <a href="machine.html">Physical QEC</a>
+          <a href="contract-explorer.html">Run evidence</a>
+        </nav>
+      </div>
     </header>
-    <main class="shell">
+    <main class="shell" id="main-content" tabindex="-1">
       <section class="hero" aria-labelledby="page-title">
         <div>
           <p class="eyebrow">The language inside the architecture</p>
@@ -308,11 +331,18 @@ Choose Inspect source to read the compilation.</pre>
         >
       </section>
     </main>
-    <footer class="shell">
-      <p>
-        Experimental, deterministic, and inspectable. Symbolic inspiration is
-        distinct from implemented computation and physical quantum research.
-      </p>
+    <footer class="qec-site-footer">
+      <div>
+        <p><strong>Continue exploring</strong></p>
+        <div class="qec-next-links">
+          <a href="console.html">Follow the Tree</a
+          ><a href="qec-v0.1.html">Explore Paths & Gates</a>
+        </div>
+        <p>
+          Symbolic architecture · deterministic software · classical hardware
+          interface.
+        </p>
+      </div>
       <a href="https://github.com/Richardatf/QuantumEtzChaim"
         >Source &amp; documentation</a
       >
@@ -324,5 +354,6 @@ Choose Inspect source to read the compilation.</pre>
       </p></noscript
     >
     <script type="module" src="/src/ivritcode-ui.ts"></script>
+    <script type="module" src="/src/site.ts"></script>
   </body>
 </html>

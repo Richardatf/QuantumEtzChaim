@@ -10,39 +10,54 @@
     />
     <meta name="theme-color" content="#030712" />
     <link rel="stylesheet" href="/css/qec.css" />
+    <link rel="stylesheet" href="/css/site.css" />
   </head>
-  <body class="qec-page">
-    <header class="topbar" role="banner">
-      <div class="wrap topbar-row">
-        <a class="brand" href="/" aria-label="Quantum Etz Chaim home"
-          ><span class="brand-mark" aria-hidden="true">א</span
-          ><span class="brand-text"
-            ><span class="brand-title">Quantum Etz Chaim</span
-            ><span class="brand-subtitle">Living Runtime · v0.1</span></span
+  <body class="qec-page" data-page="paths">
+    <a class="qec-skip" href="#main-content">Skip to content</a>
+    <header class="qec-site-header" data-site-header>
+      <div class="qec-site-bar">
+        <a class="qec-site-brand" href="index.html"
+          ><span class="qec-site-mark" aria-hidden="true">א</span
+          ><span
+            ><strong>QUANTUM ETZ CHAIM</strong
+            ><small>Paths &amp; Gates</small></span
           ></a
         >
-        <nav class="topbar-actions" aria-label="Top navigation">
-          <a href="ivritcode.html">IvritCode Workbench</a>
-          <a class="nav-link" href="/">Atlas</a
-          ><a class="nav-link" href="/wave.html">Infinite Wave</a
-          ><a class="nav-link" href="/machine.html">Physical Machine</a
-          ><a class="nav-link" href="/console.html">Console</a
-          ><a class="nav-link" href="/contract-explorer.html">Contracts</a
-          ><a class="nav-link nav-cta" href="https://ivritcode.org/"
-            >Open IvritCode ↗</a
-          >
+        <button
+          class="qec-site-menu"
+          type="button"
+          data-menu-toggle
+          aria-controls="primary-nav"
+          aria-expanded="false"
+          hidden
+        >
+          Menu
+        </button>
+        <nav
+          class="qec-site-links"
+          id="primary-nav"
+          aria-label="Primary navigation"
+          data-open="false"
+        >
+          <a href="index.html">Overview</a>
+          <a href="console.html">Tree console</a>
+          <a href="ivritcode.html">IvritCode</a>
+          <a href="qec-v0.1.html" aria-current="page">Paths &amp; Gates</a>
+          <a href="wave.html">Infinite Wave</a>
+          <a href="machine.html">Physical QEC</a>
+          <a href="contract-explorer.html">Run evidence</a>
         </nav>
       </div>
     </header>
-    <main>
+    <main id="main-content" tabindex="-1">
       <section class="qec-hero wrap">
         <div>
           <p class="qec-kicker">QEC CORE · עֵץ חַיִּים</p>
-          <h1>Quantum Etz Chaim</h1>
+          <h1>Paths &amp; Gates</h1>
           <p class="qec-lead">
-            A symbolic, auditable computation model inspired by the Tree of
-            Life. It is a research architecture, not a claim of physical quantum
-            computation.
+            Explore the runtime services and the 231 Hebrew-letter pairs. Select
+            a Tree node to read its role, run the acceptance example, or filter
+            Gate pairs by their evidence status.
           </p>
         </div>
         <div class="qec-status" aria-label="Runtime status">
@@ -65,7 +80,7 @@
               id="qec-tree"
               class="qec-tree"
               viewBox="0 0 620 920"
-              role="img"
+              role="group"
               aria-labelledby="tree-title tree-desc"
             >
               <title id="tree-title">
@@ -83,7 +98,12 @@
               verification and provenance crossing, not an additional sefirah.
             </p>
           </div>
-          <aside class="inspector" aria-live="polite">
+          <aside
+            class="inspector"
+            id="stage-inspector"
+            tabindex="-1"
+            aria-live="polite"
+          >
             <p class="inspector-eyebrow" id="stage-kind">INPUT / INTENTION</p>
             <div class="inspector-title">
               <span id="stage-hebrew" lang="he" dir="rtl">כֶּתֶר</span>
@@ -140,7 +160,21 @@
             placeholder="Try א, Bet, or Aleph Bet"
             autocomplete="off"
           />
-          <div class="gate-summary">
+          <div class="gate-filter-row">
+            <label for="gate-status"
+              >Rule status<select id="gate-status">
+                <option value="all">All Gate pairs</option>
+                <option value="approved">Pairs with evidence</option>
+                <option value="reserved">Reserved pairs</option>
+              </select></label
+            ><button id="clear-gates" class="qec-button" type="button">
+              Clear filters
+            </button>
+          </div>
+          <p id="gate-empty" class="gate-empty" hidden>
+            No matching Gate pairs. Try a letter name or clear the filters.
+          </p>
+          <div class="gate-summary" role="status" aria-live="polite">
             <strong id="gate-count">231</strong><span>gates visible</span>
           </div>
           <div id="gate-grid" class="gate-grid"></div>
@@ -173,10 +207,23 @@
         </div>
       </section>
     </main>
-    <footer class="qec-footer wrap">
-      <span>Quantum Etz Chaim · symbolic, bounded, auditable</span
-      ><a href="https://ivritcode.org/">Open IvritCode →</a>
+    <footer class="qec-site-footer">
+      <div>
+        <p><strong>Continue exploring</strong></p>
+        <div class="qec-next-links">
+          <a href="console.html">Run a Tree program</a
+          ><a href="wave.html">Compare the Infinite Wave</a>
+        </div>
+        <p>
+          Symbolic architecture · deterministic software · classical hardware
+          interface.
+        </p>
+      </div>
+      <a href="https://github.com/Richardatf/QuantumEtzChaim"
+        >Source &amp; documentation</a
+      >
     </footer>
     <script type="module" src="/scripts/qec.js"></script>
+    <script type="module" src="/src/site.ts"></script>
   </body>
 </html>
