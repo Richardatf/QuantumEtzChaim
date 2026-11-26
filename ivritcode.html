@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Learn, read, and build IvritCode inside Quantum Etz Chaim. Explore Hebrew instructions, inspect the shared compiler, and follow reproducible local runs through the Tree."
+    />
+    <meta name="theme-color" content="#07100f" />
+    <title>IvritCode Workbench · Quantum Etz Chaim</title>
+    <link rel="stylesheet" href="/css/ivritcode.css" />
+    <link rel="stylesheet" href="/css/site.css" />
+  </head>
+  <body data-page="ivritcode">
+    <a class="qec-skip" href="#main-content">Skip to content</a>
+    <header class="qec-site-header" data-site-header>
+      <div class="qec-site-bar">
+        <a class="qec-site-brand" href="index.html"
+          ><span class="qec-site-mark" aria-hidden="true">א</span
+          ><span
+            ><strong>QUANTUM ETZ CHAIM</strong
+            ><small>IvritCode learning</small></span
+          ></a
+        >
+        <button
+          class="qec-site-menu"
+          type="button"
+          data-menu-toggle
+          aria-controls="primary-nav"
+          aria-expanded="false"
+          hidden
+        >
+          Menu
+        </button>
+        <nav
+          class="qec-site-links"
+          id="primary-nav"
+          aria-label="Primary navigation"
+          data-open="false"
+        >
+          <a href="index.html">Overview</a>
+          <a href="console.html">Tree console</a>
+          <a href="ivritcode.html" aria-current="page">IvritCode</a>
+          <a href="qec-v0.1.html">Paths &amp; Gates</a>
+          <a href="wave.html">Infinite Wave</a>
+          <a href="machine.html">Physical QEC</a>
+          <a href="contract-explorer.html">Run evidence</a>
+        </nav>
+      </div>
+    </header>
+    <main class="shell" id="main-content" tabindex="-1">
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">The language inside the architecture</p>
+          <h1 id="page-title">
+            Write a letter.<br /><em>Follow its path.</em>
+          </h1>
+          <p class="lead">
+            IvritCode gives the instructions. Quantum Etz Chaim gives them a
+            visible architecture. Learn the letters, read what the compiler
+            sees, and build a program you can inspect from source to result.
+          </p>
+          <a class="button primary" href="#learn">Start learning</a
+          ><a class="button" href="#editor">Open the workbench</a>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orbit orbit-a"></div>
+          <div class="orbit orbit-b"></div>
+          <span lang="he" dir="rtl">אור</span
+          ><small>LANGUAGE · PATH · STATE</small>
+        </div>
+      </section>
+      <div class="roles">
+        <p>
+          <strong>IvritCode</strong
+          ><span>Language &amp; learning laboratory</span>
+        </p>
+        <p>
+          <strong>Quantum Etz Chaim</strong
+          ><span>Shared architecture &amp; visual runtime</span>
+        </p>
+        <p>
+          <strong>IvritOS</strong><span>Proposed operating-system layer</span>
+        </p>
+      </div>
+      <section id="learn" class="section" aria-labelledby="learn-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Learn</p>
+            <h2 id="learn-title">Your first five experiments.</h2>
+          </div>
+          <p>
+            No Hebrew or programming experience needed. Load a lesson, inspect
+            its source, then choose Run when you are ready.
+          </p>
+        </div>
+        <div id="lessons" class="lessons"></div>
+        <p class="note">
+          Hebrew words read from right to left. Mixed code keeps operands in
+          their written order. These opcode and Tree correspondences are
+          project-defined engineering conventions.
+        </p>
+      </section>
+      <section id="editor" class="section" aria-labelledby="build-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Read &amp; build</p>
+            <h2 id="build-title">One source. A visible journey.</h2>
+          </div>
+          <p id="lesson-note">
+            Load a lesson or write your own program. Inspection never runs it.
+          </p>
+        </div>
+        <div class="workspace">
+          <div class="panel editor-panel">
+            <form id="lab-form">
+              <label for="profile">Execution profile</label
+              ><select id="profile">
+                <option value="tree">Symbolic Tree simulation</option>
+                <option value="integer">Integer ADD sandbox</option>
+              </select>
+              <p id="profile-help" class="note"></p>
+              <label for="source">IvritCode source</label
+              ><textarea
+                id="source"
+                lang="he"
+                dir="rtl"
+                spellcheck="false"
+                maxlength="4096"
+                rows="6"
+                aria-describedby="source-help"
+              >
+אור</textarea>
+              <p id="source-help" class="note">
+                Use the letter keys below to insert at the cursor. # starts a
+                comment. Source is kept in this page.
+              </p>
+              <div
+                id="letter-keys"
+                class="letter-keys"
+                aria-label="Hebrew letter keyboard"
+              ></div>
+              <div class="input-row">
+                <label id="seed-label" for="seed"
+                  >Tree seed (0–21)<input
+                    id="seed"
+                    type="number"
+                    min="0"
+                    max="21"
+                    step="1"
+                    value="9"
+                    required /></label
+                ><label id="r1-label" for="r1" hidden
+                  >Initial r1<input
+                    id="r1"
+                    type="number"
+                    min="-1000000000"
+                    max="1000000000"
+                    step="1"
+                    value="0"
+                    required
+                /></label>
+              </div>
+              <div class="actions">
+                <button id="inspect" type="button">Inspect source</button
+                ><button class="primary" type="submit">Run program</button
+                ><button id="share" type="button">Copy study link</button>
+              </div>
+            </form>
+            <p id="lab-status" role="status" aria-live="polite">
+              Ready to inspect. No program has run.
+            </p>
+            <details>
+              <summary>Execution scope &amp; limits</summary>
+              <p id="budget" class="note"></p>
+              <p class="note">
+                The Tree profile transforms 22 visible registers plus a seed
+                register. Integer ADD uses r1 independently. The reserved Aleph
+                Olam language opcode cannot be invoked. OpenQASM is an exported
+                projection; this page does not run quantum hardware.
+              </p>
+              <pre id="manifest" aria-label="Execution manifest preview"></pre>
+            </details>
+          </div>
+          <div class="panel tree-panel">
+            <div class="panel-heading">
+              <h3>QEC architecture</h3>
+              <span id="run-profile" class="tag">Awaiting a run</span>
+            </div>
+            <div id="journey-controls" class="actions" hidden>
+              <button id="previous" type="button">Previous step</button>
+              <span id="step-label" aria-live="polite"></span>
+              <button id="next" type="button">Next step</button>
+            </div>
+            <svg
+              id="lab-tree"
+              viewBox="0 0 600 720"
+              role="group"
+              aria-label="Interactive Tree of runtime services"
+            >
+              <g id="tree-paths"></g>
+              <g id="tree-nodes"></g>
+            </svg>
+            <p id="step-description" class="note"></p>
+            <div class="node-info">
+              <strong id="node-title">Da’at · verification boundary</strong>
+              <p id="node-description">
+                Select a node to read its role. Run a program to connect the
+                architecture to its recorded activity.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div id="run-output" class="panel output-panel" hidden>
+          <div class="panel-heading">
+            <h3>State &amp; result</h3>
+          </div>
+          <div
+            id="registers"
+            class="registers"
+            aria-label="Register state"
+          ></div>
+          <div class="result-strip">
+            <div>
+              <span>Result</span><strong id="result" dir="auto"></strong>
+            </div>
+            <div><span>Run identity</span><code id="run-identity"></code></div>
+          </div>
+          <p id="gate-note" class="note"></p>
+          <div class="actions">
+            <button id="download-run" type="button">
+              Download Run Passport</button
+            ><a id="open-console" class="button" href="console.html"
+              >Inspect in Tree console</a
+            ><a id="edit-ivritcode" class="button" href="https://ivritcode.org/"
+              >Open source in IvritCode</a
+            >
+          </div>
+          <details>
+            <summary>Full trace &amp; provenance</summary>
+            <pre id="run-json"></pre>
+          </details>
+        </div>
+        <div class="panel inspector">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Read</p>
+              <h3>What the shared compiler sees</h3>
+            </div>
+            <span id="spec-version" class="tag"></span>
+          </div>
+          <p class="note">
+            Original source and offsets are preserved. NFC is shown for
+            comparison. Python is an inspectable representation; execution uses
+            bounded QEC instructions.
+          </p>
+          <div
+            class="inspector-buttons"
+            role="group"
+            aria-label="Compiler views"
+          >
+            <button type="button" data-view="unicode" aria-pressed="true">
+              Unicode</button
+            ><button type="button" data-view="tokens" aria-pressed="false">
+              Tokens</button
+            ><button type="button" data-view="ast" aria-pressed="false">
+              Ivrit AST</button
+            ><button type="button" data-view="ir" aria-pressed="false">
+              QEC IR</button
+            ><button type="button" data-view="python" aria-pressed="false">
+              Python
+            </button>
+          </div>
+          <pre id="compiler-view" tabindex="0">
+Choose Inspect source to read the compilation.</pre>
+        </div>
+      </section>
+      <section id="reference" class="section" aria-labelledby="reference-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Language atlas</p>
+            <h2 id="reference-title">Every letter has a place.</h2>
+          </div>
+          <p>
+            The language names and the symbolic Tree transforms are distinct
+            profiles. This reference joins the versioned language specification
+            to QEC’s current path map.
+          </p>
+        </div>
+        <label for="reference-search"
+          >Find a letter, opcode, service, or path</label
+        ><input
+          id="reference-search"
+          type="search"
+          placeholder="Try Mem, ADD, י, or Yesod"
+        />
+        <p id="reference-count" role="status"></p>
+        <div id="letter-reference" class="letter-reference"></div>
+        <div class="reference-details">
+          <details>
+            <summary>Niqqud: typed modifiers</summary>
+            <p class="note">
+              Integer ADD implements hiriq on Yod. Other listed modifiers remain
+              specification entries in this workbench.
+            </p>
+            <div id="modifier-reference"></div>
+          </details>
+          <details>
+            <summary>Cantillation: control conventions</summary>
+            <p class="note">
+              The compiler can describe these marks. Their control-flow behavior
+              is not executable in either workbench profile.
+            </p>
+            <div id="control-reference"></div>
+          </details>
+        </div>
+      </section>
+      <section class="section connections" aria-label="Continue exploring">
+        <a class="panel" href="qec-v0.1.html"
+          ><h3>Explore the 231 Gates</h3>
+          <p>
+            Inspect pair identities, directions, and evidence before execution.
+          </p></a
+        ><a class="panel" href="wave.html"
+          ><h3>Follow the Infinite Wave</h3>
+          <p>Compare sources, transformations, observations, and output.</p></a
+        ><a class="panel" href="machine.html"
+          ><h3>Meet the physical QEC</h3>
+          <p>Carry a Tree Run Passport into the existing bench workflow.</p></a
+        >
+      </section>
+    </main>
+    <footer class="qec-site-footer">
+      <div>
+        <p><strong>Continue exploring</strong></p>
+        <div class="qec-next-links">
+          <a href="console.html">Follow the Tree</a
+          ><a href="qec-v0.1.html">Explore Paths & Gates</a>
+        </div>
+        <p>
+          Symbolic architecture · deterministic software · classical hardware
+          interface.
+        </p>
+      </div>
+      <a href="https://github.com/Richardatf/QuantumEtzChaim"
+        >Source &amp; documentation</a
+      >
+    </footer>
+    <noscript
+      ><p class="shell">
+        Enable JavaScript to use the workbench. Architecture documentation and
+        reference pages remain available through the navigation.
+      </p></noscript
+    >
+    <script type="module" src="/src/ivritcode-ui.ts"></script>
+    <script type="module" src="/src/site.ts"></script>
+  </body>
+</html>

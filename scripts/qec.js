@@ -154,11 +154,12 @@ import "../qec/core.js";
     line.setAttribute("class", "qec-path");
     pathLayer.append(line);
   });
-  const select = (id) => {
+  const select = (id, reveal = false) => {
     const n = byId[id];
-    document
-      .querySelectorAll(".qec-node")
-      .forEach((el) => el.classList.toggle("selected", el.dataset.id === id));
+    document.querySelectorAll(".qec-node").forEach((el) => {
+      el.classList.toggle("selected", el.dataset.id === id);
+      el.setAttribute("aria-pressed", String(el.dataset.id === id));
+    });
     for (const [selector, value] of [
       ["#stage-kind", n.kind],
       ["#stage-hebrew", n.he],
@@ -167,6 +168,11 @@ import "../qec/core.js";
       ["#stage-duty", n.duty],
     ])
       document.querySelector(selector).textContent = value;
+    if (reveal && window.matchMedia("(max-width: 900px)").matches) {
+      const inspector = document.querySelector("#stage-inspector");
+      inspector.focus({ preventScroll: true });
+      inspector.scrollIntoView({ behavior: "auto", block: "nearest" });
+    }
   };
   nodes.forEach((n) => {
     const g = document.createElementNS(NS, "g");
@@ -175,13 +181,15 @@ import "../qec/core.js";
     g.setAttribute("tabindex", "0");
     g.setAttribute("role", "button");
     g.setAttribute("aria-label", n.name + ": " + n.duty);
+    g.setAttribute("aria-controls", "stage-inspector");
+    g.setAttribute("aria-pressed", "false");
     g.setAttribute("transform", `translate(${n.x} ${n.y})`);
     g.innerHTML = `<circle r="58"></circle><text class="node-he" y="-7" lang="he">${n.he}</text><text class="node-en" y="24">${n.name.toUpperCase()}</text>`;
-    g.addEventListener("click", () => select(n.id));
+    g.addEventListener("click", () => select(n.id, true));
     g.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        select(n.id);
+        select(n.id, true);
       }
     });
     nodeLayer.append(g);
@@ -209,68 +217,142 @@ import "../qec/core.js";
     trace.append(s);
   });
   document.querySelector("#run-demo").addEventListener("click", async (e) => {
-    e.currentTarget.disabled = true;
-    const result = globalThis.QECCore.execute("יִ $r1, 5");
-    document
-      .querySelectorAll(".trace-step")
-      .forEach((x) => x.classList.remove("done"));
-    document
-      .querySelectorAll(".qec-path")
-      .forEach((x) => x.classList.remove("active"));
-    for (let i = 0; i < result.events.length; i++) {
-      const event = result.events[i],
-        id = event.stage;
-      select(id);
-      const node = document.querySelector(`.qec-node[data-id="${id}"]`);
-      node.classList.add("running");
+    const button = e.currentTarget;
+    button.disabled = true;
+    try {
+      const result = globalThis.QECCore.execute("יִ $r1, 5");
       document
-        .querySelector(`.trace-step[data-id="${id}"]`)
-        .classList.add("done");
-      if (i) {
-        const prev = result.events[i - 1].stage;
-        document.querySelectorAll(".qec-path").forEach((p) => {
-          if (
-            p.dataset.edge === prev + "-" + id ||
-            p.dataset.edge === id + "-" + prev
-          )
-            p.classList.add("active");
-        });
+        .querySelectorAll(".trace-step")
+        .forEach((x) => x.classList.remove("done"));
+      document
+        .querySelectorAll(".qec-path")
+        .forEach((x) => x.classList.remove("active"));
+      for (let i = 0; i < result.events.length; i++) {
+        const event = result.events[i],
+          id = event.stage;
+        select(id);
+        const node = document.querySelector(`.qec-node[data-id="${id}"]`);
+        node.classList.add("running");
+        document
+          .querySelector(`.trace-step[data-id="${id}"]`)
+          .classList.add("done");
+        if (i) {
+          const prev = result.events[i - 1].stage;
+          document.querySelectorAll(".qec-path").forEach((p) => {
+            if (
+              p.dataset.edge === prev + "-" + id ||
+              p.dataset.edge === id + "-" + prev
+            )
+              p.classList.add("active");
+          });
+        }
+        document.querySelector("#stage-state").textContent = event.status;
+        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          await new Promise((r) => setTimeout(r, 260));
+        }
+        node.classList.remove("running");
       }
-      document.querySelector("#stage-state").textContent = event.status;
-      await new Promise((r) => setTimeout(r, 260));
-      node.classList.remove("running");
+      document.querySelector("#stage-state").textContent = result.ok
+        ? `Resolved: ${result.events.at(-1).data.register} = ${result.events.at(-1).data.result}`
+        : "Denied";
+    } finally {
+      button.disabled = false;
     }
-    document.querySelector("#stage-state").textContent = result.ok
-      ? `Resolved: ${result.events.at(-1).data.register} = ${result.events.at(-1).data.result}`
-      : "Denied";
-    e.currentTarget.disabled = false;
   });
   const gates = globalThis.QECCore.GATES.map((g) => ({
     he: g.letters,
     name: g.names,
     status: g.status,
     executable: g.executable,
+    directions: g.directions,
+    left: g.left,
+    right: g.right,
+    technicalBasis: g.technicalBasis,
   }));
   const grid = document.querySelector("#gate-grid"),
     count = document.querySelector("#gate-count"),
-    render = (q) => {
-      const term = q.trim().toLowerCase(),
+    status = document.querySelector("#gate-status"),
+    search = document.querySelector("#gate-search"),
+    render = () => {
+      const term = search.value.trim().toLowerCase(),
         shown = gates.filter(
           (g) =>
-            !term || g.he.includes(term) || g.name.toLowerCase().includes(term),
+            (status.value === "all" || g.status === status.value) &&
+            (!term ||
+              g.he.includes(term) ||
+              g.name.toLowerCase().includes(term)),
         );
       grid.replaceChildren(
         ...shown.map((g) => {
           const a = document.createElement("article");
           a.className = `gate-card-qec ${g.status}`;
           a.innerHTML = `<b lang="he" dir="rtl">${g.he}</b><small>${g.name}</small><span>${g.status}${g.executable ? " · evidence-backed direction active" : " · blocked"}</span>`;
+          const details = document.createElement("details");
+          const summary = document.createElement("summary");
+          summary.textContent = "Inspect both directions";
+          details.append(summary);
+          const basis = document.createElement("p");
+          basis.textContent = g.technicalBasis;
+          details.append(basis);
+          for (const [from, to] of [
+            [g.left, g.right],
+            [g.right, g.left],
+          ]) {
+            const direction = g.directions.find(
+              (item) => item.from === from && item.to === to,
+            );
+            const row = document.createElement("div");
+            row.className = "gate-direction";
+            const label = document.createElement("p");
+            const fromLetter = document.createElement("bdi");
+            fromLetter.lang = "he";
+            fromLetter.textContent = from;
+            const toLetter = document.createElement("bdi");
+            toLetter.lang = "he";
+            toLetter.textContent = to;
+            label.append(
+              fromLetter,
+              " to ",
+              toLetter,
+              ` · ${direction?.status ?? "reserved"}`,
+            );
+            row.append(label);
+            const evidence =
+              direction?.evidence &&
+              globalThis.QECCore.GATE_EVIDENCE_PROGRAMS.find(
+                (program) => program.id === direction.evidence.programId,
+              );
+            if (evidence && direction.executable) {
+              const link = document.createElement("a");
+              const url = new URL("console.html", window.location.href);
+              url.searchParams.set("program", evidence.source);
+              url.searchParams.set("seed", String(evidence.seed));
+              url.hash = "gate-explorer";
+              link.href = url.href;
+              link.textContent = `Open evidence run · ${evidence.id}`;
+              row.append(link);
+            } else {
+              const note = document.createElement("p");
+              note.textContent =
+                "No approved execution rule for this direction.";
+              row.append(note);
+            }
+            details.append(row);
+          }
+          a.append(details);
           return a;
         }),
       );
       count.textContent = shown.length;
+      document.querySelector("#gate-empty").hidden = shown.length > 0;
     };
-  document
-    .querySelector("#gate-search")
-    .addEventListener("input", (e) => render(e.target.value));
-  render("");
+  search.addEventListener("input", render);
+  status.addEventListener("change", render);
+  document.querySelector("#clear-gates").addEventListener("click", () => {
+    search.value = "";
+    status.value = "all";
+    render();
+    search.focus();
+  });
+  render();
 })();

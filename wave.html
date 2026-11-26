@@ -10,26 +10,47 @@
     <meta name="theme-color" content="#040713" />
     <title>Infinite Wave Explorer — Quantum Etz Chaim</title>
     <link rel="stylesheet" href="/css/wave.css" />
+    <link rel="stylesheet" href="/css/site.css" />
   </head>
-  <body>
-    <header class="topbar">
-      <a class="brand" href="/">
-        <span class="brand-mark" aria-hidden="true">∞</span>
-        <span
-          ><strong>INFINITE WAVE</strong
-          ><small>QUANTUM ETZ CHAIM / SIMULATED MODEL</small></span
+  <body data-page="wave">
+    <a class="qec-skip" href="#main-content">Skip to content</a>
+    <header class="qec-site-header" data-site-header>
+      <div class="qec-site-bar">
+        <a class="qec-site-brand" href="index.html"
+          ><span class="qec-site-mark" aria-hidden="true">א</span
+          ><span
+            ><strong>QUANTUM ETZ CHAIM</strong
+            ><small>Infinite Wave</small></span
+          ></a
         >
-      </a>
-      <nav aria-label="Primary navigation">
-        <a href="qec-v0.1.html">Runtime</a>
-        <a href="console.html">Console</a>
-        <a href="machine.html">Physical Machine</a>
-        <a href="index.html">Atlas</a>
-        <span>DETERMINISTIC · INSPECTABLE</span>
-      </nav>
+        <button
+          class="qec-site-menu"
+          type="button"
+          data-menu-toggle
+          aria-controls="primary-nav"
+          aria-expanded="false"
+          hidden
+        >
+          Menu
+        </button>
+        <nav
+          class="qec-site-links"
+          id="primary-nav"
+          aria-label="Primary navigation"
+          data-open="false"
+        >
+          <a href="index.html">Overview</a>
+          <a href="console.html">Tree console</a>
+          <a href="ivritcode.html">IvritCode</a>
+          <a href="qec-v0.1.html">Paths &amp; Gates</a>
+          <a href="wave.html" aria-current="page">Infinite Wave</a>
+          <a href="machine.html">Physical QEC</a>
+          <a href="contract-explorer.html">Run evidence</a>
+        </nav>
+      </div>
     </header>
 
-    <main>
+    <main id="main-content" tabindex="-1">
       <section class="workspace" aria-labelledby="wave-title">
         <div class="workspace-head">
           <div>
@@ -222,6 +243,23 @@
         </section>
       </section>
     </main>
+    <footer class="qec-site-footer">
+      <div>
+        <p><strong>Continue exploring</strong></p>
+        <div class="qec-next-links">
+          <a href="console.html">Inspect a Tree run</a
+          ><a href="contract-explorer.html">Read the run evidence</a>
+        </div>
+        <p>
+          Symbolic architecture · deterministic software · classical hardware
+          interface.
+        </p>
+      </div>
+      <a href="https://github.com/Richardatf/QuantumEtzChaim"
+        >Source &amp; documentation</a
+      >
+    </footer>
     <script type="module" src="/src/wave.ts"></script>
+    <script type="module" src="/src/site.ts"></script>
   </body>
 </html>

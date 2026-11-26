@@ -6,13 +6,20 @@ const landingPage = readFileSync(
   "utf8",
 );
 
+const overviewStyles = readFileSync(
+  new URL("../css/overview.css", import.meta.url),
+  "utf8",
+);
+
 describe("landing-page Sefirotic navigation", () => {
-  it("keeps the full Tree near the top on tablet layouts", () => {
-    expect(landingPage).toContain("@media (max-width: 900px)");
-    expect(landingPage).toContain("padding: 14px 0 28px;");
-    expect(landingPage).toContain(".machine-facts {\n          display: none;");
-    expect(landingPage).toContain("height: min(62svh, 590px);");
+  it("introduces QEC and offers working entry points before research details", () => {
+    expect(landingPage.indexOf('id="tree"')).toBeLessThan(
+      landingPage.indexOf('id="start"'),
+    );
     expect(landingPage).toContain('class="mobile-intro"');
+    expect(landingPage).toContain('href="research.html#quantum-target"');
+    expect(landingPage).not.toContain('id="qasm-source"');
+    expect(landingPage).toMatch(/id="tree"[\s\S]*?role="group"/);
   });
 
   it("connects every sefirah control to the description destination", () => {
@@ -24,10 +31,10 @@ describe("landing-page Sefirotic navigation", () => {
   });
 
   it("keeps decorative light from intercepting Tree controls", () => {
-    expect(landingPage).toMatch(
+    expect(overviewStyles).toMatch(
       /\.tree-glow\s*\{[\s\S]*?pointer-events:\s*none;/,
     );
-    expect(landingPage).toMatch(
+    expect(overviewStyles).toMatch(
       /#tree\s*\{[\s\S]*?position:\s*relative;[\s\S]*?z-index:\s*1;/,
     );
   });
@@ -48,7 +55,7 @@ describe("landing-page Sefirotic navigation", () => {
     expect(landingPage).toContain(
       '<text class="daat-label" x="300" y="237">DA’AT</text>',
     );
-    expect(landingPage).toContain("stroke-dasharray: 3 4;");
+    expect(overviewStyles).toContain("stroke-dasharray: 3 4;");
   });
 
   it("moves the user to the updated description after activation", () => {
@@ -79,11 +86,10 @@ describe("landing-page Sefirotic navigation", () => {
     );
   });
 
-  it("provides complete mobile navigation instead of hiding site routes", () => {
-    expect(landingPage).toContain('class="menu-toggle"');
+  it("uses the shared progressive menu controller", () => {
+    expect(landingPage).toContain("data-menu-toggle");
     expect(landingPage).toContain('aria-controls="primary-nav"');
     expect(landingPage).toContain('id="primary-nav"');
-    expect(landingPage).toContain('nav[data-open="true"]');
-    expect(landingPage).toContain('menuToggle.setAttribute("aria-expanded"');
+    expect(landingPage).toContain('src="/src/site.ts"');
   });
 });

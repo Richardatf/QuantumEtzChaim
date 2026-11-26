@@ -18,6 +18,9 @@ export function createIvritCodeMachineRun(
   source: string,
   seed = 9,
 ): IvritCodeMachineRun {
+  if (source.length > 4096) {
+    throw new RangeError("IvritCode source exceeds the 4,096-character limit.");
+  }
   const compilation = compileIvrit(source);
   if (
     compilation.diagnostics.length > 0 ||
@@ -25,6 +28,24 @@ export function createIvritCodeMachineRun(
   ) {
     const detail = compilation.diagnostics.join("; ") || "invalid program";
     throw new SyntaxError(`IvritCode compilation failed: ${detail}`);
+  }
+
+  // This adapter executes the symbolic register profile only. Never discard
+  // operands, modifiers, controls, or unrecognized text while extracting letters.
+  const executableSource = source.replace(/#[^\n]*/g, "");
+  if (
+    !/^[\u05D0-\u05EA\s]*$/u.test(executableSource) ||
+    compilation.ir.some((item) => item.operation !== "legacy_opcode") ||
+    compilation.program.instructions.some(
+      (item) =>
+        item.modifier.name !== "direct" ||
+        item.operands.length > 0 ||
+        item.controlMarks.length > 0,
+    )
+  ) {
+    throw new SyntaxError(
+      "The Tree machine accepts unpointed Hebrew letters and # comments only. Use the IvritCode workbench for typed arithmetic; operands and marks cannot be discarded.",
+    );
   }
 
   const opcodeStream = compilation.program.instructions

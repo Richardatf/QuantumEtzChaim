@@ -1,6 +1,67 @@
 # Quantum Etz Chaim
 
-The visual Tree companion to [IvritCode](https://ivritcode.org/).
+An experimental computing architecture inspired by the Tree of Life, with an
+inspectable deterministic runtime, [IvritCode](https://ivritcode.org/) language
+workbench, versioned evidence, and a classical hardware interface.
+
+## Explore the site
+
+| What you want to do                                  | Start here                                         |
+| ---------------------------------------------------- | -------------------------------------------------- |
+| Understand QEC and choose a starting point           | [`index.html`](index.html)                         |
+| Follow a program through the Tree                    | [`console.html`](console.html)                     |
+| Learn and inspect IvritCode                          | [`ivritcode.html`](ivritcode.html)                 |
+| Explore service roles and Gate evidence              | [`qec-v0.1.html`](qec-v0.1.html)                   |
+| Compare deterministic observation projections        | [`wave.html`](wave.html)                           |
+| Explore the classical control surface                | [`machine.html`](machine.html)                     |
+| Prove a four-key prototype                           | [`bench.html`](bench.html)                         |
+| Validate a Run Passport and inspect contracts        | [`contract-explorer.html`](contract-explorer.html) |
+| Review the OpenQASM bridge and contribution material | [`research.html`](research.html)                   |
+
+All nine pages share static primary navigation, current-page labels, a keyboard
+skip link, contextual continuation links, and the progressive mobile menu in
+`src/site.ts`. Navigation remains available when JavaScript is disabled. The
+homepage introduces QEC before the technical research; previously shared
+homepage research anchors still resolve to the corresponding research section.
+
+The Paths & Gates explorer filters pairs by evidence status, shows each
+direction separately, links approved directions to their canonical evidence
+runs, and explains empty searches. Its acceptance example releases the Run
+button after asynchronous playback so the demonstration can be repeated.
+
+## Integrated IvritCode workbench
+
+Open [`ivritcode.html`](ivritcode.html) for a Learn → Read → Build gateway inside
+QEC: five loadable lessons, an RTL Hebrew editor and letter keyboard, Unicode
+graphemes and original source spans, tokens, Ivrit AST, QEC IR, and inspectable
+Python. Its searchable alphabet atlas joins the published language specification
+to the existing versioned Tree path map without copying either mapping.
+
+Two explicit execution profiles preserve their separate semantics:
+
+- **Symbolic Tree simulation:** 1–1,024 unpointed Hebrew letters with final-form
+  normalization and `#` comments. Uses the existing 23-register machine,
+  all 22 visible paths, observation, and exportable machine Run Passports. The
+  console and physical bench workflow consume the same passport contract.
+- **Integer ADD sandbox:** 1–128 `יִ $r1, integer` instructions, one per line.
+  Uses the published `@qec/core` verification, policy, sandbox, and provenance
+  implementation. For initial `r1 = 7`, `יִ $r1, 5` produces `r1 = 12`.
+  Generated Python is inspectable only; it is never evaluated. This profile
+  does not claim machine-passport or OpenQASM equivalence.
+
+Both profiles reject unsupported syntax, hidden control characters, discarded
+operands, and unsafe numeric inputs before execution. Source is limited to 4,096
+UTF-16 code units; integer intermediate results must remain exact. Web and grid
+capabilities remain disabled. The reserved Aleph Olam language opcode remains
+unavailable; the existing Tree's twenty-third seed register is explicit metadata.
+
+Study links restore the exact source, profile, seed, and initial r1 without
+executing. Inspecting and selecting lessons also never execute. Editing any input
+clears stale results. Tree-only links to IvritCode restore original source in
+its existing demo editor. No server storage or additional service is introduced.
+
+Use `npm run dev`, then open `/ivritcode.html`. Run `npm run release:check` to
+check the workbench together with the existing compiler-to-machine contracts.
 
 ## Free and open release policy
 

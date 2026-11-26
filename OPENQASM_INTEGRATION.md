@@ -3,7 +3,7 @@
 **Purpose:** reproducible interoperability review  
 **Project:** Quantum Etz Chaim (QEC)  
 **Repository:** https://github.com/Richardatf/QuantumEtzChaim  
-**OpenQASM status checked:** 2026-09-16  
+**OpenQASM status checked:** 2026-09-16
 
 Quantum Etz Chaim is an independent experimental computing architecture. It is not affiliated with, endorsed by, or part of the OpenQASM or Qiskit projects.
 

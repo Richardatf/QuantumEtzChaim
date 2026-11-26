@@ -2,6 +2,7 @@ import {
   compareProgramSeeds,
   compareProgramRuns,
   findFirstTraceDivergence,
+  FULL_PATHS,
   HEBREW_ALPHABET,
   runOrVerticalSlice,
   runProgram,
@@ -117,11 +118,33 @@ const PANEL_NODE_ADDRESSES = new Map([
   ["Malchut", 9],
 ]);
 
+// The console accepts the full alphabet, so its visible routes must cover the
+// same canonical map rather than only the original three-letter demo.
+const tree = get<SVGSVGElement>("#console-tree");
+const firstNode = tree.querySelector(".console-node")!;
+tree.querySelectorAll(".console-path").forEach((path) => path.remove());
+for (const letter of HEBREW_ALPHABET) {
+  const route = FULL_PATHS[letter];
+  const from = get<SVGCircleElement>(`[data-sefirah="${route.source}"] circle`);
+  const to = get<SVGCircleElement>(
+    `[data-sefirah="${route.destination}"] circle`,
+  );
+  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  path.setAttribute("class", "console-path");
+  path.setAttribute("data-letter", letter);
+  path.setAttribute(
+    "d",
+    `M${from.getAttribute("cx")} ${from.getAttribute("cy")}L${to.getAttribute("cx")} ${to.getAttribute("cy")}`,
+  );
+  tree.insertBefore(path, firstNode);
+}
+
 function initialRun(): ProgramExecutionResult {
   const permalink = decodeProgramPermalink(window.location.href);
   if (!permalink) return runOrVerticalSlice(9);
   try {
-    return runProgram(permalink.program, permalink.seed);
+    return createIvritCodeMachineRun(permalink.program, permalink.seed)
+      .execution;
   } catch {
     return runOrVerticalSlice(9);
   }
@@ -294,7 +317,9 @@ function renderSeedLab(): void {
 function renderProgramLab(programResult?: ProgramExecutionResult): void {
   try {
     const inspected =
-      programResult ?? runProgram(programSource.value, Number(seedInput.value));
+      programResult ??
+      createIvritCodeMachineRun(programSource.value, seedInput.valueAsNumber)
+        .execution;
     programStatus.classList.remove("error");
     programStatus.textContent = `${inspected.pathEvents.length} deterministic instructions executed successfully.`;
     programNormalized.textContent = inspected.program;
@@ -555,7 +580,10 @@ resetButton.addEventListener("click", () => {
 programForm.addEventListener("submit", (event) => {
   event.preventDefault();
   try {
-    const nextResult = runProgram(programSource.value, Number(seedInput.value));
+    const nextResult = createIvritCodeMachineRun(
+      programSource.value,
+      seedInput.valueAsNumber,
+    ).execution;
     result = nextResult;
     programSource.value = nextResult.program;
     step = 0;
